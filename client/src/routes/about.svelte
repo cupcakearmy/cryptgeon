@@ -39,6 +39,16 @@
 		you are welcomed to check & audit the
 		<a href="https://github.com/cupcakearmy/cryptgeon">source code</a>.
 	</p>
+
+	<p>
+		<br />
+		<b>▶ attributions</b>
+		<br />
+		<small>
+			icons made by <a href="https://www.freepik.com" title="Freepik">freepik</a> from
+			<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+		</small>
+	</p>
 </section>
 
 <style>

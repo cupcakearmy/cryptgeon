@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.css'
-	import Header from '$lib/Header/index.svelte'
+	import Header from '$lib/views/Header/index.svelte'
 </script>
 
 <svelte:head>

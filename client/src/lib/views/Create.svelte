@@ -3,10 +3,10 @@
 	import { create } from '$lib/api'
 	import { getKeyFromString, encrypt } from '$lib/crypto'
 
-	import Button from './ui/Button.svelte'
-	import Switch from './ui/Switch.svelte'
-	import TextArea from './ui/TextArea.svelte'
-	import TextInput from './ui/TextInput.svelte'
+	import Button from '$lib/ui/Button.svelte'
+	import Switch from '$lib/ui/Switch.svelte'
+	import TextArea from '$lib/ui/TextArea.svelte'
+	import TextInput from '$lib/ui/TextInput.svelte'
 
 	let note: Note = {
 		contents: 'secret',

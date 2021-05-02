@@ -1,6 +1,7 @@
 import axios from 'axios'
+import { dev } from '$app/env'
 
-const base = axios.create({ baseURL: 'http://localhost:5000' })
+const base = axios.create({ baseURL: dev ? 'http://localhost:5000' : undefined })
 
 export type Note = {
 	contents: string
