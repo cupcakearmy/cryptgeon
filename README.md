@@ -26,7 +26,7 @@ each note has a 512bit generated <i>id</i> that is used to retrieve the note. da
 
 ## Screenshot
 
-![screenshot](./design/screen.jpg)
+![screenshot](./design/screens.png)
 
 ## Deployment
 
