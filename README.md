@@ -44,6 +44,20 @@ services:
       - 80:5000
 ```
 
+## Development
+
+1. Clone
+2. run `npm i` in the root and and client `client/` folders.
+3. Run `npm run dev` to start development.
+
+Running `npm run dev` in the root folder will start the following things
+
+- a memcache docker container
+- rust backend with hot reload
+- client with hot reload
+
+You can see the app under [localhost:3000](http://localhost:3000).
+
 ###### Attributions
 
 Icons made by <a href="https://www.freepik.com" title="Freepik">freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
