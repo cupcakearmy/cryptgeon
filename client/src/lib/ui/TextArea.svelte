@@ -13,13 +13,18 @@
 <style>
 	textarea {
 		width: 100%;
-		min-height: 8rem;
+		min-height: calc(100vh - 30rem);
 		margin: 0;
-		padding: 0;
 		border: 2px solid var(--ui-bg-1);
 		resize: vertical;
 		outline: none;
 		padding: 0.5rem;
+	}
+
+	@media screen and (max-width: 30rem) {
+		textarea {
+			min-height: calc(100vh - 25rem);
+		}
 	}
 
 	textarea:hover,

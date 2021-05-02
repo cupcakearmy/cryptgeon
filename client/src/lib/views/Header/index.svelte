@@ -62,8 +62,19 @@
 
 	header {
 		text-align: center;
-		margin-top: calc(min(15vh, 6rem));
-		margin-bottom: 4rem;
+		margin-top: 4rem;
+		margin-bottom: 2rem;
+	}
+
+	@media screen and (max-width: 30rem) {
+		header {
+			margin-top: 1rem;
+			margin-bottom: 1rem;
+		}
+
+		header svg {
+			max-height: 4rem;
+		}
 	}
 
 	header svg {
