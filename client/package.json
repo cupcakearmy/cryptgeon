@@ -1,13 +1,13 @@
 {
-	"name": "cryptgeon",
 	"private": true,
-	"version": "0.0.1",
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
-		"preview": "svelte-kit preview"
+		"preview": "svelte-kit preview",
+		"licenses": "npx license-checker --summary > licenses.csv"
 	},
 	"devDependencies": {
+		"@sveltejs/adapter-static": "next",
 		"@sveltejs/kit": "next",
 		"svelte": "^3.34.0",
 		"svelte-preprocess": "^4.0.0",
