@@ -18,8 +18,9 @@
 	let result: { password: string; id: string } | null = null
 	let advanced = false
 	let type = false
-	let loading = false
 	let message = ''
+	let loading = false
+	let error: string | null = null
 
 	$: if (!advanced) {
 		note.views = 1
@@ -34,6 +35,7 @@
 
 	async function submit() {
 		try {
+			error = null
 			loading = true
 			const data: Note = {
 				contents: note.contents,
@@ -53,6 +55,8 @@
 				password: password,
 				id: response.id,
 			}
+		} catch {
+			error = 'could not create note.'
 		} finally {
 			loading = false
 		}
@@ -80,6 +84,10 @@
 				<Switch label="advanced" bind:value={advanced} />
 				<Button type="submit">create</Button>
 			</div>
+
+			{#if error}
+				<div class="error-text">{error}</div>
+			{/if}
 
 			<p><br />{message}</p>
 

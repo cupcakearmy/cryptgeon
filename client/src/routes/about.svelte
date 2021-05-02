@@ -37,7 +37,8 @@
 		the backend is written in rust and the frontend is svelte and typescript.
 		<br />
 		you are welcomed to check & audit the
-		<a href="https://github.com/cupcakearmy/cryptgeon">source code</a>.
+		<a href="https://github.com/cupcakearmy/cryptgeon" target="_blank" rel="noopener">source code</a
+		>.
 	</p>
 
 	<p>

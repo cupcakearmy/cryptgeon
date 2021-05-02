@@ -7,7 +7,6 @@
 	let html = null
 
 	onMount(async () => {
-		console.log(src)
 		html = await fetch(src).then((res) => res.text())
 	})
 </script>
