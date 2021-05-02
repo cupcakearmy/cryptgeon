@@ -3,8 +3,11 @@ use memcache;
 use crate::note::Note;
 
 lazy_static! {
-  static ref CLIENT: memcache::Client =
-    memcache::connect("memcache://127.0.0.1:11211?timeout=10&tcp_nodelay=true").unwrap();
+  static ref CLIENT: memcache::Client = memcache::connect(format!(
+    "memcache://{}?timeout=10&tcp_nodelay=true",
+    std::env::var("MEMCACHE").unwrap_or("127.0.0.1:11211".to_string())
+  ))
+  .unwrap();
 }
 
 pub fn set(id: &String, note: &Note) {

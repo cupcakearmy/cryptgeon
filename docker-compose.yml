@@ -6,3 +6,8 @@ services:
     entrypoint: memcached -m 128
     ports:
       - 11211:11211
+
+  app:
+    build: .
+    ports:
+      - 80:5000

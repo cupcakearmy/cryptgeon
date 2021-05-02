@@ -13,12 +13,11 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .wrap(middleware::Compress::default())
             .wrap(middleware::DefaultHeaders::default())
-            // .wrap(middleware::NormalizePath::default())
             .configure(note::init)
             .configure(client::init)
             .default_service(web::resource("").route(web::get().to(client::fallback_fn)))
     })
-    .bind("127.0.0.1:5000")?
+    .bind("0.0.0.0:5000")?
     .run()
     .await
 }
