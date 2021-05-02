@@ -40,7 +40,7 @@
 	})
 
 	async function show() {
-		const data = await get(id)
+		const data = note || (await get(id)) // Don't get the content twice on wrong password.
 		if (needPassword) {
 			try {
 				const key = await getKeyFromString(password)
@@ -74,7 +74,11 @@
 			<Button type="submit">show note</Button>
 			{#if error}
 				<br />
-				<p class="error-text">wrong password. could not decipher.</p>
+				<p class="error-text">
+					wrong password. could not decipher.
+					<br />
+					note already destroyed. try again without reloading the page.
+				</p>
 			{/if}
 		</form>
 	{/if}
