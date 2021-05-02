@@ -15,7 +15,7 @@ COPY ./src ./src
 
 RUN cargo build --release
 
-FROM alpine
+FROM scratch
 
 WORKDIR /app
 COPY --from=RUST /tmp/target/release/cryptgeon .
