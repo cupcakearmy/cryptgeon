@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  memcached:
+    image: memcached:1-alpine
+    entrypoint: memcached -m 128
+    ports:
+      - 11211:11211

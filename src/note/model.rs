@@ -7,12 +7,17 @@ pub struct Note {
   pub contents: String,
   pub password: bool,
   pub views: Option<u8>,
-  pub expiration: Option<u16>,
+  pub expiration: Option<u64>,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
-pub struct PubNote {
+pub struct NoteInfo {
   pub password: bool,
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+pub struct NotePublic {
+  pub contents: String,
 }
 
 pub fn generate_id() -> String {
