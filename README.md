@@ -6,6 +6,10 @@
 
 _cryptgeon_ is an secure, open source sharing note service inspired by [_PrivNote_](https://privnote.com)
 
+## Demo
+
+Check out the demo and see for yourself https://cryptgeon.nicco.io.
+
 ## Features
 
 - view and time constrains
