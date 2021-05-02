@@ -16,6 +16,10 @@ _cryptgeon_ is an secure, open source sharing note service inspired by [_PrivNot
 
 each note has a 512bit generated <i>id</i> that is used to retrieve the note. data is stored in memory and never persisted to disk.
 
+## Screenshot
+
+![screenshot](./design/screen.jpg)
+
 ## Deployment
 
 Docker is the easiest way.
