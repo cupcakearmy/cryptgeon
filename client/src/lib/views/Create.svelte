@@ -9,7 +9,7 @@
 	import TextInput from '$lib/ui/TextInput.svelte'
 
 	let note: Note = {
-		contents: 'secret',
+		contents: '',
 		password: false,
 		views: 1,
 		expiration: 60,
@@ -74,7 +74,7 @@
 {:else}
 	<form on:submit|preventDefault={submit}>
 		<fieldset disabled={loading}>
-			<TextArea label="note" bind:value={note.contents} />
+			<TextArea label="note" bind:value={note.contents} placeholder="..." />
 
 			<div class="bottom">
 				<Switch label="advanced" bind:value={advanced} />

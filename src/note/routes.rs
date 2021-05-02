@@ -36,7 +36,7 @@ struct CreateResponse {
   id: String,
 }
 
-#[post("/notes/")]
+#[post("/notes")]
 async fn create(note: web::Json<Note>) -> impl Responder {
   let mut n = note.into_inner();
   let id = generate_id();
@@ -105,7 +105,13 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
 }
 
 pub fn init(cfg: &mut web::ServiceConfig) {
-  cfg.service(create);
-  cfg.service(delete);
-  cfg.service(one);
+  cfg.service(
+    web::scope("/api")
+      .service(create)
+      .service(delete)
+      .service(one),
+  );
+  // cfg.service(create);
+  // cfg.service(delete);
+  // cfg.service(one);
 }

@@ -14,7 +14,7 @@ export type NotePublic = Pick<Note, 'contents'>
 
 export async function create(note: Note) {
 	const { data } = await base({
-		url: '/notes/',
+		url: '/api/notes',
 		method: 'post',
 		data: note,
 	})
@@ -23,7 +23,7 @@ export async function create(note: Note) {
 
 export async function get(id: string) {
 	const { data } = await base({
-		url: `/notes/${id}`,
+		url: `/api/notes/${id}`,
 		method: 'delete',
 	})
 	return data as NotePublic
@@ -31,7 +31,7 @@ export async function get(id: string) {
 
 export async function info(id: string) {
 	const { data } = await base({
-		url: `/notes/${id}`,
+		url: `/api/notes/${id}`,
 		method: 'get',
 	})
 	return data as NoteInfo
