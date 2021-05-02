@@ -2,6 +2,10 @@
 <img src="./design/github.svg">
 </p>
 
+![Docker pulls badge](https://img.shields.io/docker/pulls/cupcakearmy/cryptgeon)
+![Docker image size badge](https://img.shields.io/docker/image-size/cupcakearmy/cryptgeon)
+![Latest version](https://img.shields.io/github/v/release/cupcakearmy/cryptgeon)
+
 ## About?
 
 _cryptgeon_ is an secure, open source sharing note service inspired by [_PrivNote_](https://privnote.com)
@@ -26,7 +30,7 @@ each note has a 512bit generated <i>id</i> that is used to retrieve the note. da
 
 ## Deployment
 
-Docker is the easiest way.
+Docker is the easiest way. There is the [official image here](https://hub.docker.com/r/cupcakearmy/cryptgeon).
 
 ```yaml
 # docker-compose.yml
