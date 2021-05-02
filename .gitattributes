@@ -1,0 +1,2 @@
+*.afdesign filter=lfs diff=lfs merge=lfs -text
+*.svg filter=lfs diff=lfs merge=lfs -text
