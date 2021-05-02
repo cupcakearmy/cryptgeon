@@ -1,0 +1,62 @@
+@import '@fontsource/fira-mono';
+
+* {
+	box-sizing: border-box;
+}
+
+:root {
+	font-family: 'Fira Mono', monospace;
+
+	--ui-bg-0: #fefefe;
+	--ui-bg-0-85: #ffffffd9;
+	--ui-bg-1: #eee;
+	--ui-bg-2: #e2e2e2;
+	--ui-text-0: #111;
+	--ui-text-1: #222;
+	--ui-clr-primary: hsl(186, 65%, 55%);
+	--ui-clr-error: hsl(357, 77%, 51%);
+
+	--ui-anim: all 150ms ease;
+}
+
+.error-text {
+	color: var(--ui-clr-error);
+}
+
+body {
+	min-height: 100vh;
+	margin: 0;
+	background-color: var(--ui-bg-0);
+	color: var(--ui-text-0);
+}
+
+a {
+	color: inherit;
+	text-decoration: inherit;
+	box-sizing: content-box;
+	border-bottom: 2px solid var(--ui-bg-2);
+	cursor: pointer;
+}
+
+a:active {
+	border-color: var(--ui-clr-primary);
+}
+
+a:hover {
+	border-color: var(--ui-text-0);
+}
+
+input,
+textarea,
+button {
+	appearance: none;
+	transition: var(--ui-anim);
+	font-family: inherit;
+	font-size: inherit;
+}
+
+fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}

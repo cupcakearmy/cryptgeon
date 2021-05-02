@@ -1,0 +1,24 @@
+{
+	"name": "cryptgeon",
+	"private": true,
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "svelte-kit dev",
+		"build": "svelte-kit build",
+		"preview": "svelte-kit preview"
+	},
+	"devDependencies": {
+		"@sveltejs/kit": "next",
+		"svelte": "^3.34.0",
+		"svelte-preprocess": "^4.0.0",
+		"tslib": "^2.0.0",
+		"typescript": "^4.0.0",
+		"vite": "^2.1.0"
+	},
+	"type": "module",
+	"dependencies": {
+		"@fontsource/fira-mono": "^4.2.2",
+		"axios": "^0.21.1",
+		"copy-to-clipboard": "^3.3.1"
+	}
+}
