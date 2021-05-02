@@ -1,5 +1,5 @@
 <p align="center">
-<img src="./design/github.svg">
+<img src="./design/Github.png">
 </p>
 
 ![Docker pulls badge](https://img.shields.io/docker/pulls/cupcakearmy/cryptgeon)
