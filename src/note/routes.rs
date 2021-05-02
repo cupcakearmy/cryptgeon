@@ -114,7 +114,4 @@ pub fn init(cfg: &mut web::ServiceConfig) {
       .service(delete)
       .service(one),
   );
-  // cfg.service(create);
-  // cfg.service(delete);
-  // cfg.service(one);
 }
