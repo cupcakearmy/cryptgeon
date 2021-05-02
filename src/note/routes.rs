@@ -1,40 +1,15 @@
 use actix_web::{delete, get, post, web, HttpResponse, Responder};
-use memcache;
 use serde::{Deserialize, Serialize};
 use std::time::SystemTime;
 
 use crate::note::{generate_id, Note, NoteInfo, NotePublic};
+use crate::store;
 
 fn now() -> u64 {
   SystemTime::now()
     .duration_since(SystemTime::UNIX_EPOCH)
     .unwrap()
     .as_secs()
-}
-
-lazy_static! {
-  static ref CLIENT: memcache::Client =
-    memcache::connect("memcache://127.0.0.1:11211?timeout=10&tcp_nodelay=true").unwrap();
-}
-
-fn set(id: &String, note: &Note) {
-  let serialized = serde_json::to_string(&note.clone()).unwrap();
-  CLIENT.set(id, serialized, 0).unwrap();
-}
-
-fn get(id: &String) -> Option<Note> {
-  let value: Option<String> = CLIENT.get(&id).unwrap();
-  match value {
-    None => return None,
-    Some(s) => {
-      let deserialize: Note = serde_json::from_str(&s).unwrap();
-      return Some(deserialize);
-    }
-  }
-}
-
-fn del(id: &String) {
-  CLIENT.delete(id).unwrap();
 }
 
 #[derive(Serialize, Deserialize)]
@@ -45,7 +20,7 @@ struct NotePath {
 #[get("/notes/{id}")]
 async fn one(path: web::Path<NotePath>) -> impl Responder {
   let p = path.into_inner();
-  let note = get(&p.id);
+  let note = store::get(&p.id);
   match note {
     None => return HttpResponse::NotFound().finish(),
     Some(note) => {
@@ -86,14 +61,14 @@ async fn create(note: web::Json<Note>) -> impl Responder {
     }
     _ => {}
   }
-  set(&id.clone(), &n.clone());
+  store::set(&id.clone(), &n.clone());
   return HttpResponse::Ok().json(CreateResponse { id: id });
 }
 
 #[delete("/notes/{id}")]
 async fn delete(path: web::Path<NotePath>) -> impl Responder {
   let p = path.into_inner();
-  let note = get(&p.id);
+  let note = store::get(&p.id);
   match note {
     None => return HttpResponse::NotFound().finish(),
     Some(note) => {
@@ -106,9 +81,9 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
           changed.views = Some(v - 1);
           let id = p.id.clone();
           if v <= 1 {
-            del(&id);
+            store::del(&id);
           } else {
-            set(&id, &changed.clone());
+            store::set(&id, &changed.clone());
           }
         }
         _ => {}
@@ -116,7 +91,7 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
       match changed.expiration {
         Some(e) => {
           if e > now() {
-            del(&p.id.clone());
+            store::del(&p.id.clone());
             return HttpResponse::BadRequest().finish();
           }
         }
