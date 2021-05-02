@@ -19,6 +19,7 @@ Check out the demo and see for yourself https://cryptgeon.nicco.io.
 - view and time constrains
 - in memory, no persistence
 - in browser encryption → server cannot decrypt contents
+- obligatory dark mode support
 
 ## How does it work?
 
