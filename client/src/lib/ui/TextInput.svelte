@@ -32,7 +32,7 @@
 </script>
 
 <label>
-	<small>
+	<small disabled={$$restProps.disabled}>
 		{label}
 	</small>
 	<input bind:value {...$$restProps} />

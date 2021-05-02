@@ -8,7 +8,7 @@
 	font-family: 'Fira Mono', monospace;
 
 	--ui-bg-0: #fefefe;
-	--ui-bg-0-85: #ffffffd9;
+	--ui-bg-0-85: #fefefed9;
 	--ui-bg-1: #eee;
 	--ui-bg-2: #e2e2e2;
 	--ui-text-0: #111;
@@ -17,6 +17,17 @@
 	--ui-clr-error: hsl(357, 77%, 51%);
 
 	--ui-anim: all 150ms ease;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--ui-bg-0: #111;
+		--ui-bg-0-85: #111111d9;
+		--ui-bg-1: #222;
+		--ui-bg-2: #282828;
+		--ui-text-0: #fefefe;
+		--ui-text-1: #eee;
+	}
 }
 
 .error-text {
@@ -53,6 +64,13 @@ button {
 	transition: var(--ui-anim);
 	font-family: inherit;
 	font-size: inherit;
+	background: inherit;
+	color: inherit;
+}
+
+*:disabled,
+*[disabled='true'] {
+	opacity: 0.5;
 }
 
 fieldset {
