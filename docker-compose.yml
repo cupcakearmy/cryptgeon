@@ -1,5 +1,5 @@
 # DEV Compose file.
-# For a production file see: ...
+# For a production file see: README.md
 
 version: '3.7'
 

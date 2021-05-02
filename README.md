@@ -1,5 +1,5 @@
 <p align="center">
-<img src="./design/Logo.svg">
+<img src="./design/github.svg">
 </p>
 
 ## About?
@@ -11,7 +11,6 @@ _cryptgeon_ is an secure, open source sharing note service inspired by [_PrivNot
 - view and time constrains
 - in memory, no persistence
 - in browser encryption → server cannot decrypt contents
-
 
 ## How does it work?
 
@@ -29,13 +28,12 @@ version: '3.7'
 services:
   memcached:
     image: memcached:1-alpine
-    entrypoint: memcached -m 128
+    entrypoint: memcached -m 128 # Limit to 128 MB Ram, customize at free will.
 
   app:
     image: cupcakearmy/cryptgeon:latest
     ports:
       - 80:5000
-
 ```
 
 ###### Attributions
