@@ -16,9 +16,9 @@ Check out the demo and see for yourself https://cryptgeon.nicco.io.
 
 ## Features
 
+- server cannot decrypt contents due to client side encryption
 - view and time constrains
 - in memory, no persistence
-- in browser encryption → server cannot decrypt contents
 - obligatory dark mode support
 
 ## How does it work?
