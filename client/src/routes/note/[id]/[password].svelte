@@ -17,8 +17,8 @@
 	import { onMount } from 'svelte'
 
 	export let id: string
-	let needPassword = false
-	let password: string = ''
+	export let password: string
+
 	let note: NotePublic | null = null
 	let exists = false
 
@@ -29,8 +29,7 @@
 		try {
 			loading = true
 			error = null
-			const data = await info(id)
-			needPassword = data.password
+			await info(id)
 			exists = true
 		} catch {
 			exists = false
@@ -40,17 +39,15 @@
 	})
 
 	async function show() {
-		const data = note || (await get(id)) // Don't get the content twice on wrong password.
-		if (needPassword) {
-			try {
-				const key = await getKeyFromString(password)
-				data.contents = await decrypt(data.contents, key)
-				error = false
-			} catch {
-				error = true
-			}
+		try {
+			error = false
+			const data = note || (await get(id)) // Don't get the content twice on wrong password.
+			const key = await getKeyFromString(password)
+			data.contents = await decrypt(data.contents, key)
+			note = data
+		} catch {
+			error = true
 		}
-		note = data
 	}
 </script>
 
@@ -67,17 +64,12 @@
 	{:else}
 		<form on:submit|preventDefault={show}>
 			<p>click below to show and delete the note if the counter has reached it's limit</p>
-			{#if needPassword}
-				<TextInput type="password" label="password" bind:value={password} />
-				<br />
-			{/if}
 			<Button type="submit">show note</Button>
 			{#if error}
 				<br />
 				<p class="error-text">
-					wrong password. could not decipher.
+					wrong password. could not decipher. probably a broken link. note was destroyed.
 					<br />
-					note already destroyed. try again without reloading the page.
 				</p>
 			{/if}
 		</form>

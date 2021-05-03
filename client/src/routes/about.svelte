@@ -26,9 +26,9 @@
 
 	<b>▶ Features</b>
 	<ul>
+		<li>server cannot decrypt contents due to client side encryption</li>
 		<li>view and time constrains</li>
 		<li>in memory, no persistence</li>
-		<li>in browser encryption → server cannot decrypt contents</li>
 	</ul>
 
 	<p>

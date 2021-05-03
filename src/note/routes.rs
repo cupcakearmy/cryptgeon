@@ -23,11 +23,7 @@ async fn one(path: web::Path<NotePath>) -> impl Responder {
   let note = store::get(&p.id);
   match note {
     None => return HttpResponse::NotFound().finish(),
-    Some(note) => {
-      return HttpResponse::Ok().json(NoteInfo {
-        password: note.password,
-      })
-    }
+    Some(_) => return HttpResponse::Ok().json(NoteInfo {}),
   }
 }
 

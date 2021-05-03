@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Note } from '$lib/api'
 	import { create } from '$lib/api'
-	import { getKeyFromString, encrypt } from '$lib/crypto'
+	import { getKeyFromString, encrypt, Hex, getRandomBytes } from '$lib/crypto'
 
 	import Button from '$lib/ui/Button.svelte'
 	import Switch from '$lib/ui/Switch.svelte'
@@ -10,11 +10,9 @@
 
 	let note: Note = {
 		contents: '',
-		password: false,
 		views: 1,
 		expiration: 60,
 	}
-	let password: string = ''
 	let result: { password: string; id: string } | null = null
 	let advanced = false
 	let type = false
@@ -37,18 +35,15 @@
 		try {
 			error = null
 			loading = true
+			const password = Hex.encode(getRandomBytes(32))
+			const key = await getKeyFromString(password)
 			const data: Note = {
-				contents: note.contents,
-				password: !!password,
+				contents: await encrypt(note.contents, key),
 			}
 			// @ts-ignore
 			if (type) data.expiration = parseInt(note.expiration)
 			// @ts-ignore
 			else data.views = parseInt(note.views)
-			if (data.password) {
-				const key = await getKeyFromString(password)
-				data.contents = await encrypt(data.contents, key)
-			}
 
 			const response = await create(data)
 			result = {
@@ -68,11 +63,12 @@
 </script>
 
 {#if result}
-	{#if result.password}
-		<TextInput type="password" readonly value={result.password} copy />
-		<br />
-	{/if}
-	<TextInput type="text" readonly value="{window.location.origin}/note/{result.id}" copy />
+	<TextInput
+		type="text"
+		readonly
+		value="{window.location.origin}/note/{result.id}/{result.password}"
+		copy
+	/>
 	<br />
 	<Button on:click={reset}>new</Button>
 {:else}
@@ -112,15 +108,6 @@
 						max={360}
 					/>
 				</div>
-				<br />
-				<TextInput
-					type="password"
-					label="password"
-					placeholder="optional"
-					bind:value={password}
-					copy
-					random
-				/>
 			</div>
 
 			<style>

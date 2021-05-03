@@ -5,15 +5,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Note {
   pub contents: String,
-  pub password: bool,
   pub views: Option<u8>,
   pub expiration: Option<u64>,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
-pub struct NoteInfo {
-  pub password: bool,
-}
+pub struct NoteInfo {}
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct NotePublic {

@@ -5,11 +5,10 @@ const base = axios.create({ baseURL: dev ? 'http://localhost:5000' : undefined }
 
 export type Note = {
 	contents: string
-	password: boolean
 	views?: number
 	expiration?: number
 }
-export type NoteInfo = Pick<Note, 'password'>
+export type NoteInfo = {}
 export type NotePublic = Pick<Note, 'contents'>
 
 export async function create(note: Note) {
