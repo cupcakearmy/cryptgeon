@@ -8,7 +8,7 @@
 
 ## About?
 
-_cryptgeon_ is an secure, open source sharing note service inspired by [_PrivNote_](https://privnote.com)
+_cryptgeon_ is a secure, open source sharing note service inspired by [_PrivNote_](https://privnote.com)
 
 ## Demo
 
