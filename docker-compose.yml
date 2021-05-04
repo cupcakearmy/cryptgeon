@@ -12,5 +12,7 @@ services:
 
   app:
     build: .
+    depends_on:
+      - memcached
     ports:
       - 80:5000

@@ -45,6 +45,8 @@ services:
 
   app:
     image: cupcakearmy/cryptgeon:latest
+    depends_on:
+      - memcache
     ports:
       - 80:5000
 ```
