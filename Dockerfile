@@ -1,7 +1,7 @@
 FROM node:16-alpine as CLIENT
 
 WORKDIR /tmp
-COPY ./client .
+COPY ./client ./
 
 RUN npm ci
 RUN npm run build
@@ -10,7 +10,7 @@ FROM rust:1.51-alpine as RUST
 
 WORKDIR /tmp
 RUN apk add libc-dev openssl-dev alpine-sdk
-COPY ./Cargo* .
+COPY ./Cargo* ./
 COPY ./src ./src
 
 RUN cargo build --release
