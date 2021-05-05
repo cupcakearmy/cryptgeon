@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.8] - 2021-05-05
+
+### Added
+
+- Manual theme override option
+
+### Fixed
+
+- Removed Arm builds for now
+- iOS style bugs
+
+## [1.0.7] - 2021-05-04
+
+### Added
+
+- Arm images
+
 ## [1.0.6] - 2021-05-04
 
 ### Added
