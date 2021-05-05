@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Footer from '$lib/views/Footer.svelte'
 	import Header from '$lib/views/Header.svelte'
 
 	import '../app.css'
@@ -13,34 +14,14 @@
 	<slot />
 </main>
 
-<footer>
-	<a href="/">/home</a>
-	<a href="/about">/about</a>
-	<a href="https://github.com/cupcakearmy/cryptgeon" target="_blank" rel="noopener">/code</a>
-</footer>
+<Footer />
 
 <style>
-	a {
-		margin: 0 0.5rem;
-	}
 	main {
 		padding: 1rem;
 		padding-bottom: 4rem;
 		width: 100%;
 		max-width: 35rem;
 		margin: 0 auto;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-end;
-		align-items: center;
-		padding: 1rem;
-		position: fixed;
-		bottom: 0;
-		right: 0;
-		width: 100%;
-		background-color: var(--ui-bg-0-85);
 	}
 </style>

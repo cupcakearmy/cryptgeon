@@ -7,27 +7,44 @@
 :root {
 	font-family: 'Fira Mono', monospace;
 
-	--ui-bg-0: #fefefe;
-	--ui-bg-0-85: #fefefed9;
-	--ui-bg-1: #eee;
-	--ui-bg-2: #e2e2e2;
-	--ui-text-0: #111;
-	--ui-text-1: #222;
+	--ui-bg-0: #111;
+	--ui-bg-0-85: #111111d9;
+	--ui-bg-1: #333;
+	--ui-bg-2: #444;
+	--ui-text-0: #fefefe;
+	--ui-text-1: #eee;
 	--ui-clr-primary: hsl(186, 65%, 55%);
 	--ui-clr-error: hsl(357, 77%, 51%);
 
 	--ui-anim: all 150ms ease;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
 	:root {
-		--ui-bg-0: #111;
-		--ui-bg-0-85: #111111d9;
-		--ui-bg-1: #222;
-		--ui-bg-2: #282828;
-		--ui-text-0: #fefefe;
-		--ui-text-1: #eee;
+		--ui-bg-0: #fefefe;
+		--ui-bg-0-85: #fefefed9;
+		--ui-bg-1: #eee;
+		--ui-bg-2: #e2e2e2;
+		--ui-text-0: #111;
+		--ui-text-1: #333;
 	}
+}
+
+:root[theme='dark'] {
+	--ui-bg-0: #111 !important;
+	--ui-bg-0-85: #111111d9 !important;
+	--ui-bg-1: #333 !important;
+	--ui-bg-2: #444 !important;
+	--ui-text-0: #fefefe !important;
+	--ui-text-1: #eee !important;
+}
+:root[theme='light'] {
+	--ui-bg-0: #fefefe !important;
+	--ui-bg-0-85: #fefefed9 !important;
+	--ui-bg-1: #eee !important;
+	--ui-bg-2: #e2e2e2 !important;
+	--ui-text-0: #111 !important;
+	--ui-text-1: #333 !important;
 }
 
 .error-text {
@@ -61,6 +78,8 @@ input,
 textarea,
 button {
 	appearance: none;
+	-webkit-appearance: none;
+	border-radius: 0;
 	transition: var(--ui-anim);
 	font-family: inherit;
 	font-size: inherit;

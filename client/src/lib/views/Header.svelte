@@ -8,7 +8,6 @@
 			xmlns="http://www.w3.org/2000/svg"
 			xmlns:xlink="http://www.w3.org/1999/xlink"
 			xml:space="preserve"
-			xmlns:serif="http://www.serif.com/"
 			style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
 			><g
 				><clipPath id="_clip1"><rect x="6.336" y="3.225" width="193.55" height="193.55" /></clipPath
@@ -78,5 +77,6 @@
 		width: 100%;
 		max-width: 16rem;
 		transform: translateX(-1rem);
+		fill: currentColor;
 	}
 </style>
