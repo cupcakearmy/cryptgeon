@@ -13,7 +13,7 @@
 	<h1>About</h1>
 
 	<p>
-		<i>cryptgeon</i> is an secure, open source sharing note service inspired by
+		<i>cryptgeon</i> is a secure, open source sharing note service inspired by
 		<a href="https://privnote.com"><i>PrivNote</i></a>.
 	</p>
 
@@ -27,7 +27,7 @@
 	<b>▶ Features</b>
 	<ul>
 		<li>server cannot decrypt contents due to client side encryption</li>
-		<li>view and time constrains</li>
+		<li>view and time constraints</li>
 		<li>in memory, no persistence</li>
 	</ul>
 
