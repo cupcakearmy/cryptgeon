@@ -16,7 +16,6 @@
 	function init(): Theme {
 		if (typeof window !== 'undefined') {
 			const saved = window.localStorage.getItem('theme') as Theme
-			console.log(Theme, window.localStorage.getItem('theme'))
 			if (Object.values(Theme).includes(saved)) return saved
 		}
 		return Theme.Auto
