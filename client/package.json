@@ -18,7 +18,6 @@
 	"type": "module",
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.2.2",
-		"axios": "^0.21.1",
 		"copy-to-clipboard": "^3.3.1"
 	}
 }
