@@ -23,4 +23,6 @@ COPY --from=CLIENT /tmp/build ./client/build
 
 ENV MEMCACHE=memcached:11211
 
+EXPOSE 5000
+
 ENTRYPOINT [ "/app/cryptgeon" ]

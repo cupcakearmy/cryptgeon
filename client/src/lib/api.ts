@@ -13,7 +13,7 @@ type CallOptions = {
 	method: string
 	body?: any
 }
-const base = dev ? 'http://localhost:5000' : undefined
+const base = dev ? 'http://localhost:5000/api/' : '/api/'
 async function call(options: CallOptions) {
 	return fetch(base + options.url, {
 		method: options.method,
@@ -27,7 +27,7 @@ async function call(options: CallOptions) {
 
 export async function create(note: Note) {
 	const data = await call({
-		url: '/api/notes',
+		url: 'notes',
 		method: 'post',
 		body: note,
 	})
@@ -36,7 +36,7 @@ export async function create(note: Note) {
 
 export async function get(id: string) {
 	const data = await call({
-		url: `/api/notes/${id}`,
+		url: `notes/${id}`,
 		method: 'delete',
 	})
 	return data as NotePublic
@@ -44,7 +44,7 @@ export async function get(id: string) {
 
 export async function info(id: string) {
 	const data = await call({
-		url: `/api/notes/${id}`,
+		url: `notes/${id}`,
 		method: 'get',
 	})
 	return data as NoteInfo
