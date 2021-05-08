@@ -36,7 +36,7 @@ export function getKeyFromString(password: string) {
 }
 
 export async function getDerivedForKey(key: CryptoKey, salt: ArrayBuffer) {
-	const iterations = 1_000
+	const iterations = 100_000
 	return window.crypto.subtle.deriveKey(
 		{
 			name: 'PBKDF2',
