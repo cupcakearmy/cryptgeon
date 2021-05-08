@@ -56,7 +56,8 @@ async fn create(note: web::Json<Note>) -> impl Responder {
       if e > 360 {
         return bad_req;
       }
-      n.expiration = Some(now() + (e * 60))
+      let expiration = now() + (e * 60);
+      n.expiration = Some(expiration);
     }
     _ => {}
   }
@@ -89,8 +90,8 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
       }
       match changed.expiration {
         Some(e) => {
-          if e > now() {
-            store::del(&p.id.clone());
+          store::del(&p.id.clone());
+          if e < now() {
             return HttpResponse::BadRequest().finish();
           }
         }
