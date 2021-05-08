@@ -66,11 +66,21 @@
 	<TextInput
 		type="text"
 		readonly
+		label="share link"
 		value="{window.location.origin}/note/{result.id}/{result.password}"
 		copy
 	/>
 	<br />
-	<Button on:click={reset}>new</Button>
+	<p>
+		<b>availability:</b>
+		<br />
+		the note is not guaranteed to be stored as everything is kept in ram, if it fills up the oldest notes
+		will be removed.
+		<br />
+		(you probably will be fine, just be warned.)
+	</p>
+	<br />
+	<Button on:click={reset}>new note</Button>
 {:else}
 	<form on:submit|preventDefault={submit}>
 		<fieldset disabled={loading}>
@@ -85,7 +95,14 @@
 				<div class="error-text">{error}</div>
 			{/if}
 
-			<p><br />{message}</p>
+			<p>
+				<br />
+				{#if loading}
+					loading...
+				{:else}
+					{message}
+				{/if}
+			</p>
 
 			<div class="advanced" class:hidden={!advanced}>
 				<br />
