@@ -11,6 +11,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Install
         run: |
-          docker compose build
+          docker-compose build
           npm ci
           npm run test:run
