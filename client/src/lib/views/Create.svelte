@@ -50,7 +50,8 @@
 				password: password,
 				id: response.id,
 			}
-		} catch {
+		} catch (e) {
+			console.error(e)
 			error = 'could not create note.'
 		} finally {
 			loading = false
@@ -69,6 +70,7 @@
 		label="share link"
 		value="{window.location.origin}/note/{result.id}/{result.password}"
 		copy
+		data-testid="note-share-link"
 	/>
 	<br />
 	<p>
@@ -84,11 +86,16 @@
 {:else}
 	<form on:submit|preventDefault={submit}>
 		<fieldset disabled={loading}>
-			<TextArea label="note" bind:value={note.contents} placeholder="..." />
+			<TextArea
+				label="note"
+				bind:value={note.contents}
+				placeholder="..."
+				data-testid="input-note"
+			/>
 
 			<div class="bottom">
 				<Switch label="advanced" bind:value={advanced} />
-				<Button type="submit">create</Button>
+				<Button type="submit" data-testid="button-create">create</Button>
 			</div>
 
 			{#if error}
