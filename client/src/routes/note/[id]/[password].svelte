@@ -55,10 +55,12 @@
 
 {#if !loading}
 	{#if !exists}
-		<p class="error-text">note was not found or was already deleted.</p>
+		<p class="error-text" data-testid="note-not-found">
+			note was not found or was already deleted.
+		</p>
 	{:else if note && !error}
 		<p class="error-text">you will not get the chance to see the note again.</p>
-		<div class="note">
+		<div class="note" data-testid="note-result">
 			{note.contents}
 		</div>
 		<br />
@@ -67,7 +69,7 @@
 		<form on:submit|preventDefault={show}>
 			<fieldset>
 				<p>click below to show and delete the note if the counter has reached it's limit</p>
-				<Button type="submit">show note</Button>
+				<Button type="submit" data-testid="button-show">show note</Button>
 				{#if error}
 					<br />
 					<p class="error-text">
