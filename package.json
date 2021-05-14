@@ -4,7 +4,7 @@
     "dev:backend": "cargo watch -x 'run --bin cryptgeon'",
     "dev:front": "npm --prefix client run dev",
     "dev": "run-p dev:*",
-    "test:server": "docker compose up --build",
+    "test:server": "docker-compose up --build",
     "test:cypress": "cypress run --headless",
     "test:run": "start-server-and-test test:server http://localhost:5000 test:cypress"
   },
