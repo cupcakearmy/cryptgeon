@@ -68,7 +68,7 @@
 		type="text"
 		readonly
 		label="share link"
-		value="{window.location.origin}/note/{result.id}/{result.password}"
+		value="{window.location.origin}/note/{result.id}#{result.password}"
 		copy
 		data-testid="note-share-link"
 	/>

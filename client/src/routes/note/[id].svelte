@@ -16,8 +16,8 @@
 	import Button from '$lib/ui/Button.svelte'
 
 	export let id: string
-	export let password: string
 
+	let password: string
 	let note: NotePublic | null = null
 	let exists = false
 
@@ -28,6 +28,8 @@
 		try {
 			loading = true
 			error = null
+			password = window.location.hash.slice(1)
+			console.log(password)
 			await info(id)
 			exists = true
 		} catch {
