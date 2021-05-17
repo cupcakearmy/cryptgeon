@@ -13,7 +13,7 @@
 <style>
 	textarea {
 		width: 100%;
-		min-height: calc(100vh - 30rem);
+		min-height: min(calc(100vh - 30rem), 30rem);
 		margin: 0;
 		border: 2px solid var(--ui-bg-1);
 		resize: vertical;
