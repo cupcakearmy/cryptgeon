@@ -33,6 +33,8 @@ each note has a 512bit generated <i>id</i> that is used to retrieve the note. da
 
 ## Deployment
 
+ℹ️ `https` is required otherwise browsers will not support the cryptographic functions.
+
 Docker is the easiest way. There is the [official image here](https://hub.docker.com/r/cupcakearmy/cryptgeon).
 
 ```yaml
