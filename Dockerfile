@@ -3,8 +3,9 @@ FROM node:16-alpine as CLIENT
 WORKDIR /tmp
 COPY ./client ./
 
-RUN npm ci
-RUN npm run build
+RUN npm install -g pnpm
+RUN pnpm install
+RUN pnpm run build
 
 FROM rust:1.51-alpine as RUST
 
