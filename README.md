@@ -1,12 +1,17 @@
 <p align="center">
-  <img src="./design/Github.png">
+  <img src="./design/Github.png" alt="logo">
 </p>
 
-![Docker pulls badge](https://img.shields.io/docker/pulls/cupcakearmy/cryptgeon)
-![Docker image size badge](https://img.shields.io/docker/image-size/cupcakearmy/cryptgeon)
-![Latest version](https://img.shields.io/github/v/release/cupcakearmy/cryptgeon)
+<a href="https://discord.gg/nuby6RnxZt">
+  <img alt="discord" src="https://img.shields.io/discord/252403122348097536?style=for-the-badge" />
+  <img alt="docker pulls" src="https://img.shields.io/docker/pulls/cupcakearmy/cryptgeon?style=for-the-badge" />
+  <img alt="Docker image size badge" src="https://img.shields.io/docker/image-size/cupcakearmy/cryptgeon?style=for-the-badge" />
+  <img alt="Latest version" src="https://img.shields.io/github/v/release/cupcakearmy/cryptgeon?style=for-the-badge" />
+</a>
 
+<br/>
 <a href="https://www.producthunt.com/posts/cryptgeon?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cryptgeon" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=295189&theme=light" alt="Cryptgeon - Securely share self-destructing notes | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+<br/>
 
 ## About?
 
