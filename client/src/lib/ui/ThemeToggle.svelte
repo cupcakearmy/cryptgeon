@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	import { writable } from 'svelte/store'
 
-	export enum Theme {
+	enum Theme {
 		Dark = 'dark',
 		Light = 'light',
 		Auto = 'auto',
