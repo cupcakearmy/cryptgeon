@@ -40,6 +40,8 @@ each note has a 512bit generated <i>id</i> that is used to retrieve the note. da
 
 ℹ️ `https` is required otherwise browsers will not support the cryptographic functions.
 
+### Docker
+
 Docker is the easiest way. There is the [official image here](https://hub.docker.com/r/cupcakearmy/cryptgeon).
 
 ```yaml
@@ -58,6 +60,47 @@ services:
       - memcached
     ports:
       - 80:5000
+```
+
+### NGINX Proxy
+
+See the [examples/nginx](https://github.com/cupcakearmy/cryptgeon/tree/main/examples/nginx) folder. There an example with a simple proxy, and one with https. You need to specify the server names and certificates.
+
+### Traefik 2
+
+Assumptions:
+
+- External proxy docker network `proxy`
+- A certificate resolver `le`
+- A https entrypoint `secure`
+- Domain name `example.org`
+
+```yaml
+version: '3.8'
+
+networks:
+  proxy:
+    external: true
+
+services:
+  memcached:
+    image: memcached:1-alpine
+    restart: unless-stopped
+    entrypoint: memcached -m 128 # Limit to 128 MB Ram, customize at free will.
+
+  app:
+    image: cupcakearmy/cryptgeon:latest
+    restart: unless-stopped
+    depends_on:
+      - memcached
+    networks:
+      - default
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.cryptgeon.rule=Host(`example.org`)
+      - traefik.http.routers.cryptgeon.entrypoints=secure
+      - traefik.http.routers.cryptgeon.tls.certresolver=le
 ```
 
 ## Development

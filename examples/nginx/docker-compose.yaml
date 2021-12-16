@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  memcached:
+    image: memcached:1-alpine
+    entrypoint: memcached -m 128 # Limit to 128 MB Ram, customize at free will.
+
+  app:
+    image: cupcakearmy/cryptgeon:latest
+    depends_on:
+      - memcached
+    
+  proxy:
+    image: nginx:alpine
+    depends_on:
+      - app
+    volumes:
+      - ./nginx-plain.conf:/etc/nginx/conf.d/default.conf
+      # Or with tls
+      # - ./nginx-tls.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
