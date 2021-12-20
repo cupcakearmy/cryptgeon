@@ -122,7 +122,7 @@ Running `npm run dev` in the root folder will start the following things
 - rust backend with hot reload
 - client with hot reload
 
-You can see the app under [localhost:5000](http://localhost:5000).
+You can see the app under [localhost:1234](http://localhost:1234).
 
 ###### Attributions
 

@@ -3,9 +3,11 @@
     "dev:docker": "docker-compose up memcached",
     "dev:backend": "cargo watch -x 'run --bin cryptgeon'",
     "dev:front": "pnpm --prefix client run dev",
+    "dev:proxy": "node proxy.mjs",
     "dev": "run-p dev:*"
   },
   "devDependencies": {
+    "http-proxy": "^1.18.1",
     "npm-run-all": "^4.1.5"
   }
 }

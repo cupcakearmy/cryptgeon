@@ -1,5 +1,3 @@
-import { dev } from '$app/env'
-
 export type Note = {
 	contents: string
 	views?: number
@@ -13,9 +11,9 @@ type CallOptions = {
 	method: string
 	body?: any
 }
-const base = dev ? 'http://localhost:5000/api/' : '/api/'
+
 async function call(options: CallOptions) {
-	return fetch(base + options.url, {
+	return fetch('/api/' + options.url, {
 		method: options.method,
 		body: options.body === undefined ? undefined : JSON.stringify(options.body),
 		mode: 'cors',
