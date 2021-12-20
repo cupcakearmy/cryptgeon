@@ -60,6 +60,13 @@ services:
       - 80:5000
 ```
 
+### Environment Variables
+
+| Variable     | Default           | Description                                                                             |
+| ------------ | ----------------- | --------------------------------------------------------------------------------------- |
+| `MEMCACHE`   | `memcached:11211` | Memcached URL to connect to.                                                            |
+| `SIZE_LIMIT` | `1 KiB`           | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/) |
+
 ## Development
 
 1. Clone
@@ -72,7 +79,7 @@ Running `npm run dev` in the root folder will start the following things
 - rust backend with hot reload
 - client with hot reload
 
-You can see the app under [localhost:3000](http://localhost:3000).
+You can see the app under [localhost:5000](http://localhost:5000).
 
 ###### Attributions
 
