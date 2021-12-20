@@ -106,8 +106,8 @@ services:
 ## Development
 
 1. Clone
-2. run `npm i` in the root and and client `client/` folders.
-3. Run `npm run dev` to start development.
+2. run `pnpm i` in the root and and client `client/` folders.
+3. Run `pnpm run dev` to start development.
 
 Running `npm run dev` in the root folder will start the following things
 
