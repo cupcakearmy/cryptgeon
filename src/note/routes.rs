@@ -37,9 +37,6 @@ async fn create(note: web::Json<Note>) -> impl Responder {
   let mut n = note.into_inner();
   let id = generate_id();
   let bad_req = HttpResponse::BadRequest().finish();
-  if n.contents.chars().count() > 8192 {
-    return bad_req;
-  }
   if n.views == None && n.expiration == None {
     return bad_req;
   }
