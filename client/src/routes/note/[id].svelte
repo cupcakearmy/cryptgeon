@@ -7,13 +7,12 @@
 </script>
 
 <script lang="ts">
-	import { onMount } from 'svelte'
-	import copy from 'copy-to-clipboard'
-
 	import type { NotePublic } from '$lib/api'
-	import { info, get } from '$lib/api'
+	import { get, info } from '$lib/api'
 	import { decrypt, getKeyFromString } from '$lib/crypto'
 	import Button from '$lib/ui/Button.svelte'
+	import ShowNote from '$lib/ui/ShowNote.svelte'
+	import { onMount } from 'svelte'
 
 	export let id: string
 
@@ -29,7 +28,6 @@
 			loading = true
 			error = null
 			password = window.location.hash.slice(1)
-			console.log(password)
 			await info(id)
 			exists = true
 		} catch {
@@ -61,12 +59,7 @@
 			note was not found or was already deleted.
 		</p>
 	{:else if note && !error}
-		<p class="error-text">you will not get the chance to see the note again.</p>
-		<div class="note" data-testid="note-result">
-			{note.contents}
-		</div>
-		<br />
-		<Button on:click={() => copy(note.contents)}>copy to clipboard</Button>
+		<ShowNote {note} />
 	{:else}
 		<form on:submit|preventDefault={show}>
 			<fieldset>
@@ -86,16 +79,3 @@
 {#if loading}
 	<p>loading...</p>
 {/if}
-
-<style>
-	.note {
-		width: 100%;
-		margin: 0;
-		padding: 0;
-		border: 2px solid var(--ui-bg-1);
-		outline: none;
-		padding: 0.5rem;
-		white-space: pre;
-		overflow: auto;
-	}
-</style>

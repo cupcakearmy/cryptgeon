@@ -4,17 +4,20 @@
 	import { getKeyFromString, encrypt, Hex, getRandomBytes } from '$lib/crypto'
 
 	import Button from '$lib/ui/Button.svelte'
+	import FileUpload from '$lib/ui/FileUpload.svelte'
 	import Switch from '$lib/ui/Switch.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import TextInput from '$lib/ui/TextInput.svelte'
 
 	let note: Note = {
 		contents: '',
+		meta: { type: 'text' },
 		views: 1,
 		expiration: 60,
 	}
 	let result: { password: string; id: string } | null = null
 	let advanced = false
+	let file = false
 	let type = false
 	let message = ''
 	let loading = false
@@ -31,6 +34,8 @@
 		message = 'the note will expire and be destroyed after ' + fraction
 	}
 
+	$: note.meta.type = file ? 'file' : 'text'
+
 	async function submit() {
 		try {
 			error = null
@@ -39,6 +44,7 @@
 			const key = await getKeyFromString(password)
 			const data: Note = {
 				contents: await encrypt(note.contents, key),
+				meta: note.meta,
 			}
 			// @ts-ignore
 			if (type) data.expiration = parseInt(note.expiration)
@@ -89,15 +95,21 @@
 {:else}
 	<form on:submit|preventDefault={submit}>
 		<fieldset disabled={loading}>
-			<TextArea
-				label="note"
-				bind:value={note.contents}
-				placeholder="..."
-				data-testid="input-note"
-			/>
+			{#if file}
+				<FileUpload label="file" on:file={(f) => (note.contents = f.detail)} />
+			{:else}
+				<TextArea
+					label="note"
+					bind:value={note.contents}
+					placeholder="..."
+					data-testid="input-note"
+				/>
+			{/if}
 
 			<div class="bottom">
+				<Switch class="file" label="file" bind:value={file} />
 				<Switch label="advanced" bind:value={advanced} />
+				<div class="grow" />
 				<Button type="submit" data-testid="button-create">create</Button>
 			</div>
 
@@ -152,9 +164,17 @@
 <style>
 	.bottom {
 		display: flex;
-		justify-content: space-between;
+		/* justify-content: space-between; */
 		align-items: flex-end;
 		margin-top: 0.5rem;
+	}
+
+	.bottom :global(.file) {
+		margin-right: 0.5rem;
+	}
+
+	.grow {
+		flex: 1;
 	}
 
 	.middle-switch {

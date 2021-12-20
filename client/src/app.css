@@ -97,3 +97,24 @@ fieldset {
 	padding: 0;
 	border: none;
 }
+
+.box {
+	width: 100%;
+	min-height: min(calc(100vh - 30rem), 30rem);
+	margin: 0;
+	border: 2px solid var(--ui-bg-1);
+	resize: vertical;
+	outline: none;
+	padding: 0.5rem;
+}
+
+@media screen and (max-width: 30rem) {
+	.box {
+		min-height: calc(100vh - 25rem);
+	}
+}
+
+.box:hover,
+.box:focus {
+	border-color: var(--ui-clr-primary);
+}

@@ -1,4 +1,5 @@
 use actix_web::{middleware, web, App, HttpServer};
+use dotenv::dotenv;
 
 #[macro_use]
 extern crate lazy_static;
@@ -10,6 +11,7 @@ mod store;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv().ok();
     return HttpServer::new(|| {
         App::new()
             // .configure(|cfg: &mut web::ServiceConfig| {

@@ -4,7 +4,7 @@
 	export let color = true
 </script>
 
-<div>
+<div {...$$restProps}>
 	<label class="switch">
 		<small>{label}</small>
 		<input type="checkbox" bind:checked={value} />

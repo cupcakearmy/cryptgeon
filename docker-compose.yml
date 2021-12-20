@@ -6,7 +6,8 @@ version: '3.7'
 services:
   memcached:
     image: memcached:1-alpine
-    entrypoint: memcached -m 128
+    restart: unless-stopped
+    entrypoint: memcached -m 128M -I 4M
     ports:
       - 11211:11211
 

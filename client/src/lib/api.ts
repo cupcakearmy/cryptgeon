@@ -1,10 +1,18 @@
+export type NoteMeta = { type: 'text' | 'file' }
+
 export type Note = {
 	contents: string
+	meta: NoteMeta
 	views?: number
 	expiration?: number
 }
 export type NoteInfo = {}
-export type NotePublic = Pick<Note, 'contents'>
+export type NotePublic = Pick<Note, 'contents' | 'meta'>
+export type NoteCreate = Omit<Note, 'meta'> & { meta: string }
+
+export type FileDTO = Pick<File, 'name' | 'size' | 'type'> & {
+	contents: string
+}
 
 type CallOptions = {
 	url: string
@@ -32,26 +40,35 @@ async function call(options: CallOptions) {
 }
 
 export async function create(note: Note) {
+	const { meta, ...rest } = note
+	const body: NoteCreate = {
+		...rest,
+		meta: JSON.stringify(meta),
+	}
 	const data = await call({
 		url: 'notes',
 		method: 'post',
-		body: note,
+		body,
 	})
 	return data as { id: string }
 }
 
-export async function get(id: string) {
+export async function get(id: string): Promise<NotePublic> {
 	const data = await call({
 		url: `notes/${id}`,
 		method: 'delete',
 	})
-	return data as NotePublic
+	const { contents, meta } = data
+	return {
+		contents,
+		meta: JSON.parse(meta) as NoteMeta,
+	}
 }
 
-export async function info(id: string) {
+export async function info(id: string): Promise<NoteInfo> {
 	const data = await call({
 		url: `notes/${id}`,
 		method: 'get',
 	})
-	return data as NoteInfo
+	return data
 }

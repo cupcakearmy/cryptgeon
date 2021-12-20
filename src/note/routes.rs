@@ -96,6 +96,7 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
       }
       return HttpResponse::Ok().json(NotePublic {
         contents: changed.contents,
+        meta: changed.meta,
       });
     }
   }
