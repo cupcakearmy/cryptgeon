@@ -4,18 +4,18 @@
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
 		"preview": "svelte-kit preview",
-		"licenses": "npx license-checker --summary > licenses.csv"
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-static": "next",
-		"@sveltejs/kit": "^1.0.0-next.201",
-		"svelte": "^3.44.2",
-		"svelte-preprocess": "^4.9.8",
-		"tslib": "^2.3.1",
-		"typescript": "^4.5.2",
-		"vite": "^2.6.14"
+		"licenses": "license-checker --summary > licenses.csv"
 	},
 	"type": "module",
+	"devDependencies": {
+		"@sveltejs/adapter-static": "^1.0.0-next.22",
+		"@sveltejs/kit": "^1.0.0-next.202",
+		"svelte": "^3.44.3",
+		"svelte-preprocess": "^4.10.1",
+		"tslib": "^2.3.1",
+		"typescript": "^4.5.4",
+		"vite": "^2.7.4"
+	},
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
 		"copy-to-clipboard": "^3.3.1"

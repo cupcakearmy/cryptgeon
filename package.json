@@ -2,7 +2,7 @@
   "scripts": {
     "dev:docker": "docker-compose up memcached",
     "dev:backend": "cargo watch -x 'run --bin cryptgeon'",
-    "dev:front": "npm --prefix client run dev",
+    "dev:front": "pnpm --prefix client run dev",
     "dev": "run-p dev:*"
   },
   "devDependencies": {
