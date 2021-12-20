@@ -36,6 +36,13 @@ each note has a 512bit generated <i>id</i> that is used to retrieve the note. da
 
 ![screenshot](./design/Screens.png)
 
+## Environment Variables
+
+| Variable     | Default           | Description                                                                             |
+| ------------ | ----------------- | --------------------------------------------------------------------------------------- |
+| `MEMCACHE`   | `memcached:11211` | Memcached URL to connect to.                                                            |
+| `SIZE_LIMIT` | `1 KiB`           | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/) |
+
 ## Deployment
 
 ℹ️ `https` is required otherwise browsers will not support the cryptographic functions.
@@ -115,7 +122,7 @@ Running `npm run dev` in the root folder will start the following things
 - rust backend with hot reload
 - client with hot reload
 
-You can see the app under [localhost:3000](http://localhost:3000).
+You can see the app under [localhost:5000](http://localhost:5000).
 
 ###### Attributions
 
