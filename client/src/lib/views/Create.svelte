@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Note } from '$lib/api'
+	import { Note, PayloadToLargeError } from '$lib/api'
 	import { create } from '$lib/api'
 	import { getKeyFromString, encrypt, Hex, getRandomBytes } from '$lib/crypto'
 
@@ -51,8 +51,11 @@
 				id: response.id,
 			}
 		} catch (e) {
-			console.error(e)
-			error = 'could not create note.'
+			if (e instanceof PayloadToLargeError) {
+				error = 'could not create not. note is to big'
+			} else {
+				error = 'could not create note. please try again.'
+			}
 		} finally {
 			loading = false
 		}
@@ -166,5 +169,9 @@
 
 	.advanced.hidden {
 		max-height: 0;
+	}
+
+	.error-text {
+		margin-top: 0.5rem;
 	}
 </style>

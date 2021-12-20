@@ -12,15 +12,23 @@ type CallOptions = {
 	body?: any
 }
 
+export class PayloadToLargeError extends Error {}
+
 async function call(options: CallOptions) {
-	return fetch('/api/' + options.url, {
+	const response = await fetch('/api/' + options.url, {
 		method: options.method,
 		body: options.body === undefined ? undefined : JSON.stringify(options.body),
 		mode: 'cors',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-	}).then((r) => r.json())
+	})
+
+	if (!response.ok) {
+		if (response.status === 413) throw new PayloadToLargeError()
+		else throw new Error('API call failed')
+	}
+	return response.json()
 }
 
 export async function create(note: Note) {
