@@ -15,5 +15,7 @@ services:
     build: .
     depends_on:
       - memcached
+    environment:
+      SIZE_LIMIT: 4M
     ports:
       - 80:5000
