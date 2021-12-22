@@ -15,9 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Don't delete note if time is not expired yet
-
-### Changed
-
 - Use pnpm instead of npm.
 
 ## [1.2.0] - 2021-11-11
