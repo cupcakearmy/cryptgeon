@@ -15,7 +15,7 @@
 
 ## About?
 
-_cryptgeon_ is a secure, open source sharing note service inspired by [_PrivNote_](https://privnote.com)
+_cryptgeon_ is a secure, open source sharing note or file service inspired by [_PrivNote_](https://privnote.com)
 
 ## Demo
 
@@ -24,7 +24,7 @@ Check out the demo and see for yourself https://cryptgeon.nicco.io.
 ## Features
 
 - server cannot decrypt contents due to client side encryption
-- view and time constraints
+- view or time constraints
 - in memory, no persistence
 - obligatory dark mode support
 
@@ -65,6 +65,8 @@ services:
     image: cupcakearmy/cryptgeon:latest
     depends_on:
       - memcached
+    environment:
+      SIZE_LIMIT: 4M
     ports:
       - 80:5000
 ```
@@ -93,7 +95,7 @@ services:
   memcached:
     image: memcached:1-alpine
     restart: unless-stopped
-    entrypoint: memcached -m 128 # Limit to 128 MB Ram, customize at free will.
+    entrypoint: memcached -m 128M -I 4M # Limit to 128 MB Ram, 4M per entry, customize at free will.
 
   app:
     image: cupcakearmy/cryptgeon:latest
