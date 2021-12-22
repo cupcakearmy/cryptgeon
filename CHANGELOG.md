@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Option to set a custom size limit.
+- Options to share files.
+
+### Changed
+
+- Don't delete note if time is not expired yet
 
 ### Changed
 
