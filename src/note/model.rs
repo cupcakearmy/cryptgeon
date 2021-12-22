@@ -7,7 +7,7 @@ pub struct Note {
   pub meta: String,
   pub contents: String,
   pub views: Option<u8>,
-  pub expiration: Option<u64>,
+  pub expiration: Option<u32>,
 }
 
 #[derive(Serialize, Deserialize, Clone)]

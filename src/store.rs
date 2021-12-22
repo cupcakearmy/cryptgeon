@@ -1,5 +1,6 @@
 use memcache;
 
+use crate::note::now;
 use crate::note::Note;
 
 lazy_static! {
@@ -12,7 +13,11 @@ lazy_static! {
 
 pub fn set(id: &String, note: &Note) {
   let serialized = serde_json::to_string(&note.clone()).unwrap();
-  CLIENT.set(id, serialized, 0).unwrap();
+  let expiration: u32 = match note.expiration {
+    Some(e) => e - now(),
+    None => 0,
+  };
+  CLIENT.set(id, serialized, expiration).unwrap();
 }
 
 pub fn get(id: &String) -> Option<Note> {

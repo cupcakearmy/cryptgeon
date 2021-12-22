@@ -6,11 +6,11 @@ use crate::note::{generate_id, Note, NoteInfo, NotePublic};
 use crate::size::LIMIT;
 use crate::store;
 
-fn now() -> u64 {
+pub fn now() -> u32 {
   SystemTime::now()
     .duration_since(SystemTime::UNIX_EPOCH)
     .unwrap()
-    .as_secs()
+    .as_secs() as u32
 }
 
 #[derive(Serialize, Deserialize)]
@@ -86,10 +86,12 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
         }
         _ => {}
       }
+
+      let n = now();
       match changed.expiration {
         Some(e) => {
-          store::del(&p.id.clone());
-          if e < now() {
+          if e < n {
+            store::del(&p.id.clone());
             return HttpResponse::BadRequest().finish();
           }
         }

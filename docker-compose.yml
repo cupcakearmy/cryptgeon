@@ -16,4 +16,4 @@ services:
     depends_on:
       - memcached
     ports:
-      - 5000:5000
+      - 80:5000
