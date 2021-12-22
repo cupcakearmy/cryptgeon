@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use std::time::SystemTime;
 
 use crate::note::{generate_id, Note, NoteInfo, NotePublic};
+use crate::size::LIMIT;
 use crate::store;
 
 fn now() -> u64 {
@@ -17,7 +18,7 @@ struct NotePath {
   id: String,
 }
 
-#[get("/notes/{id}")]
+#[get("/{id}")]
 async fn one(path: web::Path<NotePath>) -> impl Responder {
   let p = path.into_inner();
   let note = store::get(&p.id);
@@ -32,7 +33,7 @@ struct CreateResponse {
   id: String,
 }
 
-#[post("/notes")]
+#[post("/")]
 async fn create(note: web::Json<Note>) -> impl Responder {
   let mut n = note.into_inner();
   let id = generate_id();
@@ -62,7 +63,7 @@ async fn create(note: web::Json<Note>) -> impl Responder {
   return HttpResponse::Ok().json(CreateResponse { id: id });
 }
 
-#[delete("/notes/{id}")]
+#[delete("/{id}")]
 async fn delete(path: web::Path<NotePath>) -> impl Responder {
   let p = path.into_inner();
   let note = store::get(&p.id);
@@ -102,11 +103,27 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
   }
 }
 
+#[derive(Serialize, Deserialize)]
+struct Status {
+  max_size: usize,
+}
+
+#[get("/status")]
+async fn status() -> impl Responder {
+  println!("Limit: {}", *LIMIT);
+  return HttpResponse::Ok().json(Status { max_size: *LIMIT });
+}
+
 pub fn init(cfg: &mut web::ServiceConfig) {
   cfg.service(
     web::scope("/api")
-      .service(create)
-      .service(delete)
-      .service(one),
+      .service(
+        web::scope("/notes")
+          .service(one)
+          .service(create)
+          .service(delete)
+          .service(status),
+      )
+      .service(status),
   );
 }

@@ -22,7 +22,7 @@ type CallOptions = {
 
 export class PayloadToLargeError extends Error {}
 
-async function call(options: CallOptions) {
+export async function call(options: CallOptions) {
 	const response = await fetch('/api/' + options.url, {
 		method: options.method,
 		body: options.body === undefined ? undefined : JSON.stringify(options.body),
@@ -46,7 +46,7 @@ export async function create(note: Note) {
 		meta: JSON.stringify(meta),
 	}
 	const data = await call({
-		url: 'notes',
+		url: 'notes/',
 		method: 'post',
 		body,
 	})

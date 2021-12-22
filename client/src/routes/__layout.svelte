@@ -1,8 +1,13 @@
 <script lang="ts">
+	import { init } from '$lib/stores/status'
 	import Footer from '$lib/views/Footer.svelte'
 	import Header from '$lib/views/Header.svelte'
-
+	import { onMount } from 'svelte'
 	import '../app.css'
+
+	onMount(() => {
+		init()
+	})
 </script>
 
 <svelte:head>

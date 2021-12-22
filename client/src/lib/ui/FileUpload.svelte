@@ -2,6 +2,7 @@
 	import type { FileDTO } from '$lib/api'
 	import { Files } from '$lib/files'
 	import { createEventDispatcher } from 'svelte'
+	import MaxSize from './MaxSize.svelte'
 
 	export let label: string = ''
 	let files: File[] = []
@@ -49,6 +50,8 @@
 		{:else}
 			<div>
 				<b>No Files Selected</b>
+				<br />
+				<small>max: <MaxSize /></small>
 			</div>
 		{/if}
 	</div>

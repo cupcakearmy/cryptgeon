@@ -100,7 +100,7 @@ fieldset {
 
 .box {
 	width: 100%;
-	min-height: min(calc(100vh - 30rem), 30rem);
+	min-height: min(calc(100vh - 30rem), 20rem);
 	margin: 0;
 	border: 2px solid var(--ui-bg-1);
 	resize: vertical;
@@ -117,4 +117,8 @@ fieldset {
 .box:hover,
 .box:focus {
 	border-color: var(--ui-clr-primary);
+}
+
+.tr {
+	text-align: right;
 }

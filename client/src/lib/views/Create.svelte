@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Note, PayloadToLargeError } from '$lib/api'
-	import { create } from '$lib/api'
-	import { getKeyFromString, encrypt, Hex, getRandomBytes } from '$lib/crypto'
-
+	import { create, Note, PayloadToLargeError } from '$lib/api'
+	import { encrypt, getKeyFromString, getRandomBytes, Hex } from '$lib/crypto'
 	import Button from '$lib/ui/Button.svelte'
 	import FileUpload from '$lib/ui/FileUpload.svelte'
+	import MaxSize from '$lib/ui/MaxSize.svelte'
 	import Switch from '$lib/ui/Switch.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import TextInput from '$lib/ui/TextInput.svelte'
+	import { blur } from 'svelte/transition'
 
 	let note: Note = {
 		contents: '',
@@ -35,6 +35,10 @@
 	}
 
 	$: note.meta.type = file ? 'file' : 'text'
+
+	$: if (!file) {
+		note.contents = ''
+	}
 
 	async function submit() {
 		try {
@@ -110,7 +114,11 @@
 				<Switch class="file" label="file" bind:value={file} />
 				<Switch label="advanced" bind:value={advanced} />
 				<div class="grow" />
-				<Button type="submit" data-testid="button-create">create</Button>
+				<div class="tr">
+					<small>max: <MaxSize /> </small>
+					<br />
+					<Button type="submit" data-testid="button-create">create</Button>
+				</div>
 			</div>
 
 			{#if error}
@@ -126,37 +134,30 @@
 				{/if}
 			</p>
 
-			<div class="advanced" class:hidden={!advanced}>
-				<br />
-				<div class="fields">
-					<TextInput
-						type="number"
-						label="views"
-						bind:value={note.views}
-						disabled={type}
-						max={100}
-					/>
-					<div class="middle-switch">
-						<Switch label="mode" bind:value={type} color={false} />
+			{#if advanced}
+				<div transition:blur={{ duration: 250 }}>
+					<br />
+					<div class="fields">
+						<TextInput
+							type="number"
+							label="views"
+							bind:value={note.views}
+							disabled={type}
+							max={100}
+						/>
+						<div class="middle-switch">
+							<Switch label="mode" bind:value={type} color={false} />
+						</div>
+						<TextInput
+							type="number"
+							label="minutes"
+							bind:value={note.expiration}
+							disabled={!type}
+							max={360}
+						/>
 					</div>
-					<TextInput
-						type="number"
-						label="minutes"
-						bind:value={note.expiration}
-						disabled={!type}
-						max={360}
-					/>
 				</div>
-			</div>
-
-			<style>
-				.fields {
-					display: flex;
-				}
-				.spacer {
-					width: 3rem;
-				}
-			</style>
+			{/if}
 		</fieldset>
 	</form>
 {/if}
@@ -164,7 +165,6 @@
 <style>
 	.bottom {
 		display: flex;
-		/* justify-content: space-between; */
 		align-items: flex-end;
 		margin-top: 0.5rem;
 	}
@@ -181,17 +181,11 @@
 		margin: 0 1rem;
 	}
 
-	.advanced {
-		max-height: 14em;
-		overflow: hidden;
-		transition: var(--ui-anim);
-	}
-
-	.advanced.hidden {
-		max-height: 0;
-	}
-
 	.error-text {
 		margin-top: 0.5rem;
+	}
+
+	.fields {
+		display: flex;
 	}
 </style>

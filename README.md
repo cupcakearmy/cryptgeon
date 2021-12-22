@@ -59,7 +59,7 @@ version: '3.7'
 services:
   memcached:
     image: memcached:1-alpine
-    entrypoint: memcached -m 128 # Limit to 128 MB Ram, customize at free will.
+    entrypoint: memcached -m 128M -I 4M # Limit to 128 MB Ram, 4M per entry, customize at free will.
 
   app:
     image: cupcakearmy/cryptgeon:latest

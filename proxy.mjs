@@ -1,5 +1,5 @@
-import httpProxy from 'http-proxy'
 import http from 'http'
+import httpProxy from 'http-proxy'
 
 const proxy = httpProxy.createProxyServer({})
 

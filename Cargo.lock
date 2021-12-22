@@ -524,6 +524,7 @@ dependencies = [
  "dotenv",
  "lazy_static",
  "memcache",
+ "mime",
  "ring",
  "serde",
  "serde_json",
