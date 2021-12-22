@@ -107,13 +107,19 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
 
 #[derive(Serialize, Deserialize)]
 struct Status {
+  version: String,
   max_size: usize,
 }
 
 #[get("/status")]
 async fn status() -> impl Responder {
   println!("Limit: {}", *LIMIT);
-  return HttpResponse::Ok().json(Status { max_size: *LIMIT });
+  return HttpResponse::Ok().json(Status {
+    version: option_env!("CARGO_PKG_VERSION")
+      .unwrap_or("Unknown")
+      .to_string(),
+    max_size: *LIMIT,
+  });
 }
 
 pub fn init(cfg: &mut web::ServiceConfig) {

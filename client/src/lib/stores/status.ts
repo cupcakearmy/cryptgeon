@@ -1,8 +1,8 @@
 import { call } from '$lib/api'
-import { onMount } from 'svelte'
 import { writable } from 'svelte/store'
 
 export type Status = {
+	version: string
 	max_size: number
 }
 
