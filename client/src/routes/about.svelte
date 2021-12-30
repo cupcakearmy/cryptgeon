@@ -22,10 +22,12 @@
 
 	<AboutParagraph title="how does it work?">
 		<span>
-			each note has a 512bit generated <i>id</i> that is used to retrieve the note. the note is then
-			encrypted with aes in gcm mode on the client side and then sent to the server. data is stored in
-			memory and never persisted to disk. the server never sees the encryption key and cannot decrypt
-			the contents of the notes even if it tried to.
+			each note has a generated <code>id (256bit)</code> and <code>key 256(bit)</code>. The
+			<code>id</code>
+			is used to save & retrieve the note. the note is then encrypted with aes in gcm mode on the client
+			side with the <code>key</code> and then sent to the server. data is stored in memory and never
+			persisted to disk. the server never sees the encryption key and cannot decrypt the contents of
+			the notes even if it tried to.
 		</span>
 	</AboutParagraph>
 

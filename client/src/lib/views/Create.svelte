@@ -97,6 +97,10 @@
 	<br />
 	<Button on:click={reset}>new note</Button>
 {:else}
+	<p>
+		Easily send <i>fully encrypted</i>, secure notes or files with one click. Just create a note and
+		share the link.
+	</p>
 	<form on:submit|preventDefault={submit}>
 		<fieldset disabled={loading}>
 			{#if file}

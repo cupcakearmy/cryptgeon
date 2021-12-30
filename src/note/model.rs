@@ -20,7 +20,7 @@ pub struct NotePublic {
 }
 
 pub fn generate_id() -> String {
-  let mut id: [u8; 64] = [0; 64];
+  let mut id: [u8; 32] = [0; 32];
   let sr = ring::rand::SystemRandom::new();
   let _ = sr.fill(&mut id);
   return bs62::encode_data(&id);
