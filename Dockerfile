@@ -1,26 +1,28 @@
+# Client
 FROM node:16-alpine as CLIENT
 
 WORKDIR /tmp
-COPY ./client ./
+COPY ./frontend ./
 
 RUN npm install -g pnpm
 RUN pnpm install
 RUN pnpm run build
 
-FROM rust:1.51-alpine as RUST
+# Rust
+FROM rust:1.56-alpine as RUST
 
 WORKDIR /tmp
 RUN apk add libc-dev openssl-dev alpine-sdk
-COPY ./Cargo* ./
-COPY ./src ./src
+COPY ./backend ./
 
 RUN cargo build --release
 
-FROM scratch
+# Server
+FROM alpine
 
 WORKDIR /app
 COPY --from=RUST /tmp/target/release/cryptgeon .
-COPY --from=CLIENT /tmp/build ./client/build
+COPY --from=CLIENT /tmp/build ./frontend/build
 
 ENV MEMCACHE=memcached:11211
 
