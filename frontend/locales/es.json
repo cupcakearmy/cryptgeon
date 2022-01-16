@@ -1,0 +1,39 @@
+{
+	"common": {
+		"note": "nota",
+		"file": "archivo",
+		"advanced": "avanzado",
+		"create": "crear",
+		"loading": "cargando...",
+		"mode": "modo",
+		"views": "{n, plural, =0 {vistas} =1 {1 vista} other {# vistas}}",
+		"minutes": "{n, plural, =0 {minutos} =1 {1 minuto} other {# minutos}}",
+		"max": "max",
+		"share_link": "compartir enlace",
+		"copy_clipboard": "copiar al portapapeles"
+	},
+	"home": {
+		"intro": "Envía fácilmente notas o archivos <i>totalmente encriptados</i> y seguros con un solo clic. Solo tienes que crear una nota y compartir el enlace.",
+		"explanation": "la nota expirará y se destruirá después de {type}.",
+		"new_note": "nueva nota",
+		"new_note_notice": "<b>disponibilidad:</b><br />no se garantiza que la nota se almacene, ya que todo se guarda en la memoria RAM, si se llena se eliminarán las notas más antiguas.<br />(probablemente estará bien, sólo está advertido.)",
+		"errors": {
+			"note_to_big": "no se pudo crear la nota. la nota es demasiado grande",
+			"note_error": "No se ha podido crear la nota. Por favor, inténtelo de nuevo."
+		}
+	},
+	"show": {
+		"errors": {
+			"not_found": "la nota no se encontró o ya fue borrada.",
+			"decryption_failed": "contraseña incorrecta. no se pudo descifrar. probablemente un enlace roto. la nota fue destruida."
+		},
+		"explanation": "pulse abajo para mostrar y borrar la nota si el contador ha llegado a su límite",
+		"show_note": "mostrar nota",
+		"warning_will_not_see_again": " <b>no</b> tendrás la oportunidad de volver a ver la nota.",
+		"download_all": "descargar todo"
+	},
+	"file_upload": {
+		"selected_files": "Archivos seleccionados",
+		"no_files_selected": "No hay archivos seleccionados"
+	}
+}

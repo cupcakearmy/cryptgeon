@@ -1,0 +1,39 @@
+{
+	"common": {
+		"note": "nota",
+		"file": "file",
+		"advanced": "avanzato",
+		"create": "crea",
+		"loading": "carica...",
+		"mode": "modalita",
+		"views": "{n, plural, =0 {viste} =1 {1 vista} other {# viste}}",
+		"minutes": "{n, plural, =0 {minuti} =1 {1 minuto} other {# minuti}}",
+		"max": "max",
+		"share_link": "condividi link",
+		"copy_clipboard": "copia negli appunti"
+	},
+	"home": {
+		"intro": "Invia facilmente note o file <i>completamente criptati</i> e sicuri con un solo clic. Basta creare una nota e condividere il link.",
+		"explanation": "la nota scadrà e sarà distrutta dopo {type}.",
+		"new_note": "nuova nota",
+		"new_note_notice": "<b>disponibilità:</b><br />la nota non è garantita per essere memorizzata come tutto è tenuto in ram, se si riempie le note più vecchie saranno rimosse.<br />(probabilmente andrà bene, basta essere avvertiti).",
+		"errors": {
+			"note_to_big": "impossibile creare una nota. la nota è troppo grande",
+			"note_error": "Impossibile creare la nota. Riprova."
+		}
+	},
+	"show": {
+		"errors": {
+			"not_found": "non è stata trovata o è stata già cancellata.",
+			"decryption_failed": "password sbagliata. non ha potuto decifrare. probabilmente un link rotto. la nota è stata distrutta."
+		},
+		"explanation": "clicca sotto per mostrare e cancellare la nota se il contatore ha raggiunto il suo limite",
+		"show_note": "mostra la nota",
+		"warning_will_not_see_again": " <b>non</b> avrete la possibilità di rivedere la nota.",
+		"download_all": "scarica tutti"
+	},
+	"file_upload": {
+		"selected_files": "File selezionati",
+		"no_files_selected": "Nessun file selezionato"
+	}
+}

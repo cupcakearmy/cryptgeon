@@ -1,0 +1,39 @@
+{
+	"common": {
+		"note": "Hinweis",
+		"file": "Datei",
+		"advanced": "erweitert",
+		"create": "erstellen",
+		"loading": "Läd...",
+		"mode": "Modus",
+		"views": "{n, plural, =0 {Ansichten} =1 {1 Ansicht} other {# Ansichten}}",
+		"minutes": "{n, plural, =0 {Minuten} =1 {1 Minute} other {# Minuten}}",
+		"max": "max",
+		"share_link": "Link teilen",
+		"copy_clipboard": "in die Zwischenablage kopieren"
+	},
+	"home": {
+		"intro": "Senden Sie ganz einfach <i>vollständig verschlüsselte</i>, sichere Notizen oder Dateien mit einem Klick. Erstellen Sie einfach eine Notiz und teilen Sie den Link.",
+		"explanation": "die Notiz verfällt und wird nach {type} zerstört.",
+		"new_note": "neue Note",
+		"new_note_notice": "<b>Verfügbarkeit:</b><br />es ist nicht garantiert, dass die Notiz gespeichert wird, da alles im Speicher gehalten wird. Wenn dieser voll ist, werden die ältesten Notizen entfernt.<br />(Sie werden wahrscheinlich keine Probleme haben, seien Sie nur gewarnt).",
+		"errors": {
+			"note_to_big": "Notiz konnte nicht erstellt werden. Notiz ist zu groß",
+			"note_error": "konnte keine Notiz erstellen. Bitte versuchen Sie es erneut."
+		}
+	},
+	"show": {
+		"errors": {
+			"not_found": "wurde nicht gefunden oder wurde bereits gelöscht.",
+			"decryption_failed": "falsches Passwort. konnte nicht entziffert werden. wahrscheinlich ein defekter Link. Notiz wurde zerstört."
+		},
+		"explanation": "Klicken Sie unten, um die Notiz anzuzeigen und zu löschen, wenn der Zähler sein Limit erreicht hat",
+		"show_note": "Notiz anzeigen",
+		"warning_will_not_see_again": "haben Sie <b>keine</b> Gelegenheit, die Notiz noch einmal zu sehen.",
+		"download_all": "alle herunterladen"
+	},
+	"file_upload": {
+		"selected_files": "Ausgewählte Dateien",
+		"no_files_selected": "Keine Dateien ausgewählt"
+	}
+}

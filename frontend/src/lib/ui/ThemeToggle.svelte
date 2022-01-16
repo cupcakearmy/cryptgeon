@@ -34,7 +34,6 @@
 
 <script lang="ts">
 	import Icon from '$lib/ui/Icon.svelte'
-	import { t } from 'svelte-intl-precompile'
 
 	function change() {
 		theme.update((current) => NextTheme[current])
@@ -43,7 +42,7 @@
 
 <div on:click={change}>
 	<Icon class="icon" icon="contrast-sharp" />
-	{$t('theme.' + $theme)}
+	{$theme}
 </div>
 
 <style>
