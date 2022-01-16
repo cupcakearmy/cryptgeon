@@ -2,6 +2,7 @@
 	import type { FileDTO } from '$lib/api'
 	import { Files } from '$lib/files'
 	import { createEventDispatcher } from 'svelte'
+	import { t } from 'svelte-intl-precompile'
 	import MaxSize from './MaxSize.svelte'
 
 	export let label: string = ''
@@ -40,7 +41,7 @@
 	<div class="box">
 		{#if files.length}
 			<div>
-				<b>Selected Files</b>
+				<b>{$t('file_upload.selected_files')}</b>
 				{#each files as file}
 					<div class="file">
 						{file.name}
@@ -49,9 +50,9 @@
 			</div>
 		{:else}
 			<div>
-				<b>No Files Selected</b>
+				<b>{$t('file_upload.no_files_selected')}</b>
 				<br />
-				<small>max: <MaxSize /></small>
+				<small>{$t('common.max')}: <MaxSize /></small>
 			</div>
 		{/if}
 	</div>

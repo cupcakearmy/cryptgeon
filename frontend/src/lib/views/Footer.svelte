@@ -1,14 +1,16 @@
 <script lang="ts">
-	import Icon from '$lib/ui/Icon.svelte'
 	import ThemeToggle from '$lib/ui/ThemeToggle.svelte'
+	import { t } from 'svelte-intl-precompile'
 </script>
 
 <footer>
 	<ThemeToggle />
 	<nav>
-		<a href="/">/home</a>
-		<a href="/about">/about</a>
-		<a href="https://github.com/cupcakearmy/cryptgeon" target="_blank" rel="noopener">/code</a>
+		<a href="/">/{$t('nav.home')}</a>
+		<a href="/about">/{$t('nav.about')}</a>
+		<a href="https://github.com/cupcakearmy/cryptgeon" target="_blank" rel="noopener"
+			>/{$t('nav.code')}</a
+		>
 	</nav>
 </footer>
 

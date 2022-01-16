@@ -8,6 +8,7 @@
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import TextInput from '$lib/ui/TextInput.svelte'
 	import { blur } from 'svelte/transition'
+	import { t } from 'svelte-intl-precompile'
 
 	let note: Note = {
 		contents: '',
@@ -18,20 +19,24 @@
 	let result: { password: string; id: string } | null = null
 	let advanced = false
 	let file = false
-	let type = false
+	let timeExpiration = false
 	let message = ''
 	let loading = false
 	let error: string | null = null
 
 	$: if (!advanced) {
 		note.views = 1
-		type = false
+		timeExpiration = false
 	}
 
 	$: {
-		let fraction: string
-		fraction = type ? `${note.expiration} minutes` : `${note.views} views`
-		message = 'the note will expire and be destroyed after ' + fraction
+		message = $t('home.explanation', {
+			values: {
+				type: $t(timeExpiration ? 'common.minutes' : 'common.views', {
+					values: { n: timeExpiration ? note.expiration : note.views },
+				}),
+			},
+		})
 	}
 
 	$: note.meta.type = file ? 'file' : 'text'
@@ -50,10 +55,8 @@
 				contents: await encrypt(note.contents, key),
 				meta: note.meta,
 			}
-			// @ts-ignore
-			if (type) data.expiration = parseInt(note.expiration)
-			// @ts-ignore
-			else data.views = parseInt(note.views)
+			if (timeExpiration) data.expiration = parseInt(note.expiration as any)
+			else data.views = parseInt(note.views as any)
 
 			const response = await create(data)
 			result = {
@@ -62,9 +65,9 @@
 			}
 		} catch (e) {
 			if (e instanceof PayloadToLargeError) {
-				error = 'could not create not. note is to big'
+				error = $t('home.errors.note_to_big')
 			} else {
-				error = 'could not create note. please try again.'
+				error = $t('home.errors.note_error')
 			}
 		} finally {
 			loading = false
@@ -80,48 +83,36 @@
 	<TextInput
 		type="text"
 		readonly
-		label="share link"
+		label={$t('common.share_link')}
 		value="{window.location.origin}/note/{result.id}#{result.password}"
 		copy
-		data-testid="note-share-link"
 	/>
 	<br />
 	<p>
-		<b>availability:</b>
-		<br />
-		the note is not guaranteed to be stored as everything is kept in ram, if it fills up the oldest notes
-		will be removed.
-		<br />
-		(you probably will be fine, just be warned.)
+		{@html $t('home.new_note_notice')}
 	</p>
 	<br />
-	<Button on:click={reset}>new note</Button>
+	<Button on:click={reset}>{$t('home.new_note')}</Button>
 {:else}
 	<p>
-		Easily send <i>fully encrypted</i>, secure notes or files with one click. Just create a note and
-		share the link.
+		{@html $t('home.intro')}
 	</p>
 	<form on:submit|preventDefault={submit}>
 		<fieldset disabled={loading}>
 			{#if file}
-				<FileUpload label="file" on:file={(f) => (note.contents = f.detail)} />
+				<FileUpload label={$t('common.file')} on:file={(f) => (note.contents = f.detail)} />
 			{:else}
-				<TextArea
-					label="note"
-					bind:value={note.contents}
-					placeholder="..."
-					data-testid="input-note"
-				/>
+				<TextArea label={$t('common.note')} bind:value={note.contents} placeholder="..." />
 			{/if}
 
 			<div class="bottom">
-				<Switch class="file" label="file" bind:value={file} />
-				<Switch label="advanced" bind:value={advanced} />
+				<Switch class="file" label={$t('common.file')} bind:value={file} />
+				<Switch label={$t('common.advanced')} bind:value={advanced} />
 				<div class="grow" />
 				<div class="tr">
-					<small>max: <MaxSize /> </small>
+					<small>{$t('common.max')}: <MaxSize /> </small>
 					<br />
-					<Button type="submit" data-testid="button-create">create</Button>
+					<Button type="submit">{$t('common.create')}</Button>
 				</div>
 			</div>
 
@@ -132,7 +123,7 @@
 			<p>
 				<br />
 				{#if loading}
-					loading...
+					{$t('common.loading')}
 				{:else}
 					{message}
 				{/if}
@@ -144,19 +135,19 @@
 					<div class="fields">
 						<TextInput
 							type="number"
-							label="views"
+							label={$t('common.views', { values: { n: 0 } })}
 							bind:value={note.views}
-							disabled={type}
+							disabled={timeExpiration}
 							max={100}
 						/>
 						<div class="middle-switch">
-							<Switch label="mode" bind:value={type} color={false} />
+							<Switch label={$t('common.mode')} bind:value={timeExpiration} color={false} />
 						</div>
 						<TextInput
 							type="number"
-							label="minutes"
+							label={$t('common.minutes', { values: { n: 0 } })}
 							bind:value={note.expiration}
-							disabled={!type}
+							disabled={!timeExpiration}
 							max={360}
 						/>
 					</div>

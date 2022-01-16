@@ -4,6 +4,7 @@
 	import copy from 'copy-to-clipboard'
 	import { saveAs } from 'file-saver'
 	import prettyBytes from 'pretty-bytes'
+	import { t } from 'svelte-intl-precompile'
 	import Button from './Button.svelte'
 
 	export let note: NotePublic
@@ -28,20 +29,20 @@
 	}
 </script>
 
-<p class="error-text">you will <b>not</b> get the chance to see the note again.</p>
+<p class="error-text">{@html $t('show.warning_will_not_see_again')}</p>
 {#if note.meta.type === 'text'}
-	<div class="note" data-testid="note-result">
+	<div class="note">
 		{note.contents}
 	</div>
-	<Button on:click={() => copy(note.contents)}>copy to clipboard</Button>
+	<Button on:click={() => copy(note.contents)}>{$t('common.copy_clipboard')}</Button>
 {:else}
 	{#each files as file}
-		<div class="note file" data-testid="note-result">
+		<div class="note file">
 			<b on:click={() => downloadFile(file)}>↓ {file.name}</b>
 			<small> {file.type} － {prettyBytes(file.size)}</small>
 		</div>
 	{/each}
-	<Button on:click={download}>download all</Button>
+	<Button on:click={download}>{$t('show.download_all')}</Button>
 {/if}
 
 <style>

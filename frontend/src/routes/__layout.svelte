@@ -1,12 +1,20 @@
+<script lang="ts" context="module">
+	import { init, waitLocale, getLocaleFromNavigator } from 'svelte-intl-precompile'
+	// @ts-ignore
+	import { registerAll } from '$locales'
+	registerAll()
+	init({ initialLocale: getLocaleFromNavigator(), fallbackLocale: 'en' })
+</script>
+
 <script lang="ts">
-	import { init } from '$lib/stores/status'
+	import { init as initStores } from '$lib/stores/status'
 	import Footer from '$lib/views/Footer.svelte'
 	import Header from '$lib/views/Header.svelte'
 	import { onMount } from 'svelte'
 	import '../app.css'
 
 	onMount(() => {
-		init()
+		initStores()
 	})
 </script>
 
@@ -14,12 +22,14 @@
 	<title>cryptgeon</title>
 </svelte:head>
 
-<main>
-	<Header />
-	<slot />
-</main>
+{#await waitLocale() then _}
+	<main>
+		<Header />
+		<slot />
+	</main>
 
-<Footer />
+	<Footer />
+{/await}
 
 <style>
 	main {

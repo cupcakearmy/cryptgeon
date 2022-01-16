@@ -13,6 +13,7 @@
 	import Button from '$lib/ui/Button.svelte'
 	import ShowNote from '$lib/ui/ShowNote.svelte'
 	import { onMount } from 'svelte'
+	import { t } from 'svelte-intl-precompile'
 
 	export let id: string
 
@@ -55,20 +56,18 @@
 
 {#if !loading}
 	{#if !exists}
-		<p class="error-text" data-testid="note-not-found">
-			note was not found or was already deleted.
-		</p>
+		<p class="error-text">{$t('show.errors.not_found')}</p>
 	{:else if note && !error}
 		<ShowNote {note} />
 	{:else}
 		<form on:submit|preventDefault={show}>
 			<fieldset>
-				<p>click below to show and delete the note if the counter has reached it's limit</p>
-				<Button type="submit" data-testid="button-show">show note</Button>
+				<p>{$t('show.explanation')}</p>
+				<Button type="submit">{$t('show.show_note')}</Button>
 				{#if error}
 					<br />
 					<p class="error-text">
-						wrong password. could not decipher. probably a broken link. note was destroyed.
+						{$t('show.errors.decryption_failed')}
 						<br />
 					</p>
 				{/if}
@@ -77,5 +76,5 @@
 	{/if}
 {/if}
 {#if loading}
-	<p>loading...</p>
+	<p>{$t('common.loading')}</p>
 {/if}
