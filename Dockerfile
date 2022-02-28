@@ -9,7 +9,7 @@ RUN pnpm install
 RUN pnpm run build
 
 # Rust
-FROM rust:1.56-alpine as RUST
+FROM rust:1.59-alpine as RUST
 
 WORKDIR /tmp
 RUN apk add libc-dev openssl-dev alpine-sdk

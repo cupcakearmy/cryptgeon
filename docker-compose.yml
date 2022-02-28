@@ -7,7 +7,7 @@ services:
   memcached:
     image: memcached:1-alpine
     restart: unless-stopped
-    entrypoint: memcached -m 128M -I 4M
+    entrypoint: memcached -m 256M -I 128M
     ports:
       - 11211:11211
 
@@ -16,6 +16,6 @@ services:
     depends_on:
       - memcached
     environment:
-      SIZE_LIMIT: 4M
+      SIZE_LIMIT: 128M
     ports:
       - 80:5000
