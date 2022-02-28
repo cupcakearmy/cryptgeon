@@ -10,11 +10,9 @@ lazy_static! {
 }
 
 pub fn init(cfg: &mut web::ServiceConfig) {
-  println!("Limit: {}", *LIMIT);
   let json = web::JsonConfig::default().limit(*LIMIT);
   let plain = web::PayloadConfig::default()
     .limit(*LIMIT)
     .mimetype(mime::STAR_STAR);
-  cfg.data(json);
-  cfg.data(plain);
+  cfg.app_data(json).app_data(plain);
 }

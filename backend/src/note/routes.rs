@@ -1,4 +1,4 @@
-use actix_web::{delete, get, post, web, HttpResponse, Responder};
+use actix_web::{delete, get, post, web, HttpResponse, Responder, Scope};
 use serde::{Deserialize, Serialize};
 use std::time::SystemTime;
 
@@ -122,16 +122,9 @@ async fn status() -> impl Responder {
   });
 }
 
-pub fn init(cfg: &mut web::ServiceConfig) {
-  cfg.service(
-    web::scope("/api")
-      .service(
-        web::scope("/notes")
-          .service(one)
-          .service(create)
-          .service(delete)
-          .service(status),
-      )
-      .service(status),
-  );
+pub fn service() -> Scope {
+  web::scope("/notes")
+    .service(one)
+    .service(create)
+    .service(delete)
 }

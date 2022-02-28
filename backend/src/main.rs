@@ -1,9 +1,10 @@
-use actix_web::{middleware, web, App, HttpServer};
+use actix_web::{middleware, App, HttpServer};
 use dotenv::dotenv;
 
 #[macro_use]
 extern crate lazy_static;
 
+mod api;
 mod client;
 mod note;
 mod size;
@@ -17,9 +18,8 @@ async fn main() -> std::io::Result<()> {
             .wrap(middleware::Compress::default())
             .wrap(middleware::DefaultHeaders::default())
             .configure(size::init)
-            .configure(note::init)
+            .configure(api::init)
             .configure(client::init)
-            .default_service(web::resource("").route(web::get().to(client::fallback_fn)))
     })
     .bind("0.0.0.0:5000")?
     .run()
