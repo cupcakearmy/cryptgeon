@@ -8,7 +8,7 @@
 	import Icon from './Icon.svelte'
 
 	export let label: string = ''
-	export let value
+	export let value: string | number
 
 	export let copy: boolean = false
 	export let random: boolean = false
@@ -28,7 +28,7 @@
 		hidden = !hidden
 	}
 	function copyFN() {
-		copyToClipboard(value)
+		copyToClipboard(value.toString())
 		notify($t('home.copied_to_clipboard'))
 	}
 	function randomFN() {
@@ -53,13 +53,13 @@
 	<input bind:value {...$$restProps} />
 	<div class="icons">
 		{#if isPassword}
-			<Icon class="icon" icon={hidden ? 'eye-sharp' : 'eye-off-sharp'} on:click={toggle} />
+			<Icon class="icon" icon={hidden ? 'eye' : 'eye-off'} on:click={toggle} />
 		{/if}
 		{#if random}
-			<Icon class="icon" icon="dice-sharp" on:click={randomFN} />
+			<Icon class="icon" icon="dice" on:click={randomFN} />
 		{/if}
 		{#if copy}
-			<Icon class="icon" icon="copy-sharp" on:click={copyFN} />
+			<Icon class="icon" icon="copy" on:click={copyFN} />
 		{/if}
 	</div>
 	{#if notification}
