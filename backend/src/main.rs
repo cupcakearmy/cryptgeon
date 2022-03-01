@@ -6,8 +6,10 @@ extern crate lazy_static;
 
 mod api;
 mod client;
+mod config;
 mod note;
 mod size;
+mod status;
 mod store;
 
 #[actix_web::main]

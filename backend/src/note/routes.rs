@@ -110,7 +110,7 @@ struct Status {
   max_size: usize,
 }
 
-pub fn service() -> Scope {
+pub fn init() -> Scope {
   web::scope("/notes")
     .service(one)
     .service(create)
