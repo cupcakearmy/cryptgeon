@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 pub struct Note {
   pub meta: String,
   pub contents: String,
-  pub views: Option<u8>,
+  pub views: Option<u32>,
   pub expiration: Option<u32>,
 }
 

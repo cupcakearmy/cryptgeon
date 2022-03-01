@@ -2,6 +2,7 @@ use actix_web::{delete, get, post, web, HttpResponse, Responder, Scope};
 use serde::{Deserialize, Serialize};
 use std::time::SystemTime;
 
+use crate::config;
 use crate::note::{generate_id, Note, NoteInfo, NotePublic};
 use crate::store;
 
@@ -40,17 +41,22 @@ async fn create(note: web::Json<Note>) -> impl Responder {
   if n.views == None && n.expiration == None {
     return bad_req;
   }
+  if !*config::ALLOW_ADVANCED {
+    n.views = Some(1);
+    n.expiration = None;
+  }
   match n.views {
     Some(v) => {
-      if v > 100 {
+      if v > *config::MAX_VIEWS {
         return bad_req;
       }
+      n.expiration = None; // views overrides expiration
     }
     _ => {}
   }
   match n.expiration {
     Some(e) => {
-      if e > 360 {
+      if e > *config::MAX_EXPIRATION {
         return bad_req;
       }
       let expiration = now() + (e * 60);

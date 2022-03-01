@@ -1,14 +1,15 @@
 <script lang="ts">
 	import { create, Note, PayloadToLargeError } from '$lib/api'
 	import { encrypt, getKeyFromString, getRandomBytes, Hex } from '$lib/crypto'
+	import { status } from '$lib/stores/status'
 	import Button from '$lib/ui/Button.svelte'
 	import FileUpload from '$lib/ui/FileUpload.svelte'
 	import MaxSize from '$lib/ui/MaxSize.svelte'
 	import Switch from '$lib/ui/Switch.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import TextInput from '$lib/ui/TextInput.svelte'
-	import { blur } from 'svelte/transition'
 	import { t } from 'svelte-intl-precompile'
+	import { blur } from 'svelte/transition'
 
 	let note: Note = {
 		contents: '',
@@ -107,7 +108,9 @@
 
 			<div class="bottom">
 				<Switch class="file" label={$t('common.file')} bind:value={file} />
-				<Switch label={$t('common.advanced')} bind:value={advanced} />
+				{#if $status?.allow_advanced}
+					<Switch label={$t('common.advanced')} bind:value={advanced} />
+				{/if}
 				<div class="grow" />
 				<div class="tr">
 					<small>{$t('common.max')}: <MaxSize /> </small>
@@ -138,7 +141,10 @@
 							label={$t('common.views', { values: { n: 0 } })}
 							bind:value={note.views}
 							disabled={timeExpiration}
-							max={100}
+							max={$status?.max_views}
+							validate={(v) =>
+								($status && v < $status?.max_views) ||
+								$t('home.errors.max', { values: { n: $status?.max_views ?? 0 } })}
 						/>
 						<div class="middle-switch">
 							<Switch label={$t('common.mode')} bind:value={timeExpiration} color={false} />
@@ -148,7 +154,10 @@
 							label={$t('common.minutes', { values: { n: 0 } })}
 							bind:value={note.expiration}
 							disabled={!timeExpiration}
-							max={360}
+							max={$status?.max_expiration}
+							validate={(v) =>
+								($status && v < $status?.max_expiration) ||
+								$t('home.errors.max', { values: { n: $status?.max_expiration ?? 0 } })}
 						/>
 					</div>
 				</div>

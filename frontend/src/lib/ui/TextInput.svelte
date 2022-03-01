@@ -1,15 +1,13 @@
 <script lang="ts">
 	import { getRandomBytes, Hex } from '$lib/crypto'
-
-	import { fade } from 'svelte/transition'
-	import { t } from 'svelte-intl-precompile'
 	import copyToClipboard from 'copy-to-clipboard'
-
+	import { t } from 'svelte-intl-precompile'
+	import { fade } from 'svelte/transition'
 	import Icon from './Icon.svelte'
 
 	export let label: string = ''
 	export let value: any
-
+	export let validate: (value: any) => boolean | string = () => true
 	export let copy: boolean = false
 	export let random: boolean = false
 
@@ -18,6 +16,8 @@
 	let hidden = true
 	let notification: string | null = null
 	let notificationTimeout: NodeJS.Timeout | null = null
+
+	$: valid = validate(value)
 
 	$: if (isPassword) {
 		value
@@ -49,8 +49,11 @@
 <label>
 	<small disabled={$$restProps.disabled}>
 		{label}
+		{#if valid !== true}
+			<span class="error-text">{valid}</span>
+		{/if}
 	</small>
-	<input bind:value {...$$restProps} />
+	<input bind:value {...$$restProps} class:valid={valid === true} />
 	<div class="icons">
 		{#if isPassword}
 			<Icon class="icon" icon={hidden ? 'eye' : 'eye-off'} on:click={toggle} />
@@ -73,6 +76,10 @@
 		display: block;
 	}
 
+	label > small {
+		display: block;
+	}
+
 	input {
 		width: 100%;
 		margin: 0;
@@ -84,6 +91,10 @@
 	input:hover,
 	input:focus {
 		border-color: var(--ui-clr-primary);
+	}
+
+	input:not(.valid) {
+		border-color: var(--ui-clr-error);
 	}
 
 	.icons {

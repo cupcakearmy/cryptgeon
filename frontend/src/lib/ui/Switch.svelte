@@ -49,7 +49,7 @@
 		height: 2rem;
 		width: 1.25rem;
 		left: 0.125rem;
-		bottom: 0.1rem;
+		bottom: 0.125rem;
 		background-color: var(--ui-bg-1);
 		-webkit-transition: 0.4s;
 		transition: var(--ui-anim);

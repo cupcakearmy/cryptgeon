@@ -19,7 +19,8 @@
 		"new_note_notice": "<b>Verfügbarkeit:</b><br />es ist nicht garantiert, dass die Notiz gespeichert wird, da alles im Speicher gehalten wird. Wenn dieser voll ist, werden die ältesten Notizen entfernt.<br />(Sie werden wahrscheinlich keine Probleme haben, seien Sie nur gewarnt).",
 		"errors": {
 			"note_to_big": "Notiz konnte nicht erstellt werden. Notiz ist zu groß",
-			"note_error": "konnte keine Notiz erstellen. Bitte versuchen Sie es erneut."
+			"note_error": "konnte keine Notiz erstellen. Bitte versuchen Sie es erneut.",
+			"max": "max: {n}"
 		},
 		"copied_to_clipboard": "in die Zwischenablage kopiert 🔗"
 	},
