@@ -60,11 +60,18 @@
 
 	.note b {
 		cursor: pointer;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.note.file {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+	}
+
+	.note.file small {
+		padding-left: 1rem;
 	}
 </style>
