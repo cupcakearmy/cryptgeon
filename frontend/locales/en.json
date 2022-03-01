@@ -20,7 +20,8 @@
 		"errors": {
 			"note_to_big": "could not create note. note is to big",
 			"note_error": "could not create note. please try again."
-		}
+		},
+		"copied_to_clipboard": "copied to clipboard 🔗"
 	},
 	"show": {
 		"errors": {

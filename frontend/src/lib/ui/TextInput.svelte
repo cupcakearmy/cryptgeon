@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { getRandomBytes, Hex } from '$lib/crypto'
 
+	import { fade } from 'svelte/transition'
+	import { t } from 'svelte-intl-precompile'
 	import copyToClipboard from 'copy-to-clipboard'
 
 	import Icon from './Icon.svelte'
@@ -14,6 +16,8 @@
 	const initialType = $$restProps.type
 	const isPassword = initialType === 'password'
 	let hidden = true
+	let notification: string | null = null
+	let notificationTimeout: NodeJS.Timeout | null = null
 
 	$: if (isPassword) {
 		value
@@ -25,9 +29,20 @@
 	}
 	function copyFN() {
 		copyToClipboard(value)
+		notify($t('home.copied_to_clipboard'))
 	}
 	function randomFN() {
 		value = Hex.encode(getRandomBytes(20))
+	}
+
+	function notify(msg: string, delay: number = 2000) {
+		if (notificationTimeout) {
+			clearTimeout(notificationTimeout)
+		}
+		notificationTimeout = setTimeout(() => {
+			notification = null
+		}, delay)
+		notification = msg
 	}
 </script>
 
@@ -47,6 +62,9 @@
 			<Icon class="icon" icon="copy-sharp" on:click={copyFN} />
 		{/if}
 	</div>
+	{#if notification}
+		<div class="notification" transition:fade><small>{notification}</small></div>
+	{/if}
 </label>
 
 <style>
@@ -87,5 +105,12 @@
 	}
 	.icons > :global(.icon:hover) {
 		border-color: var(--ui-clr-primary);
+	}
+
+	.notification {
+		text-align: right;
+		position: absolute;
+		right: 0;
+		bottom: -1.5em;
 	}
 </style>

@@ -20,7 +20,8 @@
 		"errors": {
 			"note_to_big": "impossibile creare una nota. la nota è troppo grande",
 			"note_error": "Impossibile creare la nota. Riprova."
-		}
+		},
+		"copied_to_clipboard": "copiato negli appunti 🔗"
 	},
 	"show": {
 		"errors": {
