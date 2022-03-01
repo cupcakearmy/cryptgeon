@@ -8,7 +8,7 @@
 	import Icon from './Icon.svelte'
 
 	export let label: string = ''
-	export let value: string | number
+	export let value: any
 
 	export let copy: boolean = false
 	export let random: boolean = false

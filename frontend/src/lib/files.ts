@@ -7,7 +7,7 @@ export class Files {
 		})
 	}
 
-	static fromString(s: string): Promise<Blob> {
+	static async fromString(s: string): Promise<Blob> {
 		return fetch(s).then((r) => r.blob())
 	}
 }

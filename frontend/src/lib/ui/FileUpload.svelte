@@ -12,7 +12,7 @@
 
 	async function onInput(e: Event) {
 		const input = e.target as HTMLInputElement
-		if (input.files.length) {
+		if (input?.files?.length) {
 			files = Array.from(input.files)
 			const data: FileDTO[] = await Promise.all(
 				files.map(async (file) => ({

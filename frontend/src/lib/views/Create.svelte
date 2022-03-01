@@ -33,7 +33,7 @@
 		message = $t('home.explanation', {
 			values: {
 				type: $t(timeExpiration ? 'common.minutes' : 'common.views', {
-					values: { n: timeExpiration ? note.expiration : note.views },
+					values: { n: (timeExpiration ? note.expiration : note.views) ?? '?' },
 				}),
 			},
 		})

@@ -1,5 +1,7 @@
 <script context="module" lang="ts">
-	export async function load({ params }) {
+	import type { Load } from '@sveltejs/kit'
+
+	export const load: Load = async ({ params }) => {
 		return {
 			props: params,
 		}
@@ -7,13 +9,14 @@
 </script>
 
 <script lang="ts">
+	import { onMount } from 'svelte'
+	import { t } from 'svelte-intl-precompile'
+
 	import type { NotePublic } from '$lib/api'
 	import { get, info } from '$lib/api'
 	import { decrypt, getKeyFromString } from '$lib/crypto'
 	import Button from '$lib/ui/Button.svelte'
 	import ShowNote from '$lib/ui/ShowNote.svelte'
-	import { onMount } from 'svelte'
-	import { t } from 'svelte-intl-precompile'
 
 	export let id: string
 
@@ -27,7 +30,7 @@
 	onMount(async () => {
 		try {
 			loading = true
-			error = null
+			error = false
 			password = window.location.hash.slice(1)
 			await info(id)
 			exists = true

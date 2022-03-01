@@ -3,7 +3,7 @@
 	// @ts-ignore
 	import { registerAll } from '$locales'
 	registerAll()
-	init({ initialLocale: getLocaleFromNavigator(), fallbackLocale: 'en' })
+	init({ initialLocale: getLocaleFromNavigator() ?? undefined, fallbackLocale: 'en' })
 </script>
 
 <script lang="ts">
