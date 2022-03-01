@@ -1,27 +1,30 @@
-<script lang="ts">
-	import { onMount } from 'svelte'
-	export let icon: string = ''
-	export let href: string = ''
+<script lang="ts" context="module">
+	import IconContrast from '$lib/icons/IconContrast.svelte'
+	import IconCopy from '$lib/icons/IconCopy.svelte'
+	import IconDice from '$lib/icons/IconDice.svelte'
+	import IconEye from '$lib/icons/IconEye.svelte'
+	import IconEyeOff from '$lib/icons/IconEyeOff.svelte'
 
-	$: src = href || `/icons/${icon}.svg`
-
-	let html = null
-
-	onMount(async () => {
-		html = await fetch(src).then((res) => res.text())
-	})
+	const map = {
+		contrast: IconContrast,
+		copy: IconCopy,
+		dice: IconDice,
+		eye: IconEye,
+		'eye-off': IconEyeOff,
+	}
 </script>
 
-{#if html === null}
-	<img on:click {...$$restProps} {src} alt={icon} />
-{:else}
-	<div on:click {...$$restProps}>
-		{@html html}
-	</div>
-{/if}
+<script lang="ts">
+	export let icon: keyof typeof map
+</script>
+
+<div on:click {...$$restProps}>
+	{#if map[icon]}
+		<svelte:component this={map[icon]} />
+	{/if}
+</div>
 
 <style>
-	img,
 	div {
 		display: inline-block;
 		contain: strict;

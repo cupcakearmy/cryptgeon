@@ -41,7 +41,7 @@
 </script>
 
 <div on:click={change}>
-	<Icon class="icon" icon="contrast-sharp" />
+	<Icon class="icon" icon="contrast" />
 	{$theme}
 </div>
 
