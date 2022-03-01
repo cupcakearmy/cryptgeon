@@ -22,10 +22,6 @@
 					contents: await Files.toString(file),
 				}))
 			)
-			console.debug(
-				'files',
-				data.map((d) => d.contents.length)
-			)
 			dispatch('file', JSON.stringify(data))
 		} else {
 			dispatch('file', '')

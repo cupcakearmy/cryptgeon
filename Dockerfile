@@ -1,4 +1,4 @@
-# Client
+# Frontend
 FROM node:16-alpine as CLIENT
 
 WORKDIR /tmp
@@ -8,7 +8,7 @@ RUN npm install -g pnpm
 RUN pnpm install
 RUN pnpm run build
 
-# Rust
+# Backend
 FROM rust:1.59-alpine as RUST
 
 WORKDIR /tmp
