@@ -3,7 +3,6 @@ use serde::{Deserialize, Serialize};
 use std::time::SystemTime;
 
 use crate::note::{generate_id, Note, NoteInfo, NotePublic};
-use crate::size::LIMIT;
 use crate::store;
 
 pub fn now() -> u32 {
@@ -109,17 +108,6 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
 struct Status {
   version: String,
   max_size: usize,
-}
-
-#[get("/status")]
-async fn status() -> impl Responder {
-  println!("Limit: {}", *LIMIT);
-  return HttpResponse::Ok().json(Status {
-    version: option_env!("CARGO_PKG_VERSION")
-      .unwrap_or("Unknown")
-      .to_string(),
-    max_size: *LIMIT,
-  });
 }
 
 pub fn service() -> Scope {
