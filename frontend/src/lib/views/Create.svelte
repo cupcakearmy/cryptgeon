@@ -46,12 +46,15 @@
 		note.contents = ''
 	}
 
+	class EmptyContentError extends Error {}
+
 	async function submit() {
 		try {
 			error = null
 			loading = true
 			const password = Hex.encode(getRandomBytes(32))
 			const key = await getKeyFromString(password)
+			if (note.contents === '') throw new EmptyContentError()
 			const data: Note = {
 				contents: await encrypt(note.contents, key),
 				meta: note.meta,
@@ -67,6 +70,8 @@
 		} catch (e) {
 			if (e instanceof PayloadToLargeError) {
 				error = $t('home.errors.note_to_big')
+			} else if (e instanceof EmptyContentError) {
+				error = $t('home.errors.empty_content')
 			} else {
 				error = $t('home.errors.note_error')
 			}

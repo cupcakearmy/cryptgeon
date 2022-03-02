@@ -20,7 +20,8 @@
 		"errors": {
 			"note_to_big": "Notiz konnte nicht erstellt werden. Notiz ist zu groß",
 			"note_error": "konnte keine Notiz erstellen. Bitte versuchen Sie es erneut.",
-			"max": "max: {n}"
+			"max": "max: {n}",
+			"empty_content": "Notiz ist leer."
 		},
 		"copied_to_clipboard": "in die Zwischenablage kopiert 🔗"
 	},

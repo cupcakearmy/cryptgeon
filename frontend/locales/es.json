@@ -20,7 +20,8 @@
 		"errors": {
 			"note_to_big": "no se pudo crear la nota. la nota es demasiado grande",
 			"note_error": "No se ha podido crear la nota. Por favor, inténtelo de nuevo.",
-			"max": "max: {n}"
+			"max": "max: {n}",
+			"empty_content": "la nota está vacía."
 		},
 		"copied_to_clipboard": "copiado al portapapeles 🔗"
 	},
