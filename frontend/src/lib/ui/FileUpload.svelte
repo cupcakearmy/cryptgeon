@@ -3,6 +3,7 @@
 	import { Files } from '$lib/files'
 	import { createEventDispatcher } from 'svelte'
 	import { t } from 'svelte-intl-precompile'
+	import Button from './Button.svelte'
 	import MaxSize from './MaxSize.svelte'
 
 	export let label: string = ''
@@ -13,7 +14,7 @@
 	async function onInput(e: Event) {
 		const input = e.target as HTMLInputElement
 		if (input?.files?.length) {
-			files = Array.from(input.files)
+			files = [...files, ...Array.from(input.files)]
 			const data: FileDTO[] = await Promise.all(
 				files.map(async (file) => ({
 					name: file.name,
@@ -26,6 +27,12 @@
 		} else {
 			dispatch('file', '')
 		}
+	}
+
+	function clear(e: Event) {
+		e.preventDefault()
+		files = []
+		dispatch('file', '')
 	}
 </script>
 
@@ -43,6 +50,8 @@
 						{file.name}
 					</div>
 				{/each}
+				<div class="spacer" />
+				<Button on:click={clear}>Clear</Button>
 			</div>
 		{:else}
 			<div>
@@ -65,5 +74,9 @@
 		justify-content: center;
 		align-items: center;
 		cursor: pointer;
+	}
+
+	.spacer {
+		margin-top: 1rem;
 	}
 </style>
