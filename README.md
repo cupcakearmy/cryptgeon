@@ -10,12 +10,17 @@
 </a>
 
 <br/>
-<a href="https://www.producthunt.com/posts/cryptgeon?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cryptgeon" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=295189&theme=light" alt="Cryptgeon - Securely share self-destructing notes | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+<a href="https://www.producthunt.com/posts/cryptgeon?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cryptgeon" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=295189&theme=light" alt="Cryptgeon - Securely share self-destructing notes | Product Hunt" height="50" /></a>
+<a href=""><img src="./.github/lokalise.png" height="50">
 <br/>
 
 ## About?
 
 _cryptgeon_ is a secure, open source sharing note or file service inspired by [_PrivNote_](https://privnote.com)
+
+> 🌍 If you want to translate the project feel free to reach out to me.
+>
+> Thanks to [Lokalise](https://lokalise.com/) for providing free access to their platform.
 
 ## Demo
 
