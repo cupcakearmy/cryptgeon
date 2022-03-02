@@ -9,7 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Support for multiple languages
+- Support for multiple languages.
+- Select multiple files without removing already selected ones.
+- Tooltip for copy action.
+- Configure maximum views, expiration and advanced options for the server.
+
+### Changed
+
+- Use native SVGs instead of images.
+- Update robots.txt file to allow only root.
+- Stronger frontend types.
 
 ## [1.3.3] - 2022-01-03
 
