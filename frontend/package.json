@@ -5,13 +5,17 @@
 		"build": "svelte-kit build",
 		"preview": "svelte-kit preview",
 		"check": "svelte-check --tsconfig tsconfig.json",
-		"licenses": "license-checker --summary > licenses.csv"
+		"licenses": "license-checker --summary > licenses.csv",
+		"locale:download": "node scripts/locale.js"
 	},
 	"type": "module",
 	"devDependencies": {
+		"@lokalise/node-api": "^7.1.1",
 		"@sveltejs/adapter-static": "^1.0.0-next.26",
 		"@sveltejs/kit": "^1.0.0-next.231",
 		"@types/file-saver": "^2.0.5",
+		"adm-zip": "^0.5.9",
+		"dotenv": "^16.0.0",
 		"svelte": "^3.46.2",
 		"svelte-check": "^2.4.5",
 		"svelte-intl-precompile": "^0.8.0",
