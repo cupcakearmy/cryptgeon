@@ -1,4 +1,4 @@
-use actix_web::{middleware, App, HttpServer};
+use actix_web::{middleware, web, App, HttpServer};
 use dotenv::dotenv;
 
 #[macro_use]
@@ -22,6 +22,7 @@ async fn main() -> std::io::Result<()> {
             .configure(size::init)
             .configure(api::init)
             .configure(client::init)
+            .default_service(web::to(client::index))
     })
     .bind("0.0.0.0:5000")?
     .run()
