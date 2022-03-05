@@ -9,7 +9,6 @@ export default {
 		adapter: adapter({
 			fallback: 'index.html',
 		}),
-		target: '#svelte',
 		vite: {
 			plugins: [
 				precompileIntl('locales'), // if your translations are defined in /locales/[lang].json

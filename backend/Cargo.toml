@@ -1,6 +1,6 @@
 [package]
 name = "cryptgeon"
-version = "1.4.0"
+version = "1.4.1"
 authors = ["cupcakearmy <hi@nicco.io>"]
 edition = "2021"
 
