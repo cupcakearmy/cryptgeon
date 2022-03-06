@@ -1,0 +1,133 @@
+# Install from scratch.
+
+This is a tiny guide to install cryptgeon on (probably) any unix system (and maybe windows?) from scratch using traefik as the proxy, which will manage certificates and handle https for us.
+
+1. Install Docker & Docker Compose.
+2. Install Traefik.
+3. Run the cryptgeon.
+
+## Install Docker & DOcker Compose
+
+- [Docker](https://docs.docker.com/engine/install/)
+- [Compose](https://docs.docker.com/compose/install/)
+
+## Install Traefik 2.0
+
+```sh
+/foo/bar/traefik/
+├── docker-compose.yaml
+└── traefik.yaml
+```
+
+```yaml
+# docker-compose.yaml
+
+version: '3.8'
+services:
+  traefik:
+    image: traefik:2.6
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.yaml:/etc/traefik/traefik.yaml:ro
+      - ./data:/data
+    labels:
+      - 'traefik.enable=true'
+
+      # HTTP to HTTPS redirection
+      - 'traefik.http.routers.http_catchall.rule=HostRegexp(`{any:.+}`)'
+      - 'traefik.http.routers.http_catchall.entrypoints=insecure'
+      - 'traefik.http.routers.http_catchall.middlewares=https_redirect'
+      - 'traefik.http.middlewares.https_redirect.redirectscheme.scheme=https'
+      - 'traefik.http.middlewares.https_redirect.redirectscheme.permanent=true'
+
+networks:
+  default:
+    external: true
+    name: proxy
+```
+
+```yaml
+# traefik.yaml
+
+api:
+  dashboard: true
+
+# Define HTTP and HTTPS entrypoint
+entryPoints:
+  insecure:
+    address: ':80'
+  secure:
+    address: ':443'
+
+# Dynamic configuration will come from docker labels
+providers:
+  docker:
+    endpoint: 'unix:///var/run/docker.sock'
+    network: 'proxy'
+    exposedByDefault: false
+
+# Enable acme with http file challenge
+certificatesResolvers:
+  le:
+    acme:
+      email: me@example.org
+      storage: /data/acme.json
+      httpChallenge:
+        entryPoint: insecure
+```
+
+**Run**
+
+```sh
+docker network create proxy
+docker-compose up -d
+```
+
+## Cryptgeon
+
+Create another docker-compose.yaml file in another folder.
+
+```sh
+/foo/bar/cryptgeon/
+└── docker-compose.yaml
+```
+
+```yaml
+version: '3.8'
+
+networks:
+  proxy:
+    external: true
+
+services:
+  memcached:
+    image: memcached:1-alpine
+    restart: unless-stopped
+    entrypoint: memcached -m 256M -I 4M # Limit to 128 MB Ram, customize at free will.
+
+  app:
+    image: cupcakearmy/cryptgeon:latest
+    restart: unless-stopped
+    depends_on:
+      - memcached
+    environment:
+      SIZE_LIMIT: 4 MiB
+    networks:
+      - default
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.cryptgeon.rule=Host(`cryptgeon.example.org`)
+      - traefik.http.routers.cryptgeon.entrypoints=secure
+      - traefik.http.routers.cryptgeon.tls.certresolver=le
+```
+
+**Run**
+
+```sh
+docker-compose up -d
+```
