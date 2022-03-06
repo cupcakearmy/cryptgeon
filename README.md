@@ -48,10 +48,13 @@ of the notes even if it tried to.
 
 ## Environment Variables
 
-| Variable     | Default           | Description                                                                             |
-| ------------ | ----------------- | --------------------------------------------------------------------------------------- |
-| `MEMCACHE`   | `memcached:11211` | Memcached URL to connect to.                                                            |
-| `SIZE_LIMIT` | `1 KiB`           | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/) |
+| Variable         | Default           | Description                                                                             |
+| ---------------- | ----------------- | --------------------------------------------------------------------------------------- |
+| `MEMCACHE`       | `memcached:11211` | Memcached URL to connect to.                                                            |
+| `SIZE_LIMIT`     | `1 KiB`           | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/) |
+| `MAX_VIEWS`      | `100`             | Maximal number of views.                                                                |
+| `MAX_EXPIRATION` | `360`             | Maximal expiration in minutes.                                                          |
+| `ALLOW_ADVANCED` | `true`            | Allow custom configuration. If set to `false` all notes will be one view only.          |
 
 ## Deployment
 
