@@ -5,6 +5,7 @@ This is a tiny guide to install cryptgeon on (probably) any unix system (and may
 1. Install Docker & Docker Compose.
 2. Install Traefik.
 3. Run the cryptgeon.
+4. [Optional] install watchtower to keep up to date.
 
 ## Install Docker & DOcker Compose
 
@@ -12,6 +13,8 @@ This is a tiny guide to install cryptgeon on (probably) any unix system (and may
 - [Compose](https://docs.docker.com/compose/install/)
 
 ## Install Traefik 2.0
+
+[Traefik](https://doc.traefik.io/traefik/) is a router & proxy that makes deployment of containers incredibly easy. It will manage all the https certificates, routing, etc.
 
 ```sh
 /foo/bar/traefik/
@@ -89,7 +92,7 @@ docker-compose up -d
 
 ## Cryptgeon
 
-Create another docker-compose.yaml file in another folder.
+Create another docker-compose.yaml file in another folder. We will assume that the domain is `cryptgeon.example.org`.
 
 ```sh
 /foo/bar/cryptgeon/
@@ -130,4 +133,29 @@ services:
 
 ```sh
 docker-compose up -d
+```
+
+## Watchtower
+
+> A container-based solution for automating Docker container base image updates.
+
+[Watchtower](https://containrrr.dev/watchtower/) will keep our containers up to date. The interval is set to once a day and also configured to delete old images to prevent cluttering.
+
+```sh
+/foo/bar/watchtower/
+└── docker-compose.yaml
+```
+
+```yaml
+# docker-compose.yaml
+
+version: '3.8'
+
+services:
+  watchtower:
+    image: containrrr/watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --cleanup --interval 86400
 ```
