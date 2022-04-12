@@ -127,11 +127,32 @@ services:
 
 ## Development
 
-1. Clone
-2. run `pnpm i` in the root and and client `client/` folders.
-3. Run `pnpm run dev` to start development.
+**Requirements**
 
-Running `npm run dev` in the root folder will start the following things
+- `pnpm`: `>=6`
+- `node`: `>=14`
+- `rust`: edition `2021`
+
+**Install**
+
+```bash
+pnpm install
+pnpm --prefix frontend install
+
+# Also you need cargo watch if you don't already have it installed.
+# https://lib.rs/crates/cargo-watch
+cargo install cargo-watch
+```
+
+**Run**
+
+Make sure you have docker running.
+
+```bash
+pnpm run dev
+```
+
+Running `pnpm run dev` in the root folder will start the following things:
 
 - a memcache docker container
 - rust backend with hot reload
