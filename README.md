@@ -148,6 +148,9 @@ cargo install cargo-watch
 
 Make sure you have docker running.
 
+> If you are on `macOS` you might need to disable AirPlay Receiver as it uses port 5000 (So stupid...)
+> https://developer.apple.com/forums/thread/682332
+
 ```bash
 pnpm run dev
 ```
