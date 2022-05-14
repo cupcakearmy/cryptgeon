@@ -4,11 +4,13 @@
 	import copy from 'copy-to-clipboard'
 	import { saveAs } from 'file-saver'
 	import prettyBytes from 'pretty-bytes'
+	import sanitize from 'sanitize-html'
 	import { t } from 'svelte-intl-precompile'
 	import Button from './Button.svelte'
 
 	export let note: NotePublic
 
+	const RE_URL = /[A-Za-z]+:\/\/([A-Z a-z0-9\-._~:\/?#\[\]@!$&'()*+,;%=])+/g
 	let files: FileDTO[] = []
 
 	$: if (note.meta.type === 'file') {
@@ -27,12 +29,23 @@
 		})
 		saveAs(f)
 	}
+
+	function contentWithLinks(content: string): string {
+		const replaced = note.contents.replace(
+			RE_URL,
+			(url) => `<a href="${url}" rel="noreferrer">${url}</a>`
+		)
+		return sanitize(replaced, { allowedTags: ['a'], allowedAttributes: { a: ['href', 'rel'] } })
+	}
 </script>
 
 <p class="error-text">{@html $t('show.warning_will_not_see_again')}</p>
 {#if note.meta.type === 'text'}
 	<div class="note">
 		{note.contents}
+	</div>
+	<div class="note">
+		{@html contentWithLinks(note.contents)}
 	</div>
 	<Button on:click={() => copy(note.contents)}>{$t('common.copy_clipboard')}</Button>
 {:else}
