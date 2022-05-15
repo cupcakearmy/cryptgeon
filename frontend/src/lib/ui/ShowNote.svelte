@@ -42,9 +42,6 @@
 <p class="error-text">{@html $t('show.warning_will_not_see_again')}</p>
 {#if note.meta.type === 'text'}
 	<div class="note">
-		{note.contents}
-	</div>
-	<div class="note">
 		{@html contentWithLinks(note.contents)}
 	</div>
 	<Button on:click={() => copy(note.contents)}>{$t('common.copy_clipboard')}</Button>
