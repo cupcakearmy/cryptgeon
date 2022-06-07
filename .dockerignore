@@ -1,2 +1,15 @@
-/**/target
-/**/node_modules
+*
+!/entry.sh
+
+!/backend/src
+!/backend/Cargo.lock
+!/backend/Cargo.toml
+
+!/frontend/locales
+!/frontend/src
+!/frontend/static
+!/frontend/.npmrc
+!/frontend/package.json
+!/frontend/pnpm-lock.yaml
+!/frontend/svelte.config.js
+!/frontend/tsconfig.json
