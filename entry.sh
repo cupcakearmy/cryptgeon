@@ -1,10 +1,12 @@
-#!/bin/ash
+#!/bin/sh
 
-echo "Waiting for memcached"
 
-while ! nc -z -w 1 memcached 11211; do   
+HOST=$(echo $MEMCACHE | cut -d: -f1)
+PORT=$(echo $MEMCACHE | cut -d: -f2)
+echo "Waiting for memcached at $HOST:$PORT"
+while ! nc -z -w 1 $HOST $PORT; do   
   sleep 1
-  echo "..."
+  echo "retrying..."
 done
 
 echo "Starting server"
