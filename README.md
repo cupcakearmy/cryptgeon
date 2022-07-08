@@ -9,10 +9,10 @@
   <img alt="Latest version" src="https://img.shields.io/github/v/release/cupcakearmy/cryptgeon?style=for-the-badge" />
 </a>
 
-<br/>
+<br/><br/>
 <a href="https://www.producthunt.com/posts/cryptgeon?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cryptgeon" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=295189&theme=light" alt="Cryptgeon - Securely share self-destructing notes | Product Hunt" height="50" /></a>
 <a href=""><img src="./.github/lokalise.png" height="50">
-<br/>
+<br/><br/>
 
 EN | [简体中文](README_zh-CN.md)
 
