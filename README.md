@@ -14,6 +14,8 @@
 <a href=""><img src="./.github/lokalise.png" height="50">
 <br/>
 
+EN | [简体中文](README_zh-CN.md)
+
 ## About?
 
 _cryptgeon_ is a secure, open source sharing note or file service inspired by [_PrivNote_](https://privnote.com)
