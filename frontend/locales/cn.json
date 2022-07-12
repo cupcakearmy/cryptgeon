@@ -1,0 +1,42 @@
+{
+	"common": {
+		"note": "密信",
+		"file": "上传文件",
+		"advanced": "高级设置",
+		"create": "创建",
+		"loading": "加载中...",
+		"mode": "模式",
+		"views": "{n, plural, =0 {可查看次数} =1 {1 次查看} other {# 次查看}}",
+		"minutes": "{n, plural, =0 {有效期(分钟)} =1 {1 分钟} other {# 分钟}}",
+		"max": "最大值",
+		"share_link": "分享链接",
+		"copy_clipboard": "复制到剪切版"
+	},
+	"home": {
+		"intro": "一键轻松发送 <i>完全加密的</i> 密信或者文件。只需创建一个密信然后分享链接。",
+		"explanation": "该密信会在{type}后失效。",
+		"new_note": "新建密信",
+		"new_note_notice": "<b>可用性警示：</b><br />由于加密鸽的所有数据是全部保存在内存中的，所以如果加密鸽的可用内存被用光了那么它将会删除最早的密信以释放内存，因此不保证该密信的可用性。<br />(一般情况下是您应该是不会遇到这个问题，只是警示一下。)",
+		"errors": {
+			"note_to_big": "无法创建密信，这个密信太大了！",
+			"note_error": "无法创建密信，请再试一遍。",
+			"max": "最大文件大小: {n}",
+			"empty_content": "密信为空！"
+		},
+		"copied_to_clipboard": "已复制到剪切板 🔗"
+	},
+	"show": {
+		"errors": {
+			"not_found": "该密信无法被找到或者它已经被删除了！",
+			"decryption_failed": "密钥错误！您可能不小心粘贴了一个不完整的链接或者正在尝试破解该密信！但无论如何，该密信已被销毁！"
+		},
+		"explanation": "点击下方的按钮可以查看密信，如果它到达了限制将会被删除",
+		"show_note": "查看密信",
+		"warning_will_not_see_again": "您将<b>无法</b>再次查看该密信",
+		"download_all": "下载全部"
+	},
+	"file_upload": {
+		"selected_files": "已选中的文件",
+		"no_files_selected": "没有文件被选中"
+	}
+}
