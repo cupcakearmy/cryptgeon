@@ -2,9 +2,9 @@
 	import type { FileDTO, NotePublic } from '$lib/api'
 	import { Files } from '$lib/files'
 	import copy from 'copy-to-clipboard'
+	import DOMPurify from 'dompurify'
 	import { saveAs } from 'file-saver'
 	import prettyBytes from 'pretty-bytes'
-	import sanitize from 'sanitize-html'
 	import { t } from 'svelte-intl-precompile'
 	import Button from './Button.svelte'
 
@@ -31,11 +31,11 @@
 	}
 
 	function contentWithLinks(content: string): string {
-		const replaced = note.contents.replace(
+		const replaced = content.replace(
 			RE_URL,
 			(url) => `<a href="${url}" rel="noreferrer">${url}</a>`
 		)
-		return sanitize(replaced, { allowedTags: ['a'], allowedAttributes: { a: ['href', 'rel'] } })
+		return DOMPurify.sanitize(replaced, { USE_PROFILES: { html: true } })
 	}
 </script>
 

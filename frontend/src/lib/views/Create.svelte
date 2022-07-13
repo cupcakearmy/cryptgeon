@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { create, Note, PayloadToLargeError } from '$lib/api'
+	import type { Note } from '$lib/api'
+	import { create, PayloadToLargeError } from '$lib/api'
 	import { encrypt, getKeyFromString, getRandomBytes, Hex } from '$lib/crypto'
 	import { status } from '$lib/stores/status'
 	import Button from '$lib/ui/Button.svelte'

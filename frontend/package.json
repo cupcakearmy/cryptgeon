@@ -1,8 +1,8 @@
 {
 	"private": true,
 	"scripts": {
-		"dev": "svelte-kit dev",
-		"build": "svelte-kit build",
+		"dev": "vite dev",
+		"build": "vite build",
 		"preview": "svelte-kit preview",
 		"check": "svelte-check --tsconfig tsconfig.json",
 		"licenses": "license-checker --summary > licenses.csv",
@@ -10,26 +10,26 @@
 	},
 	"type": "module",
 	"devDependencies": {
-		"@lokalise/node-api": "^7.2.0",
+		"@lokalise/node-api": "^7.3.1",
 		"@sveltejs/adapter-static": "^1.0.0-next.34",
-		"@sveltejs/kit": "^1.0.0-next.348",
+		"@sveltejs/kit": "^1.0.0-next.361",
+		"@types/dompurify": "^2.3.3",
 		"@types/file-saver": "^2.0.5",
-		"@types/sanitize-html": "^2.6.2",
 		"adm-zip": "^0.5.9",
 		"dotenv": "^16.0.1",
-		"svelte": "^3.48.0",
-		"svelte-check": "^2.7.2",
+		"svelte": "^3.49.0",
+		"svelte-check": "^2.8.0",
 		"svelte-intl-precompile": "^0.10.1",
 		"svelte-preprocess": "^4.10.7",
 		"tslib": "^2.4.0",
-		"typescript": "^4.7.3",
-		"vite": "^2.9.10"
+		"typescript": "^4.7.4",
+		"vite": "^3.0.0"
 	},
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.8",
 		"copy-to-clipboard": "^3.3.1",
+		"dompurify": "^2.3.9",
 		"file-saver": "^2.0.5",
-		"pretty-bytes": "^5.6.0",
-		"sanitize-html": "^2.7.0"
+		"pretty-bytes": "^5.6.0"
 	}
 }

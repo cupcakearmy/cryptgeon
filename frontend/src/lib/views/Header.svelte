@@ -100,7 +100,7 @@
 
 	header svg {
 		width: 100%;
-		max-width: 16rem;
+		max-height: 8rem;
 		transform: translateX(-1rem);
 		fill: currentColor;
 	}
