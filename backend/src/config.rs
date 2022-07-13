@@ -1,9 +1,14 @@
 use byte_unit::Byte;
 
+// General
 lazy_static! {
-  pub static ref VERSION: String = option_env!("CARGO_PKG_VERSION")
-    .unwrap_or("Unknown")
-    .to_string();
+    pub static ref VERSION: String = option_env!("CARGO_PKG_VERSION")
+        .unwrap_or("Unknown")
+        .to_string();
+}
+
+// CONFIG
+lazy_static! {
   pub static ref LIMIT: u32 =
     Byte::from_str(std::env::var("SIZE_LIMIT").unwrap_or("1 KiB".to_string()))
       .unwrap()
@@ -20,4 +25,16 @@ lazy_static! {
     .unwrap_or("true".to_string())
     .parse()
     .unwrap();
+}
+
+// THEME
+lazy_static! {
+    pub static ref THEME_IMAGE: String = std::env::var("THEME_IMAGE")
+        .unwrap_or("".to_string())
+        .parse()
+        .unwrap();
+    pub static ref THEME_TEXT: String = std::env::var("THEME_TEXT")
+        .unwrap_or("".to_string())
+        .parse()
+        .unwrap();
 }

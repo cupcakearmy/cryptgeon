@@ -11,6 +11,8 @@ async fn get_status() -> impl Responder {
         max_views: *config::MAX_VIEWS,
         max_expiration: *config::MAX_EXPIRATION,
         allow_advanced: *config::ALLOW_ADVANCED,
+        theme_image: config::THEME_IMAGE.to_string(),
+        theme_text: config::THEME_TEXT.to_string(),
     });
 }
 

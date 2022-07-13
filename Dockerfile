@@ -21,6 +21,6 @@ WORKDIR /app
 COPY ./entry.sh .
 COPY --from=backend /tmp/target/release/cryptgeon .
 COPY --from=client /tmp/build ./frontend/build
-ENV REDIS=redis://127.0.0.1/
+ENV REDIS=redis://redis/
 EXPOSE 5000
 ENTRYPOINT [ "/app/entry.sh" ]

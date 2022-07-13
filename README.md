@@ -50,13 +50,15 @@ of the notes even if it tried to.
 
 ## Environment Variables
 
-| Variable         | Default           | Description                                                                             |
-| ---------------- | ----------------- | --------------------------------------------------------------------------------------- |
-| `MEMCACHE`       | `memcached:11211` | Memcached URL to connect to.                                                            |
-| `SIZE_LIMIT`     | `1 KiB`           | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/) |
-| `MAX_VIEWS`      | `100`             | Maximal number of views.                                                                |
-| `MAX_EXPIRATION` | `360`             | Maximal expiration in minutes.                                                          |
-| `ALLOW_ADVANCED` | `true`            | Allow custom configuration. If set to `false` all notes will be one view only.          |
+| Variable         | Default          | Description                                                                                                               |
+| ---------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `REDIS`          | `redis://redis/` | Redis URL to connect to.                                                                                                  |
+| `SIZE_LIMIT`     | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). `512 MiB` is the maximum allowed |
+| `MAX_VIEWS`      | `100`            | Maximal number of views.                                                                                                  |
+| `MAX_EXPIRATION` | `360`            | Maximal expiration in minutes.                                                                                            |
+| `ALLOW_ADVANCED` | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                            |
+| `THEME_IMAGE`    | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                           |
+| `THEME_TEXT`     | `""`             | Custom text for replacing the description below the logo                                                                  |
 
 ## Deployment
 
@@ -132,7 +134,7 @@ services:
 **Requirements**
 
 - `pnpm`: `>=6`
-- `node`: `>=14`
+- `node`: `>=16`
 - `rust`: edition `2021`
 
 **Install**
@@ -159,9 +161,9 @@ pnpm run dev
 
 Running `pnpm run dev` in the root folder will start the following things:
 
-- a memcache docker container
-- rust backend with hot reload
-- client with hot reload
+- redis docker container
+- rust backend
+- client
 
 You can see the app under [localhost:1234](http://localhost:1234).
 
