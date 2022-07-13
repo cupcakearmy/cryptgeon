@@ -1,5 +1,4 @@
 *
-!/entry.sh
 
 !/backend/src
 !/backend/Cargo.lock
@@ -13,3 +12,4 @@
 !/frontend/pnpm-lock.yaml
 !/frontend/svelte.config.js
 !/frontend/tsconfig.json
+!/frontend/vite.config.js

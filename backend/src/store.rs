@@ -4,9 +4,16 @@ use redis::Commands;
 use crate::note::now;
 use crate::note::Note;
 
+lazy_static! {
+    static ref REDIS_CLIENT: String = std::env::var("REDIS")
+        .unwrap_or("redis://127.0.0.1/".to_string())
+        .parse()
+        .unwrap();
+}
+
 fn get_connection() -> Result<redis::Connection, &'static str> {
     let client =
-        redis::Client::open("redis://127.0.0.1/").map_err(|_| "Unable to connect to redis")?;
+        redis::Client::open(REDIS_CLIENT.to_string()).map_err(|_| "Unable to connect to redis")?;
     client
         .get_connection()
         .map_err(|_| "Unable to connect to redis")
