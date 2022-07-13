@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev:docker": "docker-compose up memcached",
+    "dev:docker": "docker-compose up redis",
     "dev:backend": "cd backend && cargo watch -x 'run --bin cryptgeon'",
     "dev:front": "pnpm --prefix frontend run dev",
     "dev:proxy": "node proxy.mjs",
