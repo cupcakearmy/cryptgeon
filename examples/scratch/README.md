@@ -7,7 +7,7 @@ This is a tiny guide to install cryptgeon on (probably) any unix system (and may
 3. Run the cryptgeon.
 4. [Optional] install watchtower to keep up to date.
 
-## Install Docker & DOcker Compose
+## Install Docker & Docker Compose
 
 - [Docker](https://docs.docker.com/engine/install/)
 - [Compose](https://docs.docker.com/compose/install/)
@@ -107,16 +107,15 @@ networks:
     external: true
 
 services:
-  memcached:
-    image: memcached:1-alpine
+  redis:
+    image: redis:7-alpine
     restart: unless-stopped
-    entrypoint: memcached -m 256M -I 4M # Limit to 128 MB Ram, customize at free will.
 
   app:
     image: cupcakearmy/cryptgeon:latest
     restart: unless-stopped
     depends_on:
-      - memcached
+      - redis
     environment:
       SIZE_LIMIT: 4 MiB
     networks:

@@ -71,17 +71,16 @@ Docker is the easiest way. There is the [official image here](https://hub.docker
 ```yaml
 # docker-compose.yml
 
-version: '3.7'
+version: '3.8'
 
 services:
-  memcached:
-    image: memcached:1-alpine
-    entrypoint: memcached -m 128M -I 4M # Limit to 128 MB Ram, 4M per entry, customize at free will.
+  redis:
+    image: redis:7-alpine
 
   app:
     image: cupcakearmy/cryptgeon:latest
     depends_on:
-      - memcached
+      - redis
     environment:
       SIZE_LIMIT: 4M
     ports:
@@ -109,16 +108,15 @@ networks:
     external: true
 
 services:
-  memcached:
-    image: memcached:1-alpine
+  redis:
+    image: redis:7-alpine
     restart: unless-stopped
-    entrypoint: memcached -m 128M -I 4M # Limit to 128 MB Ram, 4M per entry, customize at free will.
 
   app:
     image: cupcakearmy/cryptgeon:latest
     restart: unless-stopped
     depends_on:
-      - memcached
+      - redis
     networks:
       - default
       - proxy
