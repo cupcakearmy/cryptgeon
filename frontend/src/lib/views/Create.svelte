@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { create, Note, PayloadToLargeError } from '$lib/api'
-	import { encrypt, getKeyFromString, getRandomBytes, Hex } from '$lib/crypto'
+	import type { Note } from '$lib/api'
+	import { create,PayloadToLargeError } from '$lib/api'
+	import { encrypt,getKeyFromString,getRandomBytes,Hex } from '$lib/crypto'
 	import { status } from '$lib/stores/status'
 	import Button from '$lib/ui/Button.svelte'
 	import FileUpload from '$lib/ui/FileUpload.svelte'
@@ -101,7 +102,7 @@
 	<Button on:click={reset}>{$t('home.new_note')}</Button>
 {:else}
 	<p>
-		{@html $t('home.intro')}
+		{@html $status?.theme_text || $t('home.intro')}
 	</p>
 	<form on:submit|preventDefault={submit}>
 		<fieldset disabled={loading}>

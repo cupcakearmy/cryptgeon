@@ -1,7 +1,7 @@
 # FRONTEND
 FROM node:16-alpine as client 
 WORKDIR /tmp
-RUN npm install -g pnpm
+RUN npm install -g pnpm@7
 COPY ./frontend ./
 RUN pnpm install
 RUN pnpm run build
@@ -18,9 +18,8 @@ RUN cargo build --release
 # RUNNER
 FROM alpine
 WORKDIR /app
-COPY ./entry.sh .
 COPY --from=backend /tmp/target/release/cryptgeon .
 COPY --from=client /tmp/build ./frontend/build
-ENV MEMCACHE=memcached:11211
+ENV REDIS=redis://redis/
 EXPOSE 5000
-ENTRYPOINT [ "/app/entry.sh" ]
+ENTRYPOINT [ "/app/cryptgeon" ]

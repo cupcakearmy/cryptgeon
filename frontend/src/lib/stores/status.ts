@@ -7,6 +7,8 @@ export type Status = {
 	max_views: number
 	max_expiration: number
 	allow_advanced: boolean
+	theme_image: string
+	theme_text: string
 }
 
 export const status = writable<null | Status>(null)

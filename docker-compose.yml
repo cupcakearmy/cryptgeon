@@ -1,21 +1,19 @@
 # DEV Compose file.
 # For a production file see: README.md
 
-version: '3.7'
+version: '3.8'
 
 services:
-  memcached:
-    image: memcached:1-alpine
-    restart: unless-stopped
-    entrypoint: memcached -m 256M -I 128M
+  redis:
+    image: redis:7-alpine
     ports:
-      - 11211:11211
+      - 6379:6379
 
   app:
     build: .
     depends_on:
-      - memcached
+      - redis
     environment:
-      SIZE_LIMIT: 128M
+      SIZE_LIMIT: 128 MiB
     ports:
       - 80:5000

@@ -22,9 +22,11 @@ struct NotePath {
 async fn one(path: web::Path<NotePath>) -> impl Responder {
     let p = path.into_inner();
     let note = store::get(&p.id);
+
     match note {
-        None => return HttpResponse::NotFound().finish(),
-        Some(_) => return HttpResponse::Ok().json(NoteInfo {}),
+        Ok(Some(_)) => HttpResponse::Ok().json(NoteInfo {}),
+        Ok(None) => HttpResponse::NotFound().finish(),
+        Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
     }
 }
 
@@ -64,8 +66,10 @@ async fn create(note: web::Json<Note>) -> impl Responder {
         }
         _ => {}
     }
-    store::set(&id.clone(), &n.clone());
-    return HttpResponse::Ok().json(CreateResponse { id: id });
+    match store::set(&id.clone(), &n.clone()) {
+        Ok(_) => return HttpResponse::Ok().json(CreateResponse { id: id }),
+        Err(e) => return HttpResponse::InternalServerError().body(e.to_string()),
+    }
 }
 
 #[delete("/{id}")]
@@ -73,8 +77,9 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
     let p = path.into_inner();
     let note = store::get(&p.id);
     match note {
-        None => return HttpResponse::NotFound().finish(),
-        Some(note) => {
+        Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
+        Ok(None) => return HttpResponse::NotFound().finish(),
+        Ok(Some(note)) => {
             let mut changed = note.clone();
             if changed.views == None && changed.expiration == None {
                 return HttpResponse::BadRequest().finish();
@@ -84,9 +89,19 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
                     changed.views = Some(v - 1);
                     let id = p.id.clone();
                     if v <= 1 {
-                        store::del(&id);
+                        match store::del(&id) {
+                            Err(e) => {
+                                return HttpResponse::InternalServerError().body(e.to_string())
+                            }
+                            _ => {}
+                        }
                     } else {
-                        store::set(&id, &changed.clone());
+                        match store::set(&id, &changed.clone()) {
+                            Err(e) => {
+                                return HttpResponse::InternalServerError().body(e.to_string())
+                            }
+                            _ => {}
+                        }
                     }
                 }
                 _ => {}
@@ -96,8 +111,12 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
             match changed.expiration {
                 Some(e) => {
                     if e < n {
-                        store::del(&p.id.clone());
-                        return HttpResponse::BadRequest().finish();
+                        match store::del(&p.id.clone()) {
+                            Ok(_) => return HttpResponse::BadRequest().finish(),
+                            Err(e) => {
+                                return HttpResponse::InternalServerError().body(e.to_string())
+                            }
+                        }
                     }
                 }
                 _ => {}

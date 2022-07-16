@@ -50,13 +50,15 @@ of the notes even if it tried to.
 
 ## Environment Variables
 
-| Variable         | Default           | Description                                                                             |
-| ---------------- | ----------------- | --------------------------------------------------------------------------------------- |
-| `MEMCACHE`       | `memcached:11211` | Memcached URL to connect to.                                                            |
-| `SIZE_LIMIT`     | `1 KiB`           | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/) |
-| `MAX_VIEWS`      | `100`             | Maximal number of views.                                                                |
-| `MAX_EXPIRATION` | `360`             | Maximal expiration in minutes.                                                          |
-| `ALLOW_ADVANCED` | `true`            | Allow custom configuration. If set to `false` all notes will be one view only.          |
+| Variable         | Default          | Description                                                                                                               |
+| ---------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `REDIS`          | `redis://redis/` | Redis URL to connect to.                                                                                                  |
+| `SIZE_LIMIT`     | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). `512 MiB` is the maximum allowed |
+| `MAX_VIEWS`      | `100`            | Maximal number of views.                                                                                                  |
+| `MAX_EXPIRATION` | `360`            | Maximal expiration in minutes.                                                                                            |
+| `ALLOW_ADVANCED` | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                            |
+| `THEME_IMAGE`    | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                           |
+| `THEME_TEXT`     | `""`             | Custom text for replacing the description below the logo                                                                  |
 
 ## Deployment
 
@@ -69,19 +71,18 @@ Docker is the easiest way. There is the [official image here](https://hub.docker
 ```yaml
 # docker-compose.yml
 
-version: '3.7'
+version: '3.8'
 
 services:
-  memcached:
-    image: memcached:1-alpine
-    entrypoint: memcached -m 128M -I 4M # Limit to 128 MB Ram, 4M per entry, customize at free will.
+  redis:
+    image: redis:7-alpine
 
   app:
     image: cupcakearmy/cryptgeon:latest
     depends_on:
-      - memcached
+      - redis
     environment:
-      SIZE_LIMIT: 4M
+      SIZE_LIMIT: 4 MiB
     ports:
       - 80:5000
 ```
@@ -107,16 +108,15 @@ networks:
     external: true
 
 services:
-  memcached:
-    image: memcached:1-alpine
+  redis:
+    image: redis:7-alpine
     restart: unless-stopped
-    entrypoint: memcached -m 128M -I 4M # Limit to 128 MB Ram, 4M per entry, customize at free will.
 
   app:
     image: cupcakearmy/cryptgeon:latest
     restart: unless-stopped
     depends_on:
-      - memcached
+      - redis
     networks:
       - default
       - proxy
@@ -132,7 +132,7 @@ services:
 **Requirements**
 
 - `pnpm`: `>=6`
-- `node`: `>=14`
+- `node`: `>=16`
 - `rust`: edition `2021`
 
 **Install**
@@ -159,9 +159,9 @@ pnpm run dev
 
 Running `pnpm run dev` in the root folder will start the following things:
 
-- a memcache docker container
-- rust backend with hot reload
-- client with hot reload
+- redis docker container
+- rust backend
+- client
 
 You can see the app under [localhost:1234](http://localhost:1234).
 

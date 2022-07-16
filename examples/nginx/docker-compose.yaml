@@ -1,14 +1,13 @@
 version: '3.8'
 
 services:
-  memcached:
-    image: memcached:1-alpine
-    entrypoint: memcached -m 256 -I 128 # Limit to 128 MB Ram, customize at free will. -m must be at least double than -I.
+  redis:
+    image: redis:7-alpine
 
   app:
     image: cupcakearmy/cryptgeon:latest
     depends_on:
-      - memcached
+      - redis
     
   proxy:
     image: nginx:alpine
