@@ -78,7 +78,7 @@ services:
     depends_on:
       - redis
     environment:
-      SIZE_LIMIT: 4M
+      SIZE_LIMIT: 4 MiB
     ports:
       - 80:5000
 ```

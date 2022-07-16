@@ -9,10 +9,10 @@ lazy_static! {
 
 // CONFIG
 lazy_static! {
-  pub static ref LIMIT: u32 =
+  pub static ref LIMIT: usize =
     Byte::from_str(std::env::var("SIZE_LIMIT").unwrap_or("1 KiB".to_string()))
       .unwrap()
-      .get_bytes() as u32;
+      .get_bytes() as usize;
   pub static ref MAX_VIEWS: u32 = std::env::var("MAX_VIEWS")
     .unwrap_or("100".to_string())
     .parse()
