@@ -1,20 +1,24 @@
+<script lang="ts" context="module">
+	export type DecryptedNote = Omit<NotePublic, 'contents'> & { contents: any }
+</script>
+
 <script lang="ts">
-	import type { FileDTO, NotePublic } from '$lib/api'
-	import { Files } from '$lib/files'
 	import copy from 'copy-to-clipboard'
 	import DOMPurify from 'dompurify'
 	import { saveAs } from 'file-saver'
 	import prettyBytes from 'pretty-bytes'
 	import { t } from 'svelte-intl-precompile'
-	import Button from './Button.svelte'
 
-	export let note: NotePublic
+	import type { FileDTO, NotePublic } from '$lib/api'
+	import Button from '$lib/ui/Button.svelte'
+
+	export let note: DecryptedNote
 
 	const RE_URL = /[A-Za-z]+:\/\/([A-Z a-z0-9\-._~:\/?#\[\]@!$&'()*+,;%=])+/g
 	let files: FileDTO[] = []
 
 	$: if (note.meta.type === 'file') {
-		files = JSON.parse(note.contents) as FileDTO[]
+		files = note.contents
 	}
 
 	$: download = () => {
@@ -24,7 +28,7 @@
 	}
 
 	async function downloadFile(file: FileDTO) {
-		const f = new File([await Files.fromString(file.contents)], file.name, {
+		const f = new File([file.contents], file.name, {
 			type: file.type,
 		})
 		saveAs(f)

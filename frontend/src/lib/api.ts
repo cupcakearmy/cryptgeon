@@ -11,6 +11,10 @@ export type NotePublic = Pick<Note, 'contents' | 'meta'>
 export type NoteCreate = Omit<Note, 'meta'> & { meta: string }
 
 export type FileDTO = Pick<File, 'name' | 'size' | 'type'> & {
+	contents: Blob
+}
+
+export type EncryptedFileDTO = Omit<FileDTO, 'contents'> & {
 	contents: string
 }
 
