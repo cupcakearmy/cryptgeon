@@ -11,8 +11,8 @@
 	"type": "module",
 	"devDependencies": {
 		"@lokalise/node-api": "^7.3.1",
-		"@sveltejs/adapter-static": "^1.0.0-next.34",
-		"@sveltejs/kit": "^1.0.0-next.361",
+		"@sveltejs/adapter-static": "^1.0.0-next.37",
+		"@sveltejs/kit": "^1.0.0-next.377",
 		"@types/dompurify": "^2.3.3",
 		"@types/file-saver": "^2.0.5",
 		"adm-zip": "^0.5.9",
@@ -23,7 +23,7 @@
 		"svelte-preprocess": "^4.10.7",
 		"tslib": "^2.4.0",
 		"typescript": "^4.7.4",
-		"vite": "^3.0.0"
+		"vite": "^3.0.1"
 	},
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.8",
