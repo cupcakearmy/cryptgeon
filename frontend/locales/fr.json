@@ -28,7 +28,8 @@
 	"show": {
 		"errors": {
 			"not_found": "La note n'a pas été trouvée ou a déjà été supprimée.",
-			"decryption_failed": "mauvais mot de passe. impossible à déchiffrer. probablement un lien brisé. la note a été détruite."
+			"decryption_failed": "mauvais mot de passe. impossible à déchiffrer. probablement un lien brisé. la note a été détruite.",
+			"unsupported_type": "type de note non supporté."
 		},
 		"explanation": "Cliquez ci-dessous pour afficher et supprimer la note si le compteur a atteint sa limite.",
 		"show_note": "note de présentation",

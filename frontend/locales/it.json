@@ -28,7 +28,8 @@
 	"show": {
 		"errors": {
 			"not_found": "non è stata trovata o è stata già cancellata.",
-			"decryption_failed": "password sbagliata. non ha potuto decifrare. probabilmente un link rotto. la nota è stata distrutta."
+			"decryption_failed": "password sbagliata. non ha potuto decifrare. probabilmente un link rotto. la nota è stata distrutta.",
+			"unsupported_type": "tipo di nota non supportato."
 		},
 		"explanation": "clicca sotto per mostrare e cancellare la nota se il contatore ha raggiunto il suo limite",
 		"show_note": "mostra la nota",

@@ -28,7 +28,8 @@
 	"show": {
 		"errors": {
 			"not_found": "la nota no se encontró o ya fue borrada.",
-			"decryption_failed": "contraseña incorrecta. no se pudo descifrar. probablemente un enlace roto. la nota fue destruida."
+			"decryption_failed": "contraseña incorrecta. no se pudo descifrar. probablemente un enlace roto. la nota fue destruida.",
+			"unsupported_type": "tipo de nota no compatible."
 		},
 		"explanation": "pulse abajo para mostrar y borrar la nota si el contador ha llegado a su límite",
 		"show_note": "mostrar nota",

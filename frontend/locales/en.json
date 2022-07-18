@@ -28,7 +28,8 @@
 	"show": {
 		"errors": {
 			"not_found": "note was not found or was already deleted.",
-			"decryption_failed": "wrong password. could not decipher. probably a broken link. note was destroyed."
+			"decryption_failed": "wrong password. could not decipher. probably a broken link. note was destroyed.",
+			"unsupported_type": "unsupported note type."
 		},
 		"explanation": "click below to show and delete the note if the counter has reached it's limit",
 		"show_note": "show note",
