@@ -16,6 +16,7 @@
 	import { get, info } from '$lib/api'
 	import { Crypto } from '$lib/crypto'
 	import Button from '$lib/ui/Button.svelte'
+	import Loader from '$lib/ui/Loader.svelte'
 	import ShowNote, { type DecryptedNote } from '$lib/ui/ShowNote.svelte'
 
 	export let id: string
@@ -24,20 +25,20 @@
 	let note: DecryptedNote | null = null
 	let exists = false
 
-	let loading = true
+	let loading: string | null = null
 	let error: string | null = null
 
 	onMount(async () => {
 		// Check if note exists
 		try {
-			loading = true
+			loading = $t('common.loading')
 			password = window.location.hash.slice(1)
 			await info(id)
 			exists = true
 		} catch {
 			exists = false
 		} finally {
-			loading = false
+			loading = null
 		}
 	})
 
@@ -47,8 +48,9 @@
 	async function show() {
 		try {
 			error = null
-			loading = true
+			loading = $t('common.downloading')
 			const data = await get(id)
+			loading = $t('common.decrypting')
 			const key = await Crypto.getKeyFromString(password)
 			switch (data.meta.type) {
 				case 'text':
@@ -70,7 +72,7 @@
 		} catch {
 			error = $t('show.errors.decryption_failed')
 		} finally {
-			loading = false
+			loading = null
 		}
 	}
 </script>
@@ -97,5 +99,11 @@
 	{/if}
 {/if}
 {#if loading}
-	<p>{$t('common.loading')}</p>
+	<p class="loader">{loading} <Loader /></p>
 {/if}
+
+<style>
+	.loader {
+		text-align: center;
+	}
+</style>

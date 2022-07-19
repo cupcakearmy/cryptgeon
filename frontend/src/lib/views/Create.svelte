@@ -7,13 +7,14 @@
 	import { create, PayloadToLargeError } from '$lib/api'
 	import { Crypto, Hex } from '$lib/crypto'
 	import { status } from '$lib/stores/status'
+	import AdvancedParameters from '$lib/ui/AdvancedParameters.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import FileUpload from '$lib/ui/FileUpload.svelte'
+	import Loader from '$lib/ui/Loader.svelte'
 	import MaxSize from '$lib/ui/MaxSize.svelte'
 	import Result, { type NoteResult } from '$lib/ui/NoteResult.svelte'
 	import Switch from '$lib/ui/Switch.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
-	import TextInput from '$lib/ui/TextInput.svelte'
 
 	let note: Note = {
 		contents: '',
@@ -27,7 +28,7 @@
 	let isFile = false
 	let timeExpiration = false
 	let description = ''
-	let loading = false
+	let loading: string | null = null
 	let error: string | null = null
 
 	$: if (!advanced) {
@@ -56,7 +57,7 @@
 	async function submit() {
 		try {
 			error = null
-			loading = true
+			loading = $t('common.encrypting')
 
 			const password = Hex.encode(Crypto.getRandomBytes(32))
 			const key = await Crypto.getKeyFromString(password)
@@ -75,6 +76,7 @@
 			if (timeExpiration) data.expiration = parseInt(note.expiration as any)
 			else data.views = parseInt(note.views as any)
 
+			loading = $t('common.uploading')
 			const response = await create(data)
 			result = {
 				password: password,
@@ -90,7 +92,7 @@
 				error = $t('home.errors.note_error')
 			}
 		} finally {
-			loading = false
+			loading = null
 		}
 	}
 </script>
@@ -102,7 +104,7 @@
 		{@html $status?.theme_text || $t('home.intro')}
 	</p>
 	<form on:submit|preventDefault={submit}>
-		<fieldset disabled={loading}>
+		<fieldset disabled={loading !== null}>
 			{#if isFile}
 				<FileUpload label={$t('common.file')} bind:files />
 			{:else}
@@ -129,7 +131,7 @@
 			<p>
 				<br />
 				{#if loading}
-					{$t('common.loading')}
+					{loading} <Loader />
 				{:else}
 					{description}
 				{/if}
@@ -138,31 +140,7 @@
 			{#if advanced}
 				<div transition:blur={{ duration: 250 }}>
 					<br />
-					<div class="fields">
-						<TextInput
-							type="number"
-							label={$t('common.views', { values: { n: 0 } })}
-							bind:value={note.views}
-							disabled={timeExpiration}
-							max={$status?.max_views}
-							validate={(v) =>
-								($status && v < $status?.max_views) ||
-								$t('home.errors.max', { values: { n: $status?.max_views ?? 0 } })}
-						/>
-						<div class="middle-switch">
-							<Switch label={$t('common.mode')} bind:value={timeExpiration} color={false} />
-						</div>
-						<TextInput
-							type="number"
-							label={$t('common.minutes', { values: { n: 0 } })}
-							bind:value={note.expiration}
-							disabled={!timeExpiration}
-							max={$status?.max_expiration}
-							validate={(v) =>
-								($status && v < $status?.max_expiration) ||
-								$t('home.errors.max', { values: { n: $status?.max_expiration ?? 0 } })}
-						/>
-					</div>
+					<AdvancedParameters bind:note bind:timeExpiration />
 				</div>
 			{/if}
 		</fieldset>
@@ -184,15 +162,7 @@
 		flex: 1;
 	}
 
-	.middle-switch {
-		margin: 0 1rem;
-	}
-
 	.error-text {
 		margin-top: 0.5rem;
-	}
-
-	.fields {
-		display: flex;
 	}
 </style>
