@@ -1,16 +1,20 @@
 <script lang="ts">
-	import type { Note } from '$lib/api'
-	import { create,PayloadToLargeError } from '$lib/api'
-	import { encrypt,getKeyFromString,getRandomBytes,Hex } from '$lib/crypto'
-	import { status } from '$lib/stores/status'
-	import Button from '$lib/ui/Button.svelte'
-	import FileUpload from '$lib/ui/FileUpload.svelte'
-	import MaxSize from '$lib/ui/MaxSize.svelte'
-	import Switch from '$lib/ui/Switch.svelte'
-	import TextArea from '$lib/ui/TextArea.svelte'
-	import TextInput from '$lib/ui/TextInput.svelte'
 	import { t } from 'svelte-intl-precompile'
 	import { blur } from 'svelte/transition'
+
+	import { Adapters } from '$lib/adapters'
+	import type { FileDTO, Note } from '$lib/api'
+	import { create, PayloadToLargeError } from '$lib/api'
+	import { Crypto, Hex } from '$lib/crypto'
+	import { status } from '$lib/stores/status'
+	import AdvancedParameters from '$lib/ui/AdvancedParameters.svelte'
+	import Button from '$lib/ui/Button.svelte'
+	import FileUpload from '$lib/ui/FileUpload.svelte'
+	import Loader from '$lib/ui/Loader.svelte'
+	import MaxSize from '$lib/ui/MaxSize.svelte'
+	import Result, { type NoteResult } from '$lib/ui/NoteResult.svelte'
+	import Switch from '$lib/ui/Switch.svelte'
+	import TextArea from '$lib/ui/TextArea.svelte'
 
 	let note: Note = {
 		contents: '',
@@ -18,12 +22,13 @@
 		views: 1,
 		expiration: 60,
 	}
-	let result: { password: string; id: string } | null = null
+	let files: FileDTO[]
+	let result: NoteResult | null = null
 	let advanced = false
-	let file = false
+	let isFile = false
 	let timeExpiration = false
-	let message = ''
-	let loading = false
+	let description = ''
+	let loading: string | null = null
 	let error: string | null = null
 
 	$: if (!advanced) {
@@ -32,7 +37,7 @@
 	}
 
 	$: {
-		message = $t('home.explanation', {
+		description = $t('home.explanation', {
 			values: {
 				type: $t(timeExpiration ? 'common.minutes' : 'common.views', {
 					values: { n: (timeExpiration ? note.expiration : note.views) ?? '?' },
@@ -41,9 +46,9 @@
 		})
 	}
 
-	$: note.meta.type = file ? 'file' : 'text'
+	$: note.meta.type = isFile ? 'file' : 'text'
 
-	$: if (!file) {
+	$: if (!isFile) {
 		note.contents = ''
 	}
 
@@ -52,17 +57,26 @@
 	async function submit() {
 		try {
 			error = null
-			loading = true
-			const password = Hex.encode(getRandomBytes(32))
-			const key = await getKeyFromString(password)
-			if (note.contents === '') throw new EmptyContentError()
+			loading = $t('common.encrypting')
+
+			const password = Hex.encode(Crypto.getRandomBytes(32))
+			const key = await Crypto.getKeyFromString(password)
+
 			const data: Note = {
-				contents: await encrypt(note.contents, key),
+				contents: '',
 				meta: note.meta,
+			}
+			if (isFile) {
+				if (files.length === 0) throw new EmptyContentError()
+				data.contents = await Adapters.Files.encrypt(files, key)
+			} else {
+				if (note.contents === '') throw new EmptyContentError()
+				data.contents = await Adapters.Text.encrypt(note.contents, key)
 			}
 			if (timeExpiration) data.expiration = parseInt(note.expiration as any)
 			else data.views = parseInt(note.views as any)
 
+			loading = $t('common.uploading')
 			const response = await create(data)
 			result = {
 				password: password,
@@ -74,46 +88,31 @@
 			} else if (e instanceof EmptyContentError) {
 				error = $t('home.errors.empty_content')
 			} else {
+				console.error(e)
 				error = $t('home.errors.note_error')
 			}
 		} finally {
-			loading = false
+			loading = null
 		}
-	}
-
-	function reset() {
-		window.location.reload()
 	}
 </script>
 
 {#if result}
-	<TextInput
-		type="text"
-		readonly
-		label={$t('common.share_link')}
-		value="{window.location.origin}/note/{result.id}#{result.password}"
-		copy
-	/>
-	<br />
-	<p>
-		{@html $t('home.new_note_notice')}
-	</p>
-	<br />
-	<Button on:click={reset}>{$t('home.new_note')}</Button>
+	<Result {result} />
 {:else}
 	<p>
 		{@html $status?.theme_text || $t('home.intro')}
 	</p>
 	<form on:submit|preventDefault={submit}>
-		<fieldset disabled={loading}>
-			{#if file}
-				<FileUpload label={$t('common.file')} on:file={(f) => (note.contents = f.detail)} />
+		<fieldset disabled={loading !== null}>
+			{#if isFile}
+				<FileUpload label={$t('common.file')} bind:files />
 			{:else}
 				<TextArea label={$t('common.note')} bind:value={note.contents} placeholder="..." />
 			{/if}
 
 			<div class="bottom">
-				<Switch class="file" label={$t('common.file')} bind:value={file} />
+				<Switch class="file" label={$t('common.file')} bind:value={isFile} />
 				{#if $status?.allow_advanced}
 					<Switch label={$t('common.advanced')} bind:value={advanced} />
 				{/if}
@@ -132,40 +131,16 @@
 			<p>
 				<br />
 				{#if loading}
-					{$t('common.loading')}
+					{loading} <Loader />
 				{:else}
-					{message}
+					{description}
 				{/if}
 			</p>
 
 			{#if advanced}
 				<div transition:blur={{ duration: 250 }}>
 					<br />
-					<div class="fields">
-						<TextInput
-							type="number"
-							label={$t('common.views', { values: { n: 0 } })}
-							bind:value={note.views}
-							disabled={timeExpiration}
-							max={$status?.max_views}
-							validate={(v) =>
-								($status && v < $status?.max_views) ||
-								$t('home.errors.max', { values: { n: $status?.max_views ?? 0 } })}
-						/>
-						<div class="middle-switch">
-							<Switch label={$t('common.mode')} bind:value={timeExpiration} color={false} />
-						</div>
-						<TextInput
-							type="number"
-							label={$t('common.minutes', { values: { n: 0 } })}
-							bind:value={note.expiration}
-							disabled={!timeExpiration}
-							max={$status?.max_expiration}
-							validate={(v) =>
-								($status && v < $status?.max_expiration) ||
-								$t('home.errors.max', { values: { n: $status?.max_expiration ?? 0 } })}
-						/>
-					</div>
+					<AdvancedParameters bind:note bind:timeExpiration />
 				</div>
 			{/if}
 		</fieldset>
@@ -187,15 +162,7 @@
 		flex: 1;
 	}
 
-	.middle-switch {
-		margin: 0 1rem;
-	}
-
 	.error-text {
 		margin-top: 0.5rem;
-	}
-
-	.fields {
-		display: flex;
 	}
 </style>

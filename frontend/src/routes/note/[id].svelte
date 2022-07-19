@@ -12,47 +12,67 @@
 	import { onMount } from 'svelte'
 	import { t } from 'svelte-intl-precompile'
 
-	import type { NotePublic } from '$lib/api'
+	import { Adapters } from '$lib/adapters'
 	import { get, info } from '$lib/api'
-	import { decrypt, getKeyFromString } from '$lib/crypto'
+	import { Crypto } from '$lib/crypto'
 	import Button from '$lib/ui/Button.svelte'
-	import ShowNote from '$lib/ui/ShowNote.svelte'
+	import Loader from '$lib/ui/Loader.svelte'
+	import ShowNote, { type DecryptedNote } from '$lib/ui/ShowNote.svelte'
 
 	export let id: string
 
 	let password: string
-	let note: NotePublic | null = null
+	let note: DecryptedNote | null = null
 	let exists = false
 
-	let loading = true
-	let error = false
+	let loading: string | null = null
+	let error: string | null = null
 
 	onMount(async () => {
+		// Check if note exists
 		try {
-			loading = true
-			error = false
+			loading = $t('common.loading')
 			password = window.location.hash.slice(1)
 			await info(id)
 			exists = true
 		} catch {
 			exists = false
 		} finally {
-			loading = false
+			loading = null
 		}
 	})
 
+	/**
+	 * Get the actual contents of the note and decrypt it.
+	 */
 	async function show() {
 		try {
-			error = false
-			loading = true
-			const data = note || (await get(id)) // Don't get the content twice on wrong password.
-			const key = await getKeyFromString(password)
-			data.contents = await decrypt(data.contents, key)
-			note = data
+			error = null
+			loading = $t('common.downloading')
+			const data = await get(id)
+			loading = $t('common.decrypting')
+			const key = await Crypto.getKeyFromString(password)
+			switch (data.meta.type) {
+				case 'text':
+					note = {
+						meta: { type: 'text' },
+						contents: await Adapters.Text.decrypt(data.contents, key),
+					}
+					break
+				case 'file':
+					note = {
+						meta: { type: 'file' },
+						contents: await Adapters.Files.decrypt(data.contents, key),
+					}
+					break
+				default:
+					error = $t('show.errors.unsupported_type')
+					return
+			}
 		} catch {
-			error = true
+			error = $t('show.errors.decryption_failed')
 		} finally {
-			loading = false
+			loading = null
 		}
 	}
 </script>
@@ -70,7 +90,7 @@
 				{#if error}
 					<br />
 					<p class="error-text">
-						{$t('show.errors.decryption_failed')}
+						{error}
 						<br />
 					</p>
 				{/if}
@@ -79,5 +99,11 @@
 	{/if}
 {/if}
 {#if loading}
-	<p>{$t('common.loading')}</p>
+	<p class="loader">{loading} <Loader /></p>
 {/if}
+
+<style>
+	.loader {
+		text-align: center;
+	}
+</style>

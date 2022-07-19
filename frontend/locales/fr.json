@@ -4,13 +4,17 @@
 		"file": "fichier",
 		"advanced": "avancé",
 		"create": "créer",
-		"loading": "chargement...",
+		"loading": "chargement",
 		"mode": "mode",
 		"views": "{n, plural, =0 {vues} =1 {1 vue} other {# vues}}",
 		"minutes": "{n, plural, =0 {minutes} =1 {1 minute} other {# minutes}}",
 		"max": "max",
 		"share_link": "partager le lien",
-		"copy_clipboard": "copier dans le presse-papiers"
+		"copy_clipboard": "copier dans le presse-papiers",
+		"encrypting": "cryptage",
+		"decrypting": "déchiffrer",
+		"uploading": "téléchargement",
+		"downloading": "téléchargement"
 	},
 	"home": {
 		"intro": "Envoyez facilement des notes ou des fichiers <i>entièrement cryptés</i> et sécurisés en un seul clic. Il suffit de créer une note et de partager le lien.",
@@ -28,7 +32,8 @@
 	"show": {
 		"errors": {
 			"not_found": "La note n'a pas été trouvée ou a déjà été supprimée.",
-			"decryption_failed": "mauvais mot de passe. impossible à déchiffrer. probablement un lien brisé. la note a été détruite."
+			"decryption_failed": "mauvais mot de passe. impossible à déchiffrer. probablement un lien brisé. la note a été détruite.",
+			"unsupported_type": "type de note non supporté."
 		},
 		"explanation": "Cliquez ci-dessous pour afficher et supprimer la note si le compteur a atteint sa limite.",
 		"show_note": "note de présentation",

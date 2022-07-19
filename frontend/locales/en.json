@@ -4,13 +4,17 @@
 		"file": "file",
 		"advanced": "advanced",
 		"create": "create",
-		"loading": "loading...",
+		"loading": "loading",
 		"mode": "mode",
 		"views": "{n, plural, =0 {views} =1 {1 view} other {# views}}",
 		"minutes": "{n, plural, =0 {minutes} =1 {1 minute} other {# minutes}}",
 		"max": "max",
 		"share_link": "share link",
-		"copy_clipboard": "copy to clipboard"
+		"copy_clipboard": "copy to clipboard",
+		"encrypting": "encrypting",
+		"decrypting": "decrypting",
+		"uploading": "uploading",
+		"downloading": "downloading"
 	},
 	"home": {
 		"intro": "Easily send <i>fully encrypted</i>, secure notes or files with one click. Just create a note and share the link.",
@@ -28,7 +32,8 @@
 	"show": {
 		"errors": {
 			"not_found": "note was not found or was already deleted.",
-			"decryption_failed": "wrong password. could not decipher. probably a broken link. note was destroyed."
+			"decryption_failed": "wrong password. could not decipher. probably a broken link. note was destroyed.",
+			"unsupported_type": "unsupported note type."
 		},
 		"explanation": "click below to show and delete the note if the counter has reached it's limit",
 		"show_note": "show note",

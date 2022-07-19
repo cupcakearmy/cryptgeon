@@ -4,13 +4,17 @@
 		"file": "file",
 		"advanced": "avanzato",
 		"create": "crea",
-		"loading": "carica...",
+		"loading": "carica",
 		"mode": "modalita",
 		"views": "{n, plural, =0 {viste} =1 {1 vista} other {# viste}}",
 		"minutes": "{n, plural, =0 {minuti} =1 {1 minuto} other {# minuti}}",
 		"max": "max",
 		"share_link": "condividi link",
-		"copy_clipboard": "copia negli appunti"
+		"copy_clipboard": "copia negli appunti",
+		"encrypting": "criptando",
+		"decrypting": "decifrando",
+		"uploading": "caricamento",
+		"downloading": "scaricando"
 	},
 	"home": {
 		"intro": "Invia facilmente note o file <i>completamente criptati</i> e sicuri con un solo clic. Basta creare una nota e condividere il link.",
@@ -28,7 +32,8 @@
 	"show": {
 		"errors": {
 			"not_found": "non è stata trovata o è stata già cancellata.",
-			"decryption_failed": "password sbagliata. non ha potuto decifrare. probabilmente un link rotto. la nota è stata distrutta."
+			"decryption_failed": "password sbagliata. non ha potuto decifrare. probabilmente un link rotto. la nota è stata distrutta.",
+			"unsupported_type": "tipo di nota non supportato."
 		},
 		"explanation": "clicca sotto per mostrare e cancellare la nota se il contatore ha raggiunto il suo limite",
 		"show_note": "mostra la nota",

@@ -1,38 +1,32 @@
 <script lang="ts">
-	import type { FileDTO } from '$lib/api'
-	import { Files } from '$lib/files'
-	import { createEventDispatcher } from 'svelte'
 	import { t } from 'svelte-intl-precompile'
-	import Button from './Button.svelte'
-	import MaxSize from './MaxSize.svelte'
+
+	import type { FileDTO } from '$lib/api'
+	import Button from '$lib/ui/Button.svelte'
+	import MaxSize from '$lib/ui/MaxSize.svelte'
 
 	export let label: string = ''
-	let files: File[] = []
+	export let files: FileDTO[] = []
 
-	const dispatch = createEventDispatcher<{ file: string }>()
+	function fileToDTO(file: File): FileDTO {
+		return {
+			name: file.name,
+			size: file.size,
+			type: file.type,
+			contents: file,
+		}
+	}
 
 	async function onInput(e: Event) {
 		const input = e.target as HTMLInputElement
 		if (input?.files?.length) {
-			files = [...files, ...Array.from(input.files)]
-			const data: FileDTO[] = await Promise.all(
-				files.map(async (file) => ({
-					name: file.name,
-					type: file.type,
-					size: file.size,
-					contents: await Files.toString(file),
-				}))
-			)
-			dispatch('file', JSON.stringify(data))
-		} else {
-			dispatch('file', '')
+			files = [...files, ...Array.from(input.files).map(fileToDTO)]
 		}
 	}
 
 	function clear(e: Event) {
 		e.preventDefault()
 		files = []
-		dispatch('file', '')
 	}
 </script>
 
@@ -57,7 +51,9 @@
 			<div>
 				<b>{$t('file_upload.no_files_selected')}</b>
 				<br />
-				<small>{$t('common.max')}: <MaxSize /></small>
+				<small>
+					{$t('common.max')}: <MaxSize />
+				</small>
 			</div>
 		{/if}
 	</div>

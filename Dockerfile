@@ -4,6 +4,7 @@ WORKDIR /tmp
 RUN npm install -g pnpm@7
 COPY ./frontend ./
 RUN pnpm install
+RUN pnpm exec svelte-kit sync
 RUN pnpm run build
 
 

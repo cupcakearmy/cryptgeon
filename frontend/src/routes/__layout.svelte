@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-	import { init, waitLocale, getLocaleFromNavigator } from 'svelte-intl-precompile'
+	import { getLocaleFromNavigator, init, waitLocale } from 'svelte-intl-precompile'
 	// @ts-ignore
 	import { registerAll } from '$locales'
 	registerAll()

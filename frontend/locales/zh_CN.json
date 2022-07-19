@@ -4,13 +4,17 @@
 		"file": "上传文件",
 		"advanced": "高级设置",
 		"create": "创建",
-		"loading": "加载中...",
+		"loading": "加载中",
 		"mode": "模式",
 		"views": "{n, plural, =0 {可查看次数} =1 {1 次查看} other {# 次查看}}",
 		"minutes": "{n, plural, =0 {有效期(分钟)} =1 {1 分钟} other {# 分钟}}",
 		"max": "最大值",
 		"share_link": "分享链接",
-		"copy_clipboard": "复制到剪切版"
+		"copy_clipboard": "复制到剪切版",
+		"encrypting": "加密",
+		"decrypting": "解密",
+		"uploading": "上传",
+		"downloading": "下载"
 	},
 	"home": {
 		"intro": "一键轻松发送 <i>完全加密的</i> 密信或者文件。只需创建一个密信然后分享链接。",
@@ -28,7 +32,8 @@
 	"show": {
 		"errors": {
 			"not_found": "该密信无法被找到或者它已经被删除了！",
-			"decryption_failed": "密钥错误！您可能不小心粘贴了一个不完整的链接或者正在尝试破解该密信！但无论如何，该密信已被销毁！"
+			"decryption_failed": "密钥错误！您可能不小心粘贴了一个不完整的链接或者正在尝试破解该密信！但无论如何，该密信已被销毁！",
+			"unsupported_type": "不支持的票据类型。"
 		},
 		"explanation": "点击下方的按钮可以查看密信，如果它到达了限制将会被删除",
 		"show_note": "查看密信",

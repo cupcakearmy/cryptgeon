@@ -50,15 +50,15 @@ of the notes even if it tried to.
 
 ## Environment Variables
 
-| Variable         | Default          | Description                                                                                                               |
-| ---------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `REDIS`          | `redis://redis/` | Redis URL to connect to.                                                                                                  |
-| `SIZE_LIMIT`     | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). `512 MiB` is the maximum allowed |
-| `MAX_VIEWS`      | `100`            | Maximal number of views.                                                                                                  |
-| `MAX_EXPIRATION` | `360`            | Maximal expiration in minutes.                                                                                            |
-| `ALLOW_ADVANCED` | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                            |
-| `THEME_IMAGE`    | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                           |
-| `THEME_TEXT`     | `""`             | Custom text for replacing the description below the logo                                                                  |
+| Variable         | Default          | Description                                                                                                                                                                                                   |
+| ---------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `REDIS`          | `redis://redis/` | Redis URL to connect to.                                                                                                                                                                                      |
+| `SIZE_LIMIT`     | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). <br> `512 MiB` is the maximum allowed. <br> The frontend will show that number including the ~35% encoding overhead. |
+| `MAX_VIEWS`      | `100`            | Maximal number of views.                                                                                                                                                                                      |
+| `MAX_EXPIRATION` | `360`            | Maximal expiration in minutes.                                                                                                                                                                                |
+| `ALLOW_ADVANCED` | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                                                                                                                |
+| `THEME_IMAGE`    | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                                                                                                               |
+| `THEME_TEXT`     | `""`             | Custom text for replacing the description below the logo                                                                                                                                                      |
 
 ## Deployment
 

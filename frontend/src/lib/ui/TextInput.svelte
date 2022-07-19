@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { getRandomBytes, Hex } from '$lib/crypto'
 	import copyToClipboard from 'copy-to-clipboard'
 	import { t } from 'svelte-intl-precompile'
 	import { fade } from 'svelte/transition'
-	import Icon from './Icon.svelte'
+
+	import { Crypto, Hex } from '$lib/crypto'
+	import Icon from '$lib/ui/Icon.svelte'
 
 	export let label: string = ''
 	export let value: any
@@ -32,7 +33,7 @@
 		notify($t('home.copied_to_clipboard'))
 	}
 	function randomFN() {
-		value = Hex.encode(getRandomBytes(20))
+		value = Hex.encode(Crypto.getRandomBytes(20))
 	}
 
 	function notify(msg: string, delay: number = 2000) {
