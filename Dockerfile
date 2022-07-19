@@ -12,6 +12,8 @@ RUN pnpm run build
 FROM rust:1.61-alpine as backend
 WORKDIR /tmp
 RUN apk add libc-dev openssl-dev alpine-sdk
+COPY ./backend/Cargo.* ./
+RUN cargo fetch
 COPY ./backend ./
 RUN cargo build --release
 
@@ -20,7 +22,8 @@ RUN cargo build --release
 FROM alpine
 WORKDIR /app
 COPY --from=backend /tmp/target/release/cryptgeon .
-COPY --from=client /tmp/build ./frontend/build
-ENV REDIS=redis://redis/
+COPY --from=client /tmp/build ./frontend
+ENV FRONTEND_PATH="./frontend"
+ENV REDIS="redis://redis/"
 EXPOSE 5000
 ENTRYPOINT [ "/app/cryptgeon" ]

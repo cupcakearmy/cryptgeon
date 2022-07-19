@@ -4,21 +4,26 @@ const config: PlaywrightTestConfig = {
   use: {
     video: 'retain-on-failure',
     baseURL: 'http://localhost:1234',
-    // actionTimeout: 10_000,
+    actionTimeout: 60_000,
   },
+
   outputDir: './test-results',
   testDir: './test',
-  testMatch: /.*\.ts/,
+
   webServer: {
     command: 'pnpm run ci:server',
     port: 1234,
     reuseExistingServer: true,
-    timeout: 20_000,
   },
   projects: [
-    { name: 'Chrome', use: { ...devices['Desktop Chrome'] } },
-    { name: 'Firefox', use: { ...devices['Desktop Firefox'] } },
-    { name: 'Safari', use: { ...devices['Desktop Safari'] } },
+    { name: 'chrome', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'safari', use: { ...devices['Desktop Safari'] } },
+    {
+      name: 'local',
+      use: { ...devices['Desktop Chrome'] },
+      // testMatch: 'file/too-big.spec.ts',
+    },
   ],
 }
 

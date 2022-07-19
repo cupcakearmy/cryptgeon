@@ -165,8 +165,25 @@ Running `pnpm run dev` in the root folder will start the following things:
 
 You can see the app under [localhost:1234](http://localhost:1234).
 
+## Tests
+
+Tests are end to end tests written with Playwright.
+
+```sh
+pnpm run ci:prepare
+docker compose up redis -d
+pnpm run ci:server
+
+# In another terminal.
+# Use the test or test:local script. The local version only runs in one browser for quicker development.
+pnpm run test:local
+```
+
 ###### Attributions
 
-- Text for tests [Nietzsche Ipsum](https://nietzsche-ipsum.com/)
+- Test data:
+  - Text for tests [Nietzsche Ipsum](https://nietzsche-ipsum.com/)
+  - [AES Paper](https://www.cs.miami.edu/home/burt/learning/Csc688.012/rijndael/rijndael_doc_V2.pdf)
+  - [Unsplash Pictures](https://unsplash.com/)
 - Loading animation by [Nikhil Krishnan](https://codepen.io/nikhil8krishnan/pen/rVoXJa)
 - Icons made by <a href="https://www.freepik.com" title="Freepik">freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>

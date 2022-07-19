@@ -2,11 +2,13 @@ lockfileVersion: 5.4
 
 specifiers:
   '@playwright/test': ^1.23.4
+  '@types/node': '16'
   http-proxy: ^1.18.1
   npm-run-all: ^4.1.5
 
 devDependencies:
   '@playwright/test': 1.23.4
+  '@types/node': 16.11.45
   http-proxy: 1.18.1
   npm-run-all: 4.1.5
 
@@ -19,6 +21,10 @@ packages:
     dependencies:
       '@types/node': 18.0.6
       playwright-core: 1.23.4
+    dev: true
+
+  /@types/node/16.11.45:
+    resolution: {integrity: sha512-3rKg/L5x0rofKuuUt5zlXzOnKyIHXmIu5R8A0TuNDMF2062/AOIDBciFIjToLEJ/9F9DzkHNot+BpNsMI1OLdQ==}
     dev: true
 
   /@types/node/18.0.6:
