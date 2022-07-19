@@ -16,4 +16,4 @@ services:
     environment:
       SIZE_LIMIT: 128 MiB
     ports:
-      - 80:5000
+      - 1234:5000

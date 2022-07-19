@@ -29,7 +29,7 @@ async fn main() -> std::io::Result<()> {
             .configure(client::init)
             .default_service(web::to(client::index))
     })
-    .bind("0.0.0.0:5000")?
+    .bind(config::LISTEN_ADDR.to_string())?
     .run()
     .await;
 }
