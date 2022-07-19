@@ -24,13 +24,13 @@ jobs:
         run: |
           pnpm install
           pnpm run ci:prepare
-      # - name: Install Playwright
-      #   run: npx playwright install --with-deps
-      # - name: Run your tests
-      #   run: npm test
-      # - name: Upload test results
-      #   if: always()
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: playwright-report
-      #     path: playwright-report
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      - name: Run your tests
+        run: npm test
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: playwright-report
+          path: playwright-report
