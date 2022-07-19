@@ -10,10 +10,6 @@ const config: PlaywrightTestConfig = {
   outputDir: './test-results',
   testDir: './test',
 
-    // actionTimeout: 10_000,
-  },
-  outputDir: './test-results',
-  testDir: './test',
   webServer: {
     command: 'pnpm run ci:server',
     port: 1234,
@@ -21,14 +17,14 @@ const config: PlaywrightTestConfig = {
   },
   projects: [
     { name: 'chrome', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } ,
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     { name: 'safari', use: { ...devices['Desktop Safari'] } },
     {
       name: 'local',
       use: { ...devices['Desktop Chrome'] },
       // testMatch: 'file/too-big.spec.ts',
     },
-  ]
+  ],
 }
 
 export default config
