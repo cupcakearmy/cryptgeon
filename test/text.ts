@@ -18,6 +18,7 @@ async function checkLinkForText(page: Page, link: string, text: string) {
 }
 
 async function checkLinkDoesNotExist(page: Page, link: string) {
+  await page.goto('/') // Required due to firefox: https://github.com/microsoft/playwright/issues/15781
   await page.goto(link)
   await expect(page.locator('main')).toContainText('note was not found or was already deleted')
 }

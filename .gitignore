@@ -9,3 +9,6 @@ node_modules
 /build
 /functions
 .env
+
+General
+test-results

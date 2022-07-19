@@ -5,9 +5,14 @@
     "dev:front": "pnpm --prefix frontend run dev",
     "dev:proxy": "node proxy.mjs",
     "dev": "run-p dev:*",
+    "test": "playwright test",
+    "ci:server": "run-p ci:server:*",
+    "ci:server:backend": "cd backend && cargo run",
+    "ci:server:front": "pnpm --prefix frontend run preview",
+    "ci:server:proxy": "node proxy.mjs",
     "ci:prepare": "run-p ci:prepare:*",
     "ci:prepare:backend": "cd backend && cargo build",
-    "ci:prepare:front": "pnpm --prefix frontend install"
+    "ci:prepare:front": "pnpm --prefix frontend install && pnpm --prefix frontend run build"
   },
   "devDependencies": {
     "@playwright/test": "^1.23.4",
