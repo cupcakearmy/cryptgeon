@@ -106,15 +106,29 @@
 	<form on:submit|preventDefault={submit}>
 		<fieldset disabled={loading !== null}>
 			{#if isFile}
-				<FileUpload label={$t('common.file')} bind:files />
+				<FileUpload data-testid="file-upload" label={$t('common.file')} bind:files />
 			{:else}
-				<TextArea label={$t('common.note')} bind:value={note.contents} placeholder="..." />
+				<TextArea
+					data-testid="text-field"
+					label={$t('common.note')}
+					bind:value={note.contents}
+					placeholder="..."
+				/>
 			{/if}
 
 			<div class="bottom">
-				<Switch class="file" label={$t('common.file')} bind:value={isFile} />
+				<Switch
+					data-testid="switch-file"
+					class="file"
+					label={$t('common.file')}
+					bind:value={isFile}
+				/>
 				{#if $status?.allow_advanced}
-					<Switch label={$t('common.advanced')} bind:value={advanced} />
+					<Switch
+						data-testid="switch-advanced"
+						label={$t('common.advanced')}
+						bind:value={advanced}
+					/>
 				{/if}
 				<div class="grow" />
 				<div class="tr">

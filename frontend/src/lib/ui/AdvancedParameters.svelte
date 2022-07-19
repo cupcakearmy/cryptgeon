@@ -12,6 +12,7 @@
 
 <div class="fields">
 	<TextInput
+		data-testid="field-views"
 		type="number"
 		label={$t('common.views', { values: { n: 0 } })}
 		bind:value={note.views}
@@ -22,9 +23,15 @@
 			$t('home.errors.max', { values: { n: $status?.max_views ?? 0 } })}
 	/>
 	<div class="middle-switch">
-		<Switch label={$t('common.mode')} bind:value={timeExpiration} color={false} />
+		<Switch
+			data-testid="switch-advanced-toggle"
+			label={$t('common.mode')}
+			bind:value={timeExpiration}
+			color={false}
+		/>
 	</div>
 	<TextInput
+		data-testid="field-expiration"
 		type="number"
 		label={$t('common.minutes', { values: { n: 0 } })}
 		bind:value={note.expiration}

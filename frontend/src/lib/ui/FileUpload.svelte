@@ -34,7 +34,7 @@
 	<small>
 		{label}
 	</small>
-	<input type="file" on:change={onInput} multiple />
+	<input {...$$restProps} type="file" on:change={onInput} multiple />
 	<div class="box">
 		{#if files.length}
 			<div>
