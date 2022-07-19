@@ -167,4 +167,6 @@ You can see the app under [localhost:1234](http://localhost:1234).
 
 ###### Attributions
 
-Icons made by <a href="https://www.freepik.com" title="Freepik">freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+- Text for tests [Nietzsche Ipsum](https://nietzsche-ipsum.com/)
+- Loading animation by [Nikhil Krishnan](https://codepen.io/nikhil8krishnan/pen/rVoXJa)
+- Icons made by <a href="https://www.freepik.com" title="Freepik">freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>

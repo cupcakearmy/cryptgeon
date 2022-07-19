@@ -44,20 +44,22 @@
 </script>
 
 <p class="error-text">{@html $t('show.warning_will_not_see_again')}</p>
-{#if note.meta.type === 'text'}
-	<div class="note">
-		{@html contentWithLinks(note.contents)}
-	</div>
-	<Button on:click={() => copy(note.contents)}>{$t('common.copy_clipboard')}</Button>
-{:else}
-	{#each files as file}
-		<div class="note file">
-			<b on:click={() => downloadFile(file)}>↓ {file.name}</b>
-			<small> {file.type} － {prettyBytes(file.size)}</small>
+<div data-testid="result">
+	{#if note.meta.type === 'text'}
+		<div class="note">
+			{@html contentWithLinks(note.contents)}
 		</div>
-	{/each}
-	<Button on:click={download}>{$t('show.download_all')}</Button>
-{/if}
+		<Button on:click={() => copy(note.contents)}>{$t('common.copy_clipboard')}</Button>
+	{:else}
+		{#each files as file}
+			<div class="note file">
+				<b on:click={() => downloadFile(file)}>↓ {file.name}</b>
+				<small> {file.type} － {prettyBytes(file.size)}</small>
+			</div>
+		{/each}
+		<Button on:click={download}>{$t('show.download_all')}</Button>
+	{/if}
+</div>
 
 <style>
 	.note {
