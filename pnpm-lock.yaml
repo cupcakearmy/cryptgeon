@@ -1,14 +1,29 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@playwright/test': ^1.23.4
   http-proxy: ^1.18.1
   npm-run-all: ^4.1.5
 
 devDependencies:
+  '@playwright/test': 1.23.4
   http-proxy: 1.18.1
   npm-run-all: 4.1.5
 
 packages:
+
+  /@playwright/test/1.23.4:
+    resolution: {integrity: sha512-iIsoMJDS/lyuhw82FtcV/B3PXikgVD3hNe5hyvOpRM0uRr1OIpN3LgPeRbBjhzBWmyf6RgRg5fqK5sVcpA03yA==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      '@types/node': 18.0.6
+      playwright-core: 1.23.4
+    dev: true
+
+  /@types/node/18.0.6:
+    resolution: {integrity: sha512-/xUq6H2aQm261exT6iZTMifUySEt4GR5KX8eYyY+C4MSNPqSh9oNIP7tz2GLKTlFaiBbgZNxffoR3CVRG+cljw==}
+    dev: true
 
   /ansi-styles/3.2.1:
     resolution: {integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==}
@@ -428,6 +443,12 @@ packages:
   /pify/3.0.0:
     resolution: {integrity: sha512-C3FsVNH1udSEX48gGX1xfvwTWfsYWj5U+8/uK15BGzIGrKoUpghX8hWZwa/OFnakBiiVNmBvemTJR5mcy7iPcg==}
     engines: {node: '>=4'}
+    dev: true
+
+  /playwright-core/1.23.4:
+    resolution: {integrity: sha512-h5V2yw7d8xIwotjyNrkLF13nV9RiiZLHdXeHo+nVJIYGVlZ8U2qV0pMxNJKNTvfQVT0N8/A4CW6/4EW2cOcTiA==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /read-pkg/3.0.0:

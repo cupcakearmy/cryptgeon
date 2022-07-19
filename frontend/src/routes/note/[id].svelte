@@ -86,7 +86,7 @@
 		<form on:submit|preventDefault={show}>
 			<fieldset>
 				<p>{$t('show.explanation')}</p>
-				<Button type="submit">{$t('show.show_note')}</Button>
+				<Button data-testid="show-note-button" type="submit">{$t('show.show_note')}</Button>
 				{#if error}
 					<br />
 					<p class="error-text">

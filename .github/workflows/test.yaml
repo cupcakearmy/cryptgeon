@@ -1,0 +1,36 @@
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: 1.61
+      - name: Prepare
+        run: |
+          pnpm install
+          pnpm run ci:prepare
+      # - name: Install Playwright
+      #   run: npx playwright install --with-deps
+      # - name: Run your tests
+      #   run: npm test
+      # - name: Upload test results
+      #   if: always()
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: playwright-report
+      #     path: playwright-report

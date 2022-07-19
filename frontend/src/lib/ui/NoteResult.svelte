@@ -24,6 +24,7 @@
 	label={$t('common.share_link')}
 	value="{window.location.origin}/note/{result.id}#{result.password}"
 	copy
+	data-testid="share-link"
 />
 <br />
 <p>
