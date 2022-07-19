@@ -1,9 +1,15 @@
 use byte_unit::Byte;
 
-// General
+// Internal
 lazy_static! {
     pub static ref VERSION: String = option_env!("CARGO_PKG_VERSION")
         .unwrap_or("Unknown")
+        .to_string();
+    pub static ref FRONTEND_PATH: String = option_env!("FRONTEND_PATH")
+        .unwrap_or("../frontend/build")
+        .to_string();
+    pub static ref LISTEN_ADDR: String = option_env!("LISTEN_ADDR")
+        .unwrap_or("0.0.0.0:5000")
         .to_string();
 }
 
