@@ -10,6 +10,7 @@ jobs:
         ports:
           - 6379:6379
     steps:
+      # Setup
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -20,6 +21,30 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: 1.61
+
+      # Cache
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      # Run
       - name: Prepare
         run: |
           pnpm install
