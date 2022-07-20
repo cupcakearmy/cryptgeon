@@ -2,8 +2,9 @@
 FROM node:16-alpine as client 
 WORKDIR /tmp
 RUN npm install -g pnpm@7
-COPY ./frontend ./
+COPY ./frontend/package.json ./frontend/pnpm-lock.yaml ./
 RUN pnpm install
+COPY ./frontend ./
 RUN pnpm exec svelte-kit sync
 RUN pnpm run build
 
