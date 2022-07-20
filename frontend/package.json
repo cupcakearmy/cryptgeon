@@ -11,10 +11,11 @@
 	"type": "module",
 	"devDependencies": {
 		"@lokalise/node-api": "^7.3.1",
-		"@sveltejs/adapter-static": "^1.0.0-next.37",
-		"@sveltejs/kit": "^1.0.0-next.377",
+		"@sveltejs/adapter-static": "^1.0.0-next.38",
+		"@sveltejs/kit": "^1.0.0-next.384",
 		"@types/dompurify": "^2.3.3",
 		"@types/file-saver": "^2.0.5",
+		"@zerodevx/svelte-toast": "^0.7.2",
 		"adm-zip": "^0.5.9",
 		"dotenv": "^16.0.1",
 		"svelte": "^3.49.0",
@@ -23,12 +24,12 @@
 		"svelte-preprocess": "^4.10.7",
 		"tslib": "^2.4.0",
 		"typescript": "^4.7.4",
-		"vite": "^3.0.1"
+		"vite": "^3.0.2"
 	},
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.8",
 		"copy-to-clipboard": "^3.3.1",
-		"dompurify": "^2.3.9",
+		"dompurify": "^2.3.10",
 		"file-saver": "^2.0.5",
 		"pretty-bytes": "^5.6.0"
 	}

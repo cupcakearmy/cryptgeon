@@ -7,11 +7,14 @@
 </script>
 
 <script lang="ts">
+	import { SvelteToast } from '@zerodevx/svelte-toast'
+	import { onMount } from 'svelte'
+
+	import '../app.css'
+
 	import { init as initStores } from '$lib/stores/status'
 	import Footer from '$lib/views/Footer.svelte'
 	import Header from '$lib/views/Header.svelte'
-	import { onMount } from 'svelte'
-	import '../app.css'
 
 	onMount(() => {
 		initStores()
@@ -27,6 +30,8 @@
 		<Header />
 		<slot />
 	</main>
+
+	<SvelteToast />
 
 	<Footer />
 {/await}
