@@ -3,7 +3,6 @@
 </script>
 
 <script lang="ts">
-	import copy from 'copy-to-clipboard'
 	import DOMPurify from 'dompurify'
 	import { saveAs } from 'file-saver'
 	import prettyBytes from 'pretty-bytes'
@@ -11,6 +10,7 @@
 
 	import type { FileDTO, NotePublic } from '$lib/api'
 	import Button from '$lib/ui/Button.svelte'
+	import { copy } from '$lib/utils'
 
 	export let note: DecryptedNote
 

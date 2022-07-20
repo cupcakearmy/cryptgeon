@@ -7,6 +7,7 @@
 	import { create, PayloadToLargeError } from '$lib/api'
 	import { Crypto, Hex } from '$lib/crypto'
 	import { status } from '$lib/stores/status'
+	import { notify } from '$lib/toast'
 	import AdvancedParameters from '$lib/ui/AdvancedParameters.svelte'
 	import Button from '$lib/ui/Button.svelte'
 	import FileUpload from '$lib/ui/FileUpload.svelte'
@@ -29,7 +30,6 @@
 	let timeExpiration = false
 	let description = ''
 	let loading: string | null = null
-	let error: string | null = null
 
 	$: if (!advanced) {
 		note.views = 1
@@ -56,7 +56,6 @@
 
 	async function submit() {
 		try {
-			error = null
 			loading = $t('common.encrypting')
 
 			const password = Hex.encode(Crypto.getRandomBytes(32))
@@ -82,14 +81,15 @@
 				password: password,
 				id: response.id,
 			}
+			notify.success($t('home.messages.note_created'))
 		} catch (e) {
 			if (e instanceof PayloadToLargeError) {
-				error = $t('home.errors.note_to_big')
+				notify.error($t('home.errors.note_to_big'))
 			} else if (e instanceof EmptyContentError) {
-				error = $t('home.errors.empty_content')
+				notify.error($t('home.errors.empty_content'))
 			} else {
 				console.error(e)
-				error = $t('home.errors.note_error')
+				notify.error($t('home.errors.note_error'))
 			}
 		} finally {
 			loading = null
@@ -138,10 +138,6 @@
 				</div>
 			</div>
 
-			{#if error}
-				<div class="error-text">{error}</div>
-			{/if}
-
 			<p>
 				<br />
 				{#if loading}
@@ -174,9 +170,5 @@
 
 	.grow {
 		flex: 1;
-	}
-
-	.error-text {
-		margin-top: 0.5rem;
 	}
 </style>

@@ -11,6 +11,7 @@
 		"max": "max",
 		"share_link": "Link teilen",
 		"copy_clipboard": "in die Zwischenablage kopieren",
+		"copied_to_clipboard": "in die Zwischenablage kopiert",
 		"encrypting": "verschlüsseln",
 		"decrypting": "entschlüsselt",
 		"uploading": "hochladen",
@@ -27,7 +28,9 @@
 			"max": "max: {n}",
 			"empty_content": "Notiz ist leer."
 		},
-		"copied_to_clipboard": "in die Zwischenablage kopiert 🔗"
+		"messages": {
+			"note_created": "notiz erstellt."
+		}
 	},
 	"show": {
 		"errors": {

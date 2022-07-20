@@ -14,7 +14,9 @@
 	--ui-text-0: #fefefe;
 	--ui-text-1: #eee;
 	--ui-clr-primary: hsl(186, 65%, 55%);
+	--ui-clr-primary-alt: hsl(186, 85%, 35%);
 	--ui-clr-error: hsl(357, 77%, 51%);
+	--ui-clr-error-alt: hsl(357, 87%, 41%);
 
 	--ui-anim: all 150ms ease;
 }

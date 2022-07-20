@@ -11,6 +11,7 @@
 		"max": "最大值",
 		"share_link": "分享链接",
 		"copy_clipboard": "复制到剪切版",
+		"copied_to_clipboard": "已复制到剪切板",
 		"encrypting": "加密",
 		"decrypting": "解密",
 		"uploading": "上传",
@@ -27,7 +28,9 @@
 			"max": "最大文件大小: {n}",
 			"empty_content": "密信为空！"
 		},
-		"copied_to_clipboard": "已复制到剪切板 🔗"
+		"messages": {
+			"note_created": "注释创建。"
+		}
 	},
 	"show": {
 		"errors": {

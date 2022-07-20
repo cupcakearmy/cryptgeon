@@ -11,6 +11,7 @@
 		"max": "max",
 		"share_link": "share link",
 		"copy_clipboard": "copy to clipboard",
+		"copied_to_clipboard": "copied to clipboard",
 		"encrypting": "encrypting",
 		"decrypting": "decrypting",
 		"uploading": "uploading",
@@ -27,7 +28,9 @@
 			"max": "max: {n}",
 			"empty_content": "note is empty."
 		},
-		"copied_to_clipboard": "copied to clipboard 🔗"
+		"messages": {
+			"note_created": "note created."
+		}
 	},
 	"show": {
 		"errors": {

@@ -11,6 +11,7 @@
 		"max": "max",
 		"share_link": "condividi link",
 		"copy_clipboard": "copia negli appunti",
+		"copied_to_clipboard": "copiato negli appunti",
 		"encrypting": "criptando",
 		"decrypting": "decifrando",
 		"uploading": "caricamento",
@@ -27,7 +28,9 @@
 			"max": "max: {n}",
 			"empty_content": "la nota è vuota."
 		},
-		"copied_to_clipboard": "copiato negli appunti 🔗"
+		"messages": {
+			"note_created": "nota creata."
+		}
 	},
 	"show": {
 		"errors": {

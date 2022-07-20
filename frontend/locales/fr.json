@@ -11,6 +11,7 @@
 		"max": "max",
 		"share_link": "partager le lien",
 		"copy_clipboard": "copier dans le presse-papiers",
+		"copied_to_clipboard": "copié dans le presse-papiers",
 		"encrypting": "cryptage",
 		"decrypting": "déchiffrer",
 		"uploading": "téléchargement",
@@ -27,7 +28,9 @@
 			"max": "max: {n}",
 			"empty_content": "La note est vide."
 		},
-		"copied_to_clipboard": "copié dans le presse-papiers 🔗"
+		"messages": {
+			"note_created": "note créée."
+		}
 	},
 	"show": {
 		"errors": {
