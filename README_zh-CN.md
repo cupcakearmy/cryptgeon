@@ -47,13 +47,15 @@ _加密鸽_ 是一个受 [_PrivNote_](https://privnote.com)项目启发的安全
 
 ## 环境变量
 
-| 变量名称          | 默认值           | 描述                                                                              |
+| 变量名称           | 默认值            | 描述                                                                               |
 | ----------------- | ---------------- | --------------------------------------------------------------------------------- |
-| `REDIS`           | `redis://redis/` | Redis URL to connect to.                                                          |
-| `SIZE_LIMIT`      | `1 KiB`          | 最大请求体(body)限制。有关支持的数值请查看 [字节单位](https://docs.rs/byte-unit/) |
-| `MAX_VIEWS`       | `100`            | 密信最多查看次数限制                                                              |
-| ` MAX_EXPIRATION` | `360`            | 密信最长过期时间限制(分钟)                                                        |
-| `ALLOW_ADVANCED`  | `true`           | 是否允许自定义设置，该项如果设为`false`，则不会显示自定义设置模块                 |
+| `REDIS`           | `redis://redis/` | Redis 连接 URL。                                                                   |
+| `SIZE_LIMIT`      | `1 KiB`          | 最大请求体(body)限制。有关支持的数值请查看 [字节单位](https://docs.rs/byte-unit/)        |
+| `MAX_VIEWS`       | `100`            | 密信最多查看次数限制                                                                 |
+| ` MAX_EXPIRATION` | `360`            | 密信最长过期时间限制(分钟)                                                            |
+| `ALLOW_ADVANCED`  | `true`           | 是否允许自定义设置，该项如果设为`false`，则不会显示自定义设置模块                           |
+| `THEME_IMAGE`     | `""`             | 自定义Logo图片，你在这里填写的的图片链接必须是可以公开访问的。                              | 
+| `THEME_TEXT`      | `""`             | 自定义在Logo下方的文本。                                                              |
 
 ## 部署
 
@@ -137,7 +139,7 @@ services:
 pnpm install
 pnpm --prefix frontend install
 
-# Also you need cargo watch if you don't already have it installed.
+# 你还需要安装CargoWatch.
 # https://lib.rs/crates/cargo-watch
 cargo install cargo-watch
 ```
@@ -146,7 +148,7 @@ cargo install cargo-watch
 
 确保你的 Docker 正在运行
 
-> If you are on `macOS` you might need to disable AirPlay Receiver as it uses port 5000 (So stupid...)
+> 如果你用的是 `macOS` 的话你可能需要关闭AirPlay接收功能因为该功能需要占用5000端口...)
 > https://developer.apple.com/forums/thread/682332
 
 ```bash
@@ -161,6 +163,25 @@ pnpm run dev
 
 你可以通过 1234 端口进入该应用，即 [localhost:1234](http://localhost:1234).
 
+## 测试
+
+这些测试是用Playwright实现的一些端到端测试用例。
+
+```sh
+pnpm run ci:prepare
+docker compose up redis -d
+pnpm run ci:server
+
+# 在另一个终端中：
+# 使用test或者test:local script。为了更快的开发，本地版本只会在一个浏览器中运行。
+pnpm run test:local
+```
+
 ###### Attributions
 
-本项目所使用的图标由<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com 的<a href="https://www.freepik.com" title="Freepik">freepik</a>制作</a>
+- 测试数据:
+  - 测试文本 [Nietzsche Ipsum](https://nietzsche-ipsum.com/)
+  - [AES Paper](https://www.cs.miami.edu/home/burt/learning/Csc688.012/rijndael/rijndael_doc_V2.pdf)
+  - [Unsplash Pictures](https://unsplash.com/)
+- 加载动画由 [Nikhil Krishnan](https://codepen.io/nikhil8krishnan/pen/rVoXJa) 提供
+- 图标由来自 <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 的 <a href="https://www.freepik.com" title="Freepik">freepik</a> 提供
