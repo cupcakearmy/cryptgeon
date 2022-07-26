@@ -52,7 +52,7 @@ of the notes even if it tried to.
 
 | Variable         | Default          | Description                                                                                                                                                                                                   |
 | ---------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `REDIS`          | `redis://redis/` | Redis URL to connect to.                                                                                                                                                                                      |
+| `REDIS`          | `redis://redis/` | Redis URL to connect to. [According to format](https://docs.rs/redis/latest/redis/#connection-parameters)                                                                                                     |
 | `SIZE_LIMIT`     | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). <br> `512 MiB` is the maximum allowed. <br> The frontend will show that number including the ~35% encoding overhead. |
 | `MAX_VIEWS`      | `100`            | Maximal number of views.                                                                                                                                                                                      |
 | `MAX_EXPIRATION` | `360`            | Maximal expiration in minutes.                                                                                                                                                                                |
