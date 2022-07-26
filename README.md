@@ -93,39 +93,15 @@ See the [examples/nginx](https://github.com/cupcakearmy/cryptgeon/tree/main/exam
 
 ### Traefik 2
 
-Assumptions:
+See the [examples/traefik](https://github.com/cupcakearmy/cryptgeon/tree/main/examples/traefik) folder.
 
-- External proxy docker network `proxy`
-- A certificate resolver `le`
-- A https entrypoint `secure`
-- Domain name `example.org`
+### Scratch
 
-```yaml
-version: '3.8'
+See the [examples/scratch](https://github.com/cupcakearmy/cryptgeon/tree/main/examples/scratch) folder. There you'll find a guide how to setup a server and install cryptgeon from scratch.
 
-networks:
-  proxy:
-    external: true
+### Synology
 
-services:
-  redis:
-    image: redis:7-alpine
-    restart: unless-stopped
-
-  app:
-    image: cupcakearmy/cryptgeon:latest
-    restart: unless-stopped
-    depends_on:
-      - redis
-    networks:
-      - default
-      - proxy
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.cryptgeon.rule=Host(`example.org`)
-      - traefik.http.routers.cryptgeon.entrypoints=secure
-      - traefik.http.routers.cryptgeon.tls.certresolver=le
-```
+There is a [guide](https://mariushosting.com/how-to-install-cryptgeon-on-your-synology-nas/) you can follow.
 
 ## Development
 
