@@ -8,9 +8,6 @@
     "test": "playwright test --project chrome firefox safari",
     "test:local": "playwright test --project local",
     "ci:server": "cd backend && SIZE_LIMIT=10MiB LISTEN_ADDR=0.0.0.0:1234 cargo run",
-    "ci:server:backend": "cd backend && cargo run",
-    "ci:server:front": "pnpm --prefix frontend run preview",
-    "ci:server:proxy": "node proxy.mjs",
     "ci:prepare": "run-p ci:prepare:*",
     "ci:prepare:backend": "cd backend && cargo build",
     "ci:prepare:front": "pnpm --prefix frontend install && pnpm --prefix frontend run build"
