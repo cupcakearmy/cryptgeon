@@ -146,9 +146,9 @@ You can see the app under [localhost:1234](http://localhost:1234).
 Tests are end to end tests written with Playwright.
 
 ```sh
-pnpm run ci:prepare
+pnpm run test:prepare
 docker compose up redis -d
-pnpm run ci:server
+pnpm run test:server
 
 # In another terminal.
 # Use the test or test:local script. The local version only runs in one browser for quicker development.

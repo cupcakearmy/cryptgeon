@@ -23,11 +23,11 @@ jobs:
       - name: Prepare
         run: |
           pnpm install
-          pnpm run ci:prepare
+          pnpm run test:prepare
       - name: Install Playwright
         run: npx playwright install --with-deps
       - name: Run your tests
-        run: pnpm run test
+        run: pnpm run test:run
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v2

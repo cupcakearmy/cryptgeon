@@ -6,7 +6,8 @@
 		"preview": "vite preview --port 3000",
 		"check": "svelte-check --tsconfig tsconfig.json",
 		"licenses": "license-checker --summary > licenses.csv",
-		"locale:download": "node scripts/locale.js"
+		"locale:download": "node scripts/locale.js",
+		"test:prepare": "pnpm run build"
 	},
 	"type": "module",
 	"devDependencies": {

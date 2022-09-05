@@ -2,7 +2,7 @@
 FROM node:16-alpine as client 
 WORKDIR /tmp
 RUN npm install -g pnpm@7
-COPY ./frontend ./
+COPY ./packages/frontend ./
 RUN pnpm install
 RUN pnpm exec svelte-kit sync
 RUN pnpm run build
@@ -12,9 +12,9 @@ RUN pnpm run build
 FROM rust:1.61-alpine as backend
 WORKDIR /tmp
 RUN apk add libc-dev openssl-dev alpine-sdk
-COPY ./backend/Cargo.* ./
+COPY ./packages/backend/Cargo.* ./
 RUN cargo fetch
-COPY ./backend ./
+COPY ./packages/backend ./
 RUN cargo build --release
 
 

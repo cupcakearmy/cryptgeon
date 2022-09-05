@@ -11,7 +11,7 @@ const config: PlaywrightTestConfig = {
   testDir: './test',
 
   webServer: {
-    command: 'pnpm run ci:server',
+    command: 'pnpm run test:server',
     port: 1234,
     reuseExistingServer: true,
   },
