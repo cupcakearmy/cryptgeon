@@ -155,6 +155,10 @@ pnpm run ci:server
 pnpm run test:local
 ```
 
+## Security
+
+Please refer to the security section [here](./SECURITY.md).
+
 ###### Attributions
 
 - Test data:
