@@ -26,7 +26,7 @@ _cryptgeon_ is a secure, open source sharing note or file service inspired by [_
 
 ## Demo
 
-Check out the demo and see for yourself https://cryptgeon.nicco.io.
+Check out the demo and see for yourself [cryptgeon.org](https://cryptgeon.org)
 
 ## Features
 
