@@ -9,12 +9,14 @@ const config: PlaywrightTestConfig = {
 
   outputDir: './test-results',
   testDir: './test',
+  timeout: 60_000,
 
   webServer: {
     command: 'pnpm run test:server',
     port: 1234,
     reuseExistingServer: true,
   },
+
   projects: [
     { name: 'chrome', use: { ...devices['Desktop Chrome'] } },
     { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
