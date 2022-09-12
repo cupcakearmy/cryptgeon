@@ -26,7 +26,7 @@ _加密鸽_ 是一个受 [_PrivNote_](https://privnote.com)项目启发的安全
 
 ## 演示示例
 
-查看加密鸽的在线演示 demo： https://cryptgeon.nicco.io.
+查看加密鸽的在线演示 demo： [cryptgeon.org](https://cryptgeon.org)
 
 ## 功能
 

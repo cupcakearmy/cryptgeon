@@ -26,7 +26,7 @@ _cryptgeon_ is a secure, open source sharing note or file service inspired by [_
 
 ## Demo
 
-Check out the demo and see for yourself https://cryptgeon.nicco.io.
+Check out the demo and see for yourself [cryptgeon.org](https://cryptgeon.org)
 
 ## Features
 
@@ -154,6 +154,10 @@ pnpm run test:server
 # Use the test or test:local script. The local version only runs in one browser for quicker development.
 pnpm run test:local
 ```
+
+## Security
+
+Please refer to the security section [here](./SECURITY.md).
 
 ###### Attributions
 
