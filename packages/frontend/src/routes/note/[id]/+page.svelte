@@ -4,7 +4,7 @@
 
 	import { Adapters } from '$lib/adapters'
 	import { get, info } from '$lib/api'
-	import { Crypto } from '$lib/crypto'
+	import { Keys } from '$lib/crypto'
 	import Button from '$lib/ui/Button.svelte'
 	import Loader from '$lib/ui/Loader.svelte'
 	import ShowNote, { type DecryptedNote } from '$lib/ui/ShowNote.svelte'
@@ -43,7 +43,7 @@
 			loading = $t('common.downloading')
 			const data = await get(id)
 			loading = $t('common.decrypting')
-			const key = await Crypto.getKeyFromString(password)
+			const key = await Keys.import(password)
 			switch (data.meta.type) {
 				case 'text':
 					note = {

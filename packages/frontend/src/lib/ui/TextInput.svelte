@@ -24,7 +24,7 @@
 		hidden = !hidden
 	}
 	function randomFN() {
-		value = Hex.encode(Crypto.getRandomBytes(20))
+		value = Hex.encode(Crypto.getRandomBytes(32))
 	}
 </script>
 
