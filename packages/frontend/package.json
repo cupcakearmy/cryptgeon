@@ -12,8 +12,8 @@
 	"type": "module",
 	"devDependencies": {
 		"@lokalise/node-api": "^7.3.1",
-		"@sveltejs/adapter-static": "^1.0.0-next.38",
-		"@sveltejs/kit": "^1.0.0-next.384",
+		"@sveltejs/adapter-static": "1.0.0-next.40",
+		"@sveltejs/kit": "1.0.0-next.405",
 		"@types/dompurify": "^2.3.3",
 		"@types/file-saver": "^2.0.5",
 		"@zerodevx/svelte-toast": "^0.7.2",
