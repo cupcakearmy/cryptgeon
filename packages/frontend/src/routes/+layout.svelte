@@ -1,14 +1,7 @@
-<script lang="ts" context="module">
-	import { getLocaleFromNavigator, init, waitLocale } from 'svelte-intl-precompile'
-	// @ts-ignore
-	import { registerAll } from '$locales'
-	registerAll()
-	init({ initialLocale: getLocaleFromNavigator() ?? undefined, fallbackLocale: 'en' })
-</script>
-
 <script lang="ts">
 	import { SvelteToast } from '@zerodevx/svelte-toast'
 	import { onMount } from 'svelte'
+	import { waitLocale } from 'svelte-intl-precompile'
 
 	import '../app.css'
 
