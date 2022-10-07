@@ -19,7 +19,7 @@
 		disabled={timeExpiration}
 		max={$status?.max_views}
 		validate={(v) =>
-			($status && v < $status?.max_views) ||
+			($status && v <= $status?.max_views) ||
 			$t('home.errors.max', { values: { n: $status?.max_views ?? 0 } })}
 	/>
 	<div class="middle-switch">

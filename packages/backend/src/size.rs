@@ -7,5 +7,6 @@ pub fn init(cfg: &mut web::ServiceConfig) {
     let plain = web::PayloadConfig::default()
         .limit(*config::LIMIT)
         .mimetype(mime::STAR_STAR);
+    // cfg.app_data(plain);
     cfg.app_data(json).app_data(plain);
 }

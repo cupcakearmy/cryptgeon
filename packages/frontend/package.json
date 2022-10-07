@@ -6,13 +6,14 @@
 		"preview": "vite preview --port 3000",
 		"check": "svelte-check --tsconfig tsconfig.json",
 		"licenses": "license-checker --summary > licenses.csv",
-		"locale:download": "node scripts/locale.js"
+		"locale:download": "node scripts/locale.js",
+		"test:prepare": "pnpm run build"
 	},
 	"type": "module",
 	"devDependencies": {
 		"@lokalise/node-api": "^7.3.1",
-		"@sveltejs/adapter-static": "^1.0.0-next.38",
-		"@sveltejs/kit": "^1.0.0-next.384",
+		"@sveltejs/adapter-static": "1.0.0-next.42",
+		"@sveltejs/kit": "1.0.0-next.480",
 		"@types/dompurify": "^2.3.3",
 		"@types/file-saver": "^2.0.5",
 		"@zerodevx/svelte-toast": "^0.7.2",

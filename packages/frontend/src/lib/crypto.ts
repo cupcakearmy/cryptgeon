@@ -35,6 +35,31 @@ export class ArrayBufferUtils {
 	}
 }
 
+export class Keys {
+	public static async generateKey(size: 128 | 192 | 256 = 256): Promise<CryptoKey> {
+		const key = await window.crypto.subtle.generateKey(
+			{
+				name: 'AES-GCM',
+				length: size,
+			},
+			true,
+			['encrypt', 'decrypt']
+		)
+		return key
+	}
+
+	public static async export(key: CryptoKey): Promise<string> {
+		return Hex.encode(await window.crypto.subtle.exportKey('raw', key))
+	}
+
+	public static async import(key: string): Promise<CryptoKey> {
+		return window.crypto.subtle.importKey('raw', Hex.decode(key), { name: 'AES-GCM' }, true, [
+			'encrypt',
+			'decrypt',
+		])
+	}
+}
+
 export class Crypto {
 	private static ALG = 'AES-GCM'
 	private static DELIMITER = ':::'
@@ -43,55 +68,22 @@ export class Crypto {
 		return window.crypto.getRandomValues(new Uint8Array(size))
 	}
 
-	public static getKeyFromString(password: string) {
-		return window.crypto.subtle.importKey(
-			'raw',
-			new TextEncoder().encode(password),
-			'PBKDF2',
-			false,
-			['deriveBits', 'deriveKey']
-		)
-	}
-	public static async getDerivedForKey(key: CryptoKey, salt: ArrayBuffer) {
-		const iterations = 100_000
-		return window.crypto.subtle.deriveKey(
-			{
-				name: 'PBKDF2',
-				salt,
-				iterations,
-				hash: 'SHA-512',
-			},
-			key,
-			{ name: this.ALG, length: 256 },
-			true,
-			['encrypt', 'decrypt']
-		)
-	}
-
 	public static async encrypt(plaintext: ArrayBuffer, key: CryptoKey): Promise<string> {
-		const salt = this.getRandomBytes(16)
-		const derived = await this.getDerivedForKey(key, salt)
-		const iv = this.getRandomBytes(16)
+		const iv = this.getRandomBytes(12) // AES-GCM needs a 96bit IV
 		const encrypted: ArrayBuffer = await window.crypto.subtle.encrypt(
 			{ name: this.ALG, iv },
-			derived,
+			key,
 			plaintext
 		)
-		const data = [
-			Hex.encode(salt),
-			Hex.encode(iv),
-			await ArrayBufferUtils.toString(encrypted),
-		].join(this.DELIMITER)
+		const data = [Hex.encode(iv), await ArrayBufferUtils.toString(encrypted)].join(this.DELIMITER)
 		return data
 	}
 
 	public static async decrypt(ciphertext: string, key: CryptoKey): Promise<ArrayBuffer> {
 		const splitted = ciphertext.split(this.DELIMITER)
-		const salt = Hex.decode(splitted[0])
-		const iv = Hex.decode(splitted[1])
-		const encrypted = await ArrayBufferUtils.fromString(splitted[2])
-		const derived = await this.getDerivedForKey(key, salt)
-		const plaintext = await window.crypto.subtle.decrypt({ name: this.ALG, iv }, derived, encrypted)
+		const iv = Hex.decode(splitted[0])
+		const encrypted = await ArrayBufferUtils.fromString(splitted[1])
+		const plaintext = await window.crypto.subtle.decrypt({ name: this.ALG, iv }, key, encrypted)
 		return plaintext
 	}
 }

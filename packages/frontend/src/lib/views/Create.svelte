@@ -5,7 +5,7 @@
 	import { Adapters } from '$lib/adapters'
 	import type { FileDTO, Note } from '$lib/api'
 	import { create, PayloadToLargeError } from '$lib/api'
-	import { Crypto, Hex } from '$lib/crypto'
+	import { Keys } from '$lib/crypto'
 	import { status } from '$lib/stores/status'
 	import { notify } from '$lib/toast'
 	import AdvancedParameters from '$lib/ui/AdvancedParameters.svelte'
@@ -58,8 +58,8 @@
 		try {
 			loading = $t('common.encrypting')
 
-			const password = Hex.encode(Crypto.getRandomBytes(32))
-			const key = await Crypto.getKeyFromString(password)
+			const key = await Keys.generateKey()
+			const password = await Keys.export(key)
 
 			const data: Note = {
 				contents: '',

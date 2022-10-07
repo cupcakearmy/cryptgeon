@@ -1,20 +1,17 @@
 {
   "scripts": {
     "dev:docker": "docker-compose up redis",
-    "dev:backend": "cd backend && cargo watch -x 'run --bin cryptgeon'",
-    "dev:front": "pnpm --prefix frontend run dev",
+    "dev:packages": "pnpm --parallel run dev",
     "dev:proxy": "node proxy.mjs",
     "dev": "run-p dev:*",
-    "test": "playwright test --project chrome firefox safari",
+    "test:run": "playwright test --project chrome firefox safari",
     "test:local": "playwright test --project local",
-    "ci:server": "cd backend && SIZE_LIMIT=10MiB LISTEN_ADDR=0.0.0.0:1234 cargo run",
-    "ci:prepare": "run-p ci:prepare:*",
-    "ci:prepare:backend": "cd backend && cargo build",
-    "ci:prepare:front": "pnpm --prefix frontend install && pnpm --prefix frontend run build"
+    "test:server": "pnpm --parallel run test:server",
+    "test:prepare": "pnpm --parallel run test:prepare"
   },
   "devDependencies": {
-    "@playwright/test": "^1.23.4",
-    "@types/node": "16",
+    "@playwright/test": "^1.25.1",
+    "@types/node": "^16.11.57",
     "http-proxy": "^1.18.1",
     "npm-run-all": "^4.1.5"
   }

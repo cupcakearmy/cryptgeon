@@ -18,10 +18,11 @@ mod store;
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
-    env_logger::init_from_env(env_logger::Env::new().default_filter_or("warning"));
+    env_logger::init_from_env(env_logger::Env::new().default_filter_or(config::VERBOSITY.as_str()));
+
     return HttpServer::new(|| {
         App::new()
-            .wrap(Logger::new("%a \"%r\" %s %b %T"))
+            .wrap(Logger::new("\"%r\" %s %b %T"))
             .wrap(middleware::Compress::default())
             .wrap(middleware::DefaultHeaders::default())
             .configure(size::init)

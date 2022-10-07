@@ -3,6 +3,7 @@ import precompileIntl from 'svelte-intl-precompile/sveltekit-plugin'
 
 /** @type {import('vite').UserConfig} */
 const config = {
+	clearScreen: false,
 	server: {
 		port: 3000,
 	},

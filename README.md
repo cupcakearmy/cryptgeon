@@ -59,6 +59,7 @@ of the notes even if it tried to.
 | `ALLOW_ADVANCED` | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                                                                                                                |
 | `THEME_IMAGE`    | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                                                                                                               |
 | `THEME_TEXT`     | `""`             | Custom text for replacing the description below the logo                                                                                                                                                      |
+| `VERBOSITY`      | `warn`           | Verbosity level for the backend. [Possible values](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) are: `error`, `warn`, `info`, `debug`, `trace`                                             |
 
 ## Deployment
 
@@ -146,9 +147,9 @@ You can see the app under [localhost:1234](http://localhost:1234).
 Tests are end to end tests written with Playwright.
 
 ```sh
-pnpm run ci:prepare
+pnpm run test:prepare
 docker compose up redis -d
-pnpm run ci:server
+pnpm run test:server
 
 # In another terminal.
 # Use the test or test:local script. The local version only runs in one browser for quicker development.

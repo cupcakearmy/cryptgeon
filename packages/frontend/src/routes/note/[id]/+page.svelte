@@ -1,26 +1,18 @@
-<script context="module" lang="ts">
-	import type { Load } from '@sveltejs/kit'
-
-	export const load: Load = async ({ params }) => {
-		return {
-			props: params,
-		}
-	}
-</script>
-
 <script lang="ts">
 	import { onMount } from 'svelte'
 	import { t } from 'svelte-intl-precompile'
 
 	import { Adapters } from '$lib/adapters'
 	import { get, info } from '$lib/api'
-	import { Crypto } from '$lib/crypto'
+	import { Keys } from '$lib/crypto'
 	import Button from '$lib/ui/Button.svelte'
 	import Loader from '$lib/ui/Loader.svelte'
 	import ShowNote, { type DecryptedNote } from '$lib/ui/ShowNote.svelte'
+	import type { PageData } from './$types'
 
-	export let id: string
+	export let data: PageData
 
+	let id = data.id
 	let password: string
 	let note: DecryptedNote | null = null
 	let exists = false
@@ -51,7 +43,7 @@
 			loading = $t('common.downloading')
 			const data = await get(id)
 			loading = $t('common.decrypting')
-			const key = await Crypto.getKeyFromString(password)
+			const key = await Keys.import(password)
 			switch (data.meta.type) {
 				case 'text':
 					note = {
