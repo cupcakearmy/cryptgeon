@@ -10,6 +10,7 @@ const config: PlaywrightTestConfig = {
   outputDir: './test-results',
   testDir: './test',
   timeout: 60_000,
+  testIgnore: ['file/too-big.spec.ts'],
 
   webServer: {
     command: 'pnpm run test:server',
