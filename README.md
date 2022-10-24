@@ -24,9 +24,9 @@ _cryptgeon_ is a secure, open source sharing note or file service inspired by [_
 >
 > Thanks to [Lokalise](https://lokalise.com/) for providing free access to their platform.
 
-## Demo
+## Live Service / Demo
 
-Check out the demo and see for yourself [cryptgeon.org](https://cryptgeon.org)
+Check out the live service / demo and see for yourself [cryptgeon.org](https://cryptgeon.org)
 
 ## Features
 
@@ -107,6 +107,11 @@ See the [examples/scratch](https://github.com/cupcakearmy/cryptgeon/tree/main/ex
 ### Synology
 
 There is a [guide](https://mariushosting.com/how-to-install-cryptgeon-on-your-synology-nas/) you can follow.
+
+### YouTube Guides
+
+- English by [DB Tech](https://www.youtube.com/watch?v=S0jx7wpOfNM) [Previous Video](https://www.youtube.com/watch?v=JhpIatD06vE)
+- German by [ApfelCast](https://www.youtube.com/watch?v=84ZMbE9AkHg)
 
 ## Development
 
