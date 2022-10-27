@@ -9,6 +9,8 @@ export type Status = {
 	allow_advanced: boolean
 	theme_image: string
 	theme_text: string
+	theme_favicon: string
+	theme_page_title: string
 }
 
 export const status = writable<null | Status>(null)

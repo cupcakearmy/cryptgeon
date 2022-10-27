@@ -5,7 +5,7 @@
 
 	import '../app.css'
 
-	import { init as initStores } from '$lib/stores/status'
+	import { init as initStores, status } from '$lib/stores/status'
 	import Footer from '$lib/views/Footer.svelte'
 	import Header from '$lib/views/Header.svelte'
 
@@ -15,7 +15,8 @@
 </script>
 
 <svelte:head>
-	<title>cryptgeon</title>
+	<title>{$status?.theme_page_title || 'cryptgeon'}</title>
+	<link rel="icon" href={$status?.theme_favicon || '/favicon.png'} />
 </svelte:head>
 
 {#await waitLocale() then _}

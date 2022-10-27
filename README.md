@@ -50,16 +50,18 @@ of the notes even if it tried to.
 
 ## Environment Variables
 
-| Variable         | Default          | Description                                                                                                                                                                                                   |
-| ---------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `REDIS`          | `redis://redis/` | Redis URL to connect to. [According to format](https://docs.rs/redis/latest/redis/#connection-parameters)                                                                                                     |
-| `SIZE_LIMIT`     | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). <br> `512 MiB` is the maximum allowed. <br> The frontend will show that number including the ~35% encoding overhead. |
-| `MAX_VIEWS`      | `100`            | Maximal number of views.                                                                                                                                                                                      |
-| `MAX_EXPIRATION` | `360`            | Maximal expiration in minutes.                                                                                                                                                                                |
-| `ALLOW_ADVANCED` | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                                                                                                                |
-| `THEME_IMAGE`    | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                                                                                                               |
-| `THEME_TEXT`     | `""`             | Custom text for replacing the description below the logo                                                                                                                                                      |
-| `VERBOSITY`      | `warn`           | Verbosity level for the backend. [Possible values](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) are: `error`, `warn`, `info`, `debug`, `trace`                                             |
+| Variable           | Default          | Description                                                                                                                                                                                                   |
+| ------------------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `REDIS`            | `redis://redis/` | Redis URL to connect to. [According to format](https://docs.rs/redis/latest/redis/#connection-parameters)                                                                                                     |
+| `SIZE_LIMIT`       | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). <br> `512 MiB` is the maximum allowed. <br> The frontend will show that number including the ~35% encoding overhead. |
+| `MAX_VIEWS`        | `100`            | Maximal number of views.                                                                                                                                                                                      |
+| `MAX_EXPIRATION`   | `360`            | Maximal expiration in minutes.                                                                                                                                                                                |
+| `ALLOW_ADVANCED`   | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                                                                                                                |
+| `VERBOSITY`        | `warn`           | Verbosity level for the backend. [Possible values](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) are: `error`, `warn`, `info`, `debug`, `trace`                                             |
+| `THEME_IMAGE`      | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                                                                                                               |
+| `THEME_TEXT`       | `""`             | Custom text for replacing the description below the logo                                                                                                                                                      |
+| `THEME_PAGE_TITLE` | `""`             | Custom text the page title                                                                                                                                                                                    |
+| `THEME_FAVICON`    | `""`             | Custom url for the favicon. Must be publicly reachable                                                                                                                                                        |
 
 ## Deployment
 
