@@ -42,4 +42,12 @@ lazy_static! {
         .unwrap_or("".to_string())
         .parse()
         .unwrap();
+    pub static ref THEME_PAGE_TITLE: String = std::env::var("THEME_PAGE_TITLE")
+        .unwrap_or("".to_string())
+        .parse()
+        .unwrap();
+    pub static ref THEME_FAVICON: String = std::env::var("THEME_FAVICON")
+        .unwrap_or("".to_string())
+        .parse()
+        .unwrap();
 }

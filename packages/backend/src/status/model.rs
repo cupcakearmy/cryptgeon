@@ -12,4 +12,6 @@ pub struct Status {
     // Theme
     pub theme_image: String,
     pub theme_text: String,
+    pub theme_page_title: String,
+    pub theme_favicon: String,
 }
