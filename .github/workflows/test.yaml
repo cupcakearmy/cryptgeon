@@ -1,4 +1,9 @@
+name: Test
+
 on:
+  push:
+    branches:
+      - main
   pull_request:
 
 jobs:
@@ -19,7 +24,7 @@ jobs:
           version: 7
       - uses: actions-rs/toolchain@v1
         with:
-          toolchain: 1.61
+          toolchain: 1.64
       - name: Prepare
         run: |
           pnpm install
