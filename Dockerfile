@@ -9,13 +9,16 @@ RUN pnpm run build
 
 
 # BACKEND
-FROM rust:1.61-alpine as backend
+FROM rust:1.64-alpine as backend
 WORKDIR /tmp
 RUN apk add libc-dev openssl-dev alpine-sdk
 COPY ./packages/backend/Cargo.* ./
-RUN cargo fetch
+# https://blog.rust-lang.org/2022/06/22/sparse-registry-testing.html
+RUN rustup update nightly
+ENV CARGO_UNSTABLE_SPARSE_REGISTRY=true
+RUN cargo +nightly fetch
 COPY ./packages/backend ./
-RUN cargo build --release
+RUN cargo +nightly build --release
 
 
 # RUNNER
