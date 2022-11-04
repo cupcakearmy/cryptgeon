@@ -9,9 +9,6 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch: ["linux/amd64", "linux/arm64"]
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -34,11 +31,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
-        id: docker_build
         uses: docker/build-push-action@v2
         with:
-          platforms: ${{ matrix.arch }}
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
