@@ -9,9 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch: ["linux/amd64", "linux/arm64"]
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -22,7 +19,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          platforms: ${{ matrix.arch }}
           push: false
   test:
     runs-on: ubuntu-latest
