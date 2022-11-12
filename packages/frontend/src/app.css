@@ -87,6 +87,8 @@ button {
 	font-size: inherit;
 	background: inherit;
 	color: inherit;
+	border: none;
+	padding-inline: initial;
 }
 
 *:disabled,

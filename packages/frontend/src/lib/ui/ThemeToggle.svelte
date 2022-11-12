@@ -40,19 +40,19 @@
 	}
 </script>
 
-<div on:click={change}>
+<button on:click={change}>
 	<Icon class="icon" icon="contrast" />
 	{$theme}
-</div>
+</button>
 
 <style>
-	div :global(.icon) {
+	button :global(.icon) {
 		height: 1rem;
 		width: 1rem;
 		margin-right: 0.5rem;
 	}
 
-	div {
+	button {
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-end;

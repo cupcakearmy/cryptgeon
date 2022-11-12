@@ -53,7 +53,9 @@
 	{:else}
 		{#each files as file}
 			<div class="note file">
-				<b on:click={() => downloadFile(file)}>↓ {file.name}</b>
+				<button on:click={() => downloadFile(file)}>
+					<b>↓ {file.name}</b>
+				</button>
 				<small> {file.type} － {prettyBytes(file.size)}</small>
 			</div>
 		{/each}

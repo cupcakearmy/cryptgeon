@@ -7,7 +7,9 @@
 	<nav>
 		<a href="/">/home</a>
 		<a href="/about">/about</a>
-		<a href="https://github.com/cupcakearmy/cryptgeon" target="_blank" rel="noopener">/code</a>
+		<a href="https://github.com/cupcakearmy/cryptgeon" target="_blank" rel="noopener noreferrer">
+			code
+		</a>
 	</nav>
 </footer>
 

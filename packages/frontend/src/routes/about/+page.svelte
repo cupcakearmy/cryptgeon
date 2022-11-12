@@ -39,7 +39,7 @@
 			the backend is written in rust and the frontend is svelte and typescript.
 			<br />
 			you are welcomed to check & audit the
-			<a href="https://github.com/cupcakearmy/cryptgeon" target="_blank" rel="noopener">
+			<a href="https://github.com/cupcakearmy/cryptgeon" target="_blank" rel="noopener noreferrer">
 				source code
 			</a>.
 		</span>
@@ -47,9 +47,12 @@
 
 	<AboutParagraph title="translations">
 		<span
-			>translations are managed on <a href="https://lokalise.com/" target="_blank">Lokalise</a>,
-			which granted an open source license to use the paid version. If you are interested in helping
-			translating don't hesitate to contact me!
+			>translations are managed on <a
+				href="https://lokalise.com/"
+				target="_blank"
+				rel="noopener noreferrer">Lokalise</a
+			>, which granted an open source license to use the paid version. If you are interested in
+			helping translating don't hesitate to contact me!
 		</span>
 	</AboutParagraph>
 
