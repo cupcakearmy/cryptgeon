@@ -49,7 +49,7 @@ async fn create(note: web::Json<Note>) -> impl Responder {
     }
     match n.views {
         Some(v) => {
-            if v > *config::MAX_VIEWS {
+            if v > *config::MAX_VIEWS || v < 1 {
                 return bad_req;
             }
             n.expiration = None; // views overrides expiration
