@@ -9,20 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- #66 Set minimum a view
+- #66 Set minimum a view.
+
+### Security
+
+- Updated dependencies.
 
 ## [2.0.5] - 2022-11-04
 
 ### Fixed
 
-- Docker build pipeline
+- Docker build pipeline.
 
 ## [2.0.4] - 2022-10-29
 
 ### Added
 
-- `THEME_PAGE_TITLE`
-- `THEME_FAVICON`
+- `THEME_PAGE_TITLE`.
+- `THEME_FAVICON`.
 
 ## [2.0.3] - 2022-10-07
 
@@ -40,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Toasts for events.
 - E2E Tests.
-- Make backend more configurable
+- Make backend more configurable.
 
 ## [2.0.1] - 2022-07-18
 
