@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    # Set a size limit. See link below on how to customise.
+    # https://redis.io/docs/manual/eviction/
+    # command: redis-server --maxmemory 1gb --maxmemory-policy allkeys-lru
+
+  app:
+    image: cupcakearmy/cryptgeon:latest
+    depends_on:
+      - redis
+    environment:
+      # Size limit for a single note.
+      SIZE_LIMIT: 4 MiB
+    ports:
+      - 80:5000

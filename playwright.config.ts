@@ -10,10 +10,10 @@ const config: PlaywrightTestConfig = {
   outputDir: './test-results',
   testDir: './test',
   timeout: 60_000,
-  testIgnore: ['file/too-big.spec.ts'],
+  // testIgnore: ['file/too-big.spec.ts'],
 
   webServer: {
-    command: 'pnpm run test:server',
+    command: 'docker compose -f docker-compose.dev.yaml up',
     port: 1234,
     reuseExistingServer: true,
   },

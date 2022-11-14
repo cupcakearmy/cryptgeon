@@ -19,14 +19,15 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
+          tags: cupcakearmy/cryptgeon:test
           push: false
   test:
     runs-on: ubuntu-latest
-    services:
-      redis:
-        image: redis:7-alpine
-        ports:
-          - 6379:6379
+    # services:
+    #   redis:
+    #     image: redis:7-alpine
+    #     ports:
+    #       - 6379:6379
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -35,19 +36,18 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 7
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: 1.64
+      # - uses: actions-rs/toolchain@v1
+      #   with:
+      #     toolchain: 1.64
       - name: Prepare
         run: |
           pnpm install
-          pnpm run test:prepare
+          pnpm run test:docker
       - name: Install Playwright
         run: npx playwright install --with-deps
       - name: Run your tests
         run: pnpm run test:run
       - name: Upload test results
-        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: test-results

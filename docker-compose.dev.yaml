@@ -10,11 +10,9 @@ services:
       - 6379:6379
 
   app:
-    # build: .
-    image: cupcakearmy/cryptgeon
+    build: .
+    env_file: .env
     depends_on:
       - redis
-    environment:
-      SIZE_LIMIT: 10 MiB
     ports:
       - 1234:5000
