@@ -11,7 +11,7 @@ services:
 
   app:
     build: .
-    env_file: .env
+    env_file: .dev.env
     depends_on:
       - redis
     ports:
