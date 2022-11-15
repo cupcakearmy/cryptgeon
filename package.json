@@ -4,7 +4,7 @@
     "dev:packages": "pnpm --parallel run dev",
     "dev:proxy": "node proxy.mjs",
     "dev": "run-p dev:*",
-    "test:run": "playwright test --project chrome firefox safari",
+    "test": "playwright test --project chrome firefox safari",
     "test:local": "playwright test --project local",
     "test:server": "docker compose -f docker-compose.dev.yaml up",
     "test:prepare": "docker compose -f docker-compose.dev.yaml build"

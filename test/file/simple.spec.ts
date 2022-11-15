@@ -20,5 +20,5 @@ test('image content', async ({ page }) => {
   const files = [Files.Image]
   const checksum = await getFileChecksum(files[0])
   const link = await createNote(page, { files })
-  await checkLinkForDownload(page, link, 'alfred-kenneally', checksum)
+  await checkLinkForDownload(page, link, 'image.jpg', checksum)
 })
