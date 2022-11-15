@@ -6,9 +6,8 @@
     "dev": "run-p dev:*",
     "test:run": "playwright test --project chrome firefox safari",
     "test:local": "playwright test --project local",
-    "test:server": "pnpm --parallel run test:server",
-    "test:prepare": "pnpm --parallel run test:prepare",
-    "test:docker": "docker compose -f docker-compose.dev.yaml build"
+    "test:server": "docker compose -f docker-compose.dev.yaml up",
+    "test:prepare": "docker compose -f docker-compose.dev.yaml build"
   },
   "devDependencies": {
     "@playwright/test": "^1.25.1",

@@ -14,17 +14,13 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "16"
-      # - uses: pnpm/action-setup@v2
-      #   with:
-      #     version: 7
 
       - uses: docker/setup-qemu-action@v1
       - uses: docker/setup-buildx-action@v1
         with:
           install: true
-      - name: Build
-        run: |
-          npm run test:docker
+      - name: Build docker image
+        run: npm run test:prepare
 
       - name: Prepare
         run: |
@@ -38,26 +34,3 @@ jobs:
         with:
           name: test-results
           path: test-results
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: "16"
-  #     - uses: pnpm/action-setup@v2
-  #       with:
-  #         version: 7
-  #     - name: Prepare
-  #       run: |
-  #         pnpm install
-  #         pnpm run test:docker
-  #     - name: Install Playwright
-  #       run: npx playwright install --with-deps
-  #     - name: Run your tests
-  #       run: pnpm run test:run
-  #     - name: Upload test results
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: test-results
-  #         path: test-results
