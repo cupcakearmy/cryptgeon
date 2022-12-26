@@ -1,7 +1,7 @@
-import dotenv from 'dotenv'
 import { LokaliseApi } from '@lokalise/node-api'
-import https from 'https'
 import AdmZip from 'adm-zip'
+import dotenv from 'dotenv'
+import https from 'https'
 
 dotenv.config()
 
