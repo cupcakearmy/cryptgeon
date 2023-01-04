@@ -10,8 +10,11 @@
 
 	import Button from '$lib/ui/Button.svelte'
 	import TextInput from '$lib/ui/TextInput.svelte'
+	import Canvas from './Canvas.svelte'
 
 	export let result: NoteResult
+
+	$: url = `${window.location.origin}/note/${result.id}#${result.password}`
 
 	function reset() {
 		window.location.reload()
@@ -22,11 +25,15 @@
 	type="text"
 	readonly
 	label={$t('common.share_link')}
-	value="{window.location.origin}/note/{result.id}#{result.password}"
+	value={url}
 	copy
 	data-testid="share-link"
 />
-<br />
+
+<div>
+	<Canvas label={'qr code'} value={url} />
+</div>
+
 <p>
 	{@html $t('home.new_note_notice')}
 </p>
@@ -34,4 +41,9 @@
 <Button on:click={reset}>{$t('home.new_note')}</Button>
 
 <style>
+	div {
+		width: min(12rem, 100%);
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+	}
 </style>

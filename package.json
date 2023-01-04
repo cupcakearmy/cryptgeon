@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev:docker": "docker-compose up redis",
+    "dev:docker": "docker-compose -f docker-compose.dev.yaml up redis",
     "dev:packages": "pnpm --parallel run dev",
     "dev:proxy": "node proxy.mjs",
     "dev": "run-p dev:*",

@@ -9,3 +9,8 @@ export function copy(value: string) {
 	const msg = get(t)('common.copied_to_clipboard')
 	notify.success(msg)
 }
+
+export function getCSSVariable(variable: string): string {
+	if (typeof window === 'undefined') return ''
+	return window.getComputedStyle(window.document.body).getPropertyValue(variable)
+}
