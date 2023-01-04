@@ -15,7 +15,8 @@
 		"encrypting": "verschlüsseln",
 		"decrypting": "entschlüsselt",
 		"uploading": "hochladen",
-		"downloading": "wird heruntergeladen"
+		"downloading": "wird heruntergeladen",
+		"qr_code": "qr-code"
 	},
 	"home": {
 		"intro": "Senden Sie ganz einfach <i>vollständig verschlüsselte</i>, sichere Notizen oder Dateien mit einem Klick. Erstellen Sie einfach eine Notiz und teilen Sie den Link.",

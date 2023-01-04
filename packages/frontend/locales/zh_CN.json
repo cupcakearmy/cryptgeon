@@ -15,7 +15,8 @@
 		"encrypting": "加密",
 		"decrypting": "解密",
 		"uploading": "上传",
-		"downloading": "下载"
+		"downloading": "下载",
+		"qr_code": "二维码"
 	},
 	"home": {
 		"intro": "一键轻松发送 <i>完全加密的</i> 密信或者文件。只需创建一个密信然后分享链接。",

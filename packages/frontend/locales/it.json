@@ -15,7 +15,8 @@
 		"encrypting": "criptando",
 		"decrypting": "decifrando",
 		"uploading": "caricamento",
-		"downloading": "scaricando"
+		"downloading": "scaricando",
+		"qr_code": "codice qr"
 	},
 	"home": {
 		"intro": "Invia facilmente note o file <i>completamente criptati</i> e sicuri con un solo clic. Basta creare una nota e condividere il link.",

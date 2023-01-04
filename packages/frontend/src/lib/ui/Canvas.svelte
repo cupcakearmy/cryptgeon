@@ -1,9 +1,9 @@
 <script lang="ts">
 	import QR from 'qrious'
+	import { t } from 'svelte-intl-precompile'
 
 	import { getCSSVariable } from '$lib/utils'
 
-	export let label: string
 	export let value: string
 
 	let canvas: HTMLCanvasElement
@@ -20,7 +20,7 @@
 	}
 </script>
 
-<small>{label}</small>
+<small>{$t('common.qr_code')}</small>
 <div>
 	<canvas bind:this={canvas} />
 </div>

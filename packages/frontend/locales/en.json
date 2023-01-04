@@ -15,7 +15,8 @@
 		"encrypting": "encrypting",
 		"decrypting": "decrypting",
 		"uploading": "uploading",
-		"downloading": "downloading"
+		"downloading": "downloading",
+		"qr_code": "qr code"
 	},
 	"home": {
 		"intro": "Easily send <i>fully encrypted</i>, secure notes or files with one click. Just create a note and share the link.",

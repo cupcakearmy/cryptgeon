@@ -31,7 +31,7 @@
 />
 
 <div>
-	<Canvas label={'qr code'} value={url} />
+	<Canvas value={url} />
 </div>
 
 <p>
