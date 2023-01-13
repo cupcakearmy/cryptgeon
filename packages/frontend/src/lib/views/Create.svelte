@@ -1,11 +1,11 @@
 <script lang="ts">
+	import { AES, Hex } from 'occulto'
 	import { t } from 'svelte-intl-precompile'
 	import { blur } from 'svelte/transition'
 
 	import { Adapters } from '$lib/adapters'
 	import type { FileDTO, Note } from '$lib/api'
 	import { create, PayloadToLargeError } from '$lib/api'
-	import { Keys } from '$lib/crypto'
 	import { status } from '$lib/stores/status'
 	import { notify } from '$lib/toast'
 	import AdvancedParameters from '$lib/ui/AdvancedParameters.svelte'
@@ -58,8 +58,8 @@
 		try {
 			loading = $t('common.encrypting')
 
-			const key = await Keys.generateKey()
-			const password = await Keys.export(key)
+			const key = await AES.generateKey()
+			const password = await Hex.encode(key)
 
 			const data: Note = {
 				contents: '',

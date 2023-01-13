@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Crypto, Hex } from '$lib/crypto'
 	import Icon from '$lib/ui/Icon.svelte'
 	import { copy as copyFN } from '$lib/utils'
+	import { getRandomBytes, Hex } from 'occulto'
 
 	export let label: string = ''
 	export let value: any
@@ -23,8 +23,9 @@
 	function toggle() {
 		hidden = !hidden
 	}
-	function randomFN() {
-		value = Hex.encode(Crypto.getRandomBytes(32))
+
+	async function randomFN() {
+		value = Hex.encode(await getRandomBytes(32))
 	}
 </script>
 

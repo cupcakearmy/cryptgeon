@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { Hex } from 'occulto'
 	import { onMount } from 'svelte'
 	import { t } from 'svelte-intl-precompile'
 
 	import { Adapters } from '$lib/adapters'
 	import { get, info } from '$lib/api'
-	import { Keys } from '$lib/crypto'
 	import Button from '$lib/ui/Button.svelte'
 	import Loader from '$lib/ui/Loader.svelte'
 	import ShowNote, { type DecryptedNote } from '$lib/ui/ShowNote.svelte'
@@ -43,7 +43,7 @@
 			loading = $t('common.downloading')
 			const data = await get(id)
 			loading = $t('common.decrypting')
-			const key = await Keys.import(password)
+			const key = await Hex.decode(password)
 			switch (data.meta.type) {
 				case 'text':
 					note = {
