@@ -8,7 +8,7 @@ lazy_static! {
     pub static ref FRONTEND_PATH: String =
         std::env::var("FRONTEND_PATH").unwrap_or("../frontend/build".to_string());
     pub static ref LISTEN_ADDR: String =
-        std::env::var("LISTEN_ADDR").unwrap_or("0.0.0.0:5000".to_string());
+        std::env::var("LISTEN_ADDR").unwrap_or("0.0.0.0:8000".to_string());
     pub static ref VERBOSITY: String = std::env::var("VERBOSITY").unwrap_or("warn".to_string());
 }
 

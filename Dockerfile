@@ -28,5 +28,5 @@ COPY --from=backend /tmp/target/release/cryptgeon .
 COPY --from=client /tmp/build ./frontend
 ENV FRONTEND_PATH="./frontend"
 ENV REDIS="redis://redis/"
-EXPOSE 5000
+EXPOSE 8000
 ENTRYPOINT [ "/app/cryptgeon" ]

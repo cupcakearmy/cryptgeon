@@ -9,7 +9,7 @@ proxy.on('error', function (err, req, res) {
 })
 
 const server = http.createServer(function (req, res) {
-  const target = req.url.startsWith('/api/') ? 'http://127.0.0.1:5000' : 'http://localhost:3000'
+  const target = req.url.startsWith('/api/') ? 'http://127.0.0.1:8000' : 'http://localhost:8001'
   proxy.web(req, res, { target })
 })
 server.listen(1234)

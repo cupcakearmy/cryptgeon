@@ -3,7 +3,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"preview": "vite preview --port 3000",
+		"preview": "vite preview",
 		"check": "svelte-check --tsconfig tsconfig.json",
 		"licenses": "license-checker --summary > licenses.csv",
 		"locale:download": "node scripts/locale.js",

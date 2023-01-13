@@ -15,4 +15,4 @@ services:
       # Size limit for a single note.
       SIZE_LIMIT: 4 MiB
     ports:
-      - 80:5000
+      - 80:8000

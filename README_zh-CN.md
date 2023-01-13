@@ -82,7 +82,7 @@ services:
     environment:
       SIZE_LIMIT: 4 MiB
     ports:
-      - 80:5000
+      - 80:8000
 ```
 
 ### NGINX 反向代理
@@ -147,9 +147,6 @@ cargo install cargo-watch
 **运行**
 
 确保你的 Docker 正在运行
-
-> 如果你用的是 `macOS` 的话你可能需要关闭 AirPlay 接收功能因为该功能需要占用 5000 端口...)
-> https://developer.apple.com/forums/thread/682332
 
 ```bash
 pnpm run dev

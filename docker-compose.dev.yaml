@@ -16,4 +16,4 @@ services:
     depends_on:
       - redis
     ports:
-      - 1234:5000
+      - 1234:8000
