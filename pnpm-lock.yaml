@@ -22,7 +22,7 @@ importers:
       '@fontsource/fira-mono': ^4.5.10
       '@lokalise/node-api': ^9.5.0
       '@sveltejs/adapter-static': ^1.0.2
-      '@sveltejs/kit': ^1.0.13
+      '@sveltejs/kit': ^1.1.0
       '@types/dompurify': ^2.4.0
       '@types/file-saver': ^2.0.5
       '@zerodevx/svelte-toast': ^0.7.2
@@ -31,7 +31,7 @@ importers:
       dompurify: ^2.4.3
       dotenv: ^16.0.3
       file-saver: ^2.0.5
-      occulto: 2.0.0-rc.10
+      occulto: 2.0.0
       pretty-bytes: ^6.0.0
       qrious: ^4.0.2
       svelte: ^3.55.1
@@ -46,13 +46,13 @@ importers:
       copy-to-clipboard: 3.3.3
       dompurify: 2.4.3
       file-saver: 2.0.5
-      occulto: 2.0.0-rc.10
+      occulto: 2.0.0
       pretty-bytes: 6.0.0
       qrious: 4.0.2
     devDependencies:
       '@lokalise/node-api': 9.5.0
-      '@sveltejs/adapter-static': 1.0.2_@sveltejs+kit@1.0.13
-      '@sveltejs/kit': 1.0.13_svelte@3.55.1+vite@4.0.4
+      '@sveltejs/adapter-static': 1.0.2_@sveltejs+kit@1.1.0
+      '@sveltejs/kit': 1.1.0_svelte@3.55.1+vite@4.0.4
       '@types/dompurify': 2.4.0
       '@types/file-saver': 2.0.5
       '@zerodevx/svelte-toast': 0.7.2
@@ -589,16 +589,16 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /@sveltejs/adapter-static/1.0.2_@sveltejs+kit@1.0.13:
+  /@sveltejs/adapter-static/1.0.2_@sveltejs+kit@1.1.0:
     resolution: {integrity: sha512-pUxDCzYN4qFF5xb4l5xblMkzRS616EiuQGCqVGXM6rS+a9R8DTGfTutIQcPhDEAndrP4RIMPJzo/OhQtioWp2A==}
     peerDependencies:
       '@sveltejs/kit': ^1.0.0
     dependencies:
-      '@sveltejs/kit': 1.0.13_svelte@3.55.1+vite@4.0.4
+      '@sveltejs/kit': 1.1.0_svelte@3.55.1+vite@4.0.4
     dev: true
 
-  /@sveltejs/kit/1.0.13_svelte@3.55.1+vite@4.0.4:
-    resolution: {integrity: sha512-AuHqAojgg+tL9lXSQKkB1VjadFDW+vwOoWLq+BU8pAgFvZMlh3rGCyEdPbEgE3V6pwWn/+37AOrA8fILMHWzRQ==}
+  /@sveltejs/kit/1.1.0_svelte@3.55.1+vite@4.0.4:
+    resolution: {integrity: sha512-SSAOaEpiBtR7l4Y/jN+AGHonpZUQ2tcl4yhE7S+rqSJA8iw8dxiWPVpNe7JI3N70hXVylezTj9I6P3cykq8a1Q==}
     engines: {node: ^16.14 || >=18}
     hasBin: true
     requiresBuild: true
@@ -848,7 +848,7 @@ packages:
     dev: true
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
     dev: true
 
   /convert-source-map/1.9.0:
@@ -1658,8 +1658,8 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /occulto/2.0.0-rc.10:
-    resolution: {integrity: sha512-eWLUZ9P5u345gZn9/9tqdnxWvypmIMUjLQSSeb5bfIRLJrl306wWq6G2+fmWxFLSB6B0nUQQjHiSKOP8+vXcxg==}
+  /occulto/2.0.0:
+    resolution: {integrity: sha512-eLzE3RgVyo/Epi2ZNLRocWoq75IVSenLd31wQoxp9uJQIpxgpfLg0D7xgfLG0qFYMQxvVHLSHlpRDM2pufM72w==}
     engines: {node: '>=16', npm: please-use-pnpm, pnpm: '7', yarn: please-use-pnpm}
     dev: false
 

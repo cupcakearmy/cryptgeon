@@ -13,7 +13,7 @@
 	"devDependencies": {
 		"@lokalise/node-api": "^9.5.0",
 		"@sveltejs/adapter-static": "^1.0.2",
-		"@sveltejs/kit": "^1.0.13",
+		"@sveltejs/kit": "^1.1.0",
 		"@types/dompurify": "^2.4.0",
 		"@types/file-saver": "^2.0.5",
 		"@zerodevx/svelte-toast": "^0.7.2",
@@ -32,7 +32,7 @@
 		"copy-to-clipboard": "^3.3.3",
 		"dompurify": "^2.4.3",
 		"file-saver": "^2.0.5",
-		"occulto": "2.0.0-rc.10",
+		"occulto": "2.0.0",
 		"pretty-bytes": "^6.0.0",
 		"qrious": "^4.0.2"
 	}
