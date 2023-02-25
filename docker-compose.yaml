@@ -8,9 +8,7 @@ services:
     command: redis-server --maxmemory 200mb --maxmemory-policy allkeys-lru
 
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: cupcakearmy/cryptgeon:latest
     depends_on:
       - redis
     environment:
