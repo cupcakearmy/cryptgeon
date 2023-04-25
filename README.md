@@ -112,6 +112,7 @@ There is a [guide](https://mariushosting.com/how-to-install-cryptgeon-on-your-sy
 
 ### YouTube Guides
 
+- English by [Webnestify](https://www.youtube.com/watch?v=XAyD42I7wyI)
 - English by [DB Tech](https://www.youtube.com/watch?v=S0jx7wpOfNM) [Previous Video](https://www.youtube.com/watch?v=JhpIatD06vE)
 - German by [ApfelCast](https://www.youtube.com/watch?v=84ZMbE9AkHg)
 
