@@ -1,6 +1,6 @@
 {
-  "name": "backend",
   "private": true,
+  "name": "@cryptgeon/backend",
   "scripts": {
     "dev": "cargo watch -x 'run --bin cryptgeon'",
     "build": "cargo build --release",

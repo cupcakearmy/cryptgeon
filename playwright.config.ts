@@ -10,7 +10,6 @@ const config: PlaywrightTestConfig = {
   outputDir: './test-results',
   testDir: './test',
   timeout: 60_000,
-  testIgnore: ['file/too-big.spec.ts'],
 
   webServer: {
     command: 'docker compose -f docker-compose.dev.yaml up',
@@ -25,7 +24,6 @@ const config: PlaywrightTestConfig = {
     {
       name: 'local',
       use: { ...devices['Desktop Chrome'] },
-      // testMatch: 'file/too-big.spec.ts',
     },
   ],
 }

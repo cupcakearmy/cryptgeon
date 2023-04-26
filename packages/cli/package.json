@@ -1,0 +1,43 @@
+{
+  "name": "@cryptgeon/cli",
+  "type": "module",
+  "scripts": {
+    "dev": "esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.cjs --watch",
+    "build": "esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.cjs",
+    "bin": "pkg ."
+  },
+  "bin": {
+    "cryptgeon": "./dist/index.cjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "pkg": {
+    "scripts": "dist/**/*.js",
+    "targets": [
+      "node18-macos-arm64",
+      "node18-macos-x64",
+      "node18-linux-arm64",
+      "node18-linux-x64",
+      "node18-win-arm64",
+      "node18-win-x64"
+    ],
+    "outputPath": "bin"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.3",
+    "@types/mime": "^3.0.1",
+    "esbuild": "^0.17.18",
+    "pkg": "^5.8.1",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@commander-js/extra-typings": "^9.5.0",
+    "@cryptgeon/shared": "workspace:*",
+    "commander": "^9.5.0",
+    "inquirer": "^9.2.0",
+    "mime": "^3.0.0",
+    "occulto": "^2.0.1",
+    "pretty-bytes": "^6.1.0"
+  }
+}

@@ -3,11 +3,10 @@
 	import { onMount } from 'svelte'
 	import { t } from 'svelte-intl-precompile'
 
-	import { Adapters } from '$lib/adapters'
-	import { get, info } from '$lib/api'
 	import Button from '$lib/ui/Button.svelte'
 	import Loader from '$lib/ui/Loader.svelte'
 	import ShowNote, { type DecryptedNote } from '$lib/ui/ShowNote.svelte'
+	import { Adapters, get, info } from '@cryptgeon/shared'
 	import type { PageData } from './$types'
 
 	export let data: PageData
@@ -43,7 +42,7 @@
 			loading = $t('common.downloading')
 			const data = await get(id)
 			loading = $t('common.decrypting')
-			const key = await Hex.decode(password)
+			const key = Hex.decode(password)
 			switch (data.meta.type) {
 				case 'text':
 					note = {

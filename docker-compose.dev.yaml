@@ -10,7 +10,6 @@ services:
       - 6379:6379
 
   app:
-    image: cupcakearmy/cryptgeon:test
     build: .
     env_file: .dev.env
     depends_on:

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { t } from 'svelte-intl-precompile'
 
-	import type { FileDTO } from '$lib/api'
 	import Button from '$lib/ui/Button.svelte'
 	import MaxSize from '$lib/ui/MaxSize.svelte'
+	import type { FileDTO } from '@cryptgeon/shared'
 
 	export let label: string = ''
 	export let files: FileDTO[] = []
