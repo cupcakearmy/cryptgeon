@@ -1,0 +1,51 @@
+{
+	"common": {
+		"note": "密信",
+		"file": "上传文件",
+		"advanced": "高级设置",
+		"create": "创建",
+		"loading": "加载中",
+		"mode": "模式",
+		"views": "{n, plural, =0 {可读次数} =1 {1 次查看} other {# 次查看}}",
+		"minutes": "{n, plural, =0 {有效期（分钟）} =1 {1 分钟} other {# 分钟}}",
+		"max": "最大值",
+		"share_link": "分享链接",
+		"copy_clipboard": "复制到粘贴板",
+		"copied_to_clipboard": "已成功复制到粘贴板",
+		"encrypting": "加密",
+		"decrypting": "解密",
+		"uploading": "上传",
+		"downloading": "下载",
+		"qr_code": "二维码"
+	},
+	"home": {
+		"intro": "飞鸽传书，一键传输完全加密的密信或文件，阅后即焚。",
+		"explanation": "该密信会在{type}后失效。",
+		"new_note": "新建密信",
+		"new_note_notice": "<b>提醒：</b><br>密信保存在内存中，如果内存满了，则最早的密信将被删除以释放内存，因此不保证该密信的可用性。一般不会出现这种情况，无需担心。",
+		"errors": {
+			"note_to_big": "创建失败，密信过大。",
+			"note_error": "创建失败，请稍后重试。",
+			"max": "次数上限：{n}",
+			"empty_content": "密信不能为空。"
+		},
+		"messages": {
+			"note_created": "密信创建成功。"
+		}
+	},
+	"show": {
+		"errors": {
+			"not_found": "密信不存在，可能已被查看或删除。",
+			"decryption_failed": "密钥错误，无法查看。",
+			"unsupported_type": "不支持的类型。"
+		},
+		"explanation": "点击下方按钮即可查看密信，阅后即焚。",
+		"show_note": "查看密信",
+		"warning_will_not_see_again": "你将<b>无法</b>再次查看该密信，请尽快复制到粘贴板。",
+		"download_all": "下载全部"
+	},
+	"file_upload": {
+		"selected_files": "已选中的文件",
+		"no_files_selected": "没有文件被选中"
+	}
+}
