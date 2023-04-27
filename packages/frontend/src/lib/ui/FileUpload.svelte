@@ -8,19 +8,20 @@
 	export let label: string = ''
 	export let files: FileDTO[] = []
 
-	function fileToDTO(file: File): FileDTO {
+	async function fileToDTO(file: File): Promise<FileDTO> {
 		return {
 			name: file.name,
 			size: file.size,
 			type: file.type,
-			contents: file,
+			contents: new Uint8Array(await file.arrayBuffer()),
 		}
 	}
 
 	async function onInput(e: Event) {
 		const input = e.target as HTMLInputElement
 		if (input?.files?.length) {
-			files = [...files, ...Array.from(input.files).map(fileToDTO)]
+			const toAdd = await Promise.all(Array.from(input.files).map(fileToDTO))
+			files = [...files, ...toAdd]
 		}
 	}
 

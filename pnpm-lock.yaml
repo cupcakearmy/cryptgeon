@@ -46,6 +46,9 @@ importers:
       '@types/mime':
         specifier: ^3.0.1
         version: 3.0.1
+      '@types/node':
+        specifier: ^18.16.1
+        version: 18.16.1
       esbuild:
         specifier: ^0.17.18
         version: 0.17.18

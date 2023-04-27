@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-	import DOMPurify from 'dompurify'
+	import * as DOMPurify from 'dompurify'
 	import { saveAs } from 'file-saver'
 	import prettyBytes from 'pretty-bytes'
 	import { t } from 'svelte-intl-precompile'

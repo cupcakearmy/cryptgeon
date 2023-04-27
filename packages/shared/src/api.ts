@@ -1,3 +1,5 @@
+import type { TypedArray } from 'occulto'
+
 export type NoteMeta = { type: 'text' | 'file' }
 
 export type Note = {
@@ -11,7 +13,7 @@ export type NotePublic = Pick<Note, 'contents' | 'meta'>
 export type NoteCreate = Omit<Note, 'meta'> & { meta: string }
 
 export type FileDTO = Pick<File, 'name' | 'size' | 'type'> & {
-  contents: Blob
+  contents: TypedArray
 }
 
 export type EncryptedFileDTO = Omit<FileDTO, 'contents'> & {

@@ -15,14 +15,15 @@ class CryptTextAdapter implements CryptAdapter<string> {
   }
 }
 
-class CryptBlobAdapter implements CryptAdapter<Blob> {
-  async encrypt(plaintext: Blob, key: TypedArray) {
-    return await AES.encrypt(new Uint8Array(await plaintext.arrayBuffer()), key)
+class CryptBlobAdapter implements CryptAdapter<TypedArray> {
+  async encrypt(plaintext: TypedArray, key: TypedArray) {
+    return await AES.encrypt(plaintext, key)
   }
 
   async decrypt(ciphertext: string, key: TypedArray) {
-    const plaintext = await AES.decrypt(ciphertext, key)
-    return new Blob([plaintext], { type: 'application/octet-stream' })
+    return await AES.decrypt(ciphertext, key)
+    // const plaintext = await AES.decrypt(ciphertext, key)
+    // return new Blob([plaintext], { type: 'application/octet-stream' })
   }
 }
 

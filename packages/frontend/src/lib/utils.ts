@@ -1,4 +1,4 @@
-import copyToClipboard from 'copy-to-clipboard'
+import * as copyToClipboard from 'copy-to-clipboard'
 import { t } from 'svelte-intl-precompile'
 import { get } from 'svelte/store'
 
