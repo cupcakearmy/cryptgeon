@@ -2,6 +2,7 @@
 
 import { Argument, Option, program } from '@commander-js/extra-typings'
 import { setBase, status } from '@cryptgeon/shared'
+import prettyBytes from 'pretty-bytes'
 
 import { download } from './download.js'
 import { parseFile, parseNumber } from './parsers.js'
@@ -37,10 +38,14 @@ program
   .action(async (options) => {
     setBase(options.server)
     const response = await status()
-    for (const key of Object.keys(response)) {
-      if (key.startsWith('theme_')) delete response[key as keyof typeof response]
+    const formatted = {
+      ...response,
+      max_size: prettyBytes(response.max_size),
     }
-    console.table(response)
+    for (const key of Object.keys(formatted)) {
+      if (key.startsWith('theme_')) delete formatted[key as keyof typeof formatted]
+    }
+    console.table(formatted)
   })
 
 const send = program.command('send')

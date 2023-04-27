@@ -24,7 +24,6 @@ export async function download(url: URL) {
         exit('No files found in note')
         return
       }
-      console.log(files)
       const { names } = await inquirer.prompt([
         {
           type: 'checkbox',
@@ -50,7 +49,7 @@ export async function download(url: URL) {
             await access(filename, constants.R_OK)
             filename = resolve(`${Date.now()}-${file.name}`)
           } catch {}
-          await writeFile(filename, new Uint8Array(await file.contents.arrayBuffer()))
+          await writeFile(filename, file.contents)
           console.log(`Saved: ${basename(filename)}`)
         })
       )

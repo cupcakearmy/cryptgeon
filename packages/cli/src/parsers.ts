@@ -1,10 +1,10 @@
 import { InvalidArgumentError, InvalidOptionArgumentError } from '@commander-js/extra-typings'
 import { accessSync, constants } from 'node:fs'
-import path from 'node:path'
+import { resolve } from 'node:path'
 
 export function parseFile(value: string, before: string[] = []) {
   try {
-    const file = path.resolve(value)
+    const file = resolve(value)
     accessSync(file, constants.R_OK)
     return [...before, file]
   } catch {
