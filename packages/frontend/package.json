@@ -26,7 +26,7 @@
 		"svelte-preprocess": "^4.10.7",
 		"tslib": "^2.5.0",
 		"typescript": "^4.9.5",
-		"vite": "^4.3.1"
+		"vite": "^4.3.3"
 	},
 	"dependencies": {
 		"@cryptgeon/shared": "workspace:*",
@@ -34,7 +34,7 @@
 		"copy-to-clipboard": "^3.3.3",
 		"dompurify": "^2.4.5",
 		"file-saver": "^2.0.5",
-		"occulto": "^2.0.0",
+		"occulto": "^2.0.1",
 		"pretty-bytes": "^6.1.0",
 		"qrious": "^4.0.2"
 	}
