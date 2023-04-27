@@ -5,7 +5,6 @@ RUN npm install -g pnpm@8
 COPY . .
 RUN pnpm install --frozen-lockfile
 # WORKDIR /tmp/packages/frontend
-# RUN pnpm exec svelte-kit sync
 RUN pnpm run build
 
 
