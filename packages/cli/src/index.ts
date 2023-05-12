@@ -21,6 +21,9 @@ const minutes = new Option('-m --minutes <number>', 'Minutes before the note exp
 // Node 18 guard
 parseInt(process.version.slice(1).split(',')[0]) < 18 && exit('Node 18 or higher is required')
 
+// @ts-ignore
+const version: string = VERSION
+
 async function checkConstrains(constrains: { views?: number; minutes?: number }) {
   const { views, minutes } = constrains
   if (views && minutes) exit('cannot set view and minutes constrains simultaneously')
@@ -33,7 +36,7 @@ async function checkConstrains(constrains: { views?: number; minutes?: number })
     exit(`Only a maximum of ${response.max_expiration} minutes allowed. ${minutes} given.`)
 }
 
-program.name('cryptgeon').version('1.0.0').configureHelp({ showGlobalOptions: true })
+program.name('cryptgeon').version(version).configureHelp({ showGlobalOptions: true })
 
 program
   .command('info')

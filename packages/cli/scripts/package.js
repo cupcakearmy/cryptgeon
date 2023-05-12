@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { exec } from 'pkg'
 
 const targets = [

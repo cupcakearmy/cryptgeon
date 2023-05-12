@@ -6,12 +6,13 @@
     "node": ">=18"
   },
   "scripts": {
-    "dev": "esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.cjs --watch",
-    "build": "rm -rf ./dist && tsc && esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.cjs",
-    "package": "node ./build.js",
+    "dev": "./scripts/build.js --watch",
+    "build": "./scripts/build.js",
+    "package": "./scripts/package.js",
     "bin": "run-s build package",
     "prepublishOnly": "run-s build"
   },
+  "main": "./dist/index.cjs",
   "bin": {
     "cryptgeon": "./dist/index.cjs"
   },
