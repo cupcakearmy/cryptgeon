@@ -1,15 +1,21 @@
 {
   "folders": [
-	{
-		"path": "."
-	},
-	{
-		"path": "packages/backend"
-	},
-	{
-		"path": "packages/frontend"
-	}
-],
+    {
+      "path": "."
+    },
+    {
+      "path": "packages/backend"
+    },
+    {
+      "path": "packages/frontend"
+    },
+    {
+      "path": "packages/cli"
+    },
+    {
+      "path": "packages/shared"
+    }
+  ],
   "settings": {
     "i18n-ally.localesPaths": ["packages/frontend/locales"],
     "cSpell.words": ["cryptgeon"]
