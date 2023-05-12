@@ -7,6 +7,20 @@ on:
       - 'v*.*.*'
 
 jobs:
+  cli:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - uses: pnpm/action-setup@v2
+
+      - run: |
+          pnpm install --frozen-lockfile
+          pnpm run build
+
   docker:
     runs-on: ubuntu-latest
     steps:
