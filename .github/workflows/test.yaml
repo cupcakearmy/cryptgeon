@@ -11,10 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      # Node
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+      - uses: pnpm/action-setup@v2
 
+      # Docker
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
         with:
@@ -24,11 +28,12 @@ jobs:
 
       - name: Prepare
         run: |
-          npm install playwright
-          npx playwright install --with-deps
+          pnpm install --frozen-lockfile
+          pnpm exec playwright install --with-deps
+          pnpm run test:prepare
 
       - name: Run your tests
-        run: npm test
+        run: pnpm test
       - uses: actions/upload-artifact@v3
         with:
           name: test-results
