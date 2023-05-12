@@ -21,10 +21,10 @@ const config: PlaywrightTestConfig = {
     { name: 'chrome', use: { ...devices['Desktop Chrome'] } },
     { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     { name: 'safari', use: { ...devices['Desktop Safari'] } },
-    {
-      name: 'local',
-      use: { ...devices['Desktop Chrome'] },
-    },
+
+    { name: 'cli', use: { ...devices['Desktop Chrome'] }, grep: [/@cli/] },
+    { name: 'web', use: { ...devices['Desktop Chrome'] }, grep: [/@web/] },
+    { name: 'cross', use: { ...devices['Desktop Chrome'] }, grep: [/@cross/] },
   ],
 }
 

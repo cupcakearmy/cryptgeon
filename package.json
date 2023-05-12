@@ -4,10 +4,12 @@
     "dev:docker": "docker-compose -f docker-compose.dev.yaml up redis",
     "dev:packages": "pnpm --parallel run dev",
     "dev": "run-p dev:*",
+    "docker:up": "docker compose -f docker-compose.dev.yaml up",
+    "docker:build": "docker compose -f docker-compose.dev.yaml build",
     "test": "playwright test --project chrome firefox safari",
     "test:local": "playwright test --project local",
-    "test:server": "docker compose -f docker-compose.dev.yaml up",
-    "test:prepare": "docker compose -f docker-compose.dev.yaml build",
+    "test:server": "run-s docker:up",
+    "test:prepare": "run-p build docker:build",
     "build": "pnpm run --recursive --filter=!@cryptgeon/backend build"
   },
   "devDependencies": {

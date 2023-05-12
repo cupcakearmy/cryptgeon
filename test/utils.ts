@@ -1,6 +1,10 @@
 import { expect, type Page } from '@playwright/test'
 import { createHash } from 'crypto'
 import { readFile } from 'fs/promises'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
+
+const exec = promisify(execFile)
 
 type CreatePage = { text?: string; files?: string[]; views?: number; expiration?: number; error?: string }
 export async function createNote(page: Page, options: CreatePage): Promise<string> {
@@ -68,4 +72,13 @@ export async function getFileChecksum(file: string) {
   const buffer = await readFile(file)
   const hash = createHash('sha3-256').update(buffer).digest('hex')
   return hash
+}
+
+export async function CLI(...args: string[]) {
+  return await exec('./packages/cli/dist/index.cjs', args, {
+    env: {
+      ...process.env,
+      CRYPTGEON_SERVER: 'http://localhost:1234',
+    },
+  })
 }
