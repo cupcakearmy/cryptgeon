@@ -1,5 +1,5 @@
 # FRONTEND
-FROM node:16-alpine as client 
+FROM node:18-alpine as client 
 WORKDIR /tmp
 RUN npm install -g pnpm@8
 COPY . .
