@@ -1,9 +1,8 @@
-import { Blob } from 'node:buffer'
 import { readFile, stat } from 'node:fs/promises'
 import { basename } from 'node:path'
 
 import { Adapters, BASE, create, FileDTO, Note } from '@cryptgeon/shared'
-import * as mime from 'mime'
+import mime from 'mime'
 import { AES, Hex, TypedArray } from 'occulto'
 
 import { exit } from './utils.js'

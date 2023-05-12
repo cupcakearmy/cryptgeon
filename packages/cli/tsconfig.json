@@ -4,6 +4,7 @@
     "module": "es2022",
     "moduleResolution": "node",
     "noEmit": true,
-    "strict": true
+    "strict": true,
+    "allowSyntheticDefaultImports": true
   }
 }
