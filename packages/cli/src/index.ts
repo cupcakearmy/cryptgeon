@@ -18,6 +18,9 @@ const url = new Argument('<url>', 'The url to open')
 const views = new Option('-v --views <number>', 'Amount of views before getting destroyed').argParser(parseNumber)
 const minutes = new Option('-m --minutes <number>', 'Minutes before the note expires').argParser(parseNumber)
 
+// Node 18 guard
+parseInt(process.version.slice(1).split(',')[0]) < 18 && exit('Node 18 or higher is required')
+
 async function checkConstrains(constrains: { views?: number; minutes?: number }) {
   const { views, minutes } = constrains
   if (views && minutes) exit('cannot set view and minutes constrains simultaneously')
