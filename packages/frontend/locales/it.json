@@ -41,7 +41,7 @@
 		},
 		"explanation": "clicca sotto per mostrare e cancellare la nota se il contatore ha raggiunto il suo limite",
 		"show_note": "mostra la nota",
-		"warning_will_not_see_again": " <b>non</b> avrete la possibilità di rivedere la nota.",
+		"warning_will_not_see_again": "<b>non</b> avrete la possibilità di rivedere la nota.",
 		"download_all": "scarica tutti"
 	},
 	"file_upload": {

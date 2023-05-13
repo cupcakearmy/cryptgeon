@@ -41,7 +41,7 @@
 		},
 		"explanation": "pulse abajo para mostrar y borrar la nota si el contador ha llegado a su límite",
 		"show_note": "mostrar nota",
-		"warning_will_not_see_again": " <b>no</b> tendrás la oportunidad de volver a ver la nota.",
+		"warning_will_not_see_again": "<b>no</b> tendrás la oportunidad de volver a ver la nota.",
 		"download_all": "descargar todo"
 	},
 	"file_upload": {

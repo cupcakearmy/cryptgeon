@@ -1,0 +1,51 @@
+{
+	"common": {
+		"note": "新しいメモ",
+		"file": "ファイル",
+		"advanced": "アドバンスド",
+		"create": "作成",
+		"loading": "読み込み中",
+		"mode": "モード",
+		"views": "{n, plural, =0 {表示可能な時間} =1 { 1 ビュー} other {#ビュー}}",
+		"minutes": "{n, plural, =0 {有効期間(分)} =1 {1 分} other {# 分}}",
+		"max": "マックス",
+		"share_link": "共有リンク",
+		"copy_clipboard": "クリップボードにコピーする",
+		"copied_to_clipboard": "クリップボードにコピーされました",
+		"encrypting": "暗号化",
+		"decrypting": "復号化",
+		"uploading": "アップロード中",
+		"downloading": "ダウンロード中",
+		"qr_code": "QRコード"
+	},
+	"home": {
+		"intro": "<i>完全に暗号化された</i> 、安全なメモやファイルをワンクリックで簡単に送信できます。メモを作成してリンクを共有するだけです。",
+		"explanation": "メモは{type}後に期限切れになり、破棄されます。",
+		"new_note": "新しいメモ",
+		"new_note_notice": "<b>可用性: </b> <br />すべてが RAM に保持されるため、メモが保存されるとは限りません。いっぱいになると、最も古いメモが削除されます。 <br /> (大丈夫だと思いますが、ご了承ください。)",
+		"errors": {
+			"note_to_big": "メモを作成できませんでした。メモが大きすぎる",
+			"note_error": "メモを作成できませんでした。もう一度お試しください。",
+			"max": "最大ファイルサイズ: {n}",
+			"empty_content": "メモは空です。"
+		},
+		"messages": {
+			"note_created": "メモが作成されました。"
+		}
+	},
+	"show": {
+		"errors": {
+			"not_found": "メモが見つからないか、既に削除されています。",
+			"decryption_failed": "パスワードエラー！不完全なリンクを貼り付けたり、暗号を解読しようとしたりしている可能性があります！しかし、いずれにしても、この暗号は破棄されました！",
+			"unsupported_type": "サポートされていないメモ タイプです。"
+		},
+		"explanation": "カウンターが上限に達した場合、ノートの表示と削除を行うには、以下をクリックします。",
+		"show_note": "メモを表示",
+		"warning_will_not_see_again": "あなた <b>できません</b> このノートをもう一度見る",
+		"download_all": "すべてダウンロード"
+	},
+	"file_upload": {
+		"selected_files": "選択したファイル",
+		"no_files_selected": "ファイルが選択されていません"
+	}
+}
