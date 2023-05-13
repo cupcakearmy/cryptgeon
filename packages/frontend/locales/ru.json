@@ -1,0 +1,51 @@
+{
+	"common": {
+		"note": "заметка",
+		"file": "файл",
+		"advanced": "расширенные",
+		"create": "создать",
+		"loading": "загрузка",
+		"mode": "режим",
+		"views": "{n, plural, =0 {просмотры} =1 {1 просмотр} other {# просмотры}}",
+		"minutes": "{n, plural, =0 {минут} =1 {1 минута} other {# минуты}}",
+		"max": "макс",
+		"share_link": "поделиться ссылкой",
+		"copy_clipboard": "скопировать в буфер обмена",
+		"copied_to_clipboard": "скопировано в буфер обмена",
+		"encrypting": "шифрование",
+		"decrypting": "расшифровка",
+		"uploading": "загрузка",
+		"downloading": "скачивание",
+		"qr_code": "qr код"
+	},
+	"home": {
+		"intro": "Легко отправляйте <i>полностью зашифрованные</i> защищенные заметки или файлы одним щелчком мыши. Просто создайте заметку и поделитесь ссылкой.",
+		"explanation": "заметка истечет и будет уничтожена после {type}.",
+		"new_note": "новая заметка",
+		"new_note_notice": "<b>availability:</b><br />the note is not guaranteed to be stored as everything is kept in ram, if it fills up the oldest notes will be removed.<br />(you probably will be fine, just be warned.)",
+		"errors": {
+			"note_to_big": "нельзя создать новую заметку. заметка слишком большая",
+			"note_error": "нельзя создать новую заметку. пожалйста попробуйте позднее.",
+			"max": "макс: {n}",
+			"empty_content": "пустая заметка."
+		},
+		"messages": {
+			"note_created": "заметка создана."
+		}
+	},
+	"show": {
+		"errors": {
+			"not_found": "заметка не найдена или была удалена.",
+			"decryption_failed": "неправильный пароль. не смог расшифровать. возможно ссылка битая. записка уничтожена.",
+			"unsupported_type": "неподдерживаемый тип заметки."
+		},
+		"explanation": "щелкните ниже, чтобы показать и удалить примечание, если счетчик достиг предела",
+		"show_note": "показать заметку",
+		"warning_will_not_see_again": "вы <b>не сможете</b> больше просмотреть заметку.",
+		"download_all": "скачать всё"
+	},
+	"file_upload": {
+		"selected_files": "Выбранные файлы",
+		"no_files_selected": "Файлы не выбраны"
+	}
+}
