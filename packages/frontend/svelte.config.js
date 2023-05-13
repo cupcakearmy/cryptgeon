@@ -1,9 +1,9 @@
 import adapter from '@sveltejs/adapter-static'
-import preprocess from 'svelte-preprocess'
+import precompileIntl from 'svelte-intl-precompile/sveltekit-plugin'
+import { vitePreprocess } from '@sveltejs/kit/vite'
 
 export default {
-	preprocess: preprocess(),
-
+	preprocess: vitePreprocess([precompileIntl('locales')]),
 	kit: {
 		adapter: adapter({
 			fallback: 'index.html',
