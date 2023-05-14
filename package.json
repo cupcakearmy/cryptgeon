@@ -1,18 +1,21 @@
 {
+  "packageManager": "pnpm@8.4.0",
   "scripts": {
     "dev:docker": "docker-compose -f docker-compose.dev.yaml up redis",
     "dev:packages": "pnpm --parallel run dev",
-    "dev:proxy": "node proxy.mjs",
     "dev": "run-p dev:*",
+    "docker:up": "docker compose -f docker-compose.dev.yaml up",
+    "docker:build": "docker compose -f docker-compose.dev.yaml build",
     "test": "playwright test --project chrome firefox safari",
     "test:local": "playwright test --project local",
-    "test:server": "docker compose -f docker-compose.dev.yaml up",
-    "test:prepare": "docker compose -f docker-compose.dev.yaml build"
+    "test:server": "run-s docker:up",
+    "test:prepare": "run-p build docker:build",
+    "build": "pnpm run --recursive --filter=!@cryptgeon/backend build"
   },
   "devDependencies": {
-    "@playwright/test": "^1.29.2",
-    "@types/node": "^16.18.11",
-    "http-proxy": "^1.18.1",
-    "npm-run-all": "^4.1.5"
+    "@playwright/test": "^1.33.0",
+    "@types/node": "^20.1.3",
+    "npm-run-all": "^4.1.5",
+    "shelljs": "^0.8.5"
   }
 }

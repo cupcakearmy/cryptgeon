@@ -5,12 +5,19 @@
     },
     {
       "path": "packages/backend"
+    },
+    {
+      "path": "packages/frontend"
+    },
+    {
+      "path": "packages/cli"
+    },
+    {
+      "path": "packages/shared"
     }
   ],
   "settings": {
-    "cSpell.words": ["ciphertext", "cryptgeon"],
-    "i18n-ally.enabledFrameworks": ["svelte"],
-    "i18n-ally.keystyle": "nested",
-    "i18n-ally.localesPaths": ["packages/frontend/locales"]
+    "i18n-ally.localesPaths": ["packages/frontend/locales"],
+    "cSpell.words": ["cryptgeon"]
   }
 }

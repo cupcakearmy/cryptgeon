@@ -3,9 +3,6 @@
 	import { t } from 'svelte-intl-precompile'
 	import { blur } from 'svelte/transition'
 
-	import { Adapters } from '$lib/adapters'
-	import type { FileDTO, Note } from '$lib/api'
-	import { create, PayloadToLargeError } from '$lib/api'
 	import { status } from '$lib/stores/status'
 	import { notify } from '$lib/toast'
 	import AdvancedParameters from '$lib/ui/AdvancedParameters.svelte'
@@ -16,6 +13,8 @@
 	import Result, { type NoteResult } from '$lib/ui/NoteResult.svelte'
 	import Switch from '$lib/ui/Switch.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
+	import type { FileDTO, Note } from '@cryptgeon/shared'
+	import { Adapters, create, PayloadToLargeError } from '@cryptgeon/shared'
 
 	let note: Note = {
 		contents: '',
@@ -59,7 +58,7 @@
 			loading = $t('common.encrypting')
 
 			const key = await AES.generateKey()
-			const password = await Hex.encode(key)
+			const password = Hex.encode(key)
 
 			const data: Note = {
 				contents: '',

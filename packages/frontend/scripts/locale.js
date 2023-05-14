@@ -5,10 +5,15 @@ import https from 'https'
 
 dotenv.config()
 
+function exit(msg) {
+	console.error(msg)
+	process.exit(1)
+}
+
 const apiKey = process.env.LOKALISE_API_KEY
 const project_id = process.env.LOKALISE_PROJECT
-if (!apiKey) throw new Error('No API Key set for Lokalize! Set with "LOKALISE_API_KEY"')
-if (!project_id) throw new Error('No project id set for Lokalize! Set with "LOKALISE_PROJECT"')
+if (!apiKey) exit('No API Key set for Lokalize! Set with "LOKALISE_API_KEY"')
+if (!project_id) exit('No project id set for Lokalize! Set with "LOKALISE_PROJECT"')
 const client = new LokaliseApi({ apiKey })
 
 const WGet = (url) =>

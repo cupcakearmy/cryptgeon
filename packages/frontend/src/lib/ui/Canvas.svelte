@@ -1,4 +1,5 @@
 <script lang="ts">
+	// @ts-ignore
 	import QR from 'qrious'
 	import { t } from 'svelte-intl-precompile'
 

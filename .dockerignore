@@ -1,15 +1,15 @@
 *
 
-!/packages/backend/src
-!/packages/backend/Cargo.lock
-!/packages/backend/Cargo.toml
+!/packages
+!/package.json
+!/pnpm-lock.yaml
+!/pnpm-workspace.yaml
 
-!/packages/frontend/locales
-!/packages/frontend/src
-!/packages/frontend/static
-!/packages/frontend/.npmrc
-!/packages/frontend/package.json
-!/packages/frontend/pnpm-lock.yaml
-!/packages/frontend/svelte.config.js
-!/packages/frontend/tsconfig.json
-!/packages/frontend/vite.config.js
+**/target
+**/node_modules
+**/dist
+**/bin
+**/*.tsbuildinfo
+**/build
+**/.svelte
+**/.svelte-kit

@@ -8,9 +8,9 @@
 	import prettyBytes from 'pretty-bytes'
 	import { t } from 'svelte-intl-precompile'
 
-	import type { FileDTO, NotePublic } from '$lib/api'
 	import Button from '$lib/ui/Button.svelte'
 	import { copy } from '$lib/utils'
+	import type { FileDTO, NotePublic } from '@cryptgeon/shared'
 
 	export let note: DecryptedNote
 

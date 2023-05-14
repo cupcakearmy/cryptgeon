@@ -1,14 +1,10 @@
+.env
+*.tsbuildinfo
+node_modules
+dist
+bin
 
-# Backend
 target
 
-# Client
-.DS_Store
-node_modules
-/.svelte
-/build
-/functions
-.env
-
-General
+# Testing
 test-results
