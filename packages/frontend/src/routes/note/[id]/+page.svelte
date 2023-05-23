@@ -1,30 +1,35 @@
 <script lang="ts">
-	import { Hex } from 'occulto'
+	import { AES, Hex } from 'occulto'
 	import { onMount } from 'svelte'
 	import { t } from 'svelte-intl-precompile'
 
 	import Button from '$lib/ui/Button.svelte'
 	import Loader from '$lib/ui/Loader.svelte'
 	import ShowNote, { type DecryptedNote } from '$lib/ui/ShowNote.svelte'
-	import { Adapters, get, info } from '@cryptgeon/shared'
+	import TextInput from '$lib/ui/TextInput.svelte'
+	import { Adapters, get, info, type NoteMeta } from '@cryptgeon/shared'
 	import type { PageData } from './$types'
 
 	export let data: PageData
 
 	let id = data.id
-	let password: string
+	let password: string | null = null
 	let note: DecryptedNote | null = null
 	let exists = false
+	let meta: NoteMeta | null = null
 
 	let loading: string | null = null
 	let error: string | null = null
+
+	$: valid = !!password?.length
 
 	onMount(async () => {
 		// Check if note exists
 		try {
 			loading = $t('common.loading')
 			password = window.location.hash.slice(1)
-			await info(id)
+			const note = await info(id)
+			meta = note.meta
 			exists = true
 		} catch {
 			exists = false
@@ -38,11 +43,18 @@
 	 */
 	async function show() {
 		try {
+			if (!valid) {
+				error = $t('show.errors.no_password')
+				return
+			}
+
+			// Load note
 			error = null
 			loading = $t('common.downloading')
 			const data = await get(id)
 			loading = $t('common.decrypting')
-			const key = Hex.decode(password)
+			const derived = meta?.derivation && (await AES.derive(password!, meta.derivation))
+			const key = derived ? derived[0] : Hex.decode(password!)
 			switch (data.meta.type) {
 				case 'text':
 					note = {
@@ -77,9 +89,18 @@
 		<form on:submit|preventDefault={show}>
 			<fieldset>
 				<p>{$t('show.explanation')}</p>
-				<Button data-testid="show-note-button" type="submit">{$t('show.show_note')}</Button>
+				{#if meta?.derivation}
+					<TextInput
+						data-testid="show-note-password"
+						type="password"
+						bind:value={password}
+						label={$t('common.password')}
+					/>
+				{/if}
+				<Button disabled={!valid} data-testid="show-note-button" type="submit"
+					>{$t('show.show_note')}</Button
+				>
 				{#if error}
-					<br />
 					<p class="error-text">
 						{error}
 						<br />
@@ -96,5 +117,11 @@
 <style>
 	.loader {
 		text-align: center;
+	}
+
+	fieldset {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 	}
 </style>
