@@ -16,7 +16,8 @@
 		"decrypting": "decrypting",
 		"uploading": "uploading",
 		"downloading": "downloading",
-		"qr_code": "qr code"
+		"qr_code": "qr code",
+		"password": "password"
 	},
 	"home": {
 		"intro": "Easily send <i>fully encrypted</i>, secure notes or files with one click. Just create a note and share the link.",
@@ -31,6 +32,10 @@
 		},
 		"messages": {
 			"note_created": "note created."
+		},
+		"advanced": {
+			"explanation": "By default, a securely generated password is used for each note. You can however also choose your own password, which is not included in the link.",
+			"custom_password": "custom password"
 		}
 	},
 	"show": {

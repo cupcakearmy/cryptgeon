@@ -16,7 +16,8 @@
 		"decrypting": "entschlüsselt",
 		"uploading": "hochladen",
 		"downloading": "wird heruntergeladen",
-		"qr_code": "qr-code"
+		"qr_code": "qr-code",
+		"password": "Passwort"
 	},
 	"home": {
 		"intro": "Senden Sie ganz einfach <i>vollständig verschlüsselte</i>, sichere Notizen oder Dateien mit einem Klick. Erstellen Sie einfach eine Notiz und teilen Sie den Link.",
@@ -31,6 +32,10 @@
 		},
 		"messages": {
 			"note_created": "notiz erstellt."
+		},
+		"advanced": {
+			"explanation": "Standardmäßig wird für jede Notiz ein sicher generiertes Passwort verwendet. Sie können jedoch auch ein eigenes Kennwort wählen, das nicht in dem Link enthalten ist.",
+			"custom_password": "benutzerdefiniertes Passwort"
 		}
 	},
 	"show": {

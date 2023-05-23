@@ -16,7 +16,8 @@
 		"decrypting": "déchiffrer",
 		"uploading": "téléchargement",
 		"downloading": "téléchargement",
-		"qr_code": "code qr"
+		"qr_code": "code qr",
+		"password": "mot de passe"
 	},
 	"home": {
 		"intro": "Envoyez facilement des notes ou des fichiers <i>entièrement cryptés</i> et sécurisés en un seul clic. Il suffit de créer une note et de partager le lien.",
@@ -31,6 +32,10 @@
 		},
 		"messages": {
 			"note_created": "note créée."
+		},
+		"advanced": {
+			"explanation": "Par défaut, un mot de passe généré de manière sécurisée est utilisé pour chaque note. Vous pouvez toutefois choisir votre propre mot de passe, qui n'est pas inclus dans le lien.",
+			"custom_password": "mot de passe personnalisé"
 		}
 	},
 	"show": {

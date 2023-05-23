@@ -16,7 +16,8 @@
 		"decrypting": "decifrando",
 		"uploading": "caricamento",
 		"downloading": "scaricando",
-		"qr_code": "codice qr"
+		"qr_code": "codice qr",
+		"password": "password"
 	},
 	"home": {
 		"intro": "Invia facilmente note o file <i>completamente criptati</i> e sicuri con un solo clic. Basta creare una nota e condividere il link.",
@@ -31,6 +32,10 @@
 		},
 		"messages": {
 			"note_created": "nota creata."
+		},
+		"advanced": {
+			"explanation": "Per impostazione predefinita, per ogni nota viene utilizzata una password generata in modo sicuro. È tuttavia possibile scegliere la propria password, che non è inclusa nel link.",
+			"custom_password": "password personalizzata"
 		}
 	},
 	"show": {
