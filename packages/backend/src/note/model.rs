@@ -11,7 +11,9 @@ pub struct Note {
 }
 
 #[derive(Serialize, Deserialize, Clone)]
-pub struct NoteInfo {}
+pub struct NoteInfo {
+    pub meta: String,
+}
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct NotePublic {
