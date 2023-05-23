@@ -6,7 +6,8 @@ import prettyBytes from 'pretty-bytes'
 
 import { download } from './download.js'
 import { parseFile, parseNumber } from './parsers.js'
-import { uploadFiles, uploadText } from './upload.js'
+import { getStdin } from './stdin.js'
+import { upload } from './upload.js'
 import { exit } from './utils.js'
 
 const defaultServer = process.env['CRYPTGEON_SERVER'] || 'https://cryptgeon.org'
@@ -61,10 +62,12 @@ send
   .addOption(server)
   .addOption(views)
   .addOption(minutes)
+  .addOption(password)
   .action(async (files, options) => {
     setBase(options.server!)
     await checkConstrains(options)
-    await uploadFiles(files, { views: options.views, expiration: options.minutes })
+    options.password ||= await getStdin()
+    await upload(files, { views: options.views, expiration: options.minutes, password: options.password })
   })
 send
   .command('text')
@@ -72,10 +75,12 @@ send
   .addOption(server)
   .addOption(views)
   .addOption(minutes)
+  .addOption(password)
   .action(async (text, options) => {
     setBase(options.server!)
     await checkConstrains(options)
-    await uploadText(text, { views: options.views, expiration: options.minutes })
+    options.password ||= await getStdin()
+    await upload(text, { views: options.views, expiration: options.minutes, password: options.password })
   })
 
 program

@@ -2,7 +2,7 @@ import { Adapters, get, info, setBase } from '@cryptgeon/shared'
 import inquirer from 'inquirer'
 import { access, constants, writeFile } from 'node:fs/promises'
 import { basename, resolve } from 'node:path'
-import { Hex } from 'occulto'
+import { AES, Hex } from 'occulto'
 import pretty from 'pretty-bytes'
 
 import { exit } from './utils'
@@ -10,11 +10,26 @@ import { exit } from './utils'
 export async function download(url: URL) {
   setBase(url.origin)
   const id = url.pathname.split('/')[2]
-  await info(id).catch(() => exit('Note does not exist or is expired'))
-  const note = await get(id)
+  const preview = await info(id).catch(() => exit('Note does not exist or is expired'))
 
-  const password = url.hash.slice(1)
-  const key = Hex.decode(password)
+  // Password
+  let password: string
+  const derivation = preview?.meta.derivation
+  if (derivation) {
+    const response = await inquirer.prompt([
+      {
+        type: 'password',
+        message: 'Note password',
+        name: 'password',
+      },
+    ])
+    password = response.password
+  } else {
+    password = url.hash.slice(1)
+  }
+
+  const key = derivation ? (await AES.derive(password, derivation))[0] : Hex.decode(password)
+  const note = await get(id)
 
   const couldNotDecrypt = () => exit('Could not decrypt note. Probably an invalid password')
   switch (note.meta.type) {
