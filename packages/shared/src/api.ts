@@ -1,6 +1,9 @@
-import type { TypedArray } from 'occulto'
+import type { KeyData, TypedArray } from 'occulto'
 
-export type NoteMeta = { type: 'text' | 'file' }
+export type NoteMeta = {
+  type: 'text' | 'file'
+  derivation?: KeyData
+}
 
 export type Note = {
   contents: string
@@ -8,7 +11,7 @@ export type Note = {
   views?: number
   expiration?: number
 }
-export type NoteInfo = {}
+export type NoteInfo = Pick<Note, 'meta'>
 export type NotePublic = Pick<Note, 'contents' | 'meta'>
 export type NoteCreate = Omit<Note, 'meta'> & { meta: string }
 
@@ -71,10 +74,12 @@ export async function get(id: string): Promise<NotePublic> {
     method: 'delete',
   })
   const { contents, meta } = data
-  return {
+  const note = {
     contents,
-    meta: JSON.parse(meta) as NoteMeta,
-  }
+    meta: JSON.parse(meta),
+  } satisfies NotePublic
+  if (note.meta.derivation) note.meta.derivation.salt = new Uint8Array(Object.values(note.meta.derivation.salt))
+  return note
 }
 
 export async function info(id: string): Promise<NoteInfo> {
@@ -82,7 +87,12 @@ export async function info(id: string): Promise<NoteInfo> {
     url: `notes/${id}`,
     method: 'get',
   })
-  return data
+  const { meta } = data
+  const note = {
+    meta: JSON.parse(meta),
+  } satisfies NoteInfo
+  if (note.meta.derivation) note.meta.derivation.salt = new Uint8Array(Object.values(note.meta.derivation.salt))
+  return note
 }
 
 export type Status = {
