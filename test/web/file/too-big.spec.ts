@@ -1,6 +1,6 @@
 import { test } from '@playwright/test'
 import { createNote } from '../../utils'
-import Files from './files'
+import { Files } from '../../files'
 
 test.describe('@web', () => {
   test.skip('to big zip', async ({ page }) => {
