@@ -12,14 +12,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version-file: '.nvmrc'
-      - uses: pnpm/action-setup@v2
+          registry-url: 'https://registry.npmjs.org'
 
       - run: |
           pnpm install --frozen-lockfile
           pnpm run build
+          
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   docker:
     runs-on: ubuntu-latest
