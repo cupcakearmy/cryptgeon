@@ -42,6 +42,7 @@ program.name('cryptgeon').version(version).configureHelp({ showGlobalOptions: tr
 
 program
   .command('info')
+  .description('show information about the server')
   .addOption(server)
   .action(async (options) => {
     setBase(options.server)
@@ -56,7 +57,7 @@ program
     console.table(formatted)
   })
 
-const send = program.command('send')
+const send = program.command('send').description('send a note')
 send
   .command('file')
   .addArgument(files)
@@ -86,6 +87,7 @@ send
 
 program
   .command('open')
+  .description('open a link with text or files inside')
   .addArgument(url)
   .addOption(password)
   .addOption(all)
