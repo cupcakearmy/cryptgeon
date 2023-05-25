@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AES, Hex } from 'occulto'
+	import { AES, Hex, Bytes } from 'occulto'
 	import { t } from 'svelte-intl-precompile'
 	import { blur } from 'svelte/transition'
 
@@ -27,6 +27,7 @@
 	let advanced = false
 	let isFile = false
 	let timeExpiration = false
+	let customPassword: string | null = null
 	let description = ''
 	let loading: string | null = null
 
@@ -57,13 +58,14 @@
 		try {
 			loading = $t('common.encrypting')
 
-			const key = await AES.generateKey()
-			const password = Hex.encode(key)
+			const derived = customPassword && (await AES.derive(customPassword))
+			const key = derived ? derived[0] : await AES.generateKey()
 
 			const data: Note = {
 				contents: '',
 				meta: note.meta,
 			}
+			if (derived) data.meta.derivation = derived[1]
 			if (isFile) {
 				if (files.length === 0) throw new EmptyContentError()
 				data.contents = await Adapters.Files.encrypt(files, key)
@@ -77,8 +79,8 @@
 			loading = $t('common.uploading')
 			const response = await create(data)
 			result = {
-				password: password,
 				id: response.id,
+				password: customPassword ? undefined : Hex.encode(key),
 			}
 			notify.success($t('home.messages.note_created'))
 		} catch (e) {
@@ -148,8 +150,8 @@
 
 			{#if advanced}
 				<div transition:blur={{ duration: 250 }}>
-					<br />
-					<AdvancedParameters bind:note bind:timeExpiration />
+					<hr />
+					<AdvancedParameters bind:note bind:timeExpiration bind:customPassword />
 				</div>
 			{/if}
 		</fieldset>

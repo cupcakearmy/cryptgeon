@@ -18,7 +18,8 @@ EN | [简体中文](README_zh-CN.md)
 
 ## About?
 
-_cryptgeon_ is a secure, open source sharing note or file service inspired by [_PrivNote_](https://privnote.com)
+_cryptgeon_ is a secure, open source sharing note or file service inspired by [_PrivNote_](https://privnote.com).
+It includes a server, a web page and a CLI client.
 
 > 🌍 If you want to translate the project feel free to reach out to me.
 >
@@ -26,10 +27,21 @@ _cryptgeon_ is a secure, open source sharing note or file service inspired by [_
 
 ## Live Service / Demo
 
+### Web
+
 Check out the live service / demo and see for yourself [cryptgeon.org](https://cryptgeon.org)
+
+### CLI
+
+```
+npx cryptgeon send text "This is a secret note"
+```
+
+For more documentation about the CLI see the [readme](./packages/cli/README.md).
 
 ## Features
 
+- send text or files
 - server cannot decrypt contents due to client side encryption
 - view or time constraints
 - in memory, no persistence
@@ -121,14 +133,13 @@ There is a [guide](https://mariushosting.com/how-to-install-cryptgeon-on-your-sy
 **Requirements**
 
 - `pnpm`: `>=6`
-- `node`: `>=16`
+- `node`: `>=18`
 - `rust`: edition `2021`
 
 **Install**
 
 ```bash
 pnpm install
-pnpm --prefix frontend install
 
 # Also you need cargo watch if you don't already have it installed.
 # https://lib.rs/crates/cargo-watch
@@ -148,6 +159,7 @@ Running `pnpm run dev` in the root folder will start the following things:
 - redis docker container
 - rust backend
 - client
+- cli
 
 You can see the app under [localhost:1234](http://localhost:1234).
 
@@ -157,10 +169,7 @@ Tests are end to end tests written with Playwright.
 
 ```sh
 pnpm run test:prepare
-docker compose up redis -d
-pnpm run test:server
 
-# In another terminal.
 # Use the test or test:local script. The local version only runs in one browser for quicker development.
 pnpm run test:local
 ```
@@ -169,7 +178,9 @@ pnpm run test:local
 
 Please refer to the security section [here](./SECURITY.md).
 
-###### Attributions
+---
+
+_Attributions_
 
 - Test data:
   - Text for tests [Nietzsche Ipsum](https://nietzsche-ipsum.com/)

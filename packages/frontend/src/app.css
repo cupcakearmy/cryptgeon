@@ -92,7 +92,7 @@ button {
 }
 
 *:disabled,
-*[disabled='true'] {
+.disabled {
 	opacity: 0.5;
 }
 
@@ -125,4 +125,14 @@ fieldset {
 
 .tr {
 	text-align: right;
+}
+
+hr {
+	border: none;
+	border-bottom: 2px solid var(--ui-bg-1);
+	margin: 1rem 0;
+}
+
+p {
+	margin: 0;
 }

@@ -17,7 +17,7 @@
     }
   ],
   "settings": {
-    "i18n-ally.localesPaths": ["packages/frontend/locales"],
+    "i18n-ally.localesPaths": ["locales"],
     "cSpell.words": ["cryptgeon"]
   }
 }

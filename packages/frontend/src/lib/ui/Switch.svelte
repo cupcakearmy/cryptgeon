@@ -4,43 +4,35 @@
 	export let color = true
 </script>
 
-<div {...$$restProps}>
-	<label class="switch">
-		<small>{label}</small>
-		<input type="checkbox" bind:checked={value} />
-		<span class:color class="slider" />
-	</label>
-</div>
+<label {...$$restProps}>
+	<small>{label}</small>
+	<input type="checkbox" bind:checked={value} />
+	<span class:color class="slider" />
+</label>
 
 <style>
-	div {
-		height: 3.75rem;
-	}
-
-	.switch {
+	label {
 		position: relative;
 		display: inline-block;
-		width: 4rem;
-		height: 2.5rem;
 	}
 
-	.switch input {
-		opacity: 0;
-		width: 0;
-		height: 0;
+	label input {
+		display: none;
+	}
+
+	small {
+		display: block;
+		width: max-content;
 	}
 
 	.slider {
-		position: absolute;
+		display: block;
+		width: 4rem;
+		height: 2.5rem;
+		position: relative;
 		cursor: pointer;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
 		border: 2px solid var(--ui-bg-1);
 		background-color: var(--ui-bg-0);
-		transition: var(--ui-anim);
-		transform: translateY(1.2rem);
 	}
 
 	.slider:before {

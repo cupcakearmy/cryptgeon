@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	export type NoteResult = {
-		password: string
 		id: string
+		password?: string
 	}
 </script>
 
@@ -14,7 +14,8 @@
 
 	export let result: NoteResult
 
-	$: url = `${window.location.origin}/note/${result.id}#${result.password}`
+	let url = `${window.location.origin}/note/${result.id}`
+	if (result.password) url += `#${result.password}`
 
 	function reset() {
 		window.location.reload()

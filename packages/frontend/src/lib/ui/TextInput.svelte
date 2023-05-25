@@ -30,7 +30,7 @@
 </script>
 
 <label>
-	<small disabled={$$restProps.disabled}>
+	<small class:disabled={$$restProps.disabled}>
 		{label}
 		{#if valid !== true}
 			<span class="error-text">{valid}</span>
@@ -54,6 +54,7 @@
 	label {
 		position: relative;
 		display: block;
+		width: 100%;
 	}
 
 	label > small {

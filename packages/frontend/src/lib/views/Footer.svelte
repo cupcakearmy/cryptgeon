@@ -23,6 +23,7 @@
 		right: 0;
 		width: 100%;
 		background-color: var(--ui-bg-0-85);
+		backdrop-filter: blur(2px);
 	}
 
 	a {

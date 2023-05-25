@@ -1,0 +1,593 @@
+{
+	"info": {
+		"_postman_id": "52d9e661-2d99-47f8-b09a-40b6a1c0b364",
+		"name": "Cryptgeon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "Preview",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/notes/:id",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{NOTE_ID}}",
+									"description": "Id of the Note"
+								}
+							]
+						},
+						"description": "This endpoint is to query wether a note exists, without actually opening it. No view limits are used here, as contents of the note are not available, only the `meta` field is returned, which is public."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/notes/:id",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"notes",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{NOTE_ID}}",
+											"description": "Id of the Note"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "vary",
+									"value": "accept-encoding"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 23 May 2023 05:24:29 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						},
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/notes/:id",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"notes",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{NOTE_ID}}",
+											"description": "Id of the Note"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								},
+								{
+									"key": "vary",
+									"value": "accept-encoding"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 23 May 2023 05:25:26 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"pm.collectionVariables.set('NOTE_ID', jsonData.id)",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contents\": \"Some encrypted content\",\n    \"views\": 1,\n    \"meta\": \"{\\\"type\\\":\\\"text\\\"}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/notes/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"notes",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Simple",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"contents\": \"Some encrypted content\",\n    \"views\": 1,\n    \"meta\": \"{\\\"type\\\":\\\"text\\\"}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE}}/notes/",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"notes",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "vary",
+									"value": "accept-encoding"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 23 May 2023 05:31:54 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"1QeEWDQbQY9dOo8cDDQjykaEjouqugTR6A78sjgn4VMv\"\n}"
+						},
+						{
+							"name": "5 Minutes",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"contents\": \"Some encrypted content\",\n    \"expiration\": 5,\n    \"meta\": \"{\\\"type\\\":\\\"text\\\"}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE}}/notes/",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"notes",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "vary",
+									"value": "accept-encoding"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 23 May 2023 05:31:54 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"1QeEWDQbQY9dOo8cDDQjykaEjouqugTR6A78sjgn4VMv\"\n}"
+						},
+						{
+							"name": "3 Views",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"contents\": \"Some encrypted content\",\n    \"views\": 3,\n    \"meta\": \"{\\\"type\\\":\\\"text\\\"}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE}}/notes/",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"notes",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "vary",
+									"value": "accept-encoding"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 23 May 2023 05:31:54 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"1QeEWDQbQY9dOo8cDDQjykaEjouqugTR6A78sjgn4VMv\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Read",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/notes/:id",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"notes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{NOTE_ID}}"
+								}
+							]
+						},
+						"description": "This endpoint gets the actual contents of a note. It's a `DELETE` endpoint, es it decreases the `view` counter, and deletes the note if `0` is reached."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/notes/:id",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"notes",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{NOTE_ID}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "vary",
+									"value": "accept-encoding"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 23 May 2023 05:59:07 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": \"{\\\"type\\\":\\\"text\\\"}\",\n    \"contents\": \"Some encrypted content\"\n}"
+						},
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/notes/:id",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"notes",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{NOTE_ID}}"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								},
+								{
+									"key": "vary",
+									"value": "accept-encoding"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 23 May 2023 05:59:15 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Status",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE}}/status/",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"status",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE}}/status/",
+									"host": [
+										"{{BASE}}"
+									],
+									"path": [
+										"status",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								},
+								{
+									"key": "content-encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "vary",
+									"value": "accept-encoding"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 23 May 2023 05:56:45 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"version\": \"2.3.0-beta.4\",\n    \"max_size\": 10485760,\n    \"max_views\": 100,\n    \"max_expiration\": 360,\n    \"allow_advanced\": true,\n    \"theme_image\": \"\",\n    \"theme_text\": \"\",\n    \"theme_page_title\": \"\",\n    \"theme_favicon\": \"\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE",
+			"value": "http://localhost:1234/api",
+			"type": "default"
+		},
+		{
+			"key": "NOTE_ID",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

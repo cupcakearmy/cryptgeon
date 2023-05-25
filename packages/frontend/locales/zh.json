@@ -16,7 +16,8 @@
 		"decrypting": "解密",
 		"uploading": "上传",
 		"downloading": "下载",
-		"qr_code": "二维码"
+		"qr_code": "二维码",
+		"password": "密码"
 	},
 	"home": {
 		"intro": "飞鸽传书，一键传输完全加密的密信或文件，阅后即焚。",
@@ -31,6 +32,10 @@
 		},
 		"messages": {
 			"note_created": "密信创建成功。"
+		},
+		"advanced": {
+			"explanation": "默认情况下，每个笔记都使用安全生成的密码。但是，您也可以选择您自己的密码，该密码未包含在链接中。",
+			"custom_password": "自定义密码"
 		}
 	},
 	"show": {

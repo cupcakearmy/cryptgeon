@@ -24,7 +24,7 @@ async fn one(path: web::Path<NotePath>) -> impl Responder {
     let note = store::get(&p.id);
 
     match note {
-        Ok(Some(_)) => HttpResponse::Ok().json(NoteInfo {}),
+        Ok(Some(n)) => HttpResponse::Ok().json(NoteInfo { meta: n.meta }),
         Ok(None) => HttpResponse::NotFound().finish(),
         Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
     }

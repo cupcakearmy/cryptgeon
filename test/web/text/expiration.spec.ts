@@ -7,10 +7,10 @@ test.describe('@web', () => {
     const minutes = 1
     const timeout = minutes * 60_000
     test.setTimeout(timeout * 2)
-    const shareLink = await createNote(page, { text, expiration: minutes })
-    await checkLinkForText(page, shareLink, text)
-    await checkLinkForText(page, shareLink, text)
+    const link = await createNote(page, { text, expiration: minutes })
+    await checkLinkForText(page, { link, text })
+    await checkLinkForText(page, { link, text })
     await page.waitForTimeout(timeout)
-    await checkLinkDoesNotExist(page, shareLink)
+    await checkLinkDoesNotExist(page, link)
   })
 })
