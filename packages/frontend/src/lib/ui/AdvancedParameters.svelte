@@ -47,8 +47,13 @@
 		/>
 	</div>
 	<div class="flex">
-		<Switch bind:value={customPassword} label={$t('home.advanced.custom_password')} />
+		<Switch
+			data-testid="custom-password"
+			bind:value={customPassword}
+			label={$t('home.advanced.custom_password')}
+		/>
 		<TextInput
+			data-testid="password"
 			type="password"
 			bind:value={note.password}
 			label={$t('common.password')}
