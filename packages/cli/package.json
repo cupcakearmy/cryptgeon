@@ -1,6 +1,12 @@
 {
   "version": "2.3.0-beta.6",
   "name": "cryptgeon",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cupcakearmy/cryptgeon.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/cupcakearmy/cryptgeon",
   "type": "module",
   "engines": {
     "node": ">=18"
