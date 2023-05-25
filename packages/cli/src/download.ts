@@ -7,7 +7,7 @@ import pretty from 'pretty-bytes'
 
 import { exit } from './utils'
 
-export async function download(url: URL) {
+export async function download(url: URL, all: boolean, suggestedPassword?: string) {
   setBase(url.origin)
   const id = url.pathname.split('/')[2]
   const preview = await info(id).catch(() => exit('Note does not exist or is expired'))
@@ -16,14 +16,18 @@ export async function download(url: URL) {
   let password: string
   const derivation = preview?.meta.derivation
   if (derivation) {
-    const response = await inquirer.prompt([
-      {
-        type: 'password',
-        message: 'Note password',
-        name: 'password',
-      },
-    ])
-    password = response.password
+    if (suggestedPassword) {
+      password = suggestedPassword
+    } else {
+      const response = await inquirer.prompt([
+        {
+          type: 'password',
+          message: 'Note password',
+          name: 'password',
+        },
+      ])
+      password = response.password
+    }
   } else {
     password = url.hash.slice(1)
   }
@@ -39,25 +43,29 @@ export async function download(url: URL) {
         exit('No files found in note')
         return
       }
-      const { names } = await inquirer.prompt([
-        {
-          type: 'checkbox',
-          message: 'What files should be saved?',
-          name: 'names',
-          choices: files.map((file) => ({
-            value: file.name,
-            name: `${file.name} - ${file.type} - ${pretty(file.size, { binary: true })}`,
-            checked: true,
-          })),
-        },
-      ])
 
-      const selected = files.filter((file) => names.includes(file.name))
+      let selected: typeof files
+      if (all) {
+        selected = files
+      } else {
+        const { names } = await inquirer.prompt([
+          {
+            type: 'checkbox',
+            message: 'What files should be saved?',
+            name: 'names',
+            choices: files.map((file) => ({
+              value: file.name,
+              name: `${file.name} - ${file.type} - ${pretty(file.size, { binary: true })}`,
+              checked: true,
+            })),
+          },
+        ])
+        selected = files.filter((file) => names.includes(file.name))
+      }
 
       if (!selected.length) exit('No files selected')
-
       await Promise.all(
-        files.map(async (file) => {
+        selected.map(async (file) => {
           let filename = resolve(file.name)
           try {
             // If exists -> prepend timestamp to not overwrite the current file
@@ -68,6 +76,7 @@ export async function download(url: URL) {
           console.log(`Saved: ${basename(filename)}`)
         })
       )
+
       break
     case 'text':
       const plaintext = await Adapters.Text.decrypt(note.contents, key).catch(couldNotDecrypt)

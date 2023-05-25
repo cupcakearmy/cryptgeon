@@ -15,6 +15,7 @@ const server = new Option('-s --server <url>', 'the cryptgeon server to use').de
 const files = new Argument('<file...>', 'Files to be sent').argParser(parseFile)
 const text = new Argument('<text>', 'Text content of the note')
 const password = new Option('-p --password <string>', 'manually set a password')
+const all = new Option('-a --all', 'Save all files without prompt').default(false)
 const url = new Argument('<url>', 'The url to open')
 const views = new Option('-v --views <number>', 'Amount of views before getting destroyed').argParser(parseNumber)
 const minutes = new Option('-m --minutes <number>', 'Minutes before the note expires').argParser(parseNumber)
@@ -86,10 +87,13 @@ send
 program
   .command('open')
   .addArgument(url)
+  .addOption(password)
+  .addOption(all)
   .action(async (note, options) => {
     try {
       const url = new URL(note)
-      await download(url)
+      options.password ||= await getStdin()
+      await download(url, options.all, options.password)
     } catch {
       exit('Invalid URL')
     }
