@@ -8,10 +8,11 @@
 
 	export let note: Note
 	export let timeExpiration = false
+	export let customPassword: string | null = null
 
-	let customPassword = false
+	let hasCustomPassword = false
 
-	$: if (!customPassword) note.password = undefined
+	$: if (!hasCustomPassword) customPassword = null
 </script>
 
 <div class="flex col">
@@ -49,15 +50,15 @@
 	<div class="flex">
 		<Switch
 			data-testid="custom-password"
-			bind:value={customPassword}
+			bind:value={hasCustomPassword}
 			label={$t('home.advanced.custom_password')}
 		/>
 		<TextInput
 			data-testid="password"
 			type="password"
-			bind:value={note.password}
+			bind:value={customPassword}
 			label={$t('common.password')}
-			disabled={!customPassword}
+			disabled={!hasCustomPassword}
 			random
 		/>
 	</div>

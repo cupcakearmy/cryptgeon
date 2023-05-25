@@ -27,6 +27,7 @@
 	let advanced = false
 	let isFile = false
 	let timeExpiration = false
+	let customPassword: string | null = null
 	let description = ''
 	let loading: string | null = null
 
@@ -57,7 +58,7 @@
 		try {
 			loading = $t('common.encrypting')
 
-			const derived = note.password && (await AES.derive(note.password))
+			const derived = customPassword && (await AES.derive(customPassword))
 			const key = derived ? derived[0] : await AES.generateKey()
 
 			const data: Note = {
@@ -79,7 +80,7 @@
 			const response = await create(data)
 			result = {
 				id: response.id,
-				password: note.password ? undefined : Hex.encode(key),
+				password: customPassword ? undefined : Hex.encode(key),
 			}
 			notify.success($t('home.messages.note_created'))
 		} catch (e) {
@@ -150,7 +151,7 @@
 			{#if advanced}
 				<div transition:blur={{ duration: 250 }}>
 					<hr />
-					<AdvancedParameters bind:note bind:timeExpiration />
+					<AdvancedParameters bind:note bind:timeExpiration bind:customPassword />
 				</div>
 			{/if}
 		</fieldset>
