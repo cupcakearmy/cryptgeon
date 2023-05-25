@@ -1,17 +1,12 @@
 [package]
 name = "cryptgeon"
-version = "2.3.0-beta.5"
+version = "2.3.0-beta.6"
 authors = ["cupcakearmy <hi@nicco.io>"]
 edition = "2021"
 
 [[bin]]
 name = "cryptgeon"
 path = "src/main.rs"
-
-[registries.crates-io]
-protocol = "sparse"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 actix-web = "4"
