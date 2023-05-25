@@ -22,8 +22,9 @@ jobs:
       - run: |
           pnpm install --frozen-lockfile
           pnpm run build
-          
+
       - run: npm publish
+        working-directory: ./packages/cli
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
