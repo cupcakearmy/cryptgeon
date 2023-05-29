@@ -30,6 +30,10 @@ lazy_static! {
     .unwrap_or("true".to_string())
     .parse()
     .unwrap();
+  pub static ref ID_LENGTH: u32 = std::env::var("ID_LENGTH")
+    .unwrap_or("32".to_string())
+    .parse()
+    .unwrap();
 }
 
 // THEME
