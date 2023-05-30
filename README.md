@@ -69,6 +69,7 @@ of the notes even if it tried to.
 | `MAX_VIEWS`        | `100`            | Maximal number of views.                                                                                                                                                                                      |
 | `MAX_EXPIRATION`   | `360`            | Maximal expiration in minutes.                                                                                                                                                                                |
 | `ALLOW_ADVANCED`   | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                                                                                                                |
+| `ID_LENGTH`        | `32`             | Set the size of the note `id` in bytes. By default this is `32` bytes. This is useful for reducing link size. _This setting does not affect encryption strength_.                                             |
 | `VERBOSITY`        | `warn`           | Verbosity level for the backend. [Possible values](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) are: `error`, `warn`, `info`, `debug`, `trace`                                             |
 | `THEME_IMAGE`      | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                                                                                                               |
 | `THEME_TEXT`       | `""`             | Custom text for replacing the description below the logo                                                                                                                                                      |
@@ -163,7 +164,9 @@ Running `pnpm run dev` in the root folder will start the following things:
 
 You can see the app under [localhost:1234](http://localhost:1234).
 
-## Tests
+> There is a Postman collection with some example requests [available in the repo](./Cryptgeon.postman_collection.json)
+
+### Tests
 
 Tests are end to end tests written with Playwright.
 

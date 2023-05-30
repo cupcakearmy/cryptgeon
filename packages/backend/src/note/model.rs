@@ -2,6 +2,8 @@ use bs62;
 use ring::rand::SecureRandom;
 use serde::{Deserialize, Serialize};
 
+use crate::config;
+
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Note {
     pub meta: String,
@@ -22,8 +24,13 @@ pub struct NotePublic {
 }
 
 pub fn generate_id() -> String {
-    let mut id: [u8; 32] = [0; 32];
+    let mut result = "".to_owned();
+    let mut id: [u8; 1] = [0; 1];
     let sr = ring::rand::SystemRandom::new();
-    let _ = sr.fill(&mut id);
-    return bs62::encode_data(&id);
+
+    for _ in 0..*config::ID_LENGTH {
+        let _ = sr.fill(&mut id);
+        result.push_str(&bs62::encode_data(&id));
+    }
+    return result;
 }

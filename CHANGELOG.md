@@ -5,18 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.3.0] - 2023-05-XX
+## [2.3.0] - 2023-05-30
 
 ### Added
 
-- New CLI 🎉
-- Russian language
+- New CLI 🎉.
+- Russian language.
+- Option for reducing note id size (`ID_LENGTH`).
 
 ### Changed
 
-- Moved to monorepo
-
-## [2.2.0] - 2023-01-14
+- Moved to monorepo.
 
 ### Changed
 
