@@ -164,7 +164,9 @@ Running `pnpm run dev` in the root folder will start the following things:
 
 You can see the app under [localhost:1234](http://localhost:1234).
 
-## Tests
+> There is a Postman collection with some example requests [available in the repo](./Cryptgeon.postman_collection.json)
+
+### Tests
 
 Tests are end to end tests written with Playwright.
 
