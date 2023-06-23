@@ -78,7 +78,9 @@ of the notes even if it tried to.
 
 ## Deployment
 
-ℹ️ `https` is required otherwise browsers will not support the cryptographic functions.
+> ℹ️ `https` is required otherwise browsers will not support the cryptographic functions.
+
+> ℹ️ There is a health endpoint available at `/api/health/`. It returns either 200 or 503.
 
 ### Docker
 
@@ -94,7 +96,7 @@ services:
     image: redis:7-alpine
     # Set a size limit. See link below on how to customise.
     # https://redis.io/docs/manual/eviction/
-    command: redis-server --maxmemory 1gb --maxmemory-policy allkeys-lru
+    # command: redis-server --maxmemory 1gb --maxmemory-policy allkeys-lru
 
   app:
     image: cupcakearmy/cryptgeon:latest
@@ -105,6 +107,14 @@ services:
       SIZE_LIMIT: 4 MiB
     ports:
       - 80:8000
+
+    # Optional health checks
+    # healthcheck:
+    #   test: ["CMD", "curl", "--fail", "http://127.0.0.1:8000/api/live/"]
+    #   interval: 1m
+    #   timeout: 3s
+    #   retries: 2
+    #   start_period: 5s
 ```
 
 ### NGINX Proxy
