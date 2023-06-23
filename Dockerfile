@@ -21,6 +21,7 @@ RUN cargo build --release
 # RUNNER
 FROM alpine
 WORKDIR /app
+RUN apk add --no-cache curl 
 COPY --from=backend /tmp/target/release/cryptgeon .
 COPY --from=client /tmp/packages/frontend/build ./frontend
 ENV FRONTEND_PATH="./frontend"
