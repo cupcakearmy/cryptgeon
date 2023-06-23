@@ -19,6 +19,14 @@ fn get_connection() -> Result<redis::Connection, &'static str> {
         .map_err(|_| "Unable to connect to redis")
 }
 
+pub fn can_reach_redis() -> bool {
+    let conn = get_connection();
+    return match conn {
+        Ok(_) => true,
+        Err(_) => false,
+    };
+}
+
 pub fn set(id: &String, note: &Note) -> Result<(), &'static str> {
     let serialized = serde_json::to_string(&note.clone()).unwrap();
     let mut conn = get_connection()?;
