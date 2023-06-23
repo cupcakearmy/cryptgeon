@@ -1,6 +1,6 @@
 [package]
 name = "cryptgeon"
-version = "2.3.0"
+version = "2.3.1"
 authors = ["cupcakearmy <hi@nicco.io>"]
 edition = "2021"
 
@@ -20,4 +20,5 @@ byte-unit = "4"
 dotenv = "0.15"
 mime = "0.3"
 env_logger = "0.9"
-redis = "0.21.5"
+log = "0.4"
+redis = "0.23"
