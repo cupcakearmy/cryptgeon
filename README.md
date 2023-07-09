@@ -14,7 +14,7 @@
 <a href=""><img src="./.github/lokalise.png" height="50">
 <br/><br/>
 
-EN | [简体中文](README_zh-CN.md)
+EN | [简体中文](README_zh-CN.md) | [ES](README_ES.md) 
 
 ## About?
 
