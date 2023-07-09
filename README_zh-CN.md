@@ -14,7 +14,7 @@
 <a href=""><img src="./.github/lokalise.png" height="50">
 <br/>
 
-[EN](README.md) | 简体中文
+[EN](README.md) | 简体中文 | [ES](README_ES.md) 
 
 ## 关于本项目
 
