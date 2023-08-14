@@ -8,12 +8,12 @@ RUN pnpm run build
 
 
 # BACKEND
-FROM rust:1.69-alpine as backend
+FROM rust:1.71-alpine as backend
 WORKDIR /tmp
 RUN apk add libc-dev openssl-dev alpine-sdk
-COPY ./packages/backend/Cargo.* ./
-ENV CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
-RUN cargo fetch
+# COPY ./packages/backend/Cargo.* ./
+# ENV CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+# RUN cargo fetch
 COPY ./packages/backend ./
 RUN cargo build --release
 
