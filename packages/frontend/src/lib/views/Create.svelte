@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AES, Hex, Bytes } from 'occulto'
+	import { AES, Hex } from 'occulto'
 	import { t } from 'svelte-intl-precompile'
 	import { blur } from 'svelte/transition'
 
@@ -14,7 +14,7 @@
 	import Switch from '$lib/ui/Switch.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import type { FileDTO, Note } from '@cryptgeon/shared'
-	import { Adapters, create, PayloadToLargeError } from '@cryptgeon/shared'
+	import { Adapters, PayloadToLargeError, create } from '@cryptgeon/shared'
 
 	let note: Note = {
 		contents: '',
@@ -149,7 +149,7 @@
 			</p>
 
 			{#if advanced}
-				<div transition:blur={{ duration: 250 }}>
+				<div transition:blur|global={{ duration: 250 }}>
 					<hr />
 					<AdvancedParameters bind:note bind:timeExpiration bind:customPassword />
 				</div>
