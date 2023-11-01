@@ -23,7 +23,7 @@
 		"intro": "Envía fácilmente notas o archivos <i>totalmente encriptados</i> y seguros con un solo clic. Solo tienes que crear una nota y compartir el enlace.",
 		"explanation": "la nota expirará y se destruirá después de {type}.",
 		"new_note": "nueva nota",
-		"new_note_notice": "<b>disponibilidad:</b><br />no se garantiza que la nota se almacene, ya que todo se guarda en la memoria RAM, si se llena se eliminarán las notas más antiguas.<br />(probablemente estará bien, sólo está advertido.)",
+		"new_note_notice": "<b>disponibilidad:</b><br />no se garantiza que la nota se almacene, ya que todo se guarda en la memoria RAM, si se llena se eliminarán las notas más antiguas.<br />(probablemente estará bien, solo está advertido.)",
 		"errors": {
 			"note_to_big": "no se pudo crear la nota. la nota es demasiado grande",
 			"note_error": "No se ha podido crear la nota. Por favor, inténtelo de nuevo.",
@@ -34,7 +34,7 @@
 			"note_created": "nota creada."
 		},
 		"advanced": {
-			"explanation": "Por defecto, se utiliza una contraseña generada de forma segura para cada nota. No obstante, también puede elegir su propia contraseña, que no se incluye en el enlace.",
+			"explanation": "Por defecto, se utiliza una contraseña generada de forma segura para cada nota. No obstante, también puede elegir su propia contraseña, la cual no se incluye en el enlace.",
 			"custom_password": "contraseña personalizada"
 		}
 	},
@@ -47,7 +47,8 @@
 		"explanation": "pulse abajo para mostrar y borrar la nota si el contador ha llegado a su límite",
 		"show_note": "mostrar nota",
 		"warning_will_not_see_again": "<b>no</b> tendrás la oportunidad de volver a ver la nota.",
-		"download_all": "descargar todo"
+		"download_all": "descargar todo",
+		"links_found": "enlaces que se encuentran dentro de la nota:"
 	},
 	"file_upload": {
 		"selected_files": "Archivos seleccionados",

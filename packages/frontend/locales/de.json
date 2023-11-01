@@ -47,7 +47,8 @@
 		"explanation": "Klicken Sie unten, um die Notiz anzuzeigen und zu löschen, wenn der Zähler sein Limit erreicht hat",
 		"show_note": "Notiz anzeigen",
 		"warning_will_not_see_again": "haben Sie <b>keine</b> Gelegenheit, die Notiz noch einmal zu sehen.",
-		"download_all": "alle herunterladen"
+		"download_all": "alle herunterladen",
+		"links_found": "Links in der Notiz:"
 	},
 	"file_upload": {
 		"selected_files": "Ausgewählte Dateien",

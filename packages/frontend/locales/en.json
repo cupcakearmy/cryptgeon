@@ -23,9 +23,9 @@
 		"intro": "Easily send <i>fully encrypted</i>, secure notes or files with one click. Just create a note and share the link.",
 		"explanation": "the note will expire and be destroyed after {type}.",
 		"new_note": "new note",
-		"new_note_notice": "<b>availability:</b><br />the note is not guaranteed to be stored, as everything is kept in ram. if it fills up, the oldest notes will be removed.<br />(you probably will be fine, but just be warned.)",
+		"new_note_notice": "<b>availability:</b><br />the note is not guaranteed to be stored as everything is kept in ram, if it fills up the oldest notes will be removed.<br />(you probably will be fine, just be warned.)",
 		"errors": {
-			"note_to_big": "could not create note. note is too big.",
+			"note_to_big": "could not create note. note is to big",
 			"note_error": "could not create note. please try again.",
 			"max": "max: {n}",
 			"empty_content": "note is empty."
@@ -34,7 +34,7 @@
 			"note_created": "note created."
 		},
 		"advanced": {
-			"explanation": "By default, a securely generated password is used for each note. You can, however, also choose your own password, which is not included in the link.",
+			"explanation": "By default, a securely generated password is used for each note. You can however also choose your own password, which is not included in the link.",
 			"custom_password": "custom password"
 		}
 	},
@@ -44,10 +44,11 @@
 			"decryption_failed": "wrong password. could not decipher. probably a broken link. note was destroyed.",
 			"unsupported_type": "unsupported note type."
 		},
-		"explanation": "click below to show and delete the note if the counter has reached its limit.",
+		"explanation": "click below to show and delete the note if the counter has reached it's limit",
 		"show_note": "show note",
 		"warning_will_not_see_again": "you will <b>not</b> get the chance to see the note again.",
-		"download_all": "download all"
+		"download_all": "download all",
+		"links_found": "links found inside the note:"
 	},
 	"file_upload": {
 		"selected_files": "Selected Files",
