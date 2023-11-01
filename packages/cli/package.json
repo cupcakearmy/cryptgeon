@@ -1,5 +1,5 @@
 {
-  "version": "2.3.3",
+  "version": "2.4.0",
   "name": "cryptgeon",
   "repository": {
     "type": "git",
@@ -26,18 +26,18 @@
     "dist"
   ],
   "devDependencies": {
-    "@commander-js/extra-typings": "^11.0.0",
+    "@commander-js/extra-typings": "^11.1.0",
     "@cryptgeon/shared": "workspace:*",
-    "@types/inquirer": "^9.0.3",
-    "@types/mime": "^3.0.1",
-    "@types/node": "^20.5.0",
-    "commander": "^11.0.0",
-    "esbuild": "^0.19.2",
-    "inquirer": "^9.2.10",
+    "@types/inquirer": "^9.0.6",
+    "@types/mime": "^3.0.3",
+    "@types/node": "^20.8.10",
+    "commander": "^11.1.0",
+    "esbuild": "^0.19.5",
+    "inquirer": "^9.2.11",
     "mime": "^3.0.0",
     "occulto": "^2.0.1",
     "pkg": "^5.8.1",
     "pretty-bytes": "^6.1.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   }
 }
