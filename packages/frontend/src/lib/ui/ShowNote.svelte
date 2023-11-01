@@ -3,7 +3,6 @@
 </script>
 
 <script lang="ts">
-	import DOMPurify from 'dompurify'
 	import { saveAs } from 'file-saver'
 	import prettyBytes from 'pretty-bytes'
 	import { t } from 'svelte-intl-precompile'
@@ -34,22 +33,29 @@
 		saveAs(f)
 	}
 
-	function contentWithLinks(content: string): string {
-		const replaced = content.replace(
-			RE_URL,
-			(url) => `<a href="${url}" rel="noreferrer">${url}</a>`
-		)
-		return DOMPurify.sanitize(replaced, { USE_PROFILES: { html: true } })
-	}
+	$: links = typeof note.contents === 'string' ? note.contents.match(RE_URL) : []
 </script>
 
 <p class="error-text">{@html $t('show.warning_will_not_see_again')}</p>
 <div data-testid="result">
 	{#if note.meta.type === 'text'}
 		<div class="note">
-			{@html contentWithLinks(note.contents)}
+			{note.contents}
 		</div>
 		<Button on:click={() => copy(note.contents)}>{$t('common.copy_clipboard')}</Button>
+
+		{#if links && links.length}
+			<div class="links">
+				{$t('show.links_found')}
+				<ul>
+					{#each links as link}
+						<li>
+							<a href={link} target="_blank" rel="noopener noreferrer">{link}</a>
+						</li>
+					{/each}
+				</ul>
+			</div>
+		{/if}
 	{:else}
 		{#each files as file}
 			<div class="note file">
@@ -91,5 +97,21 @@
 
 	.note.file small {
 		padding-left: 1rem;
+	}
+
+	.links {
+		margin-top: 2rem;
+	}
+	.links ul {
+		margin: 0;
+		padding: 0;
+		margin-top: 0.5rem;
+		padding-left: 1rem;
+		list-style: square;
+	}
+
+	.links ul li {
+		margin-bottom: 0.5rem;
+		word-wrap: break-word;
 	}
 </style>

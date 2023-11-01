@@ -47,7 +47,8 @@
 		"explanation": "点击下方按钮即可查看密信，阅后即焚。",
 		"show_note": "查看密信",
 		"warning_will_not_see_again": "你将<b>无法</b>再次查看该密信，请尽快复制到粘贴板。",
-		"download_all": "下载全部"
+		"download_all": "下载全部",
+		"links_found": "注释中找到的链接："
 	},
 	"file_upload": {
 		"selected_files": "已选中的文件",

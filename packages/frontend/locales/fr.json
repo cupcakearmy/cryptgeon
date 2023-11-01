@@ -47,7 +47,8 @@
 		"explanation": "Cliquez ci-dessous pour afficher et supprimer la note si le compteur a atteint sa limite.",
 		"show_note": "note de présentation",
 		"warning_will_not_see_again": "vous <b>n'aurez pas</b> la chance de revoir la note.",
-		"download_all": "télécharger tout"
+		"download_all": "télécharger tout",
+		"links_found": "liens trouvés à l’intérieur de la note :"
 	},
 	"file_upload": {
 		"selected_files": "Fichiers sélectionnés",

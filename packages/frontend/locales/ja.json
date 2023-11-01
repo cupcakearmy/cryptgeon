@@ -47,7 +47,8 @@
 		"explanation": "カウンターが上限に達した場合、ノートの表示と削除を行うには、以下をクリックします。",
 		"show_note": "メモを表示",
 		"warning_will_not_see_again": "あなた <b>できません</b> このノートをもう一度見る",
-		"download_all": "すべてダウンロード"
+		"download_all": "すべてダウンロード",
+		"links_found": "メモ内にあるリンク:"
 	},
 	"file_upload": {
 		"selected_files": "選択したファイル",
