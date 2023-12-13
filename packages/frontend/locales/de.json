@@ -2,52 +2,52 @@
 	"common": {
 		"note": "Notiz",
 		"file": "Datei",
-		"advanced": "erweitert",
-		"create": "erstellen",
-		"loading": "lädt",
+		"advanced": "Erweiterte Optionen",
+		"create": "Notiz erstellen",
+		"loading": "Lädt...",
 		"mode": "Modus",
 		"views": "{n, plural, =0 {Ansichten} =1 {1 Ansicht} other {# Ansichten}}",
 		"minutes": "{n, plural, =0 {Minuten} =1 {1 Minute} other {# Minuten}}",
 		"max": "max",
 		"share_link": "Link teilen",
-		"copy_clipboard": "in die Zwischenablage kopieren",
-		"copied_to_clipboard": "in die Zwischenablage kopiert",
-		"encrypting": "verschlüsselt",
-		"decrypting": "entschlüsselt",
-		"uploading": "hochladen",
-		"downloading": "wird heruntergeladen",
-		"qr_code": "qr-code",
+		"copy_clipboard": "Link in die Zwischenablage kopieren",
+		"copied_to_clipboard": "Link in die Zwischenablage kopiert.",
+		"encrypting": "Notiz wird verschlüsselt...",
+		"decrypting": "Notiz wird entschlüsselt...",
+		"uploading": "Hochladen",
+		"downloading": "Wird heruntergeladen",
+		"qr_code": "QR-Code",
 		"password": "Passwort"
 	},
 	"home": {
-		"intro": "Senden Sie ganz einfach <i>vollständig verschlüsselte</i>, sichere Notizen oder Dateien mit einem Klick. Erstellen Sie einfach eine Notiz und teilen Sie den Link.",
-		"explanation": "die Notiz verfällt und wird nach {type} zerstört.",
-		"new_note": "neue Notiz",
-		"new_note_notice": "<b>Verfügbarkeit:</b><br />es ist nicht garantiert, dass die Notiz gespeichert wird, da alles im Speicher gehalten wird. Wenn dieser voll ist, werden die ältesten Notizen entfernt.<br />(Sie werden wahrscheinlich keine Probleme haben, seien Sie nur gewarnt).",
+		"intro": "Senden Sie mit ganz einfach einem Klick <i>vollständig verschlüsselte</i>, sichere Notizen oder Dateien. Erstellen Sie einfach eine Notiz und teilen Sie den Link.",
+		"explanation": "Die Notiz verfällt nach {type}.",
+		"new_note": "Neue Notiz",
+		"new_note_notice": "<b>Wichtiger Hinweis zur Verfügbarkeit:</b><br />Es kann nicht garantiert werden, dass diese Notiz gespeichert wird, da diese <b>ausschließlich im Speicher</b> gehalten werden. Ist dieser voll, werden die ältesten Notizen entfernt.<br />(Wahrscheinlich gibt es keine derartigen Probleme, seien Sie nur vorgewarnt).",
 		"errors": {
-			"note_to_big": "Notiz konnte nicht erstellt werden. Notiz ist zu groß",
-			"note_error": "konnte keine Notiz erstellen. Bitte versuchen Sie es erneut.",
+			"note_to_big": "Notiz konnte nicht erstellt werden, da sie zu groß ist.",
+			"note_error": "Notiz konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
 			"max": "max: {n}",
 			"empty_content": "Notiz ist leer."
 		},
 		"messages": {
-			"note_created": "notiz erstellt."
+			"note_created": "Notiz wurde erstellt."
 		},
 		"advanced": {
-			"explanation": "Standardmäßig wird für jede Notiz ein sicher generiertes Passwort verwendet. Sie können jedoch auch ein eigenes Kennwort wählen, das nicht in dem Link enthalten ist.",
-			"custom_password": "benutzerdefiniertes Passwort"
+			"explanation": "Standardmäßig wird für jede Notiz ein sicher generiertes Passwort verwendet. Sie können alternativ ein eigenes Kennwort wählen, das nicht im Link enthalten ist.",
+			"custom_password": "Benutzerdefiniertes Passwort"
 		}
 	},
 	"show": {
 		"errors": {
-			"not_found": "wurde nicht gefunden oder wurde bereits gelöscht.",
-			"decryption_failed": "falsches Passwort. konnte nicht entschlüsselt werden. wahrscheinlich ein defekter Link. Notiz wurde zerstört.",
-			"unsupported_type": "nicht unterstützter Notiztyp."
+			"not_found": "Notiz konnte nicht gefunden werden oder wurde bereits gelöscht.",
+			"decryption_failed": "Notiz konnte nicht entschlüsselt werden. Vermutlich ist das Passwort falsch oder der Link defekt. Notiz wurde zerstört.",
+			"unsupported_type": "Nicht unterstützter Notiztyp."
 		},
-		"explanation": "Klicken Sie unten, um die Notiz anzuzeigen und zu löschen, wenn der Zähler sein Limit erreicht hat",
+		"explanation": "Klicken Sie unten, um die Notiz anzuzeigen und anschließend zu löschen, falls das Limit erreicht ist.",
 		"show_note": "Notiz anzeigen",
-		"warning_will_not_see_again": "Sie haben <b>keine</b> Gelegenheit, die Notiz noch einmal zu sehen.",
-		"download_all": "alle herunterladen",
+		"warning_will_not_see_again": "Achtung! Sie haben anschließend <b>keine</b> Gelegenheit, die Notiz noch einmal anzusehen.",
+		"download_all": "Alle Dateien herunterladen",
 		"links_found": "Links in der Notiz:"
 	},
 	"file_upload": {
