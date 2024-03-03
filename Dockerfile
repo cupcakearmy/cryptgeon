@@ -11,7 +11,7 @@ RUN pnpm run build
 
 
 # BACKEND
-FROM rust:1.73-alpine as backend
+FROM rust:1.76-alpine as backend
 WORKDIR /tmp
 RUN apk add libc-dev openssl-dev alpine-sdk
 COPY ./packages/backend ./

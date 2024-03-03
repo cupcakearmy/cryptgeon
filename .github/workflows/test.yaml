@@ -10,18 +10,18 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Node
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v3
+      - uses: actions/setup-node@v4
         with:
           cache: 'pnpm'
           node-version-file: '.nvmrc'
 
       # Docker
-      - uses: docker/setup-qemu-action@v2
-      - uses: docker/setup-buildx-action@v2
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
         with:
           install: true
 

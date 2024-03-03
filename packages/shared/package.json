@@ -14,9 +14,9 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   },
   "dependencies": {
-    "occulto": "^2.0.1"
+    "occulto": "^2.0.3"
   }
 }
