@@ -1,7 +1,10 @@
 # FRONTEND
 FROM node:18-alpine as client 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
 WORKDIR /tmp
-RUN npm install -g pnpm@8
 COPY . .
 RUN pnpm install --frozen-lockfile
 RUN pnpm run build
