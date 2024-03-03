@@ -1,30 +1,33 @@
 {
-  "version": "2.4.0",
   "name": "cryptgeon",
+  "version": "2.4.0",
+  "homepage": "https://github.com/cupcakearmy/cryptgeon",
   "repository": {
     "type": "git",
     "url": "https://github.com/cupcakearmy/cryptgeon.git",
     "directory": "packages/cli"
   },
-  "homepage": "https://github.com/cupcakearmy/cryptgeon",
   "type": "module",
-  "engines": {
-    "node": ">=18"
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
-  "scripts": {
-    "dev": "./scripts/build.js --watch",
-    "build": "./scripts/build.js",
-    "package": "./scripts/package.js",
-    "bin": "run-s build package",
-    "prepublishOnly": "run-s build"
-  },
-  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
   "bin": {
-    "cryptgeon": "./dist/index.cjs"
+    "cryptgeon": "./dist/cli.cjs"
   },
   "files": [
     "dist"
   ],
+  "scripts": {
+    "bin": "run-s build package",
+    "build": "tsc && ./scripts/build.js",
+    "dev": "./scripts/build.js --watch",
+    "package": "./scripts/package.js",
+    "prepublishOnly": "run-s build"
+  },
   "devDependencies": {
     "@commander-js/extra-typings": "^11.1.0",
     "@cryptgeon/shared": "workspace:*",
@@ -39,5 +42,8 @@
     "pkg": "^5.8.1",
     "pretty-bytes": "^6.1.1",
     "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

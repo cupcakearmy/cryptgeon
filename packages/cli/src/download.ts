@@ -5,12 +5,12 @@ import { basename, resolve } from 'node:path'
 import { AES, Hex } from 'occulto'
 import pretty from 'pretty-bytes'
 
-import { exit } from './utils'
-
 export async function download(url: URL, all: boolean, suggestedPassword?: string) {
   setBase(url.origin)
   const id = url.pathname.split('/')[2]
-  const preview = await info(id).catch(() => exit('Note does not exist or is expired'))
+  const preview = await info(id).catch(() => {
+    throw new Error('Note does not exist or is expired')
+  })
 
   // Password
   let password: string
@@ -35,13 +35,14 @@ export async function download(url: URL, all: boolean, suggestedPassword?: strin
   const key = derivation ? (await AES.derive(password, derivation))[0] : Hex.decode(password)
   const note = await get(id)
 
-  const couldNotDecrypt = () => exit('Could not decrypt note. Probably an invalid password')
+  const couldNotDecrypt = new Error('Could not decrypt note. Probably an invalid password')
   switch (note.meta.type) {
     case 'file':
-      const files = await Adapters.Files.decrypt(note.contents, key).catch(couldNotDecrypt)
+      const files = await Adapters.Files.decrypt(note.contents, key).catch(() => {
+        throw couldNotDecrypt
+      })
       if (!files) {
-        exit('No files found in note')
-        return
+        throw new Error('No files found in note')
       }
 
       let selected: typeof files
@@ -63,7 +64,7 @@ export async function download(url: URL, all: boolean, suggestedPassword?: strin
         selected = files.filter((file) => names.includes(file.name))
       }
 
-      if (!selected.length) exit('No files selected')
+      if (!selected.length) throw new Error('No files selected')
       await Promise.all(
         selected.map(async (file) => {
           let filename = resolve(file.name)
@@ -79,7 +80,9 @@ export async function download(url: URL, all: boolean, suggestedPassword?: strin
 
       break
     case 'text':
-      const plaintext = await Adapters.Text.decrypt(note.contents, key).catch(couldNotDecrypt)
+      const plaintext = await Adapters.Text.decrypt(note.contents, key).catch(() => {
+        throw couldNotDecrypt
+      })
       console.log(plaintext)
       break
   }

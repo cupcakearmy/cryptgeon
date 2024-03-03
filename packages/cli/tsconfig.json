@@ -3,8 +3,11 @@
     "target": "es2022",
     "module": "es2022",
     "moduleResolution": "node",
-    "noEmit": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "strict": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
     "allowSyntheticDefaultImports": true
   }
 }

@@ -13,5 +13,5 @@ const targets = [
 
 for (const target of targets) {
   console.log(`🚀 Building ${target}`)
-  await exec(['./dist/index.cjs', '--target', target, '--output', `./bin/${target.replace('node18', 'cryptgeon')}`])
+  await exec(['./dist/cli.cjs', '--target', target, '--output', `./bin/${target.replace('node18', 'cryptgeon')}`])
 }
