@@ -5,7 +5,7 @@ import { Adapters, BASE, create, FileDTO, Note, NoteMeta } from '@cryptgeon/shar
 import mime from 'mime'
 import { AES, Hex } from 'occulto'
 
-type UploadOptions = Pick<Note, 'views' | 'expiration'> & { password?: string }
+export type UploadOptions = Pick<Note, 'views' | 'expiration'> & { password?: string }
 
 export async function upload(input: string | string[], options: UploadOptions): Promise<string> {
   const { password, ...noteOptions } = options
