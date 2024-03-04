@@ -88,7 +88,7 @@ export async function checkLinkDoesNotExist(page: Page, link: string) {
 }
 
 export async function CLI(...args: string[]) {
-  return await exec('./packages/cli/dist/index.cjs', args, {
+  return await exec('./packages/cli/dist/cli.cjs', args, {
     env: {
       ...process.env,
       CRYPTGEON_SERVER: 'http://localhost:1234',

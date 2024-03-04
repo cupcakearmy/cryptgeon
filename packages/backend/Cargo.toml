@@ -3,7 +3,7 @@ name = "cryptgeon"
 version = "2.4.0"
 authors = ["cupcakearmy <hi@nicco.io>"]
 edition = "2021"
-rust-version = "1.73"
+rust-version = "1.76"
 
 [[bin]]
 name = "cryptgeon"

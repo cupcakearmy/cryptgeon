@@ -1,14 +1,17 @@
 # FRONTEND
 FROM node:18-alpine as client 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
 WORKDIR /tmp
-RUN npm install -g pnpm@8
 COPY . .
 RUN pnpm install --frozen-lockfile
 RUN pnpm run build
 
 
 # BACKEND
-FROM rust:1.73-alpine as backend
+FROM rust:1.76-alpine as backend
 WORKDIR /tmp
 RUN apk add libc-dev openssl-dev alpine-sdk
 COPY ./packages/backend ./
