@@ -3,24 +3,24 @@
 		"note": "Notiz",
 		"file": "Datei",
 		"advanced": "Erweiterte Optionen",
-		"create": "Notiz erstellen",
+		"create": "Erstellen",
 		"loading": "Lädt...",
 		"mode": "Modus",
 		"views": "{n, plural, =0 {Ansichten} =1 {1 Ansicht} other {# Ansichten}}",
 		"minutes": "{n, plural, =0 {Minuten} =1 {1 Minute} other {# Minuten}}",
 		"max": "max",
 		"share_link": "Link teilen",
-		"copy_clipboard": "Link in die Zwischenablage kopieren",
-		"copied_to_clipboard": "Link in die Zwischenablage kopiert.",
-		"encrypting": "Notiz wird verschlüsselt...",
-		"decrypting": "Notiz wird entschlüsselt...",
+		"copy_clipboard": "In die Zwischenablage kopieren",
+		"copied_to_clipboard": "In die Zwischenablage kopiert.",
+		"encrypting": "Wird verschlüsselt...",
+		"decrypting": "Wird entschlüsselt...",
 		"uploading": "Hochladen",
 		"downloading": "Wird heruntergeladen",
 		"qr_code": "QR-Code",
 		"password": "Passwort"
 	},
 	"home": {
-		"intro": "Senden Sie mit ganz einfach einem Klick <i>vollständig verschlüsselte</i>, sichere Notizen oder Dateien. Erstellen Sie einfach eine Notiz und teilen Sie den Link.",
+		"intro": "Erstellen Sie mit einem Klick <i>vollständig verschlüsselte</i>, sichere Notizen oder Dateien und teilen Sie diese über einen Link.",
 		"explanation": "Die Notiz verfällt nach {type}.",
 		"new_note": "Neue Notiz",
 		"new_note_notice": "<b>Wichtiger Hinweis zur Verfügbarkeit:</b><br />Es kann nicht garantiert werden, dass diese Notiz gespeichert wird, da diese <b>ausschließlich im Speicher</b> gehalten werden. Ist dieser voll, werden die ältesten Notizen entfernt.<br />(Wahrscheinlich gibt es keine derartigen Probleme, seien Sie nur vorgewarnt).",
@@ -34,21 +34,21 @@
 			"note_created": "Notiz wurde erstellt."
 		},
 		"advanced": {
-			"explanation": "Standardmäßig wird für jede Notiz ein sicher generiertes Passwort verwendet. Sie können alternativ ein eigenes Kennwort wählen, das nicht im Link enthalten ist.",
+			"explanation": "Standardmäßig wird für jede Notiz ein generiertes, sicheres Passwort verwendet. Alternativ können Sie ein eigenes Kennwort festlegen, welches nicht im Link enthalten ist.",
 			"custom_password": "Benutzerdefiniertes Passwort"
 		}
 	},
 	"show": {
 		"errors": {
 			"not_found": "Notiz konnte nicht gefunden werden oder wurde bereits gelöscht.",
-			"decryption_failed": "Notiz konnte nicht entschlüsselt werden. Vermutlich ist das Passwort falsch oder der Link defekt. Notiz wurde zerstört.",
+			"decryption_failed": "Notiz konnte nicht entschlüsselt werden. Vermutlich ist das Passwort falsch oder der Link defekt. Die Notiz wurde daher gelöscht.",
 			"unsupported_type": "Nicht unterstützter Notiztyp."
 		},
-		"explanation": "Klicken Sie unten, um die Notiz anzuzeigen und anschließend zu löschen, falls das Limit erreicht ist.",
+		"explanation": "Klicken Sie auf den Button, um die Notiz anzuzeigen und anschließend zu löschen, falls ein festgelegtes Limit erreicht wurde.",
 		"show_note": "Notiz anzeigen",
-		"warning_will_not_see_again": "Achtung! Sie haben anschließend <b>keine</b> Gelegenheit, die Notiz noch einmal anzusehen.",
+		"warning_will_not_see_again": "ACHTUNG! Sie werden anschließend <b>keine</b> Gelegenheit mehr haben, die Notiz erneut anzusehen.",
 		"download_all": "Alle Dateien herunterladen",
-		"links_found": "Links in der Notiz:"
+		"links_found": "Gefundene Links in der Notiz:"
 	},
 	"file_upload": {
 		"selected_files": "Ausgewählte Dateien",
