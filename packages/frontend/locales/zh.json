@@ -52,6 +52,7 @@
 	},
 	"file_upload": {
 		"selected_files": "已选中的文件",
-		"no_files_selected": "没有文件被选中"
+		"no_files_selected": "没有文件被选中",
+		"clear": "重置"
 	}
 }

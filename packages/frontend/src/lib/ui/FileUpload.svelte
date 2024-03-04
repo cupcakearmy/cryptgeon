@@ -46,7 +46,7 @@
 					</div>
 				{/each}
 				<div class="spacer" />
-				<Button on:click={clear}>Clear</Button>
+				<Button on:click={clear}>{$t('file_upload.clear')}</Button>
 			</div>
 		{:else}
 			<div>

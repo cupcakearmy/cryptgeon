@@ -52,6 +52,7 @@
 	},
 	"file_upload": {
 		"selected_files": "File selezionati",
-		"no_files_selected": "Nessun file selezionato"
+		"no_files_selected": "Nessun file selezionato",
+		"clear": "Reset"
 	}
 }

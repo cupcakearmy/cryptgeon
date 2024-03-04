@@ -52,6 +52,7 @@
 	},
 	"file_upload": {
 		"selected_files": "選択したファイル",
-		"no_files_selected": "ファイルが選択されていません"
+		"no_files_selected": "ファイルが選択されていません",
+		"clear": "リセット"
 	}
 }

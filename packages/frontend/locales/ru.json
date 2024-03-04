@@ -52,6 +52,7 @@
 	},
 	"file_upload": {
 		"selected_files": "Выбранные файлы",
-		"no_files_selected": "Файлы не выбраны"
+		"no_files_selected": "Файлы не выбраны",
+		"clear": "Сброс"
 	}
 }
