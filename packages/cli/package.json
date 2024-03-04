@@ -1,6 +1,6 @@
 {
   "name": "cryptgeon",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "homepage": "https://github.com/cupcakearmy/cryptgeon",
   "repository": {
     "type": "git",
@@ -9,10 +9,7 @@
   },
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
+    ".": "./dist/index.mjs"
   },
   "types": "./dist/index.d.ts",
   "bin": {
@@ -23,9 +20,8 @@
   ],
   "scripts": {
     "bin": "run-s build package",
-    "build": "tsc && ./scripts/build.js",
+    "build": "rm -rf dist && tsc && ./scripts/build.js",
     "dev": "./scripts/build.js --watch",
-    "package": "./scripts/package.js",
     "prepublishOnly": "run-s build"
   },
   "devDependencies": {
@@ -39,7 +35,6 @@
     "inquirer": "^9.2.15",
     "mime": "^4.0.1",
     "occulto": "^2.0.3",
-    "pkg": "^5.8.1",
     "pretty-bytes": "^6.1.1",
     "typescript": "^5.3.3"
   },
