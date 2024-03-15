@@ -34,6 +34,10 @@ lazy_static! {
     .unwrap_or("32".to_string())
     .parse()
     .unwrap();
+  pub static ref ALLOW_FILES: bool = std::env::var("ALLOW_FILES")
+    .unwrap_or("true".to_string())
+    .parse()
+    .unwrap();
 }
 
 // THEME
