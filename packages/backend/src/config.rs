@@ -14,30 +14,34 @@ lazy_static! {
 
 // CONFIG
 lazy_static! {
-  pub static ref LIMIT: usize =
-    Byte::from_str(std::env::var("SIZE_LIMIT").unwrap_or("1 KiB".to_string()))
-      .unwrap()
-      .get_bytes() as usize;
-  pub static ref MAX_VIEWS: u32 = std::env::var("MAX_VIEWS")
-    .unwrap_or("100".to_string())
-    .parse()
-    .unwrap();
-  pub static ref MAX_EXPIRATION: u32 = std::env::var("MAX_EXPIRATION")
-    .unwrap_or("360".to_string()) // 6 hours in minutes
-    .parse()
-    .unwrap();
-  pub static ref ALLOW_ADVANCED: bool = std::env::var("ALLOW_ADVANCED")
-    .unwrap_or("true".to_string())
-    .parse()
-    .unwrap();
-  pub static ref ID_LENGTH: u32 = std::env::var("ID_LENGTH")
-    .unwrap_or("32".to_string())
-    .parse()
-    .unwrap();
-  pub static ref ALLOW_FILES: bool = std::env::var("ALLOW_FILES")
-    .unwrap_or("true".to_string())
-    .parse()
-    .unwrap();
+pub static ref LIMIT: usize =
+  Byte::from_str(std::env::var("SIZE_LIMIT").unwrap_or("1 KiB".to_string()))
+    .unwrap()
+    .get_bytes() as usize;
+pub static ref MAX_VIEWS: u32 = std::env::var("MAX_VIEWS")
+  .unwrap_or("100".to_string())
+  .parse()
+  .unwrap();
+pub static ref MAX_EXPIRATION: u32 = std::env::var("MAX_EXPIRATION")
+  .unwrap_or("360".to_string()) // 6 hours in minutes
+  .parse()
+  .unwrap();
+pub static ref ALLOW_ADVANCED: bool = std::env::var("ALLOW_ADVANCED")
+  .unwrap_or("true".to_string())
+  .parse()
+  .unwrap();
+pub static ref ID_LENGTH: u32 = std::env::var("ID_LENGTH")
+  .unwrap_or("32".to_string())
+  .parse()
+  .unwrap();
+pub static ref ALLOW_FILES: bool = std::env::var("ALLOW_FILES")
+  .unwrap_or("true".to_string())
+  .parse()
+  .unwrap();
+pub static ref NEW_NOTE_NOTICE: bool = std::env::var("NEW_NOTE_NOTICE")
+  .unwrap_or("true".to_string())
+  .parse()
+  .unwrap();
 }
 
 // THEME

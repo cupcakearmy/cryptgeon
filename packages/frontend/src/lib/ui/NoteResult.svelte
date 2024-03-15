@@ -7,7 +7,7 @@
 
 <script lang="ts">
 	import { t } from 'svelte-intl-precompile'
-
+	import { status } from '$lib/stores/status'
 	import Button from '$lib/ui/Button.svelte'
 	import TextInput from '$lib/ui/TextInput.svelte'
 	import Canvas from './Canvas.svelte'
@@ -35,9 +35,11 @@
 	<Canvas value={url} />
 </div>
 
-<p>
-	{@html $t('home.new_note_notice')}
-</p>
+{#if $status?.new_note_notice}
+	<p>
+		{@html $t('home.new_note_notice')}
+	</p>
+{/if}
 <br />
 <Button on:click={reset}>{$t('home.new_note')}</Button>
 
