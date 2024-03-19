@@ -35,9 +35,9 @@
 	<Canvas value={url} />
 </div>
 
-{#if $status?.new_note_notice}
+{#if $status?.theme_new_note_notice}
 	<p>
-		{@html $t('home.new_note_notice')}
+		{@html $t('home.theme_new_note_notice')}
 	</p>
 {/if}
 <br />

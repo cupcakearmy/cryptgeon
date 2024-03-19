@@ -38,7 +38,7 @@ pub static ref ALLOW_FILES: bool = std::env::var("ALLOW_FILES")
   .unwrap_or("true".to_string())
   .parse()
   .unwrap();
-pub static ref NEW_NOTE_NOTICE: bool = std::env::var("NEW_NOTE_NOTICE")
+pub static ref THEME_NEW_NOTE_NOTICE: bool = std::env::var("THEME_NEW_NOTE_NOTICE")
   .unwrap_or("true".to_string())
   .parse()
   .unwrap();
