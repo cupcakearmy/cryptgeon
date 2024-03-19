@@ -9,6 +9,8 @@ pub struct Status {
     pub max_views: u32,
     pub max_expiration: u32,
     pub allow_advanced: bool,
+    pub allow_files: bool,
+    pub theme_new_note_notice: bool,
     // Theme
     pub theme_image: String,
     pub theme_text: String,

@@ -118,12 +118,14 @@
 			{/if}
 
 			<div class="bottom">
-				<Switch
-					data-testid="switch-file"
-					class="file"
-					label={$t('common.file')}
-					bind:value={isFile}
-				/>
+				{#if $status?.allow_files}
+					<Switch
+						data-testid="switch-file"
+						class="file"
+						label={$t('common.file')}
+						bind:value={isFile}
+					/>
+				{/if}
 				{#if $status?.allow_advanced}
 					<Switch
 						data-testid="switch-advanced"

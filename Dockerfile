@@ -13,13 +13,13 @@ RUN pnpm run build
 # BACKEND
 FROM rust:1.76-alpine as backend
 WORKDIR /tmp
-RUN apk add libc-dev openssl-dev alpine-sdk
+RUN apk add --no-cache libc-dev openssl-dev alpine-sdk
 COPY ./packages/backend ./
 RUN cargo build --release
 
 
 # RUNNER
-FROM alpine
+FROM alpine:3.19
 WORKDIR /app
 RUN apk add --no-cache curl 
 COPY --from=backend /tmp/target/release/cryptgeon .

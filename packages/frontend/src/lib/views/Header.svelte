@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { status } from '$lib/stores/status'
+
+	function reset() {
+		window.location.reload()
+	}
 </script>
 
 <header>
-	<a href="/">
+	<a on:click={reset} href="/">
 		{#if $status?.theme_image}
 			<img alt="logo" src={$status.theme_image} />
 		{:else}

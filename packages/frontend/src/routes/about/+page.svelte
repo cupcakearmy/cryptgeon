@@ -40,8 +40,8 @@
 			<br />
 			you are welcomed to check & audit the
 			<a href="https://github.com/cupcakearmy/cryptgeon" target="_blank" rel="noopener noreferrer">
-				source code
-			</a>.
+				source code</a
+			>.
 		</span>
 	</AboutParagraph>
 

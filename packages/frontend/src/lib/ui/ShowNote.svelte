@@ -3,7 +3,8 @@
 </script>
 
 <script lang="ts">
-	import { saveAs } from 'file-saver'
+	import pkg from 'file-saver'
+	const { saveAs } = pkg
 	import prettyBytes from 'pretty-bytes'
 	import { t } from 'svelte-intl-precompile'
 
