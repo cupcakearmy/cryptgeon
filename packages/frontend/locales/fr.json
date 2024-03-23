@@ -12,20 +12,20 @@
 		"share_link": "partager le lien",
 		"copy_clipboard": "copier dans le presse-papiers",
 		"copied_to_clipboard": "copié dans le presse-papiers",
-		"encrypting": "cryptage",
+		"encrypting": "chiffrer",
 		"decrypting": "déchiffrer",
-		"uploading": "téléchargement",
+		"uploading": "téléversement",
 		"downloading": "téléchargement",
 		"qr_code": "code qr",
 		"password": "mot de passe"
 	},
 	"home": {
-		"intro": "Envoyez facilement des notes ou des fichiers <i>entièrement cryptés</i> et sécurisés en un seul clic. Il suffit de créer une note et de partager le lien.",
+		"intro": "Envoyez facilement des notes ou des fichiers <i>entièrement chiffrés</i> et sécurisés en un seul clic. Il suffit de créer une note et de partager le lien.",
 		"explanation": "la note expirera et sera détruite après {type}.",
 		"new_note": "nouvelle note",
-		"new_note_notice": "<b>disponibilité :</b><br />la note n'est pas garantie d'être stockée car tout est conservé dans la mémoire vive, si elle se remplit les notes les plus anciennes seront supprimées.<br />(vous serez probablement bien, soyez juste averti.)",
+		"new_note_notice": "<b>disponibilité :</b><br />la note n'est pas garantie d'être stockée car tout est conservé dans la mémoire vive; si elle se remplit, les notes les plus anciennes seront supprimées.<br />(tout ira probablement bien, soyez juste averti.)",
 		"errors": {
-			"note_to_big": "Impossible de créer une note. La note est trop grande",
+			"note_to_big": "Impossible de créer une note. La note est trop grande.",
 			"note_error": "n'a pas pu créer de note. Veuillez réessayer.",
 			"max": "max: {n}",
 			"empty_content": "La note est vide."
