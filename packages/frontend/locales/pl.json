@@ -1,0 +1,58 @@
+{
+	"common": {
+		"note": "notatka",
+		"file": "plik",
+		"advanced": "zaawansowane",
+		"create": "utwórz",
+		"loading": "ładowanie",
+		"mode": "tryb",
+		"views": "{n, plural, =0 {wyświetleń} =1 {1 wyświetlenie} other {# wyświetleń}}",
+		"minutes": "{n, plural, =0 {minut} =1 {1 minuta} other {# minuty}}",
+		"max": "maks.",
+		"share_link": "link udostępniania",
+		"copy_clipboard": "kopiuj do schowka",
+		"copied_to_clipboard": "skopiowano do schowka",
+		"encrypting": "szyfrowanie",
+		"decrypting": "odszyfrowywanie",
+		"uploading": "wysyłanie",
+		"downloading": "pobieranie",
+		"qr_code": "kod QR",
+		"password": "hasło"
+	},
+	"home": {
+		"intro": "Łatwo wysyłaj <i>w pełni zaszyfrowane</i>, bezpieczne notatki lub pliki jednym kliknięciem. Po prostu utwórz notatkę i udostępnij link.",
+		"explanation": "notatka wygaśnie i zostanie zniszczona po {type}.",
+		"new_note": "nowa notatka",
+		"new_note_notice": "<b>dostępność:</b><br />nie ma gwarancji, że notatka będzie przechowywana, ponieważ wszystko jest przechowywane w pamięci RAM, jeśli się zapełni, najstarsze notatki zostaną usunięte.<br />(prawdopodobnie nic się nie stanie, ale warto ostrzec.)",
+		"errors": {
+			"note_to_big": "nie można utworzyć notatki. notatka jest za duża",
+			"note_error": "nie można utworzyć notatki. spróbuj ponownie.",
+			"max": "maks .: {n}",
+			"empty_content": "notatka jest pusta."
+		},
+		"messages": {
+			"note_created": "notatka utworzona."
+		},
+		"advanced": {
+			"explanation": "Domyślnie dla każdej notatki używane jest bezpiecznie wygenerowane hasło. Możesz jednak wybrać własne hasło, które nie jest uwzględnione w linku.",
+			"custom_password": "własne hasło"
+		}
+	},
+	"show": {
+		"errors": {
+			"not_found": "notatka nie została znaleziona lub została już usunięta.",
+			"decryption_failed": "błędne hasło. nie można odszyfrować. prawdopodobnie uszkodzony link. notatka została zniszczona.",
+			"unsupported_type": "nieobsługiwany typ notatki."
+		},
+		"explanation": "kliknij poniżej, aby wyświetlić i usunąć notatkę, jeśli licznik osiągnie swój limit",
+		"show_note": "pokaż notatkę",
+		"warning_will_not_see_again": "<b>nie będziesz mieć</b> możliwości ponownego zobaczenia notatki.",
+		"download_all": "pobierz wszystko",
+		"links_found": "linki znalezione w notatce:"
+	},
+	"file_upload": {
+		"selected_files": "Wybrane pliki",
+		"no_files_selected": "Nie wybrano plików",
+		"clear": "Wyczyść"
+	}
+}
