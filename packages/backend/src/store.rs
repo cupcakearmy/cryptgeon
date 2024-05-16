@@ -36,7 +36,7 @@ pub fn set(id: &String, note: &Note) -> Result<(), &'static str> {
     match note.expiration {
         Some(e) => {
             let seconds = e - now();
-            conn.expire(id, seconds as usize)
+            conn.expire(id, seconds as i64)
                 .map_err(|_| "Unable to set expiration on notion")?
         }
         None => {}
