@@ -23,7 +23,7 @@
 		"intro": "Envoyez facilement des notes ou des fichiers <i>entièrement chiffrés</i> et sécurisés en un seul clic. Il suffit de créer une note et de partager le lien.",
 		"explanation": "la note expirera et sera détruite après {type}.",
 		"new_note": "nouvelle note",
-		"new_note_notice": "<b>disponibilité :</b><br />la note n'est pas garantie d'être stockée car tout est conservé dans la mémoire vive; si elle se remplit, les notes les plus anciennes seront supprimées.<br />(tout ira probablement bien, soyez juste averti.)",
+		"new_note_notice": "<b>disponibilité :</b><br />il n'est pas garanti que la note reste stockée car tout est conservé dans la mémoire vive; si elle se remplit, les notes les plus anciennes seront supprimées.<br />(tout ira probablement bien, soyez juste averti.)",
 		"errors": {
 			"note_to_big": "Impossible de créer une note. La note est trop grande.",
 			"note_error": "n'a pas pu créer de note. Veuillez réessayer.",
@@ -45,9 +45,9 @@
 			"unsupported_type": "type de note non supporté."
 		},
 		"explanation": "Cliquez ci-dessous pour afficher et supprimer la note si le compteur a atteint sa limite.",
-		"show_note": "note de présentation",
+		"show_note": "afficher la note",
 		"warning_will_not_see_again": "vous <b>n'aurez pas</b> la chance de revoir la note.",
-		"download_all": "télécharger tout",
+		"download_all": "tout télécharger",
 		"links_found": "liens trouvés à l’intérieur de la note :"
 	},
 	"file_upload": {
