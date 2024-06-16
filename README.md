@@ -141,6 +141,10 @@ There is a [guide](https://mariushosting.com/how-to-install-cryptgeon-on-your-sy
 - English by [DB Tech](https://www.youtube.com/watch?v=S0jx7wpOfNM) [Previous Video](https://www.youtube.com/watch?v=JhpIatD06vE)
 - German by [ApfelCast](https://www.youtube.com/watch?v=84ZMbE9AkHg)
 
+### Written Guides
+
+- French by [zarevskaya](https://belginux.com/installer-cryptgeon-avec-docker/)
+
 ## Development
 
 **Requirements**
