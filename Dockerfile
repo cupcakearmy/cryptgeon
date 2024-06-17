@@ -15,13 +15,13 @@ FROM rust:1.76-alpine as backend
 WORKDIR /tmp
 RUN apk add --no-cache libc-dev openssl-dev alpine-sdk
 COPY ./packages/backend ./
-RUN cargo build --release
+RUN RUSTFLAGS="-Ctarget-feature=-crt-static" cargo build --release
 
 
 # RUNNER
 FROM alpine:3.19
 WORKDIR /app
-RUN apk add --no-cache curl 
+RUN apk add --no-cache curl libgcc
 COPY --from=backend /tmp/target/release/cryptgeon .
 COPY --from=client /tmp/packages/frontend/build ./frontend
 ENV FRONTEND_PATH="./frontend"
