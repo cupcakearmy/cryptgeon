@@ -9,7 +9,7 @@
   },
   "type": "module",
   "exports": {
-    ".": "./dist/index.mjs"
+    ".": "./dist/index.js"
   },
   "types": "./dist/index.d.ts",
   "bin": {
@@ -20,8 +20,7 @@
   ],
   "scripts": {
     "bin": "run-s build package",
-    "build": "rm -rf dist && tsc && ./scripts/build.js",
-    "dev": "./scripts/build.js --watch",
+    "build": "rm -rf dist && tsc && tsup ./src/index.ts ./src/cli.ts --dts --format esm,cjs --minify",
     "prepublishOnly": "run-s build"
   },
   "devDependencies": {
@@ -31,11 +30,11 @@
     "@types/mime": "^3.0.4",
     "@types/node": "^20.11.24",
     "commander": "^12.0.0",
-    "esbuild": "^0.20.1",
     "inquirer": "^9.2.15",
     "mime": "^4.0.1",
     "occulto": "^2.0.3",
     "pretty-bytes": "^6.1.1",
+    "tsup": "^8.2.4",
     "typescript": "^5.3.3"
   },
   "engines": {
