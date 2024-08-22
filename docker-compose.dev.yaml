@@ -1,8 +1,6 @@
 # DEV Compose file.
 # For a production file see: README.md
 
-version: '3.8'
-
 services:
   redis:
     image: redis:7-alpine
