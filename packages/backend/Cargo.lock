@@ -468,7 +468,7 @@ dependencies = [
 
 [[package]]
 name = "cryptgeon"
-version = "2.6.1"
+version = "2.7.0"
 dependencies = [
  "actix-files",
  "actix-web",

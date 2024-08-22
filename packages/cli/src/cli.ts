@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Argument, Option, program } from '@commander-js/extra-typings'
-import { setBase, status } from '@cryptgeon/shared'
+import { setOptions, status } from '@cryptgeon/shared'
 import prettyBytes from 'pretty-bytes'
 
 import { download } from './download.js'
@@ -33,7 +33,7 @@ program
   .description('show information about the server')
   .addOption(server)
   .action(async (options) => {
-    setBase(options.server)
+    setOptions({ server: options.server })
     const response = await status()
     const formatted = {
       ...response,
@@ -54,7 +54,7 @@ send
   .addOption(minutes)
   .addOption(password)
   .action(async (files, options) => {
-    setBase(options.server!)
+    setOptions({ server: options.server })
     await checkConstrains(options)
     options.password ||= await getStdin()
     try {
@@ -72,7 +72,7 @@ send
   .addOption(minutes)
   .addOption(password)
   .action(async (text, options) => {
-    setBase(options.server!)
+    setOptions({ server: options.server })
     await checkConstrains(options)
     options.password ||= await getStdin()
     try {
