@@ -22,4 +22,4 @@ dotenv = "0.15"
 mime = "0.3"
 env_logger = "0.9"
 log = "0.4"
-redis = "0.23"
+redis = { version = "0.25.2", features = ["tls-native-tls"] }
