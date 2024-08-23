@@ -36,7 +36,7 @@ type CallOptions = {
 export class PayloadToLargeError extends Error {}
 
 export let client: ClientOptions = {
-  server: 'https://cryptgeon.org',
+  server: '',
 }
 
 export function setOptions(options: Partial<ClientOptions>) {
