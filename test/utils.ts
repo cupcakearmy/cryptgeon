@@ -91,7 +91,7 @@ export async function CLI(...args: string[]) {
   return await exec('./packages/cli/dist/cli.cjs', args, {
     env: {
       ...process.env,
-      CRYPTGEON_SERVER: 'http://localhost:1234',
+      CRYPTGEON_SERVER: 'http://localhost:3000',
     },
   })
 }

@@ -14,7 +14,7 @@
 <a href=""><img src="./.github/lokalise.png" height="50">
 <br/>
 
-[EN](README.md) | 简体中文 | [ES](README_ES.md) 
+[EN](README.md) | 简体中文 | [ES](README_ES.md)
 
 ## 关于本项目
 
@@ -158,7 +158,7 @@ pnpm run dev
 - 无热重载的 rust 后端
 - 可热重载的客户端
 
-你可以通过 1234 端口进入该应用，即 [localhost:1234](http://localhost:1234).
+你可以通过 3000 端口进入该应用，即 [localhost:3000](http://localhost:3000).
 
 ## 测试
 

@@ -59,19 +59,19 @@ se usa para guardar y recuperar la nota. Después la nota es encriptada con la <
 
 ## Variables de entorno
 
-| Variable           | Default          | Descripción                                                                                                                                                                                                   |
-| ------------------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `REDIS`            | `redis://redis/` | Redis URL a la que conectarse. [Según el formato](https://docs.rs/redis/latest/redis/#connection-parameters)                                                                                                     |
+| Variable           | Default          | Descripción                                                                                                                                                                                                         |
+| ------------------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `REDIS`            | `redis://redis/` | Redis URL a la que conectarse. [Según el formato](https://docs.rs/redis/latest/redis/#connection-parameters)                                                                                                        |
 | `SIZE_LIMIT`       | `1 KiB`          | Tamaño máximo. Valores aceptados según la [unidad byte](https://docs.rs/byte-unit/). <br> `512 MiB` es el máximo permitido. <br> El frontend mostrará ese número, incluyendo el ~35% de sobrecarga de codificación. |
-| `MAX_VIEWS`        | `100`            | Número máximo de vistas.                                                                                                                                                                                      |
-| `MAX_EXPIRATION`   | `360`            | Tiempo máximo de expiración en minutos.                                                                                                                                                                                |
-| `ALLOW_ADVANCED`   | `true`           | Permitir configuración personalizada. Si se establece en `false` todas las notas serán de una sola vista.                                                                                                                                |
-| `ID_LENGTH`        | `32`             | Establece el tamaño en bytes de la `id` de la nota. Por defecto es de `32` bytes. Esto es util para reducir el tamaño del link. _Esta configuración no afecta el nivel de encriptación_.                                             |
-| `VERBOSITY`        | `warn`           | Nivel de verbosidad del backend. [Posibles valores](https://docs.rs/env_logger/latest/env_logger/#enabling-logging): `error`, `warn`, `info`, `debug`, `trace`                                             |
-| `THEME_IMAGE`      | `""`             | Imagen personalizada para reemplazar el logo. Debe ser accesible públicamente.                                                                                                                                               |
-| `THEME_TEXT`       | `""`             | Texto personalizado para reemplazar la descripción bajo el logo.                                                                                                                                                      |
-| `THEME_PAGE_TITLE` | `""`             | Texto personalizado para el título                                                                                                                                                                                    |
-| `THEME_FAVICON`    | `""`             | Url personalizada para el favicon. Debe ser accesible públicamente.                                                                                                                                                        |
+| `MAX_VIEWS`        | `100`            | Número máximo de vistas.                                                                                                                                                                                            |
+| `MAX_EXPIRATION`   | `360`            | Tiempo máximo de expiración en minutos.                                                                                                                                                                             |
+| `ALLOW_ADVANCED`   | `true`           | Permitir configuración personalizada. Si se establece en `false` todas las notas serán de una sola vista.                                                                                                           |
+| `ID_LENGTH`        | `32`             | Establece el tamaño en bytes de la `id` de la nota. Por defecto es de `32` bytes. Esto es util para reducir el tamaño del link. _Esta configuración no afecta el nivel de encriptación_.                            |
+| `VERBOSITY`        | `warn`           | Nivel de verbosidad del backend. [Posibles valores](https://docs.rs/env_logger/latest/env_logger/#enabling-logging): `error`, `warn`, `info`, `debug`, `trace`                                                      |
+| `THEME_IMAGE`      | `""`             | Imagen personalizada para reemplazar el logo. Debe ser accesible públicamente.                                                                                                                                      |
+| `THEME_TEXT`       | `""`             | Texto personalizado para reemplazar la descripción bajo el logo.                                                                                                                                                    |
+| `THEME_PAGE_TITLE` | `""`             | Texto personalizado para el título                                                                                                                                                                                  |
+| `THEME_FAVICON`    | `""`             | Url personalizada para el favicon. Debe ser accesible públicamente.                                                                                                                                                 |
 
 ## Despliegue
 
@@ -169,7 +169,7 @@ Ejecutando `pnpm run dev` en la carpeta raíz iniciará lo siguiente:
 - client
 - cli
 
-Puedes ver la app en [localhost:1234](http://localhost:1234).
+Puedes ver la app en [localhost:3000](http://localhost:3000).
 
 > Existe una colección de Postman con algunas peticiones de ejemplo [disponible en el repo](./Cryptgeon.postman_collection.json)
 

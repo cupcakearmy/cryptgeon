@@ -3,7 +3,7 @@ import { devices, type PlaywrightTestConfig } from '@playwright/test'
 const config: PlaywrightTestConfig = {
   use: {
     video: 'retain-on-failure',
-    baseURL: 'http://localhost:1234',
+    baseURL: 'http://localhost:3000',
     actionTimeout: 10_000,
   },
 
@@ -14,7 +14,7 @@ const config: PlaywrightTestConfig = {
 
   webServer: {
     command: 'docker compose -f docker-compose.dev.yaml up',
-    port: 1234,
+    port: 3000,
     reuseExistingServer: true,
   },
 
