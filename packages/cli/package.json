@@ -20,7 +20,8 @@
   ],
   "scripts": {
     "bin": "run-s build package",
-    "build": "rm -rf dist && tsc && tsup ./src/index.ts ./src/cli.ts --dts --format esm,cjs --minify",
+    "build": "tsc && node build.js",
+    "dev": "node build.js --watch",
     "prepublishOnly": "run-s build"
   },
   "devDependencies": {
