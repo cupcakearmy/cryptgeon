@@ -23,6 +23,10 @@ export type EncryptedFileDTO = Omit<FileDTO, 'contents'> & {
   contents: string
 }
 
+type ClientOptions = {
+  server: string
+}
+
 type CallOptions = {
   url: string
   method: string
@@ -31,14 +35,21 @@ type CallOptions = {
 
 export class PayloadToLargeError extends Error {}
 
-export let BASE = ''
+export let client: ClientOptions = {
+  server: '',
+}
 
-export function setBase(url: string) {
-  BASE = url
+export function setOptions(options: Partial<ClientOptions>) {
+  client = { ...client, ...options }
+}
+
+export function getOptions(): ClientOptions {
+  return client
 }
 
 export async function call(options: CallOptions) {
-  const response = await fetch(BASE + '/api/' + options.url, {
+  const url = client.server + '/api/' + options.url
+  const response = await fetch(url, {
     method: options.method,
     body: options.body === undefined ? undefined : JSON.stringify(options.body),
     mode: 'cors',
