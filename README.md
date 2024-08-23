@@ -14,7 +14,7 @@
 <a href=""><img src="./.github/lokalise.png" height="50">
 <br/><br/>
 
-EN | [简体中文](README_zh-CN.md) | [ES](README_ES.md) 
+EN | [简体中文](README_zh-CN.md) | [ES](README_ES.md)
 
 ## About?
 
@@ -149,8 +149,8 @@ There is a [guide](https://mariushosting.com/how-to-install-cryptgeon-on-your-sy
 
 **Requirements**
 
-- `pnpm`: `>=6`
-- `node`: `>=18`
+- `pnpm`: `>=9`
+- `node`: `>=22`
 - `rust`: edition `2021`
 
 **Install**

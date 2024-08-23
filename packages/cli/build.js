@@ -1,4 +1,4 @@
-import pkg from './package.json' assert { type: 'json' }
+import pkg from './package.json' with { type: 'json' }
 import { build } from 'tsup'
 
 const watch = process.argv.slice(2)[0] === '--watch'
