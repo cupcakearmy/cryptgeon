@@ -12,12 +12,12 @@ pub struct Note {
     pub expiration: Option<u32>,
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize)]
 pub struct NoteInfo {
     pub meta: String,
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize)]
 pub struct NotePublic {
     pub meta: String,
     pub contents: String,

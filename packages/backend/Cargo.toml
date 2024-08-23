@@ -10,16 +10,18 @@ name = "cryptgeon"
 path = "src/main.rs"
 
 [dependencies]
-actix-web = "4"
-actix-files = "0.6"
-serde = { version = "1.0", features = ["derive"] }
+# Core
+axum = "0.7.5"
+serde = { version = "1.0.208", features = ["derive"] }
+tokio = { version = "1.39.3", features = ["full"] }
+tower = "0.5.0"
+tower-http = { version = "0.5.2", features = ["full"] }
+redis = { version = "0.25.2", features = ["tls-native-tls"] }
+
+# Utility
 serde_json = "1"
 lazy_static = "1"
 ring = "0.16"
 bs62 = "0.1"
 byte-unit = "4"
 dotenv = "0.15"
-mime = "0.3"
-env_logger = "0.9"
-log = "0.4"
-redis = { version = "0.25.2", features = ["tls-native-tls"] }
