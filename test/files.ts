@@ -1,10 +1,5 @@
-import { createHash } from 'crypto'
-import { cp as cpFN, rm as rmFN } from 'fs'
-import { readFile } from 'fs/promises'
-import { promisify } from 'util'
-
-export const cp = promisify(cpFN)
-export const rm = promisify(rmFN)
+import { createHash } from 'node:crypto'
+import { cp, readFile } from 'node:fs/promises'
 
 export const Files = {
   PDF: 'test/assets/AES.pdf',
