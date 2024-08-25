@@ -5,6 +5,6 @@ import { Files } from '../../files'
 test.describe('@web', () => {
   test('to big zip', async ({ page }) => {
     const files = [Files.Zip]
-    const link = await createNote(page, { files, error: 'note is to big' })
+    await createNote(page, { files, error: 'note is to big' })
   })
 })
