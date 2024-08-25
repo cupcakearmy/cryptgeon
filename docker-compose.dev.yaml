@@ -9,7 +9,7 @@ services:
 
   app:
     build: .
-    env_file: .dev.env
+    env_file: .env.dev
     depends_on:
       - redis
     restart: unless-stopped
