@@ -13,12 +13,12 @@ pub struct Status {
     pub max_expiration: u32,
     pub allow_advanced: bool,
     pub allow_files: bool,
-    pub theme_new_note_notice: bool,
     // Theme
     pub theme_image: String,
     pub theme_text: String,
     pub theme_page_title: String,
     pub theme_favicon: String,
+    pub theme_new_note_notice: bool,
 }
 
 pub async fn get_status() -> (StatusCode, Json<Status>) {
