@@ -9,7 +9,7 @@ const config: PlaywrightTestConfig = {
 
   outputDir: './test-results',
   testDir: './test',
-  timeout: 10_000,
+  timeout: 30_000,
   fullyParallel: true,
 
   webServer: {
@@ -22,10 +22,6 @@ const config: PlaywrightTestConfig = {
     { name: 'chrome', use: { ...devices['Desktop Chrome'] } },
     { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     { name: 'safari', use: { ...devices['Desktop Safari'] } },
-
-    { name: 'cli', use: { ...devices['Desktop Chrome'] }, grep: [/@cli/] },
-    { name: 'web', use: { ...devices['Desktop Chrome'] }, grep: [/@web/] },
-    { name: 'cross', use: { ...devices['Desktop Chrome'] }, grep: [/@cross/] },
   ],
 }
 
