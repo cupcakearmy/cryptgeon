@@ -1,5 +1,5 @@
 use axum::{
-    extract::Request,
+    extract::{DefaultBodyLimit, Request},
     routing::{delete, get, post},
     Router, ServiceExt,
 };
@@ -7,7 +7,6 @@ use dotenv::dotenv;
 use tower::Layer;
 use tower_http::{
     compression::CompressionLayer,
-    limit::RequestBodyLimitLayer,
     normalize_path::NormalizePathLayer,
     services::{ServeDir, ServeFile},
 };
@@ -47,14 +46,14 @@ async fn main() {
     let app = Router::new()
         .nest("/api", api_routes)
         .fallback_service(serve_dir)
+        .layer(DefaultBodyLimit::max(*config::LIMIT))
         .layer(
             CompressionLayer::new()
                 .br(true)
                 .deflate(true)
                 .gzip(true)
                 .zstd(true),
-        )
-        .layer(RequestBodyLimitLayer::new(*config::LIMIT));
+        );
 
     let app = NormalizePathLayer::trim_trailing_slash().layer(app);
 
@@ -62,9 +61,7 @@ async fn main() {
         .await
         .unwrap();
     println!("listening on {}", listener.local_addr().unwrap());
-    println!("Config {}", *config::LIMIT);
     axum::serve(listener, ServiceExt::<Request>::into_make_service(app))
-        // axum::serve(listener, app)
         .await
         .unwrap();
 }
