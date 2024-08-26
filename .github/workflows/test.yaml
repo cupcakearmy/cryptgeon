@@ -9,8 +9,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.46.1
     steps:
       - uses: actions/checkout@v4
 
@@ -30,6 +28,7 @@ jobs:
       - name: Prepare
         run: |
           pnpm install
+          pnpm exec playwright install --with-deps
           pnpm run test:prepare
 
       - name: Run your tests
