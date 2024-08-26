@@ -1,9 +1,9 @@
 [package]
 name = "cryptgeon"
-version = "2.6.1"
+version = "2.7.0"
 authors = ["cupcakearmy <hi@nicco.io>"]
 edition = "2021"
-rust-version = "1.76"
+rust-version = "1.80"
 
 [[bin]]
 name = "cryptgeon"
@@ -22,4 +22,4 @@ dotenv = "0.15"
 mime = "0.3"
 env_logger = "0.9"
 log = "0.4"
-redis = "0.23"
+redis = { version = "0.25.2", features = ["tls-native-tls"] }

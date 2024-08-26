@@ -1,7 +1,7 @@
 import { readFile, stat } from 'node:fs/promises'
 import { basename } from 'node:path'
 
-import { Adapters, BASE, create, FileDTO, Note, NoteMeta } from '@cryptgeon/shared'
+import { Adapters, create, getOptions, FileDTO, Note, NoteMeta } from '@cryptgeon/shared'
 import mime from 'mime'
 import { AES, Hex } from 'occulto'
 
@@ -39,7 +39,7 @@ export async function upload(input: string | string[], options: UploadOptions): 
   // Create the actual note and upload it.
   const note: Note = { ...noteOptions, contents, meta: { type, derivation: derived?.[1] } }
   const result = await create(note)
-  let url = `${BASE}/note/${result.id}`
+  let url = `${getOptions().server}/note/${result.id}`
   if (!derived) url += `#${Hex.encode(key)}`
   return url
 }

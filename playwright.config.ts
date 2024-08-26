@@ -4,12 +4,13 @@ const config: PlaywrightTestConfig = {
   use: {
     video: 'retain-on-failure',
     baseURL: 'http://localhost:1234',
-    actionTimeout: 60_000,
+    actionTimeout: 10_000,
   },
 
   outputDir: './test-results',
   testDir: './test',
-  timeout: 60_000,
+  timeout: 10_000,
+  fullyParallel: true,
 
   webServer: {
     command: 'docker compose -f docker-compose.dev.yaml up',

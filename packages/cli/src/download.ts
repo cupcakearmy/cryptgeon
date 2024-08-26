@@ -1,4 +1,4 @@
-import { Adapters, get, info, setBase } from '@cryptgeon/shared'
+import { Adapters, get, info, setOptions } from '@cryptgeon/shared'
 import inquirer from 'inquirer'
 import { access, constants, writeFile } from 'node:fs/promises'
 import { basename, resolve } from 'node:path'
@@ -6,7 +6,7 @@ import { AES, Hex } from 'occulto'
 import pretty from 'pretty-bytes'
 
 export async function download(url: URL, all: boolean, suggestedPassword?: string) {
-  setBase(url.origin)
+  setOptions({ server: url.origin })
   const id = url.pathname.split('/')[2]
   const preview = await info(id).catch(() => {
     throw new Error('Note does not exist or is expired')

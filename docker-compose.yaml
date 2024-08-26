@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   redis:
     image: redis:7-alpine
@@ -16,7 +14,7 @@ services:
       SIZE_LIMIT: 4 MiB
     ports:
       - 80:8000
-    
+
     # Optional health checks
     # healthcheck:
     #   test: ["CMD", "curl", "--fail", "http://127.0.0.1:8000/api/live/"]
