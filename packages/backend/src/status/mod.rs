@@ -1,6 +1,5 @@
 use crate::config;
-use axum::http::StatusCode;
-use axum::Json;
+use axum::{http::StatusCode, Json};
 use serde::Serialize;
 
 #[derive(Serialize)]
