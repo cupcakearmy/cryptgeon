@@ -10,6 +10,7 @@ const config: PlaywrightTestConfig = {
   outputDir: './test-results',
   testDir: './test',
   timeout: 30_000,
+  fullyParallel: true,
   retries: 2,
 
   webServer: {
