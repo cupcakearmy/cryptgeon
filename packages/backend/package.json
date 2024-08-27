@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "cargo watch -x 'run --bin cryptgeon'",
     "build": "cargo build --release",
-    "test:server": "SIZE_LIMIT=10MiB LISTEN_ADDR=0.0.0.0:1234 cargo run",
+    "test:server": "SIZE_LIMIT=10MiB LISTEN_ADDR=0.0.0.0:3000 cargo run",
     "test:prepare": "cargo build"
   }
 }

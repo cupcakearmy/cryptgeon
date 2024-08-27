@@ -1,10 +1,17 @@
-use actix_web::{delete, get, post, web, HttpResponse, Responder, Scope};
+use axum::{
+    extract::Path,
+    http::StatusCode,
+    response::{IntoResponse, Response},
+    Json,
+};
 use serde::{Deserialize, Serialize};
 use std::time::SystemTime;
 
 use crate::config;
-use crate::note::{generate_id, Note, NoteInfo, NotePublic};
+use crate::note::{generate_id, Note, NoteInfo};
 use crate::store;
+
+use super::NotePublic;
 
 pub fn now() -> u32 {
     SystemTime::now()
@@ -13,20 +20,18 @@ pub fn now() -> u32 {
         .as_secs() as u32
 }
 
-#[derive(Serialize, Deserialize)]
-struct NotePath {
+#[derive(Deserialize)]
+pub struct OneNoteParams {
     id: String,
 }
 
-#[get("/{id}")]
-async fn one(path: web::Path<NotePath>) -> impl Responder {
-    let p = path.into_inner();
-    let note = store::get(&p.id);
+pub async fn preview(Path(OneNoteParams { id }): Path<OneNoteParams>) -> Response {
+    let note = store::get(&id);
 
     match note {
-        Ok(Some(n)) => HttpResponse::Ok().json(NoteInfo { meta: n.meta }),
-        Ok(None) => HttpResponse::NotFound().finish(),
-        Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
+        Ok(Some(n)) => (StatusCode::OK, Json(NoteInfo { meta: n.meta })).into_response(),
+        Ok(None) => (StatusCode::NOT_FOUND).into_response(),
+        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response(),
     }
 }
 
@@ -35,13 +40,16 @@ struct CreateResponse {
     id: String,
 }
 
-#[post("/")]
-async fn create(note: web::Json<Note>) -> impl Responder {
-    let mut n = note.into_inner();
+pub async fn create(Json(mut n): Json<Note>) -> Response {
+    // let mut n = note.into_inner();
     let id = generate_id();
-    let bad_req = HttpResponse::BadRequest().finish();
+    // let bad_req = HttpResponse::BadRequest().finish();
     if n.views == None && n.expiration == None {
-        return bad_req;
+        return (
+            StatusCode::BAD_REQUEST,
+            "At least views or expiration must be set",
+        )
+            .into_response();
     }
     if !*config::ALLOW_ADVANCED {
         n.views = Some(1);
@@ -50,7 +58,7 @@ async fn create(note: web::Json<Note>) -> impl Responder {
     match n.views {
         Some(v) => {
             if v > *config::MAX_VIEWS || v < 1 {
-                return bad_req;
+                return (StatusCode::BAD_REQUEST, "Invalid views").into_response();
             }
             n.expiration = None; // views overrides expiration
         }
@@ -58,8 +66,8 @@ async fn create(note: web::Json<Note>) -> impl Responder {
     }
     match n.expiration {
         Some(e) => {
-            if e > *config::MAX_EXPIRATION {
-                return bad_req;
+            if e > *config::MAX_EXPIRATION || e < 1 {
+                return (StatusCode::BAD_REQUEST, "Invalid expiration").into_response();
             }
             let expiration = now() + (e * 60);
             n.expiration = Some(expiration);
@@ -67,38 +75,40 @@ async fn create(note: web::Json<Note>) -> impl Responder {
         _ => {}
     }
     match store::set(&id.clone(), &n.clone()) {
-        Ok(_) => return HttpResponse::Ok().json(CreateResponse { id: id }),
-        Err(e) => return HttpResponse::InternalServerError().body(e.to_string()),
+        Ok(_) => (StatusCode::OK, Json(CreateResponse { id })).into_response(),
+        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response(),
     }
 }
 
-#[delete("/{id}")]
-async fn delete(path: web::Path<NotePath>) -> impl Responder {
-    let p = path.into_inner();
-    let note = store::get(&p.id);
+pub async fn delete(Path(OneNoteParams { id }): Path<OneNoteParams>) -> Response {
+    let note = store::get(&id);
     match note {
-        Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
-        Ok(None) => return HttpResponse::NotFound().finish(),
+        // Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
+        // Ok(None) => return HttpResponse::NotFound().finish(),
+        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response(),
+        Ok(None) => (StatusCode::NOT_FOUND).into_response(),
         Ok(Some(note)) => {
             let mut changed = note.clone();
             if changed.views == None && changed.expiration == None {
-                return HttpResponse::BadRequest().finish();
+                return (StatusCode::BAD_REQUEST).into_response();
             }
             match changed.views {
                 Some(v) => {
                     changed.views = Some(v - 1);
-                    let id = p.id.clone();
+                    let id = id.clone();
                     if v <= 1 {
                         match store::del(&id) {
                             Err(e) => {
-                                return HttpResponse::InternalServerError().body(e.to_string())
+                                return (StatusCode::INTERNAL_SERVER_ERROR, e.to_string())
+                                    .into_response();
                             }
                             _ => {}
                         }
                     } else {
                         match store::set(&id, &changed.clone()) {
                             Err(e) => {
-                                return HttpResponse::InternalServerError().body(e.to_string())
+                                return (StatusCode::INTERNAL_SERVER_ERROR, e.to_string())
+                                    .into_response();
                             }
                             _ => {}
                         }
@@ -111,33 +121,26 @@ async fn delete(path: web::Path<NotePath>) -> impl Responder {
             match changed.expiration {
                 Some(e) => {
                     if e < n {
-                        match store::del(&p.id.clone()) {
-                            Ok(_) => return HttpResponse::BadRequest().finish(),
+                        match store::del(&id.clone()) {
+                            Ok(_) => return (StatusCode::BAD_REQUEST).into_response(),
                             Err(e) => {
-                                return HttpResponse::InternalServerError().body(e.to_string())
+                                return (StatusCode::INTERNAL_SERVER_ERROR, e.to_string())
+                                    .into_response()
                             }
                         }
                     }
                 }
                 _ => {}
             }
-            return HttpResponse::Ok().json(NotePublic {
-                contents: changed.contents,
-                meta: changed.meta,
-            });
+
+            return (
+                StatusCode::OK,
+                Json(NotePublic {
+                    contents: changed.contents,
+                    meta: changed.meta,
+                }),
+            )
+                .into_response();
         }
     }
-}
-
-#[derive(Serialize, Deserialize)]
-struct Status {
-    version: String,
-    max_size: usize,
-}
-
-pub fn init() -> Scope {
-    web::scope("/notes")
-        .service(one)
-        .service(create)
-        .service(delete)
 }

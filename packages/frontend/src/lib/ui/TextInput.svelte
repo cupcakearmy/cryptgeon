@@ -39,13 +39,23 @@
 	<input bind:value {...$$restProps} class:valid={valid === true} />
 	<div class="icons">
 		{#if isPassword}
-			<Icon class="icon" icon={hidden ? 'eye' : 'eye-off'} on:click={toggle} />
+			<Icon
+				disabled={$$restProps.disabled}
+				class="icon"
+				icon={hidden ? 'eye' : 'eye-off'}
+				on:click={toggle}
+			/>
 		{/if}
 		{#if random}
-			<Icon class="icon" icon="dice" on:click={randomFN} />
+			<Icon disabled={$$restProps.disabled} class="icon" icon="dice" on:click={randomFN} />
 		{/if}
 		{#if copy}
-			<Icon class="icon" icon="copy" on:click={() => copyFN(value.toString())} />
+			<Icon
+				disabled={$$restProps.disabled}
+				class="icon"
+				icon="copy"
+				on:click={() => copyFN(value.toString())}
+			/>
 		{/if}
 	</div>
 </label>

@@ -6,17 +6,22 @@ import { getFileChecksum } from './files'
 const exec = promisify(execFile)
 
 type CreatePage = {
-  text?: string
-  files?: string[]
   views?: number
   expiration?: number
   error?: string
   password?: string
-}
-export async function createNote(page: Page, options: CreatePage): Promise<string> {
+} & (
+  | {
+      text: string
+    }
+  | {
+      files: string[]
+    }
+)
+async function createNote(page: Page, options: CreatePage): Promise<void> {
   await page.goto('/')
 
-  if (options.text) {
+  if ('text' in options) {
     await page.getByTestId('text-field').fill(options.text)
   } else if (options.files) {
     await page.getByTestId('switch-file').click()
@@ -31,7 +36,8 @@ export async function createNote(page: Page, options: CreatePage): Promise<strin
   if (options.views || options.expiration || options.password) await page.getByTestId('switch-advanced').click()
   if (options.views) {
     await page.getByTestId('field-views').fill(options.views.toString())
-  } else if (options.expiration) {
+  }
+  if (options.expiration) {
     await page.getByTestId('switch-advanced-toggle').click()
     await page.getByTestId('field-expiration').fill(options.expiration.toString())
   }
@@ -41,13 +47,16 @@ export async function createNote(page: Page, options: CreatePage): Promise<strin
   }
 
   await page.locator('button:has-text("create")').click()
+}
 
-  if (options.error) {
-    await expect(page.locator('.error-text')).toContainText(options.error, { timeout: 60_000 })
-  }
-
-  // Return share link
+export async function createNoteSuccessfully(page: Page, options: CreatePage): Promise<string> {
+  await createNote(page, options)
   return await page.getByTestId('share-link').inputValue()
+}
+
+export async function createNoteError(page: Page, options: CreatePage, error: string): Promise<void> {
+  await createNote(page, options)
+  await expect(page.locator('._toastContainer')).toContainText(error)
 }
 
 type CheckLinkBase = {
@@ -69,7 +78,7 @@ export async function checkLinkForDownload(page: Page, options: CheckLinkBase & 
   const path = await download.path()
   if (!path) throw new Error('Download failed')
   const cs = await getFileChecksum(path)
-  await expect(cs).toBe(options.checksum)
+  expect(cs).toBe(options.checksum)
 }
 
 export async function checkLinkForText(page: Page, options: CheckLinkBase) {
@@ -78,7 +87,7 @@ export async function checkLinkForText(page: Page, options: CheckLinkBase) {
   if (options.password) await page.getByTestId('show-note-password').fill(options.password)
   await page.getByTestId('show-note-button').click()
   const text = await page.getByTestId('result').locator('.note').innerText()
-  await expect(text).toContain(options.text)
+  expect(text).toContain(options.text)
 }
 
 export async function checkLinkDoesNotExist(page: Page, link: string) {
@@ -91,7 +100,7 @@ export async function CLI(...args: string[]) {
   return await exec('./packages/cli/dist/cli.cjs', args, {
     env: {
       ...process.env,
-      CRYPTGEON_SERVER: 'http://localhost:1234',
+      CRYPTGEON_SERVER: 'http://localhost:3000',
     },
   })
 }

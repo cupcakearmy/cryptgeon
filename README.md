@@ -178,7 +178,7 @@ Running `pnpm run dev` in the root folder will start the following things:
 - client
 - cli
 
-You can see the app under [localhost:1234](http://localhost:1234).
+You can see the app under [localhost:3000](http://localhost:3000).
 
 > There is a Postman collection with some example requests [available in the repo](./Cryptgeon.postman_collection.json)
 

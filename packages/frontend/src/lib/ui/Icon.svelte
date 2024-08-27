@@ -18,19 +18,19 @@
 	export let icon: keyof typeof map
 </script>
 
-<div on:click {...$$restProps}>
+<button on:click {...$$restProps}>
 	{#if map[icon]}
 		<svelte:component this={map[icon]} />
 	{/if}
-</div>
+</button>
 
 <style>
-	div {
+	button {
 		display: inline-block;
 		contain: strict;
 		box-sizing: content-box;
 	}
-	div > :global(svg) {
+	button > :global(svg) {
 		display: block;
 		fill: currentColor;
 	}

@@ -38,10 +38,6 @@ pub static ref ALLOW_FILES: bool = std::env::var("ALLOW_FILES")
   .unwrap_or("true".to_string())
   .parse()
   .unwrap();
-pub static ref THEME_NEW_NOTE_NOTICE: bool = std::env::var("THEME_NEW_NOTE_NOTICE")
-  .unwrap_or("true".to_string())
-  .parse()
-  .unwrap();
 }
 
 // THEME
@@ -60,6 +56,10 @@ lazy_static! {
         .unwrap();
     pub static ref THEME_FAVICON: String = std::env::var("THEME_FAVICON")
         .unwrap_or("".to_string())
+        .parse()
+        .unwrap();
+    pub static ref THEME_NEW_NOTE_NOTICE: bool = std::env::var("THEME_NEW_NOTE_NOTICE")
+        .unwrap_or("true".to_string())
         .parse()
         .unwrap();
 }

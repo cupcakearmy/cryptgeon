@@ -116,6 +116,7 @@ export type Status = {
   theme_text: string
   theme_favicon: string
   theme_page_title: string
+  theme_new_note_notice: boolean
 }
 
 export async function status() {

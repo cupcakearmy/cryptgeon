@@ -5,8 +5,8 @@
     "dev": "run-p dev:*",
     "docker:up": "docker compose -f docker-compose.dev.yaml up",
     "docker:build": "docker compose -f docker-compose.dev.yaml build",
-    "test": "playwright test --project chrome firefox safari",
-    "test:local": "playwright test --project chrome",
+    "test": "playwright test --project=chrome --project=firefox --project=safari",
+    "test:local": "playwright test --project=chrome",
     "test:server": "run-s docker:up",
     "test:prepare": "run-p build docker:build",
     "build": "pnpm run --recursive --filter=!@cryptgeon/backend build"
@@ -17,5 +17,5 @@
     "npm-run-all": "^4.1.5",
     "shelljs": "^0.8.5"
   },
-  "packageManager": "pnpm@9.8.0"
+  "packageManager": "pnpm@9.9.0"
 }

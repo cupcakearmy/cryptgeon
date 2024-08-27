@@ -1,10 +1,11 @@
 import { test } from '@playwright/test'
 import { basename } from 'node:path'
-import { Files, getFileChecksum, rm, tmpFile } from '../../files'
+import { rm } from 'node:fs/promises'
+import { Files, getFileChecksum, tmpFile } from '../../files'
 import { CLI, getLinkFromCLI } from '../../utils'
 
 test.describe('file @cli', () => {
-  test('simple', async ({ page }) => {
+  test('simple', async () => {
     const file = await tmpFile(Files.Image)
     const checksum = await getFileChecksum(file)
     const note = await CLI('send', 'file', file)
@@ -17,7 +18,7 @@ test.describe('file @cli', () => {
     test.expect(checksum).toBe(c)
   })
 
-  test('simple with password', async ({ page }) => {
+  test('simple with password', async () => {
     const file = await tmpFile(Files.Image)
     const password = 'password'
     const checksum = await getFileChecksum(file)

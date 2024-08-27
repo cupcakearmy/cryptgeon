@@ -1,44 +1,67 @@
-use actix_web::{
-    middleware::{self, Logger},
-    web::{self},
-    App, HttpServer,
+use axum::{
+    extract::{DefaultBodyLimit, Request},
+    routing::{delete, get, post},
+    Router, ServiceExt,
 };
 use dotenv::dotenv;
-use log::error;
+use tower::Layer;
+use tower_http::{
+    compression::CompressionLayer,
+    normalize_path::NormalizePathLayer,
+    services::{ServeDir, ServeFile},
+};
 
 #[macro_use]
 extern crate lazy_static;
 
-mod api;
-mod client;
 mod config;
 mod health;
 mod note;
-mod size;
 mod status;
 mod store;
 
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
+#[tokio::main]
+async fn main() {
     dotenv().ok();
-    env_logger::init_from_env(env_logger::Env::new().default_filter_or(config::VERBOSITY.as_str()));
 
     if !store::can_reach_redis() {
-        error!("cannot reach redis");
+        println!("cannot reach redis");
         panic!("canont reach redis");
     }
 
-    return HttpServer::new(|| {
-        App::new()
-            .wrap(Logger::new("\"%r\" %s %b %T"))
-            .wrap(middleware::Compress::default())
-            .wrap(middleware::DefaultHeaders::default())
-            .configure(size::init)
-            .configure(api::init)
-            .configure(client::init)
-            .default_service(web::to(client::index))
-    })
-    .bind(config::LISTEN_ADDR.to_string())?
-    .run()
-    .await;
+    let notes_routes = Router::new()
+        .route("/", post(note::create))
+        .route("/:id", delete(note::delete))
+        .route("/:id", get(note::preview));
+    let health_routes = Router::new().route("/live", get(health::report_health));
+    let status_routes = Router::new().route("/status", get(status::get_status));
+    let api_routes = Router::new()
+        .nest("/notes", notes_routes)
+        .nest("/", health_routes)
+        .nest("/", status_routes);
+
+    let index = format!("{}{}", config::FRONTEND_PATH.to_string(), "/index.html");
+    let serve_dir =
+        ServeDir::new(config::FRONTEND_PATH.to_string()).not_found_service(ServeFile::new(index));
+    let app = Router::new()
+        .nest("/api", api_routes)
+        .fallback_service(serve_dir)
+        .layer(DefaultBodyLimit::max(*config::LIMIT))
+        .layer(
+            CompressionLayer::new()
+                .br(true)
+                .deflate(true)
+                .gzip(true)
+                .zstd(true),
+        );
+
+    let app = NormalizePathLayer::trim_trailing_slash().layer(app);
+
+    let listener = tokio::net::TcpListener::bind(config::LISTEN_ADDR.to_string())
+        .await
+        .unwrap();
+    println!("listening on {}", listener.local_addr().unwrap());
+    axum::serve(listener, ServiceExt::<Request>::into_make_service(app))
+        .await
+        .unwrap();
 }
