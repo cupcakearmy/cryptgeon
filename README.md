@@ -70,13 +70,13 @@ of the notes even if it tried to.
 | `MAX_EXPIRATION`        | `360`            | Maximal expiration in minutes.                                                                                                                                                                                |
 | `ALLOW_ADVANCED`        | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                                                                                                                |
 | `ALLOW_FILES`           | `true`           | Allow uploading files. If set to `false`, users will only be allowed to create text notes.                                                                                                                    |
-| `THEME_NEW_NOTE_NOTICE` | `true`           | Show the message about how notes are stored in the memory and may be evicted after creating a new note. Defaults to `true`.                                                                                   |
 | `ID_LENGTH`             | `32`             | Set the size of the note `id` in bytes. By default this is `32` bytes. This is useful for reducing link size. _This setting does not affect encryption strength_.                                             |
 | `VERBOSITY`             | `warn`           | Verbosity level for the backend. [Possible values](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) are: `error`, `warn`, `info`, `debug`, `trace`                                             |
 | `THEME_IMAGE`           | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                                                                                                               |
 | `THEME_TEXT`            | `""`             | Custom text for replacing the description below the logo                                                                                                                                                      |
 | `THEME_PAGE_TITLE`      | `""`             | Custom text the page title                                                                                                                                                                                    |
 | `THEME_FAVICON`         | `""`             | Custom url for the favicon. Must be publicly reachable                                                                                                                                                        |
+| `THEME_NEW_NOTE_NOTICE` | `true`           | Show the message about how notes are stored in the memory and may be evicted after creating a new note. Defaults to `true`.                                                                                   |
 
 ## Deployment
 
@@ -144,6 +144,8 @@ There is a [guide](https://mariushosting.com/how-to-install-cryptgeon-on-your-sy
 ### Written Guides
 
 - French by [zarevskaya](https://belginux.com/installer-cryptgeon-avec-docker/)
+- Italian by [@nicfab](https://notes.nicfab.eu/it/posts/cryptgeon/)
+- English by [@nicfab](https://notes.nicfab.eu/en/posts/cryptgeon/)
 
 ## Development
 
