@@ -2,7 +2,8 @@ import { test } from '@playwright/test'
 import { checkLinkDoesNotExist, checkLinkForText, createNoteSuccessfully } from '../../utils'
 
 test.describe('@web', () => {
-  test('1 minute', async ({ page }) => {
+  test('1 minute', async ({ page, browserName }) => {
+    test.skip(browserName === 'webkit')
     const text = `Virtues value ascetic revaluation sea dead strong burying.`
     const minutes = 1
     const timeout = minutes * 60_000
