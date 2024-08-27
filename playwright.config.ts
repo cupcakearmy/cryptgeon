@@ -12,7 +12,7 @@ const config: PlaywrightTestConfig = {
   timeout: 30_000,
 
   webServer: {
-    command: 'docker compose -f docker-compose.dev.yaml up',
+    command: 'pnpm run docker:up',
     port: 3000,
     reuseExistingServer: true,
   },
