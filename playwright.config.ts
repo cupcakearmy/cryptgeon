@@ -10,6 +10,7 @@ const config: PlaywrightTestConfig = {
   outputDir: './test-results',
   testDir: './test',
   timeout: 30_000,
+  retries: 2,
 
   webServer: {
     command: 'pnpm run docker:up',

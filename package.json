@@ -5,8 +5,8 @@
     "dev": "run-p dev:*",
     "docker:up": "docker compose -f docker-compose.dev.yaml up",
     "docker:build": "docker compose -f docker-compose.dev.yaml build",
-    "test": "playwright test --project chrome firefox safari",
-    "test:local": "playwright test --project chrome",
+    "test": "playwright test --project=chrome --project=firefox --project=safari",
+    "test:local": "playwright test --project=chrome",
     "test:server": "run-s docker:up",
     "test:prepare": "run-p build docker:build",
     "build": "pnpm run --recursive --filter=!@cryptgeon/backend build"
