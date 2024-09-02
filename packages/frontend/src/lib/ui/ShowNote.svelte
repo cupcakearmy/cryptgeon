@@ -1,16 +1,26 @@
 <script lang="ts" context="module">
 	export type DecryptedNote = Omit<NotePublic, 'contents'> & { contents: any }
+
+	function saveAs(file: File) {
+		const url = window.URL.createObjectURL(file)
+		const a = document.createElement('a')
+		a.style.display = 'none'
+		a.href = url
+		a.download = file.name
+		document.body.appendChild(a)
+		a.click()
+		window.URL.revokeObjectURL(url)
+		a.remove()
+	}
 </script>
 
 <script lang="ts">
-	import pkg from 'file-saver'
-	const { saveAs } = pkg
 	import prettyBytes from 'pretty-bytes'
 	import { t } from 'svelte-intl-precompile'
 
 	import Button from '$lib/ui/Button.svelte'
 	import { copy } from '$lib/utils'
-	import type { FileDTO, NotePublic } from '@cryptgeon/shared'
+	import type { FileDTO, NotePublic } from 'cryptgeon/shared'
 
 	export let note: DecryptedNote
 

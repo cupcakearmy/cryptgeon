@@ -21,7 +21,7 @@ export function parseURL(value: string, _: URL): URL {
 }
 
 export function parseNumber(value: string, _: number): number {
-  const n = parseInt(value, 10)
-  if (isNaN(n)) throw new InvalidOptionArgumentError('invalid number')
+  const n = Number.parseInt(value, 10)
+  if (Number.isNaN(n)) throw new InvalidOptionArgumentError('invalid number')
   return n
 }

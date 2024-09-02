@@ -4,7 +4,7 @@
 	import { status } from '$lib/stores/status'
 	import Switch from '$lib/ui/Switch.svelte'
 	import TextInput from '$lib/ui/TextInput.svelte'
-	import type { Note } from '@cryptgeon/shared'
+	import type { Note } from 'cryptgeon/shared'
 
 	export let note: Note
 	export let timeExpiration = false

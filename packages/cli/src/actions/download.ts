@@ -1,14 +1,15 @@
-import { Adapters, get, info, setOptions } from '@cryptgeon/shared'
 import inquirer from 'inquirer'
 import { access, constants, writeFile } from 'node:fs/promises'
 import { basename, resolve } from 'node:path'
 import { AES, Hex } from 'occulto'
 import pretty from 'pretty-bytes'
+import { Adapters } from '../shared/adapters.js'
+import { API } from '../shared/api.js'
 
 export async function download(url: URL, all: boolean, suggestedPassword?: string) {
-  setOptions({ server: url.origin })
+  API.setOptions({ server: url.origin })
   const id = url.pathname.split('/')[2]
-  const preview = await info(id).catch(() => {
+  const preview = await API.info(id).catch(() => {
     throw new Error('Note does not exist or is expired')
   })
 
@@ -33,7 +34,7 @@ export async function download(url: URL, all: boolean, suggestedPassword?: strin
   }
 
   const key = derivation ? (await AES.derive(password, derivation))[0] : Hex.decode(password)
-  const note = await get(id)
+  const note = await API.get(id)
 
   const couldNotDecrypt = new Error('Could not decrypt note. Probably an invalid password')
   switch (note.meta.type) {

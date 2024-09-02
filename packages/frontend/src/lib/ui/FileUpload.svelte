@@ -3,7 +3,7 @@
 
 	import Button from '$lib/ui/Button.svelte'
 	import MaxSize from '$lib/ui/MaxSize.svelte'
-	import type { FileDTO } from '@cryptgeon/shared'
+	import type { FileDTO } from 'cryptgeon/shared'
 
 	export let label: string = ''
 	export let files: FileDTO[] = []

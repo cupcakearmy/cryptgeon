@@ -7,7 +7,7 @@
 	import Loader from '$lib/ui/Loader.svelte'
 	import ShowNote, { type DecryptedNote } from '$lib/ui/ShowNote.svelte'
 	import TextInput from '$lib/ui/TextInput.svelte'
-	import { Adapters, get, info, type NoteMeta } from '@cryptgeon/shared'
+	import { Adapters, API, type NoteMeta } from 'cryptgeon/shared'
 	import type { PageData } from './$types'
 
 	export let data: PageData
@@ -28,7 +28,7 @@
 		try {
 			loading = $t('common.loading')
 			password = window.location.hash.slice(1)
-			const note = await info(id)
+			const note = await API.info(id)
 			meta = note.meta
 			exists = true
 		} catch {
@@ -51,7 +51,7 @@
 			// Load note
 			error = null
 			loading = $t('common.downloading')
-			const data = await get(id)
+			const data = await API.get(id)
 			loading = $t('common.decrypting')
 			const derived = meta?.derivation && (await AES.derive(password!, meta.derivation))
 			const key = derived ? derived[0] : Hex.decode(password!)

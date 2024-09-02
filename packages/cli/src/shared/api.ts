@@ -39,15 +39,15 @@ export let client: ClientOptions = {
   server: '',
 }
 
-export function setOptions(options: Partial<ClientOptions>) {
+function setOptions(options: Partial<ClientOptions>) {
   client = { ...client, ...options }
 }
 
-export function getOptions(): ClientOptions {
+function getOptions(): ClientOptions {
   return client
 }
 
-export async function call(options: CallOptions) {
+async function call(options: CallOptions) {
   const url = client.server + '/api/' + options.url
   const response = await fetch(url, {
     method: options.method,
@@ -65,7 +65,7 @@ export async function call(options: CallOptions) {
   return response.json()
 }
 
-export async function create(note: Note) {
+async function create(note: Note) {
   const { meta, ...rest } = note
   const body: NoteCreate = {
     ...rest,
@@ -79,7 +79,7 @@ export async function create(note: Note) {
   return data as { id: string }
 }
 
-export async function get(id: string): Promise<NotePublic> {
+async function get(id: string): Promise<NotePublic> {
   const data = await call({
     url: `notes/${id}`,
     method: 'delete',
@@ -93,7 +93,7 @@ export async function get(id: string): Promise<NotePublic> {
   return note
 }
 
-export async function info(id: string): Promise<NoteInfo> {
+async function info(id: string): Promise<NoteInfo> {
   const data = await call({
     url: `notes/${id}`,
     method: 'get',
@@ -112,6 +112,7 @@ export type Status = {
   max_views: number
   max_expiration: number
   allow_advanced: boolean
+  allow_files: boolean
   theme_image: string
   theme_text: string
   theme_favicon: string
@@ -119,10 +120,19 @@ export type Status = {
   theme_new_note_notice: boolean
 }
 
-export async function status() {
+async function status() {
   const data = await call({
     url: 'status/',
     method: 'get',
   })
   return data as Status
+}
+
+export const API = {
+  setOptions,
+  getOptions,
+  create,
+  get,
+  info,
+  status,
 }
