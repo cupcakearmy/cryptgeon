@@ -17,7 +17,6 @@
 		"@sveltejs/adapter-static": "^3.0.1",
 		"@sveltejs/kit": "^2.5.2",
 		"@sveltejs/vite-plugin-svelte": "^3.0.2",
-		"@types/file-saver": "^2.0.7",
 		"@zerodevx/svelte-toast": "^0.9.5",
 		"adm-zip": "^0.5.10",
 		"dotenv": "^16.4.5",
@@ -29,11 +28,9 @@
 		"vite": "^5.1.7"
 	},
 	"dependencies": {
-		"@cryptgeon/shared": "workspace:*",
+		"cryptgeon": "workspace:*",
 		"@fontsource/fira-mono": "^5.0.8",
-		"copy-to-clipboard": "^3.3.3",
-		"file-saver": "^2.0.5",
-		"occulto": "^2.0.3",
+		"occulto": "^2.0.6",
 		"pretty-bytes": "^6.1.1",
 		"qrious": "^4.0.2"
 	}

@@ -13,8 +13,7 @@
 	import Result, { type NoteResult } from '$lib/ui/NoteResult.svelte'
 	import Switch from '$lib/ui/Switch.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
-	import type { FileDTO, Note } from '@cryptgeon/shared'
-	import { Adapters, PayloadToLargeError, create } from '@cryptgeon/shared'
+	import { Adapters, API, PayloadToLargeError, type FileDTO, type Note } from 'cryptgeon/shared'
 
 	let note: Note = {
 		contents: '',
@@ -77,7 +76,7 @@
 			else data.views = parseInt(note.views as any)
 
 			loading = $t('common.uploading')
-			const response = await create(data)
+			const response = await API.create(data)
 			result = {
 				id: response.id,
 				password: customPassword ? undefined : Hex.encode(key),

@@ -1,11 +1,11 @@
-import { toast, type SvelteToastOptions } from '@zerodevx/svelte-toast'
+import { toast } from '@zerodevx/svelte-toast'
 
 export enum NotifyType {
 	Success = 'success',
 	Error = 'error',
 }
 
-const themeMapping: Record<NotifyType, SvelteToastOptions['theme']> = {
+const themeMapping: Record<NotifyType, Record<string, string>> = {
 	[NotifyType.Success]: {
 		'--toastBackground': 'var(--ui-clr-primary)',
 		'--toastBarBackground': 'var(--ui-clr-primary-alt)',
@@ -17,7 +17,7 @@ const themeMapping: Record<NotifyType, SvelteToastOptions['theme']> = {
 }
 
 function notifyFN(message: string, type: NotifyType = NotifyType.Success) {
-	const options: SvelteToastOptions = {
+	const options = {
 		duration: 5_000,
 		theme: {
 			...themeMapping[type],
