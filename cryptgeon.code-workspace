@@ -11,9 +11,6 @@
     },
     {
       "path": "packages/cli"
-    },
-    {
-      "path": "packages/shared"
     }
   ],
   "settings": {

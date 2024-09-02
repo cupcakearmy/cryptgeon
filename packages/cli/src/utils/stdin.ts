@@ -18,6 +18,7 @@ export function getStdin(timeout: number = 10): Promise<string> {
       resolve('')
     }, timeout)
 
+    process.stdin.on('error', reject)
     process.stdin.on('data', dataHandler)
     process.stdin.on('end', endHandler)
   })

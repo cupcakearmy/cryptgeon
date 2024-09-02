@@ -9,7 +9,11 @@
   },
   "type": "module",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./shared": {
+      "import": "./dist/shared/shared.js",
+      "types": "./dist/shared/shared.d.ts"
+    }
   },
   "types": "./dist/index.d.ts",
   "bin": {
@@ -25,15 +29,14 @@
     "prepublishOnly": "run-s build"
   },
   "devDependencies": {
-    "@commander-js/extra-typings": "^12.0.1",
-    "@cryptgeon/shared": "workspace:*",
+    "@commander-js/extra-typings": "^12.1.0",
     "@types/inquirer": "^9.0.7",
-    "@types/mime": "^3.0.4",
+    "@types/mime": "^4.0.0",
     "@types/node": "^20.11.24",
-    "commander": "^12.0.0",
+    "commander": "^12.1.0",
     "inquirer": "^9.2.15",
     "mime": "^4.0.1",
-    "occulto": "^2.0.3",
+    "occulto": "^2.0.6",
     "pretty-bytes": "^6.1.1",
     "tsup": "^8.2.4",
     "typescript": "^5.3.3"

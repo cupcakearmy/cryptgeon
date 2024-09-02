@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
 import { Argument, Option, program } from '@commander-js/extra-typings'
-import { setOptions, status } from '@cryptgeon/shared'
 import prettyBytes from 'pretty-bytes'
 
-import { download } from './download.js'
-import { parseFile, parseNumber } from './parsers.js'
-import { getStdin } from './stdin.js'
-import { upload } from './upload.js'
-import { checkConstrains, exit } from './utils.js'
+import { download } from './actions/download.js'
+import { upload } from './actions/upload.js'
+import { API } from './shared/api.js'
+import { parseFile, parseNumber } from './utils/parsers.js'
+import { getStdin } from './utils/stdin.js'
+import { checkConstrains, exit } from './utils/utils.js'
 
 const defaultServer = process.env['CRYPTGEON_SERVER'] || 'https://cryptgeon.org'
 const server = new Option('-s --server <url>', 'the cryptgeon server to use').default(defaultServer)
@@ -33,8 +33,8 @@ program
   .description('show information about the server')
   .addOption(server)
   .action(async (options) => {
-    setOptions({ server: options.server })
-    const response = await status()
+    API.setOptions({ server: options.server })
+    const response = await API.status()
     const formatted = {
       ...response,
       max_size: prettyBytes(response.max_size),
@@ -54,7 +54,7 @@ send
   .addOption(minutes)
   .addOption(password)
   .action(async (files, options) => {
-    setOptions({ server: options.server })
+    API.setOptions({ server: options.server })
     await checkConstrains(options)
     options.password ||= await getStdin()
     try {
@@ -72,7 +72,7 @@ send
   .addOption(minutes)
   .addOption(password)
   .action(async (text, options) => {
-    setOptions({ server: options.server })
+    API.setOptions({ server: options.server })
     await checkConstrains(options)
     options.password ||= await getStdin()
     try {
