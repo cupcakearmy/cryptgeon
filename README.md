@@ -12,6 +12,7 @@
 <br/><br/>
 <a href="https://www.producthunt.com/posts/cryptgeon?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cryptgeon" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=295189&theme=light" alt="Cryptgeon - Securely share self-destructing notes | Product Hunt" height="50" /></a>
 <a href=""><img src="./.github/lokalise.png" height="50">
+<a title="Install cryptgeon Raycast Extension" href="https://www.raycast.com/cupcakearmy/cryptgeon"><img src="https://www.raycast.com/cupcakearmy/cryptgeon/install_button@2x.png?v=1.1" height="64" alt="" style="height: 64px;"></a>
 <br/><br/>
 
 EN | [简体中文](README_zh-CN.md) | [ES](README_ES.md)
@@ -38,6 +39,12 @@ npx cryptgeon send text "This is a secret note"
 ```
 
 For more documentation about the CLI see the [readme](./packages/cli/README.md).
+
+### Raycast Extension
+
+There is an [official Raycast extension](https://www.raycast.com/cupcakearmy/cryptgeon).
+
+<a title="Install cryptgeon Raycast Extension" href="https://www.raycast.com/cupcakearmy/cryptgeon"><img src="https://www.raycast.com/cupcakearmy/cryptgeon/install_button@2x.png?v=1.1" height="64" alt="" style="height: 64px;"></a>
 
 ## Features
 
