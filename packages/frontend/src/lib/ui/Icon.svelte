@@ -18,7 +18,7 @@
 	export let icon: keyof typeof map
 </script>
 
-<button on:click {...$$restProps}>
+<button type="button" on:click {...$$restProps}>
 	{#if map[icon]}
 		<svelte:component this={map[icon]} />
 	{/if}
