@@ -84,6 +84,7 @@ of the notes even if it tried to.
 | `THEME_PAGE_TITLE`      | `""`             | Custom text the page title                                                                                                                                                                                    |
 | `THEME_FAVICON`         | `""`             | Custom url for the favicon. Must be publicly reachable                                                                                                                                                        |
 | `THEME_NEW_NOTE_NOTICE` | `true`           | Show the message about how notes are stored in the memory and may be evicted after creating a new note. Defaults to `true`.                                                                                   |
+| `IMPRINT_URL`           | `""`             | Custom url for an Imprint hosted somewhere else. Must be publicly reachable.                                                                                                                                  |
 
 ## Deployment
 

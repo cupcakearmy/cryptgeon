@@ -38,6 +38,10 @@ pub static ref ALLOW_FILES: bool = std::env::var("ALLOW_FILES")
   .unwrap_or("true".to_string())
   .parse()
   .unwrap();
+pub static ref IMPRINT_URL: String = std::env::var("IMPRINT_URL")
+  .unwrap_or("".to_string())
+  .parse()
+  .unwrap();
 }
 
 // THEME
