@@ -42,6 +42,10 @@ pub static ref IMPRINT_URL: String = std::env::var("IMPRINT_URL")
   .unwrap_or("".to_string())
   .parse()
   .unwrap();
+pub static ref IMPRINT_HTML: String = std::env::var("IMPRINT_HTML")
+  .unwrap_or("".to_string())
+  .parse()
+  .unwrap();
 }
 
 // THEME
