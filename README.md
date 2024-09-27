@@ -84,7 +84,8 @@ of the notes even if it tried to.
 | `THEME_PAGE_TITLE`      | `""`             | Custom text the page title                                                                                                                                                                                    |
 | `THEME_FAVICON`         | `""`             | Custom url for the favicon. Must be publicly reachable                                                                                                                                                        |
 | `THEME_NEW_NOTE_NOTICE` | `true`           | Show the message about how notes are stored in the memory and may be evicted after creating a new note. Defaults to `true`.                                                                                   |
-
+| `IMPRINT_URL`           | `""`             | Custom url for an Imprint hosted somewhere else. Must be publicly reachable. Takes precedence above `IMPRINT_HTML`.                                                                                                       |
+| `IMPRINT_HTML`          | `""`             | Alternative to `IMPRINT_URL`, this can be used to specify the HTML code to show on `/imprint`. Only `IMPRINT_HTML` or `IMPRINT_URL` should be specified, not both.|
 ## Deployment
 
 > ℹ️ `https` is required otherwise browsers will not support the cryptographic functions.

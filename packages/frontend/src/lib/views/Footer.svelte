@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ThemeToggle from '$lib/ui/ThemeToggle.svelte'
+        import { status } from '$lib/stores/status'
 </script>
 
 <footer>
@@ -7,6 +8,11 @@
 	<nav>
 		<a href="/">/home</a>
 		<a href="/about">/about</a>
+		{#if $status?.imprint_url}
+			<a href={$status.imprint_url} target="_blank" rel="noopener noreferrer">/imprint</a>
+		{:else if $status?.imprint_html}
+			<a href="/imprint">/imprint</a>
+		{/if}
 		<a href="https://github.com/cupcakearmy/cryptgeon" target="_blank" rel="noopener noreferrer">
 			code
 		</a>
