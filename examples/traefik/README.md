@@ -73,4 +73,4 @@ docker compose up -d
 ```
 
 1. Open http://cryptgeon.localhost
-2. Log in with user and secret
+2. Log in with `user` and `secret`
