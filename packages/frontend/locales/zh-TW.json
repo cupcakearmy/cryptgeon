@@ -1,0 +1,58 @@
+{
+	"common": {
+		"note": "筆記",
+		"file": "檔案",
+		"advanced": "進階",
+		"create": "創建",
+		"loading": "載入中",
+		"mode": "模式",
+		"views": "{n, plural, =0 {瀏覽次數} =1 {1 次瀏覽} other {# 次瀏覽}}",
+		"minutes": "{n, plural, =0 {分鐘} =1 {1 分鐘} other {# 分鐘}}",
+		"max": "最大",
+		"share_link": "分享連結",
+		"copy_clipboard": "複製到剪貼板",
+		"copied_to_clipboard": "已複製到剪貼板",
+		"encrypting": "加密中",
+		"decrypting": "解密中",
+		"uploading": "上傳中",
+		"downloading": "下載中",
+		"qr_code": "QR 碼",
+		"password": "密碼"
+	},
+	"home": {
+		"intro": "輕鬆地以一鍵傳送<i>完全加密</i>的安全筆記或檔案。只需創建筆記並分享連結。",
+		"explanation": "筆記將在 {type} 後過期並被銷毀。",
+		"new_note": "新筆記",
+		"new_note_notice": "<b>可用性：</b><br />筆記不保證被儲存，因為所有內容都保留在 RAM 中，如果 RAM 填滿，最舊的筆記將被移除。<br />(您可能會沒事，只是提醒一下。)",
+		"errors": {
+			"note_to_big": "無法創建筆記。筆記過大",
+			"note_error": "無法創建筆記。請再試一次。",
+			"max": "最大值：{n}",
+			"empty_content": "筆記內容為空。"
+		},
+		"messages": {
+			"note_created": "筆記已創建。"
+		},
+		"advanced": {
+			"explanation": "預設情況下，每個筆記都會使用安全生成的密碼。您也可以選擇自己的密碼，該密碼不會包含在連結中。",
+			"custom_password": "自定義密碼"
+		}
+	},
+	"show": {
+		"errors": {
+			"not_found": "筆記未找到或已被刪除。",
+			"decryption_failed": "密碼錯誤。無法解密。可能是連結已損壞。筆記已被銷毀。",
+			"unsupported_type": "不支持的筆記類型。"
+		},
+		"explanation": "如果計數器達到限制，請點擊下方以顯示並刪除筆記",
+		"show_note": "顯示筆記",
+		"warning_will_not_see_again": "您將<b>無法</b>再次查看筆記。",
+		"download_all": "全部下載",
+		"links_found": "在筆記中找到的連結："
+	},
+	"file_upload": {
+		"selected_files": "已選擇的檔案",
+		"no_files_selected": "未選擇檔案",
+		"clear": "重置"
+	}
+}
