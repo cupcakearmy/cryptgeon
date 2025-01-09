@@ -2,7 +2,7 @@ services:
   redis:
     image: redis:7-alpine
     # Set a size limit. See link below on how to customise.
-    # https://redis.io/docs/manual/eviction/
+    # https://redis.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
     # command: redis-server --maxmemory 1gb --maxmemory-policy allkeys-lru
 
   app:
