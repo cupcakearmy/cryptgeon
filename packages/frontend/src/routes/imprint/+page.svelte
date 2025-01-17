@@ -1,18 +1,16 @@
 <script lang="ts">
-	import { get } from 'svelte/store';
-	import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation'
 	import { status } from '$lib/stores/status'
-	
+
 	status.subscribe((config) => {
 		if (config != null) {
 			if (config.imprint_url) {
-				window.location = config.imprint_url;
-			}
-			else if (config.imprint_html == "") {
-				goto("/about");
+				window.location.href = config.imprint_url
+			} else if (config.imprint_html == '') {
+				goto('/about')
 			}
 		}
-	});
+	})
 </script>
 
 <svelte:head>
@@ -20,9 +18,9 @@
 </svelte:head>
 
 <section class="content">
-{#if $status?.imprint_html}
-	{@html $status.imprint_html}
-{/if}
+	{#if $status?.imprint_html}
+		{@html $status.imprint_html}
+	{/if}
 </section>
 
 <style>

@@ -7,7 +7,7 @@
 </script>
 
 <header>
-	<a on:click={reset} href="/">
+	<a onclick={reset} href="/">
 		{#if $status?.theme_image}
 			<img alt="logo" src={$status.theme_image} />
 		{:else}

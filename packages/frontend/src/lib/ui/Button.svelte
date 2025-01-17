@@ -1,4 +1,14 @@
-<button {...$$restProps} on:click><slot /></button>
+<script lang="ts">
+	import type { HTMLButtonAttributes } from 'svelte/elements'
+
+	interface Props {
+		children?: import('svelte').Snippet
+	}
+
+	let { children, ...rest }: HTMLButtonAttributes & Props = $props()
+</script>
+
+<button {...rest}>{@render children?.()}</button>
 
 <style>
 	button {

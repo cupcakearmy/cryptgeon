@@ -1,9 +1,10 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	import IconContrast from '$lib/icons/IconContrast.svelte'
 	import IconCopy from '$lib/icons/IconCopy.svelte'
 	import IconDice from '$lib/icons/IconDice.svelte'
 	import IconEye from '$lib/icons/IconEye.svelte'
 	import IconEyeOff from '$lib/icons/IconEyeOff.svelte'
+	import type { HTMLButtonAttributes } from 'svelte/elements'
 
 	const map = {
 		contrast: IconContrast,
@@ -15,12 +16,17 @@
 </script>
 
 <script lang="ts">
-	export let icon: keyof typeof map
+	interface Props {
+		icon: keyof typeof map
+	}
+
+	let { icon, ...rest }: HTMLButtonAttributes & Props = $props()
 </script>
 
-<button type="button" on:click {...$$restProps}>
+<button type="button" {...rest}>
 	{#if map[icon]}
-		<svelte:component this={map[icon]} />
+		{@const SvelteComponent = map[icon]}
+		<SvelteComponent />
 	{/if}
 </button>
 

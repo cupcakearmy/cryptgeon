@@ -5,8 +5,13 @@
 	import MaxSize from '$lib/ui/MaxSize.svelte'
 	import type { FileDTO } from 'cryptgeon/shared'
 
-	export let label: string = ''
-	export let files: FileDTO[] = []
+	interface Props {
+		label?: string
+		files?: FileDTO[]
+		[key: string]: any
+	}
+
+	let { label = '', files = $bindable([]), ...rest }: Props = $props()
 
 	async function fileToDTO(file: File): Promise<FileDTO> {
 		return {
@@ -35,7 +40,7 @@
 	<small>
 		{label}
 	</small>
-	<input {...$$restProps} type="file" on:change={onInput} multiple />
+	<input {...rest} type="file" onchange={onInput} multiple />
 	<div class="box">
 		{#if files.length}
 			<div>
@@ -45,8 +50,8 @@
 						{file.name}
 					</div>
 				{/each}
-				<div class="spacer" />
-				<Button on:click={clear}>{$t('file_upload.clear')}</Button>
+				<div class="spacer"></div>
+				<Button onclick={clear}>{$t('file_upload.clear')}</Button>
 			</div>
 		{:else}
 			<div>
