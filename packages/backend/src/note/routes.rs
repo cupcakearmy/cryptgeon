@@ -5,11 +5,12 @@ use axum::{
     Json,
 };
 use serde::{Deserialize, Serialize};
-use std::time::SystemTime;
+use std::{sync::Arc, time::SystemTime};
+use tokio::sync::Mutex;
 
-use crate::config;
 use crate::note::{generate_id, Note, NoteInfo};
 use crate::store;
+use crate::{config, lock::SharedState};
 
 use super::NotePublic;
 
@@ -80,11 +81,20 @@ pub async fn create(Json(mut n): Json<Note>) -> Response {
     }
 }
 
-pub async fn delete(Path(OneNoteParams { id }): Path<OneNoteParams>) -> Response {
+pub async fn delete(
+    Path(OneNoteParams { id }): Path<OneNoteParams>,
+    state: axum::extract::State<SharedState>,
+) -> Response {
+    let mut locks_map = state.locks.lock().await;
+    let lock = locks_map
+        .entry(id.clone())
+        .or_insert_with(|| Arc::new(Mutex::new(())))
+        .clone();
+    drop(locks_map);
+    let _guard = lock.lock().await;
+
     let note = store::get(&id);
     match note {
-        // Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
-        // Ok(None) => return HttpResponse::NotFound().finish(),
         Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response(),
         Ok(None) => (StatusCode::NOT_FOUND).into_response(),
         Ok(Some(note)) => {
