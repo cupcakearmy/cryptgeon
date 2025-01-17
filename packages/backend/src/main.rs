@@ -1,9 +1,13 @@
+use std::{collections::HashMap, sync::Arc};
+
 use axum::{
     extract::{DefaultBodyLimit, Request},
     routing::{delete, get, post},
     Router, ServiceExt,
 };
 use dotenv::dotenv;
+use lock::SharedState;
+use tokio::sync::Mutex;
 use tower::Layer;
 use tower_http::{
     compression::CompressionLayer,
@@ -16,6 +20,7 @@ extern crate lazy_static;
 
 mod config;
 mod health;
+mod lock;
 mod note;
 mod status;
 mod store;
@@ -24,9 +29,13 @@ mod store;
 async fn main() {
     dotenv().ok();
 
+    let shared_state = SharedState {
+        locks: Arc::new(Mutex::new(HashMap::new())),
+    };
+
     if !store::can_reach_redis() {
         println!("cannot reach redis");
-        panic!("canont reach redis");
+        panic!("cannot reach redis");
     }
 
     let notes_routes = Router::new()
@@ -53,7 +62,8 @@ async fn main() {
                 .deflate(true)
                 .gzip(true)
                 .zstd(true),
-        );
+        )
+        .with_state(shared_state);
 
     let app = NormalizePathLayer::trim_trailing_slash().layer(app);
 
