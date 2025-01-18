@@ -5,11 +5,15 @@
 
 	import { getCSSVariable } from '$lib/utils'
 
-	export let value: string
+	interface Props {
+		value: string
+	}
 
-	let canvas: HTMLCanvasElement
+	let { value }: Props = $props()
 
-	$: {
+	let canvas: HTMLCanvasElement | null = $state(null)
+
+	$effect(() => {
 		new QR({
 			value,
 			level: 'Q',
@@ -18,12 +22,12 @@
 			foreground: getCSSVariable('--ui-text-0'),
 			element: canvas,
 		})
-	}
+	})
 </script>
 
 <small>{$t('common.qr_code')}</small>
 <div>
-	<canvas bind:this={canvas} />
+	<canvas bind:this={canvas}></canvas>
 </div>
 
 <style>

@@ -10,18 +10,22 @@
 	import { Adapters, API, type NoteMeta } from 'cryptgeon/shared'
 	import type { PageData } from './$types'
 
-	export let data: PageData
+	interface Props {
+		data: PageData
+	}
+
+	let { data }: Props = $props()
 
 	let id = data.id
-	let password: string | null = null
-	let note: DecryptedNote | null = null
-	let exists = false
-	let meta: NoteMeta | null = null
+	let password: string | null = $state<string | null>(null)
+	let note: DecryptedNote | null = $state(null)
+	let exists = $state(false)
+	let meta: NoteMeta | null = $state(null)
 
-	let loading: string | null = null
-	let error: string | null = null
+	let loading: string | null = $state(null)
+	let error: string | null = $state(null)
 
-	$: valid = !!password?.length
+	let valid = $derived(!!password?.length)
 
 	onMount(async () => {
 		// Check if note exists
@@ -41,7 +45,8 @@
 	/**
 	 * Get the actual contents of the note and decrypt it.
 	 */
-	async function show() {
+	async function show(e: SubmitEvent) {
+		e.preventDefault()
 		try {
 			if (!valid) {
 				error = $t('show.errors.no_password')
@@ -86,7 +91,7 @@
 	{:else if note && !error}
 		<ShowNote {note} />
 	{:else}
-		<form on:submit|preventDefault={show}>
+		<form onsubmit={show}>
 			<fieldset>
 				<p>{$t('show.explanation')}</p>
 				{#if meta?.derivation}

@@ -1,24 +1,21 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	import { writable } from 'svelte/store'
 
-	enum Theme {
-		Dark = 'dark',
-		Light = 'light',
-		Auto = 'auto',
-	}
+	const themes = ['dark', 'light', 'auto'] as const
+	type Theme = (typeof themes)[number]
 
-	const NextTheme = {
-		[Theme.Auto]: Theme.Light,
-		[Theme.Light]: Theme.Dark,
-		[Theme.Dark]: Theme.Auto,
+	const NextTheme: Record<Theme, Theme> = {
+		auto: 'light',
+		light: 'dark',
+		dark: 'auto',
 	}
 
 	function init(): Theme {
 		if (typeof window !== 'undefined') {
 			const saved = window.localStorage.getItem('theme') as Theme
-			if (Object.values(Theme).includes(saved)) return saved
+			if (themes.includes(saved)) return saved
 		}
-		return Theme.Auto
+		return 'auto'
 	}
 
 	export const theme = writable<Theme>(init())
@@ -40,7 +37,7 @@
 	}
 </script>
 
-<button on:click={change}>
+<button onclick={change}>
 	<Icon class="icon" icon="contrast" />
 	{$theme}
 </button>

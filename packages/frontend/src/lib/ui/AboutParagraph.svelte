@@ -1,10 +1,17 @@
 <script lang="ts">
-	export let title: string
+	import type { Snippet } from 'svelte'
+
+	interface Props {
+		title: string
+		children?: Snippet
+	}
+
+	let { title, children }: Props = $props()
 </script>
 
 <p>
 	<b>▶ {title}</b>
-	<slot />
+	{@render children?.()}
 </p>
 
 <style>

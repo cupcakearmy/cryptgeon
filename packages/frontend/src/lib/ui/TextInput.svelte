@@ -2,23 +2,37 @@
 	import Icon from '$lib/ui/Icon.svelte'
 	import { copy as copyFN } from '$lib/utils'
 	import { getRandomBytes, Hex } from 'occulto'
+	import type { HTMLInputAttributes } from 'svelte/elements'
 
-	export let label: string = ''
-	export let value: any
-	export let validate: (value: any) => boolean | string = () => true
-	export let copy: boolean = false
-	export let random: boolean = false
-
-	const initialType = $$restProps.type
-	const isPassword = initialType === 'password'
-	let hidden = true
-
-	$: valid = validate(value)
-
-	$: if (isPassword) {
-		value
-		$$restProps.type = hidden ? initialType : 'text'
+	interface Props {
+		label?: string
+		value: any
+		validate?: (value: any) => boolean | string
+		copy?: boolean
+		random?: boolean
 	}
+
+	let {
+		label = '',
+		value = $bindable(),
+		validate = () => true,
+		copy = false,
+		random = false,
+		...rest
+	}: HTMLInputAttributes & Props = $props()
+
+	const initialType = rest.type
+	const isPassword = initialType === 'password'
+	let hidden = $state(true)
+
+	let valid = $derived(validate(value))
+
+	$effect(() => {
+		if (isPassword) {
+			value
+			rest.type = hidden ? initialType : 'text'
+		}
+	})
 
 	function toggle() {
 		hidden = !hidden
@@ -30,31 +44,31 @@
 </script>
 
 <label>
-	<small class:disabled={$$restProps.disabled}>
+	<small class:disabled={rest.disabled}>
 		{label}
 		{#if valid !== true}
 			<span class="error-text">{valid}</span>
 		{/if}
 	</small>
-	<input bind:value {...$$restProps} class:valid={valid === true} />
+	<input bind:value {...rest} class:valid={valid === true} />
 	<div class="icons">
 		{#if isPassword}
 			<Icon
-				disabled={$$restProps.disabled}
+				disabled={rest.disabled}
 				class="icon"
 				icon={hidden ? 'eye' : 'eye-off'}
-				on:click={toggle}
+				onclick={toggle}
 			/>
 		{/if}
 		{#if random}
-			<Icon disabled={$$restProps.disabled} class="icon" icon="dice" on:click={randomFN} />
+			<Icon disabled={rest.disabled} class="icon" icon="dice" onclick={randomFN} />
 		{/if}
 		{#if copy}
 			<Icon
-				disabled={$$restProps.disabled}
+				disabled={rest.disabled}
 				class="icon"
 				icon="copy"
-				on:click={() => copyFN(value.toString())}
+				onclick={() => copyFN(value.toString())}
 			/>
 		{/if}
 	</div>

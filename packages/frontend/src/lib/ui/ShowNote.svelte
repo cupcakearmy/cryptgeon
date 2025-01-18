@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	export type DecryptedNote = Omit<NotePublic, 'contents'> & { contents: any }
 
 	function saveAs(file: File) {
@@ -22,20 +22,14 @@
 	import { copy } from '$lib/utils'
 	import type { FileDTO, NotePublic } from 'cryptgeon/shared'
 
-	export let note: DecryptedNote
+	interface Props {
+		note: DecryptedNote
+	}
+
+	let { note }: Props = $props()
 
 	const RE_URL = /[A-Za-z]+:\/\/([A-Z a-z0-9\-._~:\/?#\[\]@!$&'()*+,;%=])+/g
-	let files: FileDTO[] = []
-
-	$: if (note.meta.type === 'file') {
-		files = note.contents
-	}
-
-	$: download = () => {
-		for (const file of files) {
-			downloadFile(file)
-		}
-	}
+	let files: FileDTO[] = $state([])
 
 	async function downloadFile(file: FileDTO) {
 		const f = new File([file.contents], file.name, {
@@ -44,7 +38,17 @@
 		saveAs(f)
 	}
 
-	$: links = typeof note.contents === 'string' ? note.contents.match(RE_URL) : []
+	$effect(() => {
+		if (note.meta.type === 'file') {
+			files = note.contents
+		}
+	})
+	let download = $derived(() => {
+		for (const file of files) {
+			downloadFile(file)
+		}
+	})
+	let links = $derived(typeof note.contents === 'string' ? note.contents.match(RE_URL) : [])
 </script>
 
 <p class="error-text">{@html $t('show.warning_will_not_see_again')}</p>
@@ -53,7 +57,7 @@
 		<div class="note">
 			{note.contents}
 		</div>
-		<Button on:click={() => copy(note.contents)}>{$t('common.copy_clipboard')}</Button>
+		<Button onclick={() => copy(note.contents)}>{$t('common.copy_clipboard')}</Button>
 
 		{#if links && links.length}
 			<div class="links">
@@ -70,13 +74,13 @@
 	{:else}
 		{#each files as file}
 			<div class="note file">
-				<button on:click={() => downloadFile(file)}>
+				<button onclick={() => downloadFile(file)}>
 					<b>↓ {file.name}</b>
 				</button>
 				<small> {file.type} － {prettyBytes(file.size)}</small>
 			</div>
 		{/each}
-		<Button on:click={download}>{$t('show.download_all')}</Button>
+		<Button onclick={download}>{$t('show.download_all')}</Button>
 	{/if}
 </div>
 

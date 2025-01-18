@@ -15,27 +15,29 @@
 	import TextArea from '$lib/ui/TextArea.svelte'
 	import { Adapters, API, PayloadToLargeError, type FileDTO, type Note } from 'cryptgeon/shared'
 
-	let note: Note = {
+	let note: Note = $state({
 		contents: '',
 		meta: { type: 'text' },
 		views: 1,
 		expiration: 60,
-	}
-	let files: FileDTO[]
-	let result: NoteResult | null = null
-	let advanced = false
-	let isFile = false
-	let timeExpiration = false
-	let customPassword: string | null = null
-	let description = ''
-	let loading: string | null = null
+	})
+	let files: FileDTO[] = $state([])
+	let result: NoteResult | null = $state(null)
+	let advanced = $state(false)
+	let isFile = $state(false)
+	let timeExpiration = $state(false)
+	let customPassword: string | null = $state(null)
+	let description = $state('')
+	let loading: string | null = $state(null)
 
-	$: if (!advanced) {
-		note.views = 1
-		timeExpiration = false
-	}
+	$effect(() => {
+		if (!advanced) {
+			note.views = 1
+			timeExpiration = false
+		}
+	})
 
-	$: {
+	$effect(() => {
 		description = $t('home.explanation', {
 			values: {
 				type: $t(timeExpiration ? 'common.minutes' : 'common.views', {
@@ -43,17 +45,22 @@
 				}),
 			},
 		})
-	}
+	})
 
-	$: note.meta.type = isFile ? 'file' : 'text'
+	$effect(() => {
+		note.meta.type = isFile ? 'file' : 'text'
+	})
 
-	$: if (!isFile) {
-		note.contents = ''
-	}
+	$effect(() => {
+		if (!isFile) {
+			note.contents = ''
+		}
+	})
 
 	class EmptyContentError extends Error {}
 
-	async function submit() {
+	async function submit(e: SubmitEvent) {
+		e.preventDefault()
 		try {
 			loading = $t('common.encrypting')
 
@@ -103,7 +110,7 @@
 	<p>
 		{@html $status?.theme_text || $t('home.intro')}
 	</p>
-	<form on:submit|preventDefault={submit}>
+	<form onsubmit={submit}>
 		<fieldset disabled={loading !== null}>
 			{#if isFile}
 				<FileUpload data-testid="file-upload" label={$t('common.file')} bind:files />
@@ -132,7 +139,7 @@
 						bind:value={advanced}
 					/>
 				{/if}
-				<div class="grow" />
+				<div class="grow"></div>
 				<div class="tr">
 					<small>{$t('common.max')}: <MaxSize /> </small>
 					<br />

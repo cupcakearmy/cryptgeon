@@ -8,6 +8,11 @@
 	import { init as initStores, status } from '$lib/stores/status'
 	import Footer from '$lib/views/Footer.svelte'
 	import Header from '$lib/views/Header.svelte'
+	interface Props {
+		children?: import('svelte').Snippet
+	}
+
+	let { children }: Props = $props()
 
 	onMount(() => {
 		initStores()
@@ -22,7 +27,7 @@
 {#await waitLocale() then _}
 	<main>
 		<Header />
-		<slot />
+		{@render children?.()}
 	</main>
 
 	<SvelteToast />

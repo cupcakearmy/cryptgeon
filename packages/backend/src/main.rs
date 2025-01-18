@@ -1,7 +1,11 @@
 use std::{collections::HashMap, sync::Arc};
 
 use axum::{
+    body::Body,
     extract::{DefaultBodyLimit, Request},
+    http::HeaderValue,
+    middleware::{self, Next},
+    response::Response,
     routing::{delete, get, post},
     Router, ServiceExt,
 };
@@ -19,6 +23,7 @@ use tower_http::{
 extern crate lazy_static;
 
 mod config;
+mod csp;
 mod health;
 mod lock;
 mod note;
@@ -55,6 +60,8 @@ async fn main() {
     let app = Router::new()
         .nest("/api", api_routes)
         .fallback_service(serve_dir)
+        // Disabled for now, as svelte inlines scripts
+        // .layer(middleware::from_fn(csp::add_csp_header))
         .layer(DefaultBodyLimit::max(*config::LIMIT))
         .layer(
             CompressionLayer::new()

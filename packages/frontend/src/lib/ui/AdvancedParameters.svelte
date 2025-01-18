@@ -6,13 +6,23 @@
 	import TextInput from '$lib/ui/TextInput.svelte'
 	import type { Note } from 'cryptgeon/shared'
 
-	export let note: Note
-	export let timeExpiration = false
-	export let customPassword: string | null = null
+	interface Props {
+		note: Note
+		timeExpiration?: boolean
+		customPassword?: string | null
+	}
 
-	let hasCustomPassword = false
+	let {
+		note = $bindable(),
+		timeExpiration = $bindable(false),
+		customPassword = $bindable(null),
+	}: Props = $props()
 
-	$: if (!hasCustomPassword) customPassword = null
+	let hasCustomPassword = $state(false)
+
+	$effect(() => {
+		if (!hasCustomPassword) customPassword = null
+	})
 </script>
 
 <div class="flex col">

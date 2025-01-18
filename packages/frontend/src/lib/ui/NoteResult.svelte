@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	export type NoteResult = {
 		id: string
 		password?: string
@@ -12,9 +12,13 @@
 	import TextInput from '$lib/ui/TextInput.svelte'
 	import Canvas from './Canvas.svelte'
 
-	export let result: NoteResult
+	interface Props {
+		result: NoteResult
+	}
 
-	let url = `${window.location.origin}/note/${result.id}`
+	let { result }: Props = $props()
+
+	let url = $state(`${window.location.origin}/note/${result.id}`)
 	if (result.password) url += `#${result.password}`
 
 	function reset() {
@@ -41,7 +45,7 @@
 	</p>
 {/if}
 <br />
-<Button on:click={reset}>{$t('home.new_note')}</Button>
+<Button onclick={reset}>{$t('home.new_note')}</Button>
 
 <style>
 	div {

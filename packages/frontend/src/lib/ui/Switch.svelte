@@ -1,13 +1,18 @@
 <script lang="ts">
-	export let label: string = ''
-	export let value: boolean
-	export let color = true
+	interface Props {
+		label?: string
+		value: boolean
+		color?: boolean
+		[key: string]: any
+	}
+
+	let { label = '', value = $bindable(), color = true, ...rest }: Props = $props()
 </script>
 
-<label {...$$restProps}>
+<label {...rest}>
 	<small>{label}</small>
 	<input type="checkbox" bind:checked={value} />
-	<span class:color class="slider" />
+	<span class:color class="slider"></span>
 </label>
 
 <style>
