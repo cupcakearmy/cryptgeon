@@ -63,6 +63,8 @@ client side with the <code>key</code> and then sent to the server. data is store
 never persisted to disk. the server never sees the encryption key and cannot decrypt the contents
 of the notes even if it tried to.
 
+> View counts are guaranteed with one running instance of cryptgeon. Multiple instances connected to the same Redis instance can run into race conditions, where a note might be retrieved more than the view count allows.
+
 ## Screenshot
 
 ![screenshot](./design/Screens.png)
