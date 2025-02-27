@@ -21,20 +21,15 @@
 		...rest
 	}: HTMLInputAttributes & Props = $props()
 
-	const initialType = rest.type
+	const initialType = $state(rest.type)
 	const isPassword = initialType === 'password'
 	let hidden = $state(true)
 
 	let valid = $derived(validate(value))
-
-	$effect(() => {
-		if (isPassword) {
-			value
-			rest.type = hidden ? initialType : 'text'
-		}
-	})
+	let type = $derived(isPassword ? (hidden ? 'password' : 'text') : rest.type)
 
 	function toggle() {
+		console.debug('toggle')
 		hidden = !hidden
 	}
 
@@ -50,7 +45,7 @@
 			<span class="error-text">{valid}</span>
 		{/if}
 	</small>
-	<input bind:value {...rest} class:valid={valid === true} />
+	<input bind:value {...rest} {type} autocomplete="off" class:valid={valid === true} />
 	<div class="icons">
 		{#if isPassword}
 			<Icon
