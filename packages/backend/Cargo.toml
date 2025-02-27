@@ -1,9 +1,9 @@
 [package]
 name = "cryptgeon"
-version = "2.9.0"
+version = "2.9.1"
 authors = ["cupcakearmy <hi@nicco.io>"]
 edition = "2021"
-rust-version = "1.80"
+rust-version = "1.85"
 
 [[bin]]
 name = "cryptgeon"

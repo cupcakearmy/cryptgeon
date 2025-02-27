@@ -1,11 +1,7 @@
 use std::{collections::HashMap, sync::Arc};
 
 use axum::{
-    body::Body,
     extract::{DefaultBodyLimit, Request},
-    http::HeaderValue,
-    middleware::{self, Next},
-    response::Response,
     routing::{delete, get, post},
     Router, ServiceExt,
 };
