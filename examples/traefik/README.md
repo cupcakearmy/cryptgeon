@@ -20,9 +20,12 @@ services:
     image: redis:7-alpine
     # This is required to stay in RAM only.
     command: redis-server --save "" --appendonly no
-    # Additionally, you can set a size limit. See link below on how to customise.
-    # https://redis.io/docs/manual/eviction/
-    # --maxmemory 1gb --maxmemory-policy allkeys-lru
+    # Set a size limit. See link below on how to customise.
+    # https://redis.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
+    # --maxmemory 1gb --maxmemory-policy allkeys-lrulpine
+    # This prevents the creation of an anonymous volume.
+    tmpfs:
+      - /data
 
   app:
     image: cupcakearmy/cryptgeon:latest
@@ -59,6 +62,14 @@ services:
 
   redis:
     image: redis:7-alpine
+    # This is required to stay in RAM only.
+    command: redis-server --save "" --appendonly no
+    # Set a size limit. See link below on how to customise.
+    # https://redis.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
+    # --maxmemory 1gb --maxmemory-policy allkeys-lrulpine
+    # This prevents the creation of an anonymous volume.
+    tmpfs:
+      - /data
 
   cryptgeon:
     image: cupcakearmy/cryptgeon
