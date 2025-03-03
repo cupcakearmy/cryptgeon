@@ -1,0 +1,58 @@
+{
+	"common": {
+		"note": "poznámka",
+		"file": "soubor",
+		"advanced": "pokročilé",
+		"create": "vytvořit",
+		"loading": "načítání",
+		"mode": "režim",
+		"views": "{n, plural, =0 {zobrazení} =1 {1 zobrazení} other {# zobrazení}}",
+		"minutes": "{n, plural, =0 {minut} =1 {1 minuta} other {# minutách}}",
+		"max": "max",
+		"share_link": "sdílet odkaz",
+		"copy_clipboard": "zkopírovat do schránky",
+		"copied_to_clipboard": "zkopírováno do schránky",
+		"encrypting": "šifrování",
+		"decrypting": "dešifrování",
+		"uploading": "nahrávání",
+		"downloading": "stahování",
+		"qr_code": "QR kód",
+		"password": "heslo"
+	},
+	"home": {
+		"intro": "Jednoduše posílejte <i>plně šifrované</i> a zabezpečené poznámky nebo soubory jediným kliknutím. Stačí vytvořit poznámku a sdílet odkaz.",
+		"explanation": "Poznámka vyprší a bude zničena po {n}.",
+		"new_note": "Nová poznámka",
+		"new_note_notice": "<b>Dostupnost:</b><br />Poznámka není zaručeně uchována, protože je uložena pouze v paměti RAM. Pokud se paměť zaplní, nejstarší poznámky budou automaticky smazány.<br />(Obvykle to nebývá problém, ale je dobré o tom vědět.)",
+		"errors": {
+			"note_to_big": "Poznámku nelze vytvořit. Je příliš velká.",
+			"note_error": "Poznámku nelze vytvořit. Zkuste to prosím znovu.",
+			"max": "Max: {n}",
+			"empty_content": "Poznámka je prázdná."
+		},
+		"messages": {
+			"note_created": "Poznámka byla vytvořena."
+		},
+		"advanced": {
+			"explanation": "Ve výchozím nastavení se pro každou poznámku generuje bezpečné heslo. Pokud chcete, můžete si nastavit vlastní heslo, které nebude součástí odkazu.",
+			"custom_password": "Vlastní heslo"
+		}
+	},
+	"show": {
+		"errors": {
+			"not_found": "Poznámka nebyla nalezena nebo již byla smazána.",
+			"decryption_failed": "Špatné heslo. Nelze dešifrovat. Odkaz je pravděpodobně poškozen. Poznámka byla zničena.",
+			"unsupported_type": "Nepodporovaný typ poznámky."
+		},
+		"explanation": "Klikněte níže pro zobrazení a následné smazání poznámky, pokud bylo dosaženo limitu zobrazení.",
+		"show_note": "Zobrazit poznámku",
+		"warning_will_not_see_again": "Tuto poznámku již <b>nebudete</b> moci znovu zobrazit.",
+		"download_all": "Stáhnout vše",
+		"links_found": "Odkazy nalezené v poznámce:"
+	},
+	"file_upload": {
+		"selected_files": "Vybrané soubory",
+		"no_files_selected": "Žádné soubory nevybrány",
+		"clear": "Vymazat"
+	}
+}
