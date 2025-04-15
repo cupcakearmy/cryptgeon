@@ -9,16 +9,26 @@ services:
     # This prevents the creation of an anonymous volume.
     tmpfs:
       - /data
+    networks:
+      - cryptgeon
 
   app:
     image: cupcakearmy/cryptgeon:latest
     depends_on:
       - redis
     environment:
+      REDIS_URL: redis://redis:6379
       # Size limit for a single note.
-      SIZE_LIMIT: 4 MiB
+      SIZE_LIMIT: 4MiB
+      LISTEN_ADDR: 0.0.0.0:8000
     ports:
-      - 80:8000
+      - "8000:8000"
+    networks:
+      - cryptgeon
+
+networks:
+  cryptgeon:
+    driver: bridge
 
     # Optional health checks
     # healthcheck:
