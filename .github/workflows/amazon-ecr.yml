@@ -26,8 +26,7 @@ jobs:
 
       - name: Build, tag, and push the image to Amazon ECR
         id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
         run: |
-          docker build -t 533980823513.dkr.ecr.ap-south-1.amazonaws.com/cryptgeon:latest .
-          docker push 533980823513.dkr.ecr.ap-south-1.amazonaws.com/cryptgeon:latest
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/r9h8b0z6
+          docker build -t public.ecr.aws/r9h8b0z6/cryptgeon:latest .
+          docker push public.ecr.aws/r9h8b0z6/cryptgeon:latest
