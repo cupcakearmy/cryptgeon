@@ -29,5 +29,5 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
         run: |
-          docker build -t $ECR_REGISTRY/cryptgeon:latest .
-          docker push $ECR_REGISTRY/cryptgeon:latest
+          docker build -t 533980823513.dkr.ecr.ap-south-1.amazonaws.com/cryptgeon:latest .
+          docker push 533980823513.dkr.ecr.ap-south-1.amazonaws.com/cryptgeon:latest
