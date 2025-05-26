@@ -6,6 +6,14 @@ on:
     tags:
       - 'v*.*.*'
 
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  REPOSITORY_NAME: cryptgeon
+  AWS_ALIAS: #Add your AWS Custom Alias
+
 jobs:
   cli:
     runs-on: ubuntu-latest
@@ -36,6 +44,7 @@ jobs:
       - uses: docker/setup-buildx-action@v2
         with:
           install: true
+
       - name: Docker Labels
         id: meta
         uses: docker/metadata-action@v4
@@ -45,14 +54,39 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+
+  AWS:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ARN }}
+          aws-region: ap-south-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push the image to Amazon ECR
+        id: build-image
+        run: |
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/r9h8b0z6
+          docker build -f cryptgeon/Dockerfile.apprunner -t public.ecr.aws/$AWS_ALIAS/$REPOSITORY_NAME:latest .
+          docker push public.ecr.aws/$AWS_ALIAS/$REPOSITORY_NAME:latest
