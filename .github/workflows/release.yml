@@ -68,25 +68,25 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
 
-  AWS:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+  # AWS:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: ${{ secrets.AWS_ARN }}
-          aws-region: ap-south-1
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v1
+  #       with:
+  #         role-to-assume: ${{ secrets.AWS_ARN }}
+  #         aws-region: ap-south-1
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+  #     - name: Login to Amazon ECR
+  #       id: login-ecr
+  #       uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build, tag, and push the image to Amazon ECR
-        id: build-image
-        run: |
-          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/r9h8b0z6
-          docker build -f cryptgeon/Dockerfile.multirun -t public.ecr.aws/$AWS_ALIAS/$REPOSITORY_NAME:latest .
-          docker push public.ecr.aws/$AWS_ALIAS/$REPOSITORY_NAME:latest
+  #     - name: Build, tag, and push the image to Amazon ECR
+  #       id: build-image
+  #       run: |
+  #         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/r9h8b0z6
+  #         docker build -f cryptgeon/Dockerfile.multirun -t public.ecr.aws/$AWS_ALIAS/$REPOSITORY_NAME:latest .
+  #         docker push public.ecr.aws/$AWS_ALIAS/$REPOSITORY_NAME:latest
