@@ -88,5 +88,5 @@ jobs:
         id: build-image
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/r9h8b0z6
-          docker build -f cryptgeon/Dockerfile.apprunner -t public.ecr.aws/$AWS_ALIAS/$REPOSITORY_NAME:latest .
+          docker build -f cryptgeon/Dockerfile.multirun -t public.ecr.aws/$AWS_ALIAS/$REPOSITORY_NAME:latest .
           docker push public.ecr.aws/$AWS_ALIAS/$REPOSITORY_NAME:latest
