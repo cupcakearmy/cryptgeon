@@ -56,6 +56,7 @@ _加密鸽_ 是一个受 [_PrivNote_](https://privnote.com)项目启发的安全
 | `ALLOW_ADVANCED` | `true`           | 是否允许自定义设置，该项如果设为`false`，则不会显示自定义设置模块                 |
 | `THEME_IMAGE`    | `""`             | 自定义 Logo 图片，你在这里填写的的图片链接必须是可以公开访问的。                  |
 | `THEME_TEXT`     | `""`             | 自定义在 Logo 下方的文本。                                                        |
+| `THEME_HOME_LINK` | `true`           | 是否在页脚显示 `/home` 链接。默认为 `true`。                                      |
 
 ## 部署
 
