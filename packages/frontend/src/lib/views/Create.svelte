@@ -29,7 +29,7 @@
 	let customPassword: string | null = $state(null)
 	let description = $state('')
 	let loading: string | null = $state(null)
-	
+
 	// Image paste functionality
 	let pastedImages: { preview: string; file: File }[] = $state([])
 	let isPasting = $state(false)
@@ -85,25 +85,25 @@
 				}
 			}
 		}
-		
+
 		try {
 			const results = await Promise.all(imagePromises)
 			const imageFiles = results.filter((file): file is File => file !== null)
-			
+
 			if (imageFiles.length > 0) {
 				// Switch to file mode if not already
 				if (!isFile) {
 					isFile = true
 				}
-				
+
 				// Process each image for preview and add to files
 				for (const imageFile of imageFiles) {
 					// Create preview URL
 					const previewURL = URL.createObjectURL(imageFile)
-					
+
 					// Add to pasted images for preview
 					pastedImages = [...pastedImages, { preview: previewURL, file: imageFile }]
-					
+
 					// Convert to FileDTO and add to files array
 					const arrayBuffer = await imageFile.arrayBuffer()
 					const fileDTO: FileDTO = {
@@ -112,7 +112,7 @@
 						type: imageFile.type,
 						contents: new Uint8Array(arrayBuffer)
 					}
-					
+
 					// Add to files if not already present
 					if (!files.some(f => f.name === imageFile.name && f.size === imageFile.size)) {
 						files = [...files, fileDTO]
@@ -130,10 +130,10 @@
 		const removed = pastedImages.splice(index, 1)[0]
 		// Revoke the object URL to free memory
 		URL.revokeObjectURL(removed.preview)
-		
+
 		// Also remove from files array
 		files = files.filter(file => !(file.name === removed.file.name && file.size === removed.file.size))
-		
+
 		// If no more pasted images and no other files, switch back to text mode
 		if (pastedImages.length === 0 && files.length === 0) {
 			isFile = false
@@ -212,17 +212,17 @@
 						placeholder="..."
 					/>
 				{/if}
-				
+
 				{#if pastedImages.length > 0}
 					<div class="pasted-images-preview">
 						<h4>{$t('home.pasted_images')}</h4>
 						<div class="images-grid">
 							{#each pastedImages as image, index}
 								<div class="image-preview">
-									<img src={image.preview} class="preview-img" />
+									<img src={image.preview} class="preview-img" alt="Pasted image" />
 									<div class="image-actions">
-										<Button 
-											onclick={() => removePastedImage(index)} 
+										<Button
+											onclick={() => removePastedImage(index)}
 										>
 											{$t('home.remove')}
 										</Button>
@@ -370,12 +370,12 @@
 			margin-top: 0.5rem;
 			padding: 0.5rem;
 		}
-		
+
 		.preview-img {
 			max-width: 120px;
 			max-height: 120px;
 		}
-		
+
 		.images-grid {
 			gap: 0.5rem;
 		}
