@@ -70,4 +70,8 @@ lazy_static! {
         .unwrap_or("true".to_string())
         .parse()
         .unwrap();
+    pub static ref THEME_HOME_LINK: bool = std::env::var("THEME_HOME_LINK")
+        .unwrap_or("true".to_string())
+        .parse()
+        .unwrap();
 }

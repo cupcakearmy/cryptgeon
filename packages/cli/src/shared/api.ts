@@ -120,6 +120,7 @@ export type Status = {
   theme_favicon: string
   theme_page_title: string
   theme_new_note_notice: boolean
+  theme_home_link: boolean
 }
 
 async function status() {

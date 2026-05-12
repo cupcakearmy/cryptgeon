@@ -7,7 +7,7 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig tsconfig.json",
-		"licenses": "license-checker --summary > licenses.csv",
+		"licenses": "license-checker-evergreen --summary > licenses.csv",
 		"locale:download": "node scripts/locale.js",
 		"test:prepare": "pnpm run build"
 	},
@@ -20,6 +20,7 @@
 		"@zerodevx/svelte-toast": "^0.9.6",
 		"adm-zip": "^0.5.17",
 		"dotenv": "^17.4.2",
+		"license-checker-evergreen": "^6.2.1",
 		"svelte": "^5.55.9",
 		"svelte-check": "^4.4.8",
 		"svelte-intl-precompile": "^0.12.3",
