@@ -27,7 +27,7 @@
 		"errors": {
 			"note_to_big": "nie można utworzyć notatki. notatka jest za duża",
 			"note_error": "nie można utworzyć notatki. spróbuj ponownie.",
-			"max": "maks .: {n}",
+			"max": "maks.: {n}",
 			"empty_content": "notatka jest pusta."
 		},
 		"messages": {
