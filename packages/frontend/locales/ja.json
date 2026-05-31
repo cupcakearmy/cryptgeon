@@ -17,7 +17,7 @@
 		"uploading": "アップロード中",
 		"downloading": "ダウンロード中",
 		"qr_code": "QRコード",
-		"password": "暗号"
+		"password": "パスワード"
 	},
 	"home": {
 		"intro": "<i>完全に暗号化された</i> 、安全なメモやファイルをワンクリックで簡単に送信できます。メモを作成してリンクを共有するだけです。",
@@ -46,7 +46,7 @@
 		},
 		"explanation": "カウンターが上限に達した場合、ノートの表示と削除を行うには、以下をクリックします。",
 		"show_note": "メモを表示",
-		"warning_will_not_see_again": "あなた <b>できません</b> このノートをもう一度見る",
+		"warning_will_not_see_again": "このノートを再度表示することは<b>できません</b>",
 		"download_all": "すべてダウンロード",
 		"links_found": "メモ内にあるリンク:"
 	},

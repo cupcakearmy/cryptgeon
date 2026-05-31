@@ -162,53 +162,9 @@ There is a [guide](https://mariushosting.com/how-to-install-cryptgeon-on-your-sy
 - Italian by [@nicfab](https://notes.nicfab.eu/it/posts/cryptgeon/)
 - English by [@nicfab](https://notes.nicfab.eu/en/posts/cryptgeon/)
 
-## Development
+## Contributing
 
-**Requirements**
-
-- `pnpm`: `>=9`
-- `node`: `>=22`
-- `rust`: edition `2021`
-
-**Install**
-
-```bash
-pnpm install
-
-# Also you need cargo watch if you don't already have it installed.
-# https://lib.rs/crates/cargo-watch
-cargo install cargo-watch
-```
-
-**Run**
-
-Make sure you have docker running.
-
-```bash
-pnpm run dev
-```
-
-Running `pnpm run dev` in the root folder will start the following things:
-
-- redis docker container
-- rust backend
-- client
-- cli
-
-You can see the app under [localhost:3000](http://localhost:3000).
-
-> There is a Postman collection with some example requests [available in the repo](./Cryptgeon.postman_collection.json)
-
-### Tests
-
-Tests are end to end tests written with Playwright.
-
-```sh
-pnpm run test:prepare
-
-# Use the test or test:local script. The local version only runs in one browser for quicker development.
-pnpm run test:local
-```
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Security
 

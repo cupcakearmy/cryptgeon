@@ -10,7 +10,7 @@
 	import { status } from '$lib/stores/status'
 	import Button from '$lib/ui/Button.svelte'
 	import TextInput from '$lib/ui/TextInput.svelte'
-	import Canvas from './Canvas.svelte'
+	import QR from './QR.svelte'
 
 	interface Props {
 		result: NoteResult
@@ -18,8 +18,11 @@
 
 	let { result }: Props = $props()
 
-	let url = $state(`${window.location.origin}/note/${result.id}`)
-	if (result.password) url += `#${result.password}`
+	let url = $derived.by(() => {
+		let url = `${window.location.origin}/note/${result.id}`
+		if (result.password) url += `#${result.password}`
+		return url
+	})
 
 	function reset() {
 		window.location.reload()
@@ -36,7 +39,7 @@
 />
 
 <div>
-	<Canvas value={url} />
+	<QR value={url} />
 </div>
 
 {#if $status?.theme_new_note_notice}
