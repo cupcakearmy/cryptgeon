@@ -7,8 +7,8 @@ services:
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
     # Set a size limit. See link below on how to customise.
-    # https://valkey.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
-    # --maxmemory 1gb --maxmemory-policy allkeys-lrulpine
+    # https://valkey.io/topics/lru-cache/
+    # --maxmemory 1gb --maxmemory-policy allkeys-lru
     # This prevents the creation of an anonymous volume.
     tmpfs:
       - /data
@@ -25,7 +25,7 @@ services:
       - 3000:8000
 
     healthcheck:
-      test: ['CMD', 'curl', '--fail', 'http://127.0.0.1:8000/api/live/']
+      test: ["CMD", "curl", "--fail", "http://127.0.0.1:8000/api/live/"]
       interval: 1m
       timeout: 3s
       retries: 2

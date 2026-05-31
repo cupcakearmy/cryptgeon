@@ -73,12 +73,12 @@ version: '3.8'
 
 services:
   redis:
-    image: redis:7-alpine
+    image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
-    command: redis-server --save "" --appendonly no
+    command: valkey-server --save "" --appendonly no
     # Set a size limit. See link below on how to customise.
-    # https://redis.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
-    # --maxmemory 1gb --maxmemory-policy allkeys-lrulpine
+    # https://valkey.io/topics/lru-cache/
+    # --maxmemory 1gb --maxmemory-policy allkeys-lru
     # This prevents the creation of an anonymous volume.
     tmpfs:
       - /data
@@ -115,12 +115,12 @@ networks:
 
 services:
   redis:
-    image: redis:7-alpine
+    image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
-    command: redis-server --save "" --appendonly no
+    command: valkey-server --save "" --appendonly no
     # Set a size limit. See link below on how to customise.
-    # https://redis.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
-    # --maxmemory 1gb --maxmemory-policy allkeys-lrulpine
+    # https://valkey.io/topics/lru-cache/
+    # --maxmemory 1gb --maxmemory-policy allkeys-lru
     # This prevents the creation of an anonymous volume.
     tmpfs:
       - /data
