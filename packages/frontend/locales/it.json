@@ -5,7 +5,7 @@
 		"advanced": "avanzato",
 		"create": "crea",
 		"loading": "carica",
-		"mode": "modalita",
+		"mode": "modalità",
 		"views": "{n, plural, =0 {viste} =1 {1 vista} other {# viste}}",
 		"minutes": "{n, plural, =0 {minuti} =1 {1 minuto} other {# minuti}}",
 		"max": "max",

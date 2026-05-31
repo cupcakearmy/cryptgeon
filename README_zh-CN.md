@@ -47,15 +47,15 @@ _加密鸽_ 是一个受 [_PrivNote_](https://privnote.com)项目启发的安全
 
 ## 环境变量
 
-| 变量名称          | 默认值           | 描述                                                                              |
-| ----------------- | ---------------- | --------------------------------------------------------------------------------- |
-| `REDIS`           | `redis://redis/` | Redis 连接 URL。                                                                  |
-| `SIZE_LIMIT`      | `1 KiB`          | 最大请求体(body)限制。有关支持的数值请查看 [字节单位](https://docs.rs/byte-unit/) |
-| `MAX_VIEWS`       | `100`            | 密信最多查看次数限制                                                              |
-| ` MAX_EXPIRATION` | `360`            | 密信最长过期时间限制(分钟)                                                        |
-| `ALLOW_ADVANCED`  | `true`           | 是否允许自定义设置，该项如果设为`false`，则不会显示自定义设置模块                 |
-| `THEME_IMAGE`     | `""`             | 自定义 Logo 图片，你在这里填写的的图片链接必须是可以公开访问的。                  |
-| `THEME_TEXT`      | `""`             | 自定义在 Logo 下方的文本。                                                        |
+| 变量名称         | 默认值           | 描述                                                                              |
+| ---------------- | ---------------- | --------------------------------------------------------------------------------- |
+| `REDIS`          | `redis://redis/` | Redis 连接 URL。                                                                  |
+| `SIZE_LIMIT`     | `1 KiB`          | 最大请求体(body)限制。有关支持的数值请查看 [字节单位](https://docs.rs/byte-unit/) |
+| `MAX_VIEWS`      | `100`            | 密信最多查看次数限制                                                              |
+| `MAX_EXPIRATION` | `360`            | 密信最长过期时间限制(分钟)                                                        |
+| `ALLOW_ADVANCED` | `true`           | 是否允许自定义设置，该项如果设为`false`，则不会显示自定义设置模块                 |
+| `THEME_IMAGE`    | `""`             | 自定义 Logo 图片，你在这里填写的的图片链接必须是可以公开访问的。                  |
+| `THEME_TEXT`     | `""`             | 自定义在 Logo 下方的文本。                                                        |
 
 ## 部署
 
@@ -69,7 +69,7 @@ Docker 是最简单的部署方式。这里是[官方镜像的地址](https://hu
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   redis:
@@ -107,7 +107,7 @@ services:
 - 域名 `example.org`
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 networks:
   proxy:
@@ -140,54 +140,9 @@ services:
       - traefik.http.routers.cryptgeon.tls.certresolver=le
 ```
 
-## 开发
+## 贡献
 
-**环境要求**
-
-- `pnpm`: `>=6`
-- `node`: `>=14`
-- `rust`: edition `2021`
-
-**安装**
-
-```bash
-pnpm install
-pnpm --prefix frontend install
-
-# 你还需要安装CargoWatch.
-# https://lib.rs/crates/cargo-watch
-cargo install cargo-watch
-```
-
-**运行**
-
-确保你的 Docker 正在运行
-
-```bash
-pnpm run dev
-```
-
-在根目录执行 `pnpm run dev` 会开启下列服务:
-
-- 一个 redis docker 容器
-- 无热重载的 rust 后端
-- 可热重载的客户端
-
-你可以通过 3000 端口进入该应用，即 [localhost:3000](http://localhost:3000).
-
-## 测试
-
-这些测试是用 Playwright 实现的一些端到端测试用例。
-
-```sh
-pnpm run test:prepare
-docker compose up redis -d
-pnpm run test:server
-
-# 在另一个终端中：
-# 使用test或者test:local script。为了更快的开发，本地版本只会在一个浏览器中运行。
-pnpm run test:local
-```
+参见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
 
 ###### Attributions
 

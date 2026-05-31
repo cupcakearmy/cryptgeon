@@ -32,6 +32,7 @@
 	let files: FileDTO[] = $state([])
 
 	async function downloadFile(file: FileDTO) {
+		// @ts-ignore
 		const f = new File([file.contents], file.name, {
 			type: file.type,
 		})
