@@ -166,9 +166,9 @@ There is a [guide](https://mariushosting.com/how-to-install-cryptgeon-on-your-sy
 
 **Requirements**
 
-- `pnpm`: `>=9`
-- `node`: `>=22`
-- `rust`: edition `2021`
+- `pnpm`: `>=11`
+- `node`: `>=24`
+- `rust`: edition `2024`
 
 **Install**
 

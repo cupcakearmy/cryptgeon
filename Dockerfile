@@ -1,5 +1,5 @@
 # FRONTEND
-FROM node:22-alpine as client 
+FROM node:24-alpine AS client
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -11,7 +11,7 @@ RUN pnpm run build
 
 
 # BACKEND
-FROM rust:1.85-alpine as backend
+FROM rust:1.95-alpine AS backend
 WORKDIR /tmp
 RUN apk add --no-cache libc-dev openssl-dev alpine-sdk
 COPY ./packages/backend ./
