@@ -31,13 +31,13 @@ pub fn set(id: &String, note: &Note) -> Result<(), &'static str> {
     let serialized = serde_json::to_string(&note.clone()).unwrap();
     let mut conn = get_connection()?;
 
-    conn.set(id, serialized)
+    conn.set::<_, _, ()>(id, serialized)
         .map_err(|_| "Unable to set note in redis")?;
     match note.expiration {
         Some(e) => {
             let seconds = e - now();
-            conn.expire(id, seconds as i64)
-                .map_err(|_| "Unable to set expiration on notion")?
+            conn.expire::<_, ()>(id, seconds as i64)
+                .map_err(|_| "Unable to set expiration on note")?
         }
         None => {}
     };
@@ -58,6 +58,6 @@ pub fn get(id: &String) -> Result<Option<Note>, &'static str> {
 
 pub fn del(id: &String) -> Result<(), &'static str> {
     let mut conn = get_connection()?;
-    conn.del(id).map_err(|_| "Unable to delete note in redis")?;
+    conn.del::<_, ()>(id).map_err(|_| "Unable to delete note in redis")?;
     Ok(())
 }
