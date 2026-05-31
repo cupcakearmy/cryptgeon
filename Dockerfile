@@ -19,7 +19,7 @@ RUN RUSTFLAGS="-Ctarget-feature=-crt-static" cargo build --release
 
 
 # RUNNER
-FROM alpine:3.19
+FROM alpine:3
 WORKDIR /app
 RUN apk add --no-cache curl libgcc
 COPY --from=backend /tmp/target/release/cryptgeon .
