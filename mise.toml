@@ -1,0 +1,7 @@
+[tools]
+pnpm = "11.5.0"
+rust = "1.95"
+# Node loaded below from .nvmrc
+
+[settings]
+idiomatic_version_file_enable_tools = ["node"]
