@@ -2,7 +2,7 @@
   "private": true,
   "name": "@cryptgeon/backend",
   "scripts": {
-    "dev": "cargo watch -x 'run --bin cryptgeon'",
+    "dev": "watchexec -r -e rs cargo run",
     "build": "cargo build --release",
     "test:server": "SIZE_LIMIT=10MiB LISTEN_ADDR=0.0.0.0:3000 cargo run",
     "test:prepare": "cargo build"

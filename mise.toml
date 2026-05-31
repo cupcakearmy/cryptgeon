@@ -1,6 +1,7 @@
 [tools]
 pnpm = "11.5.0"
 rust = "1.95"
+watchexec = "latest"
 # Node loaded below from .nvmrc
 
 [settings]
