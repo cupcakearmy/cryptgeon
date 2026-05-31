@@ -140,54 +140,9 @@ services:
       - traefik.http.routers.cryptgeon.tls.certresolver=le
 ```
 
-## 开发
+## 贡献
 
-**环境要求**
-
-- `pnpm`: `>=6`
-- `node`: `>=14`
-- `rust`: edition `2021`
-
-**安装**
-
-```bash
-pnpm install
-pnpm --prefix frontend install
-
-# 你还需要安装CargoWatch.
-# https://lib.rs/crates/cargo-watch
-cargo install cargo-watch
-```
-
-**运行**
-
-确保你的 Docker 正在运行
-
-```bash
-pnpm run dev
-```
-
-在根目录执行 `pnpm run dev` 会开启下列服务:
-
-- 一个 redis docker 容器
-- 无热重载的 rust 后端
-- 可热重载的客户端
-
-你可以通过 3000 端口进入该应用，即 [localhost:3000](http://localhost:3000).
-
-## 测试
-
-这些测试是用 Playwright 实现的一些端到端测试用例。
-
-```sh
-pnpm run test:prepare
-docker compose up redis -d
-pnpm run test:server
-
-# 在另一个终端中：
-# 使用test或者test:local script。为了更快的开发，本地版本只会在一个浏览器中运行。
-pnpm run test:local
-```
+参见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
 
 ###### Attributions
 
