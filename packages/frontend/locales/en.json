@@ -37,8 +37,8 @@
 			"explanation": "By default, a securely generated password is used for each note. You can however also choose your own password, which is not included in the link.",
 			"custom_password": "custom password"
 		},
-		"pasting": "Pasting image...",
-		"pasted_images": "Pasted Images",
+		"pasting": "Pasting...",
+		"pasted_files": "Pasted Files",
 		"remove": "Remove"
 	},
 	"show": {

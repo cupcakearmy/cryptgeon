@@ -1,10 +1,10 @@
 import { sveltekit } from '@sveltejs/kit/vite'
 import precompileIntl from 'svelte-intl-precompile/sveltekit-plugin'
+import { defineConfig } from 'vite'
 
 const port = 3000
 
-/** @type {import('vite').UserConfig} */
-const config = {
+export default defineConfig({
 	clearScreen: false,
 	server: {
 		port,
@@ -14,6 +14,4 @@ const config = {
 	},
 	preview: { port },
 	plugins: [sveltekit(), precompileIntl('locales')],
-}
-
-export default config
+})

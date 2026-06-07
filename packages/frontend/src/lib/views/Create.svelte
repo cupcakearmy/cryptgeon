@@ -10,6 +10,7 @@
 	import FileUpload from '$lib/ui/FileUpload.svelte'
 	import Loader from '$lib/ui/Loader.svelte'
 	import MaxSize from '$lib/ui/MaxSize.svelte'
+	import PastedFilesPreview from '$lib/ui/PastedFilesPreview.svelte'
 	import Result, { type NoteResult } from '$lib/ui/NoteResult.svelte'
 	import Switch from '$lib/ui/Switch.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
@@ -29,11 +30,7 @@
 	let customPassword: string | null = $state(null)
 	let description = $state('')
 	let loading: string | null = $state(null)
-
-	// Image paste functionality
-	let pastedImages: { preview: string; file: File }[] = $state([])
 	let isPasting = $state(false)
-	let pasteIndicator = $state<HTMLDivElement | null>(null)
 
 	$effect(() => {
 		if (!advanced) {
@@ -63,81 +60,59 @@
 	})
 
 	async function handlePaste(e: ClipboardEvent) {
-		// Use the standard DataTransfer API to access pasted content
-		const items = e.clipboardData?.items
-		if (!items || items.length === 0) return
+		e.preventDefault()
+		const data = e.clipboardData
+		if (!data) return
+
+		const raw: File[] = []
+
+		if (data.files.length) {
+			raw.push(...Array.from(data.files))
+		}
+
+		for (let i = 0; i < data.items.length; i++) {
+			const item = data.items[i]
+			if (item.kind === 'file') {
+				const file = item.getAsFile()
+				if (file) raw.push(file)
+			}
+		}
+
+		if (raw.length === 0) return
+
+		const seen = new Set<string>()
+		const pasted: File[] = []
+		for (const f of raw) {
+			const key = `${f.name}|${f.size}`
+			if (!seen.has(key)) {
+				seen.add(key)
+				pasted.push(f)
+			}
+		}
 
 		isPasting = true
 
-		const imagePromises: Promise<File | null>[] = []
-		for (let i = 0; i < items.length; i++) {
-			const item = items[i]
-			if (item.kind === 'file' && item.type.startsWith('image/')) {
-				const file = item.getAsFile()
-				if (file) {
-					const extension = file.type.split('/')[1] || 'png'
-					const renamed = new File(
-						[file],
-						`pasted-image-${Date.now()}-${Math.round(Math.random() * 1000)}.${extension}`,
-						{ type: file.type },
-					)
-					imagePromises.push(Promise.resolve(renamed))
+		const dtos: FileDTO[] = await Promise.all(
+			pasted.map(async (file) => {
+				const ext = file.name.includes('.') ? '' : `.${file.type.split('/')[1] || 'bin'}`
+				const name =
+					file.name || `pasted-file-${Date.now()}-${Math.round(Math.random() * 1000)}${ext}`
+				const renamed = new File([file], name, { type: file.type })
+				return {
+					name: renamed.name,
+					size: renamed.size,
+					type: renamed.type,
+					contents: new Uint8Array(await renamed.arrayBuffer()),
 				}
-			}
+			})
+		)
+
+		if (dtos.length > 0) {
+			if (!isFile) isFile = true
+			files = [...files, ...dtos]
 		}
 
-		try {
-			const results = await Promise.all(imagePromises)
-			const imageFiles = results.filter((file): file is File => file !== null)
-
-			if (imageFiles.length > 0) {
-				// Switch to file mode if not already
-				if (!isFile) {
-					isFile = true
-				}
-
-				// Process each image for preview and add to files
-				for (const imageFile of imageFiles) {
-					// Create preview URL
-					const previewURL = URL.createObjectURL(imageFile)
-
-					// Add to pasted images for preview
-					pastedImages = [...pastedImages, { preview: previewURL, file: imageFile }]
-
-					// Convert to FileDTO and add to files array
-					const arrayBuffer = await imageFile.arrayBuffer()
-					const fileDTO: FileDTO = {
-						name: imageFile.name,
-						size: imageFile.size,
-						type: imageFile.type,
-						contents: new Uint8Array(arrayBuffer)
-					}
-
-					// Add to files if not already present
-					if (!files.some(f => f.name === imageFile.name && f.size === imageFile.size)) {
-						files = [...files, fileDTO]
-					}
-				}
-			}
-		} catch (error) {
-			console.error('Error processing pasted image:', error)
-		} finally {
-			isPasting = false
-		}
-	}
-
-	function removePastedImage(index: number) {
-		const removed = pastedImages.splice(index, 1)[0]
-		// Revoke the object URL to free memory
-		URL.revokeObjectURL(removed.preview)
-
-		// Also remove from files array
-		files = files.filter(file => !(file.name === removed.file.name && file.size === removed.file.size))
-
-		// If no more pasted images and no other files, switch back to text mode
-		if (pastedImages.length === 0 && files.length === 0) {
-			isFile = false
-		}
+		isPasting = false
 	}
 
 	class EmptyContentError extends Error {}
@@ -195,7 +170,7 @@
 	</p>
 	<form onsubmit={submit} onpaste={handlePaste}>
 		<fieldset disabled={loading !== null}>
-			<div class="paste-indicator" bind:this={pasteIndicator}>
+			<div class="paste-indicator">
 				{#if isPasting}
 					<div class="pasting-overlay">
 						<div class="pasting-spinner"></div>
@@ -213,26 +188,7 @@
 					/>
 				{/if}
 
-				{#if pastedImages.length > 0}
-					<div class="pasted-images-preview">
-						<h4>{$t('home.pasted_images')}</h4>
-						<div class="images-grid">
-							{#each pastedImages as image, index}
-								<div class="image-preview">
-									<img src={image.preview} class="preview-img" alt="Pasted image" />
-									<div class="image-actions">
-										<Button
-											onclick={() => removePastedImage(index)}
-										>
-											{$t('home.remove')}
-										</Button>
-									</div>
-								</div>
-							{/each}
-						</div>
-					</div>
-				{/if}
-
+				<PastedFilesPreview bind:files />
 			</div>
 
 			<div class="bottom">
@@ -293,7 +249,6 @@
 		flex: 1;
 	}
 
-	/* Paste indicator styles */
 	.paste-indicator {
 		position: relative;
 		min-height: 200px;
@@ -325,59 +280,8 @@
 	}
 
 	@keyframes spin {
-		to { transform: rotate(360deg); }
-	}
-
-	.pasted-images-preview {
-		margin-top: 1rem;
-		padding: 1rem;
-		border: 1px dashed #ccc;
-		border-radius: 4px;
-		background-color: #fafafa;
-	}
-
-	.pasted-images-preview h4 {
-		margin-top: 0;
-		margin-bottom: 0.5rem;
-		color: #333;
-	}
-
-	.images-grid {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem;
-	}
-
-	.image-preview {
-		position: relative;
-		text-align: center;
-	}
-
-	.preview-img {
-		max-width: 150px;
-		max-height: 150px;
-		border-radius: 4px;
-		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-	}
-
-	.image-actions {
-		margin-top: 0.5rem;
-	}
-
-	/* Responsive design */
-	@media (max-width: 640px) {
-		.pasted-images-preview {
-			margin-top: 0.5rem;
-			padding: 0.5rem;
-		}
-
-		.preview-img {
-			max-width: 120px;
-			max-height: 120px;
-		}
-
-		.images-grid {
-			gap: 0.5rem;
+		to {
+			transform: rotate(360deg);
 		}
 	}
 </style>

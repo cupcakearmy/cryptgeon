@@ -36,7 +36,10 @@
 		"advanced": {
 			"explanation": "默认情况下，每个笔记都使用安全生成的密码。但是，您也可以选择您自己的密码，该密码未包含在链接中。",
 			"custom_password": "自定义密码"
-		}
+		},
+		"pasting": "正在粘贴...",
+		"pasted_files": "粘贴的文件",
+		"remove": "移除"
 	},
 	"show": {
 		"errors": {

@@ -36,7 +36,10 @@
 		"advanced": {
 			"explanation": "Par défaut, un mot de passe généré de manière sécurisée est utilisé pour chaque note. Vous pouvez toutefois choisir votre propre mot de passe, qui n'est pas inclus dans le lien.",
 			"custom_password": "mot de passe personnalisé"
-		}
+		},
+		"pasting": "Collage...",
+		"pasted_files": "Fichiers collés",
+		"remove": "Supprimer"
 	},
 	"show": {
 		"errors": {
