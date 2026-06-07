@@ -72,6 +72,7 @@ se usa para guardar y recuperar la nota. Después la nota es encriptada con la <
 | `THEME_TEXT`       | `""`             | Texto personalizado para reemplazar la descripción bajo el logo.                                                                                                                                                    |
 | `THEME_PAGE_TITLE` | `""`             | Texto personalizado para el título                                                                                                                                                                                  |
 | `THEME_FAVICON`    | `""`             | Url personalizada para el favicon. Debe ser accesible públicamente.                                                                                                                                                 |
+| `THEME_HOME_LINK`  | `true`           | Mostrar el enlace `/home` en el pie de página. El valor predeterminado es `true`.                                                                                                                               |
 
 ## Despliegue
 
