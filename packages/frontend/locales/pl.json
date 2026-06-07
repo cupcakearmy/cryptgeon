@@ -36,7 +36,10 @@
 		"advanced": {
 			"explanation": "Domyślnie dla każdej notatki używane jest bezpiecznie wygenerowane hasło. Możesz jednak wybrać własne hasło, które nie jest uwzględnione w linku.",
 			"custom_password": "własne hasło"
-		}
+		},
+		"pasting": "Wklejanie...",
+		"pasted_files": "Wklejone pliki",
+		"remove": "Usuń"
 	},
 	"show": {
 		"errors": {

@@ -36,7 +36,10 @@
 		"advanced": {
 			"explanation": "Standardmäßig wird für jede Notiz ein generiertes, sicheres Passwort verwendet. Alternativ können Sie ein eigenes Kennwort festlegen, welches nicht im Link enthalten ist.",
 			"custom_password": "Benutzerdefiniertes Passwort"
-		}
+		},
+		"pasting": "Einfügen...",
+		"pasted_files": "Eingefügte Dateien",
+		"remove": "Entfernen"
 	},
 	"show": {
 		"errors": {

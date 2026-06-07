@@ -36,7 +36,10 @@
 		"advanced": {
 			"explanation": "Ve výchozím nastavení se pro každou poznámku generuje bezpečné heslo. Pokud chcete, můžete si nastavit vlastní heslo, které nebude součástí odkazu.",
 			"custom_password": "Vlastní heslo"
-		}
+		},
+		"pasting": "Vkládání...",
+		"pasted_files": "Vložené soubory",
+		"remove": "Odstranit"
 	},
 	"show": {
 		"errors": {

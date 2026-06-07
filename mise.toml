@@ -6,3 +6,6 @@ watchexec = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["node"]
+
+[env]
+SIZE_LIMIT = "100mb"
