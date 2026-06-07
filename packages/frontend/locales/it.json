@@ -36,7 +36,10 @@
 		"advanced": {
 			"explanation": "Per impostazione predefinita, per ogni nota viene utilizzata una password generata in modo sicuro. È tuttavia possibile scegliere la propria password, che non è inclusa nel link.",
 			"custom_password": "password personalizzata"
-		}
+		},
+		"pasting": "Incollando...",
+		"pasted_files": "File incollati",
+		"remove": "Rimuovi"
 	},
 	"show": {
 		"errors": {

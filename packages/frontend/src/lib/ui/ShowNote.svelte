@@ -80,6 +80,15 @@
 				</button>
 				<small> {file.type} － {prettyBytes(file.size)}</small>
 			</div>
+			{#if file.type.startsWith('image/')}
+				{#key file.name}
+					<img
+						src={URL.createObjectURL(new File([file.contents], file.name, { type: file.type }))}
+						alt={file.name}
+						class="preview"
+					/>
+				{/key}
+			{/if}
 		{/each}
 		<Button onclick={download}>{$t('show.download_all')}</Button>
 	{/if}
@@ -129,5 +138,14 @@
 	.links ul li {
 		margin-bottom: 0.5rem;
 		word-wrap: break-word;
+	}
+
+	.preview {
+		display: block;
+		max-width: 100%;
+		max-height: 60vh;
+		margin-bottom: 0.5rem;
+		border-radius: 0.25rem;
+		border: 2px solid var(--ui-bg-1);
 	}
 </style>
