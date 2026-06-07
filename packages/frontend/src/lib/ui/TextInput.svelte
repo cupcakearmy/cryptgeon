@@ -21,6 +21,7 @@
 		...rest
 	}: HTMLInputAttributes & Props = $props()
 
+	// svelte-ignore state_referenced_locally
 	const initialType = $state(rest.type)
 	const isPassword = initialType === 'password'
 	let hidden = $state(true)

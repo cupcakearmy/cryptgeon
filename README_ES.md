@@ -43,7 +43,7 @@ Puedes revisar la documentación sobre el CLI en este [readme](./packages/cli/RE
 
 - enviar texto o archivos
 - el servidor no puede desencriptar el contenido debido a que la encriptación se hace del lado del cliente
-- restriccion de vistas o de tiempo
+- restricción de vistas o de tiempo
 - en memoria, sin persistencia
 - compatibilidad obligatoria con el modo oscuro
 
@@ -66,27 +66,28 @@ se usa para guardar y recuperar la nota. Después la nota es encriptada con la <
 | `MAX_VIEWS`        | `100`            | Número máximo de vistas.                                                                                                                                                                                            |
 | `MAX_EXPIRATION`   | `360`            | Tiempo máximo de expiración en minutos.                                                                                                                                                                             |
 | `ALLOW_ADVANCED`   | `true`           | Permitir configuración personalizada. Si se establece en `false` todas las notas serán de una sola vista.                                                                                                           |
-| `ID_LENGTH`        | `32`             | Establece el tamaño en bytes de la `id` de la nota. Por defecto es de `32` bytes. Esto es util para reducir el tamaño del link. _Esta configuración no afecta el nivel de encriptación_.                            |
+| `ID_LENGTH`        | `32`             | Establece el tamaño en bytes de la `id` de la nota. Por defecto es de `32` bytes. Esto es útil para reducir el tamaño del link. _Esta configuración no afecta el nivel de encriptación_.                            |
 | `VERBOSITY`        | `warn`           | Nivel de verbosidad del backend. [Posibles valores](https://docs.rs/env_logger/latest/env_logger/#enabling-logging): `error`, `warn`, `info`, `debug`, `trace`                                                      |
 | `THEME_IMAGE`      | `""`             | Imagen personalizada para reemplazar el logo. Debe ser accesible públicamente.                                                                                                                                      |
 | `THEME_TEXT`       | `""`             | Texto personalizado para reemplazar la descripción bajo el logo.                                                                                                                                                    |
 | `THEME_PAGE_TITLE` | `""`             | Texto personalizado para el título                                                                                                                                                                                  |
 | `THEME_FAVICON`    | `""`             | Url personalizada para el favicon. Debe ser accesible públicamente.                                                                                                                                                 |
+| `THEME_HOME_LINK`  | `true`           | Mostrar el enlace `/home` en el pie de página. El valor predeterminado es `true`.                                                                                                                               |
 
 ## Despliegue
 
-> ℹ️ Se requiere `https` de lo contrario el navegador no soportará las funciones de encriptacón.
+> ℹ️ Se requiere `https` de lo contrario el navegador no soportará las funciones de encriptación.
 
 > ℹ️ Hay un endpoint para verificar el estado, lo encontramos en `/api/health/`. Regresa un código 200 o 503.
 
 ### Docker
 
-Docker es la manera más fácil. Aquí encontramos [la imágen oficial](https://hub.docker.com/r/cupcakearmy/cryptgeon).
+Docker es la manera más fácil. Aquí encontramos [la imagen oficial](https://hub.docker.com/r/cupcakearmy/cryptgeon).
 
 ```yaml
 # docker-compose.yml
 
-version: '3.8'
+version: "3.8"
 
 services:
   redis:
@@ -141,57 +142,13 @@ Hay una [guía](https://mariushosting.com/how-to-install-cryptgeon-on-your-synol
 - En inglés, por [DB Tech](https://www.youtube.com/watch?v=S0jx7wpOfNM) [Previous Video](https://www.youtube.com/watch?v=JhpIatD06vE)
 - En alemán, por [ApfelCast](https://www.youtube.com/watch?v=84ZMbE9AkHg)
 
-## Desarrollo
+## Contribuir
 
-**Requisitos**
-
-- `pnpm`: `>=6`
-- `node`: `>=18`
-- `rust`: edition `2021`
-
-**Instalación**
-
-```bash
-pnpm install
-
-# También necesitas cargo-watch, si no lo tienes instalado.
-# https://lib.rs/crates/cargo-watch
-cargo install cargo-watch
-```
-
-**Ejecutar**
-
-Asegurate de que docker se esté ejecutando.
-
-```bash
-pnpm run dev
-```
-
-Ejecutando `pnpm run dev` en la carpeta raíz iniciará lo siguiente:
-
-- redis docker container
-- rust backend
-- client
-- cli
-
-Puedes ver la app en [localhost:3000](http://localhost:3000).
-
-> Existe una colección de Postman con algunas peticiones de ejemplo [disponible en el repo](./Cryptgeon.postman_collection.json)
-
-### Tests
-
-Los tests son end-to-end tests escritos con Playwright.
-
-```sh
-pnpm run test:prepare
-
-# Usa el script test o test:local. La versión local solo corre en el navegador para acelerar el desarrollo.
-pnpm run test:local
-```
+Ver [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Seguridad
 
-Por favor dirigite a la sección de seguridad [aquí](./SECURITY.md).
+Por favor dirígete a la sección de seguridad [aquí](./SECURITY.md).
 
 ---
 

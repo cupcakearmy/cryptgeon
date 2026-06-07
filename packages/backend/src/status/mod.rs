@@ -22,6 +22,7 @@ pub struct Status {
     pub theme_page_title: String,
     pub theme_favicon: String,
     pub theme_new_note_notice: bool,
+    pub theme_home_link: bool,
 }
 
 pub async fn get_status() -> (StatusCode, Json<Status>) {
@@ -37,6 +38,7 @@ pub async fn get_status() -> (StatusCode, Json<Status>) {
         imprint_html: config::IMPRINT_HTML.to_string(),
         disable_mode_switch: *config::DISABLE_MODE_SWITCH,
         theme_new_note_notice: *config::THEME_NEW_NOTE_NOTICE,
+        theme_home_link: *config::THEME_HOME_LINK,
         theme_image: config::THEME_IMAGE.to_string(),
         theme_text: config::THEME_TEXT.to_string(),
         theme_page_title: config::THEME_PAGE_TITLE.to_string(),

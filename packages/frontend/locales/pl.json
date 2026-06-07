@@ -6,8 +6,8 @@
 		"create": "utwórz",
 		"loading": "ładowanie",
 		"mode": "tryb",
-		"views": "{n, plural, =0 {wyświetleń} =1 {1 wyświetlenie} other {# wyświetleń}}",
-		"minutes": "{n, plural, =0 {minut} =1 {1 minuta} other {# minuty}}",
+		"views": "{n, plural, =0 {wyświetleń} =1 {1 wyświetlenie} other {{n} wyświetleń}}",
+		"minutes": "{n, plural, =0 {minut} =1 {1 minuta} other {{n} minuty}}",
 		"max": "maks.",
 		"share_link": "link udostępniania",
 		"copy_clipboard": "kopiuj do schowka",
@@ -27,7 +27,7 @@
 		"errors": {
 			"note_to_big": "nie można utworzyć notatki. notatka jest za duża",
 			"note_error": "nie można utworzyć notatki. spróbuj ponownie.",
-			"max": "maks .: {n}",
+			"max": "maks.: {n}",
 			"empty_content": "notatka jest pusta."
 		},
 		"messages": {
