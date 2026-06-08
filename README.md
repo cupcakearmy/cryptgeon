@@ -134,6 +134,9 @@ services:
     #   retries: 2
     #   start_period: 5s
 ```
+### Dockerfile for AWS App Runner
+
+This Dockerfile [Dockerfile.multirun](Dockerfile.multirun) Deploys Cryptgeon on multiple serverless platforms, GCP Cloud Run, Azure Container Instances, AWS AppRunner, etc.. [Deploy Crpytgeon on AWS App Runner](https://dev.to/mufeth7/deploy-cryptgeon-on-aws-apprunner-5hj8). This guide will help you to run Cryptgeon on AWS App Runner.
 
 ### NGINX Proxy
 
