@@ -60,7 +60,6 @@
 	})
 
 	async function handlePaste(e: ClipboardEvent) {
-		e.preventDefault()
 		const data = e.clipboardData
 		if (!data) return
 
@@ -79,6 +78,7 @@
 		}
 
 		if (raw.length === 0) return
+		e.preventDefault()
 
 		const seen = new Set<string>()
 		const pasted: File[] = []
