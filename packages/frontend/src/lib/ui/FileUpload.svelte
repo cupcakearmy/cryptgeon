@@ -12,7 +12,7 @@
 	}
 
 	let { label = '', files = $bindable([]), ...rest }: Props = $props()
-	let hover_count = $state(0)
+	let hoverCount = $state(0)
 
 	async function fileToDTO(file: File): Promise<FileDTO> {
 		return {
@@ -35,7 +35,7 @@
 		e.preventDefault()
 		// https://developer.mozilla.org/en-US/docs/Web/API/DragEvent/dataTransfer
 		// "never null when dispatched by the browser"
-		hover_count = 0
+		hoverCount = 0
 		if (e.dataTransfer!.items.length != 0) {
 			const toAdd = await Promise.all(Array.from(e.dataTransfer!.files).map(fileToDTO))
 			files = [...files, ...toAdd]
@@ -68,10 +68,10 @@
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
 		class="box"
-		class:file-drag={hover_count !== 0}
+		class:file-drag={hoverCount !== 0}
 		ondrop={onDrop}
-		ondragenter={() => hover_count++}
-		ondragleave={() => hover_count--}
+		ondragenter={() => hoverCount++}
+		ondragleave={() => hoverCount--}
 	>
 		{#if files.length}
 			<div>
