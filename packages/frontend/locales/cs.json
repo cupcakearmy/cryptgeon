@@ -25,7 +25,7 @@
 		"new_note": "Nová poznámka",
 		"new_note_notice": "<b>Dostupnost:</b><br />Poznámka není zaručeně uchována, protože je uložena pouze v paměti RAM. Pokud se paměť zaplní, nejstarší poznámky budou automaticky smazány.<br />(Obvykle to nebývá problém, ale je dobré o tom vědět.)",
 		"errors": {
-			"note_to_big": "Poznámku nelze vytvořit. Je příliš velká.",
+			"note_too_big": "Poznámku nelze vytvořit. Je příliš velká.",
 			"note_error": "Poznámku nelze vytvořit. Zkuste to prosím znovu.",
 			"max": "Max: {n}",
 			"empty_content": "Poznámka je prázdná."

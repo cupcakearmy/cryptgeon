@@ -25,7 +25,7 @@
 		"new_note": "nowa notatka",
 		"new_note_notice": "<b>dostępność:</b><br />nie ma gwarancji, że notatka będzie przechowywana, ponieważ wszystko jest przechowywane w pamięci RAM, jeśli się zapełni, najstarsze notatki zostaną usunięte.<br />(prawdopodobnie nic się nie stanie, ale warto ostrzec.)",
 		"errors": {
-			"note_to_big": "nie można utworzyć notatki. notatka jest za duża",
+			"note_too_big": "nie można utworzyć notatki. notatka jest za duża",
 			"note_error": "nie można utworzyć notatki. spróbuj ponownie.",
 			"max": "maks.: {n}",
 			"empty_content": "notatka jest pusta."
