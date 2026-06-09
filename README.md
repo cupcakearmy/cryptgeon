@@ -77,7 +77,9 @@ of the notes even if it tried to.
 | `SIZE_LIMIT`            | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). <br> `512 MiB` is the maximum allowed. <br> The frontend will show that number including the ~35% encoding overhead. |
 | `MAX_VIEWS`             | `100`            | Maximal number of views.                                                                                                                                                                                      |
 | `MAX_EXPIRATION`        | `360`            | Maximal expiration in minutes.                                                                                                                                                                                |
-| `ALLOW_ADVANCED`        | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                                                                                                                |
+| `DEFAULT_EXPIRE`        | `60`             | Default expiration in minutes. Default value is used in a simple mode or when advanced mode with mode switch enabled (per default, see `DISABLE_MODE_SWITCH`) and views are limited.                          |
+| `DEFAULT_VIEWS`         | `0`              | Default views. Default value is used in the advanced mode with expiration defined or when advanced mode is disabled (`ALLOW_ADVANCED` set to false).                                                          | 
+| `ALLOW_ADVANCED`        | `true`           | Allow custom configuration. If set to `false` all notes will have infinite views unless `DEFAULT_VIEWS` is set to non zerro vale and will expire after default expiration (set in `DEFAULT_EXPIRE`).          |
 | `ALLOW_FILES`           | `true`           | Allow uploading files. If set to `false`, users will only be allowed to create text notes.                                                                                                                    |
 | `ID_LENGTH`             | `32`             | Set the size of the note `id` in bytes. By default this is `32` bytes. This is useful for reducing link size. _This setting does not affect encryption strength_.                                             |
 | `VERBOSITY`             | `warn`           | Verbosity level for the backend. [Possible values](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) are: `error`, `warn`, `info`, `debug`, `trace`                                             |
@@ -89,6 +91,8 @@ of the notes even if it tried to.
 | `THEME_HOME_LINK`       | `true`           | Show the `/home` link in the footer. Defaults to `true`.                                                                                                                                                    |
 | `IMPRINT_URL`           | `""`             | Custom url for an Imprint hosted somewhere else. Must be publicly reachable. Takes precedence above `IMPRINT_HTML`.                                                                                           |
 | `IMPRINT_HTML`          | `""`             | Alternative to `IMPRINT_URL`, this can be used to specify the HTML code to show on `/imprint`. Only `IMPRINT_HTML` or `IMPRINT_URL` should be specified, not both.                                            |
+| `DISABLE_MODE_SWITCH`   | `false`          | Disables mode switch in the advanced mode. This makes both views and expiration fields editable and allows to define both limits at the same time.                                                            |
+
 ## Deployment
 
 > ℹ️ `https` is required otherwise browsers will not support the cryptographic functions.

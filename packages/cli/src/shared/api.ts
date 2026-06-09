@@ -111,10 +111,12 @@ export type Status = {
   max_size: number
   max_views: number
   max_expiration: number
+  default_expiration: number
   allow_advanced: boolean
   allow_files: boolean
   imprint_url: string
   imprint_html: string
+  disable_mode_switch: boolean
   theme_image: string
   theme_text: string
   theme_favicon: string

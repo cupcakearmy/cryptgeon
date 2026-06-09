@@ -124,6 +124,7 @@
 
 			const derived = customPassword && (await AES.derive(customPassword))
 			const key = derived ? derived[0] : await AES.generateKey()
+			const disableModSwitch = $status?.disable_mode_switch
 
 			const data: Note = {
 				contents: '',
@@ -137,8 +138,16 @@
 				if (note.contents === '') throw new EmptyContentError()
 				data.contents = await Adapters.Text.encrypt(note.contents, key)
 			}
-			if (timeExpiration) data.expiration = parseInt(note.expiration as any)
-			else data.views = parseInt(note.views as any)
+			if (disableModSwitch && advanced) {
+				data.views = parseInt(note.views as any)
+				data.expiration = parseInt(note.expiration as any)
+			} else {
+				if (timeExpiration) {
+					data.expiration = parseInt(note.expiration as any)
+				} else {
+					data.views = parseInt(note.views as any)
+				}
+			}
 
 			loading = $t('common.uploading')
 			const response = await API.create(data)

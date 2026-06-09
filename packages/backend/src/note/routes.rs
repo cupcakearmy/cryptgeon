@@ -53,15 +53,18 @@ pub async fn create(Json(mut n): Json<Note>) -> Response {
             .into_response();
     }
     if !*config::ALLOW_ADVANCED {
-        n.views = Some(1);
-        n.expiration = None;
+        // Default value for views is 0 which means unlimited. 
+        // This works together with the ALLOW_ADVANCED default value wich is true.
+        // If ALLOW_ADVANCED is false, we need to set the default value for views 
+        // to value 1 to keep the old behavior.
+        n.views = Some(*config::DEFAULT_VIEWS);
+        n.expiration = Some(*config::DEFAULT_EXPIRE);
     }
     match n.views {
         Some(v) => {
             if v > *config::MAX_VIEWS || v < 1 {
                 return (StatusCode::BAD_REQUEST, "Invalid views").into_response();
             }
-            n.expiration = None; // views overrides expiration
         }
         _ => {}
     }
@@ -75,6 +78,18 @@ pub async fn create(Json(mut n): Json<Note>) -> Response {
         }
         _ => {}
     }
+
+    // Set default views
+    if n.views == None && *config::DEFAULT_VIEWS > 0 {
+        n.views = Some(*config::DEFAULT_VIEWS);
+    }
+
+    // Set default expiration
+    if n.expiration == None {
+        let expiration = now() + (*config::DEFAULT_EXPIRE * 60);
+        n.expiration = Some(expiration); // Use default expiration
+    }
+
     match store::set(&id.clone(), &n.clone()) {
         Ok(_) => (StatusCode::OK, Json(CreateResponse { id })).into_response(),
         Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response(),
