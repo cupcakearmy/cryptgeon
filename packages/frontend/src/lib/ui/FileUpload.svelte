@@ -12,6 +12,7 @@
 	}
 
 	let { label = '', files = $bindable([]), ...rest }: Props = $props()
+	let hoverCount = $state(0)
 
 	async function fileToDTO(file: File): Promise<FileDTO> {
 		return {
@@ -30,18 +31,48 @@
 		}
 	}
 
+	async function onDrop(e: DragEvent) {
+		e.preventDefault()
+		// https://developer.mozilla.org/en-US/docs/Web/API/DragEvent/dataTransfer
+		// "never null when dispatched by the browser"
+		hoverCount = 0
+		if (e.dataTransfer!.items.length != 0) {
+			const toAdd = await Promise.all(Array.from(e.dataTransfer!.files).map(fileToDTO))
+			files = [...files, ...toAdd]
+		}
+	}
+
 	function clear(e: Event) {
 		e.preventDefault()
 		files = []
 	}
 </script>
 
+<svelte:window
+	// cancels default browser behavior of downloading dragged file
+	ondrop={(e: DragEvent) => {
+		if ([...e.dataTransfer!.items].some((item) => item.kind === 'file')) {
+			e.preventDefault()
+		}
+	}}
+	ondragover={(e: DragEvent) => {
+		e.preventDefault()
+	}}
+/>
+
 <label>
 	<small>
 		{label}
 	</small>
 	<input {...rest} type="file" onchange={onInput} multiple />
-	<div class="box">
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div
+		class="box"
+		class:file-drag={hoverCount !== 0}
+		ondrop={onDrop}
+		ondragenter={() => hoverCount++}
+		ondragleave={() => hoverCount--}
+	>
 		{#if files.length}
 			<div>
 				<b>{$t('file_upload.selected_files')}</b>
@@ -76,6 +107,10 @@
 		justify-content: center;
 		align-items: center;
 		cursor: pointer;
+	}
+
+	.box.file-drag {
+		border-color: var(--ui-clr-primary);
 	}
 
 	.spacer {
