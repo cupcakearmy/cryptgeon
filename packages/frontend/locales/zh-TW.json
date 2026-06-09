@@ -25,7 +25,7 @@
 		"new_note": "新筆記",
 		"new_note_notice": "<b>可用性：</b><br />筆記不保證被儲存，因為所有內容都保留在 RAM 中，如果 RAM 填滿，最舊的筆記將被移除。<br />(您可能會沒事，只是提醒一下。)",
 		"errors": {
-			"note_to_big": "無法創建筆記。筆記過大",
+			"note_too_big": "無法創建筆記。筆記過大",
 			"note_error": "無法創建筆記。請再試一次。",
 			"max": "最大值：{n}",
 			"empty_content": "筆記內容為空。"
