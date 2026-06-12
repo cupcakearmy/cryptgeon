@@ -1,4 +1,5 @@
 use std::{collections::HashMap, sync::Arc};
+use reqwest;
 
 use axum::{
     Router, ServiceExt,
@@ -33,6 +34,22 @@ async fn main() {
     let shared_state = SharedState {
         locks: Arc::new(Mutex::new(HashMap::new())),
     };
+
+    let theme_svg = config::THEME_SVG.as_str();
+    if !theme_svg.is_empty() {
+        let content = if theme_svg.starts_with("http://") || theme_svg.starts_with("https://") {
+            reqwest::get(theme_svg)
+                .await
+                .unwrap_or_else(|e| panic!("Failed to fetch THEME_SVG from {theme_svg}: {e}"))
+                .text()
+                .await
+                .unwrap_or_else(|e| panic!("Failed to read THEME_SVG response: {e}"))
+        } else {
+            std::fs::read_to_string(theme_svg)
+                .unwrap_or_else(|e| panic!("Cannot read THEME_SVG file {theme_svg}: {e}"))
+        };
+        config::THEME_SVG_CONTENT.set(content).unwrap();
+    }
 
     if !store::can_reach_redis() {
         println!("cannot reach redis");

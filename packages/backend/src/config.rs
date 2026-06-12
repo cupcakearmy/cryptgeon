@@ -1,4 +1,7 @@
 use byte_unit::Byte;
+use std::sync::OnceLock;
+
+pub static THEME_SVG_CONTENT: OnceLock<String> = OnceLock::new();
 
 // Internal
 lazy_static! {
@@ -51,6 +54,10 @@ pub static ref IMPRINT_HTML: String = std::env::var("IMPRINT_HTML")
 // THEME
 lazy_static! {
     pub static ref THEME_IMAGE: String = std::env::var("THEME_IMAGE")
+        .unwrap_or("".to_string())
+        .parse()
+        .unwrap();
+    pub static ref THEME_SVG: String = std::env::var("THEME_SVG")
         .unwrap_or("".to_string())
         .parse()
         .unwrap();

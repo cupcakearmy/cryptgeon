@@ -16,6 +16,7 @@ pub struct Status {
     pub imprint_html: String,
     // Theme
     pub theme_image: String,
+    pub theme_svg: String,
     pub theme_text: String,
     pub theme_page_title: String,
     pub theme_favicon: String,
@@ -38,6 +39,7 @@ pub async fn get_status() -> (StatusCode, Json<Status>) {
         theme_home_link: *config::THEME_HOME_LINK,
         theme_custom_css: !config::THEME_CUSTOM_CSS_FILE.is_empty(),
         theme_image: config::THEME_IMAGE.to_string(),
+        theme_svg: config::THEME_SVG_CONTENT.get().cloned().unwrap_or_default(),
         theme_text: config::THEME_TEXT.to_string(),
         theme_page_title: config::THEME_PAGE_TITLE.to_string(),
         theme_favicon: config::THEME_FAVICON.to_string(),

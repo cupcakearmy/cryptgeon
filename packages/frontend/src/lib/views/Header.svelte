@@ -10,6 +10,8 @@
 	<a onclick={reset} href="/">
 		{#if $status === null}
 			<!-- waiting for status to load to avoid flashing default logo -->
+		{:else if $status.theme_svg}
+			{@html $status.theme_svg}
 		{:else if $status.theme_image}
 			<img alt="logo" src={$status.theme_image} />
 		{:else}
