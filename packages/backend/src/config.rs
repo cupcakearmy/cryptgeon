@@ -74,4 +74,6 @@ lazy_static! {
         .unwrap_or("true".to_string())
         .parse()
         .unwrap();
+    pub static ref THEME_CUSTOM_CSS_FILE: String = std::env::var("THEME_CUSTOM_CSS_FILE")
+        .unwrap_or("".to_string());
 }

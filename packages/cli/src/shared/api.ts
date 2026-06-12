@@ -121,6 +121,7 @@ export type Status = {
   theme_page_title: string
   theme_new_note_notice: boolean
   theme_home_link: boolean
+  theme_custom_css: boolean
 }
 
 async function status() {

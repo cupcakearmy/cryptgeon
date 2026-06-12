@@ -53,8 +53,12 @@ async fn main() {
     let index = format!("{}{}", config::FRONTEND_PATH.to_string(), "/index.html");
     let serve_dir =
         ServeDir::new(config::FRONTEND_PATH.to_string()).not_found_service(ServeFile::new(index));
-    let app = Router::new()
-        .nest("/api", api_routes)
+    let mut app = Router::new()
+        .nest("/api", api_routes);
+    if !config::THEME_CUSTOM_CSS_FILE.is_empty() {
+        app = app.route_service("/custom.css", ServeFile::new(config::THEME_CUSTOM_CSS_FILE.as_str()));
+    }
+    let app = app
         .fallback_service(serve_dir)
         // Disabled for now, as svelte inlines scripts
         // .layer(middleware::from_fn(csp::add_csp_header))
