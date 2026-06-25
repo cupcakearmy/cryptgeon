@@ -32,6 +32,23 @@
 	let loading: string | null = $state(null)
 	let isPasting = $state(false)
 
+	function mimeToExt(mime: string): string {
+		const map: Record<string, string> = {
+			'image/svg+xml': 'svg',
+			'application/pdf': 'pdf',
+			'application/zip': 'zip',
+			'text/plain': 'txt',
+			'text/html': 'html',
+			'text/csv': 'csv',
+			'image/webp': 'webp',
+			'image/avif': 'avif',
+		}
+		if (map[mime]) return map[mime]
+		const subtype = mime.split('/')[1]
+		if (!subtype) return 'bin'
+		return subtype.split('+')[0]
+	}
+
 	$effect(() => {
 		if (!advanced) {
 			note.views = 1
@@ -65,10 +82,6 @@
 
 		const raw: File[] = []
 
-		if (data.files.length) {
-			raw.push(...Array.from(data.files))
-		}
-
 		for (let i = 0; i < data.items.length; i++) {
 			const item = data.items[i]
 			if (item.kind === 'file') {
@@ -94,7 +107,7 @@
 
 		const dtos: FileDTO[] = await Promise.all(
 			pasted.map(async (file) => {
-				const ext = file.name.includes('.') ? '' : `.${file.type.split('/')[1] || 'bin'}`
+				const ext = file.name.includes('.') ? '' : `.${mimeToExt(file.type)}`
 				const name =
 					file.name || `pasted-file-${Date.now()}-${Math.round(Math.random() * 1000)}${ext}`
 				const renamed = new File([file], name, { type: file.type })
