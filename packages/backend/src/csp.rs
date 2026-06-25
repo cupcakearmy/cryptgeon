@@ -1,16 +1,35 @@
-use axum::{body::Body, extract::Request, http::HeaderValue, middleware::Next, response::Response};
+use axum::{
+    http::HeaderValue,
+    response::{Html, IntoResponse, Response},
+};
+use ring::rand::SecureRandom;
+use std::sync::OnceLock;
 
-const CUSTOM_HEADER_NAME: &str = "Content-Security-Policy";
-const CUSTOM_HEADER_VALUE: &str = "default-src 'self'; script-src 'report-sample' 'self'; style-src 'report-sample' 'self'; object-src 'none'; base-uri 'self'; connect-src 'self' data:; font-src 'self'; frame-src 'self'; img-src 'self'; manifest-src 'self'; media-src 'self'; worker-src 'none';";
+const CSP_POLICY: &str = "default-src 'self'; script-src 'nonce-{nonce}' 'strict-dynamic'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; connect-src 'self'";
 
-lazy_static! {
-    static ref HEADER_VALUE: HeaderValue = HeaderValue::from_static(CUSTOM_HEADER_VALUE);
+fn index_html() -> &'static str {
+    static HTML: OnceLock<String> = OnceLock::new();
+    HTML.get_or_init(|| {
+        let path = format!("{}index.html", *crate::config::FRONTEND_PATH);
+        std::fs::read_to_string(&path).expect("Failed to read index.html for CSP injection")
+    })
 }
 
-pub async fn add_csp_header(request: Request<Body>, next: Next) -> Response {
-    let mut response = next.run(request).await;
+fn generate_nonce() -> String {
+    let rng = ring::rand::SystemRandom::new();
+    let mut bytes = [0u8; 32];
+    rng.fill(&mut bytes).expect("Failed to generate CSP nonce");
+    bs62::encode_data(&bytes)
+}
+
+pub async fn spa_fallback() -> Response {
+    let nonce = generate_nonce();
+    let csp = CSP_POLICY.replace("{nonce}", &nonce);
+    let html = index_html().replace("<script>", &format!("<script nonce=\"{}\">", nonce));
+
+    let mut response = Html(html).into_response();
     response
         .headers_mut()
-        .append(CUSTOM_HEADER_NAME, HEADER_VALUE.clone());
+        .insert("Content-Security-Policy", HeaderValue::from_str(&csp).unwrap());
     response
 }
