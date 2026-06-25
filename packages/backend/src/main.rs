@@ -12,7 +12,7 @@ use tower::Layer;
 use tower_http::{
     compression::CompressionLayer,
     normalize_path::NormalizePathLayer,
-    services::{ServeDir, ServeFile},
+    services::ServeDir,
 };
 
 #[macro_use]
@@ -50,14 +50,12 @@ async fn main() {
         .merge(health_routes)
         .merge(status_routes);
 
-    let index = format!("{}{}", config::FRONTEND_PATH.to_string(), "/index.html");
-    let serve_dir =
-        ServeDir::new(config::FRONTEND_PATH.to_string()).not_found_service(ServeFile::new(index));
     let app = Router::new()
         .nest("/api", api_routes)
-        .fallback_service(serve_dir)
-        // Disabled for now, as svelte inlines scripts
-        // .layer(middleware::from_fn(csp::add_csp_header))
+        .fallback_service(
+            ServeDir::new(config::FRONTEND_PATH.to_string())
+                .not_found_service(axum::Router::new().fallback(csp::spa_fallback)),
+        )
         .layer(DefaultBodyLimit::max(*config::LIMIT))
         .layer(
             CompressionLayer::new()
