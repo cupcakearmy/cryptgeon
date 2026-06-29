@@ -25,7 +25,7 @@
 		"new_note": "nouvelle note",
 		"new_note_notice": "<b>disponibilité :</b><br />il n'est pas garanti que la note reste stockée car tout est conservé dans la mémoire vive; si elle se remplit, les notes les plus anciennes seront supprimées.<br />(tout ira probablement bien, soyez juste averti.)",
 		"errors": {
-			"note_to_big": "Impossible de créer une note. La note est trop grande.",
+			"note_too_big": "Impossible de créer une note. La note est trop grande.",
 			"note_error": "n'a pas pu créer de note. Veuillez réessayer.",
 			"max": "max: {n}",
 			"empty_content": "La note est vide."

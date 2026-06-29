@@ -1,6 +1,7 @@
 use redis;
 use redis::Commands;
 
+use crate::config;
 use crate::note::now;
 use crate::note::Note;
 
@@ -9,6 +10,10 @@ lazy_static! {
         .unwrap_or("redis://127.0.0.1/".to_string())
         .parse()
         .unwrap();
+}
+
+fn prefixed(id: &String) -> String {
+    format!("{}{}", config::REDIS_PREFIX.as_str(), id)
 }
 
 fn get_connection() -> Result<redis::Connection, &'static str> {
@@ -28,15 +33,16 @@ pub fn can_reach_redis() -> bool {
 }
 
 pub fn set(id: &String, note: &Note) -> Result<(), &'static str> {
+    let key = prefixed(id);
     let serialized = serde_json::to_string(&note.clone()).unwrap();
     let mut conn = get_connection()?;
 
-    conn.set::<_, _, ()>(id, serialized)
+    conn.set::<_, _, ()>(key.as_str(), serialized)
         .map_err(|_| "Unable to set note in redis")?;
     match note.expiration {
         Some(e) => {
             let seconds = e - now();
-            conn.expire::<_, ()>(id, seconds as i64)
+            conn.expire::<_, ()>(key.as_str(), seconds as i64)
                 .map_err(|_| "Unable to set expiration on note")?
         }
         None => {}
@@ -45,8 +51,9 @@ pub fn set(id: &String, note: &Note) -> Result<(), &'static str> {
 }
 
 pub fn get(id: &String) -> Result<Option<Note>, &'static str> {
+    let key = prefixed(id);
     let mut conn = get_connection()?;
-    let value: Option<String> = conn.get(id).map_err(|_| "Could not load note in redis")?;
+    let value: Option<String> = conn.get(key.as_str()).map_err(|_| "Could not load note in redis")?;
     match value {
         None => return Ok(None),
         Some(s) => {
@@ -57,7 +64,8 @@ pub fn get(id: &String) -> Result<Option<Note>, &'static str> {
 }
 
 pub fn del(id: &String) -> Result<(), &'static str> {
+    let key = prefixed(id);
     let mut conn = get_connection()?;
-    conn.del::<_, ()>(id).map_err(|_| "Unable to delete note in redis")?;
+    conn.del::<_, ()>(key.as_str()).map_err(|_| "Unable to delete note in redis")?;
     Ok(())
 }

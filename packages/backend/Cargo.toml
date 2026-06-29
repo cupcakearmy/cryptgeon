@@ -1,6 +1,6 @@
 [package]
 name = "cryptgeon"
-version = "2.9.2"
+version = "2.9.3"
 authors = ["cupcakearmy <hi@nicco.io>"]
 edition = "2024"
 rust-version = "1.95"

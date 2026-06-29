@@ -38,6 +38,10 @@ pub static ref ID_LENGTH: u32 = std::env::var("ID_LENGTH")
   .unwrap_or("32".to_string())
   .parse()
   .unwrap();
+pub static ref REDIS_PREFIX: String = std::env::var("REDIS_PREFIX")
+  .unwrap_or("".to_string())
+  .parse()
+  .unwrap();
 pub static ref ALLOW_FILES: bool = std::env::var("ALLOW_FILES")
   .unwrap_or("true".to_string())
   .parse()

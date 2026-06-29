@@ -60,7 +60,6 @@
 	})
 
 	async function handlePaste(e: ClipboardEvent) {
-		e.preventDefault()
 		const data = e.clipboardData
 		if (!data) return
 
@@ -79,6 +78,7 @@
 		}
 
 		if (raw.length === 0) return
+		e.preventDefault()
 
 		const seen = new Set<string>()
 		const pasted: File[] = []
@@ -149,7 +149,7 @@
 			notify.success($t('home.messages.note_created'))
 		} catch (e) {
 			if (e instanceof PayloadToLargeError) {
-				notify.error($t('home.errors.note_to_big'))
+				notify.error($t('home.errors.note_too_big'))
 			} else if (e instanceof EmptyContentError) {
 				notify.error($t('home.errors.empty_content'))
 			} else {

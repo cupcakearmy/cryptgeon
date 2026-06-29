@@ -25,7 +25,7 @@
 		"new_note": "new note",
 		"new_note_notice": "<b>availability:</b><br />the note is not guaranteed to be stored as everything is kept in ram, if it fills up the oldest notes will be removed.<br />(you probably will be fine, just be warned.)",
 		"errors": {
-			"note_to_big": "could not create note. note is too big",
+			"note_too_big": "could not create note. note is too big",
 			"note_error": "could not create note. please try again.",
 			"max": "max: {n}",
 			"empty_content": "note is empty."

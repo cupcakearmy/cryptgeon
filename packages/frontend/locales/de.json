@@ -25,7 +25,7 @@
 		"new_note": "Neue Notiz",
 		"new_note_notice": "<b>Wichtiger Hinweis zur Verfügbarkeit:</b><br />Es kann nicht garantiert werden, dass diese Notiz gespeichert wird, da diese <b>ausschließlich im Speicher</b> gehalten werden. Ist dieser voll, werden die ältesten Notizen entfernt.<br />(Wahrscheinlich gibt es keine derartigen Probleme, seien Sie nur vorgewarnt).",
 		"errors": {
-			"note_to_big": "Notiz konnte nicht erstellt werden, da sie zu groß ist.",
+			"note_too_big": "Notiz konnte nicht erstellt werden, da sie zu groß ist.",
 			"note_error": "Notiz konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
 			"max": "max: {n}",
 			"empty_content": "Notiz ist leer."
