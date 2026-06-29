@@ -116,11 +116,13 @@ export type Status = {
   imprint_url: string
   imprint_html: string
   theme_image: string
+  theme_svg: string
   theme_text: string
   theme_favicon: string
   theme_page_title: string
   theme_new_note_notice: boolean
   theme_home_link: boolean
+  theme_custom_css: boolean
 }
 
 async function status() {
