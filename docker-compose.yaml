@@ -1,5 +1,5 @@
 services:
-  redis:
+  cache:
     image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
@@ -13,7 +13,7 @@ services:
   app:
     image: cupcakearmy/cryptgeon:latest
     depends_on:
-      - redis
+      - cache
     environment:
       # Size limit for a single note.
       SIZE_LIMIT: 4 MiB
@@ -22,7 +22,7 @@ services:
 
     # Optional health checks
     # healthcheck:
-    #   test: ["CMD", "curl", "--fail", "http://127.0.0.1:8000/api/live/"]
+    #   test: ["CMD", "curl", "--fail", "http://127.0.0.1:8000/healthz"]
     #   interval: 1m
     #   timeout: 3s
     #   retries: 2

@@ -29,9 +29,8 @@
 		"vite": "^8.0.14"
 	},
 	"dependencies": {
+		"@cryptgeon/shared": "workspace:*",
 		"@fontsource/fira-mono": "^5.2.7",
-		"cryptgeon": "workspace:*",
-		"occulto": "^2.0.6",
 		"pretty-bytes": "^7.1.0",
 		"uqr": "^0.1.3"
 	}

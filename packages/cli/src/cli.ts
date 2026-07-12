@@ -5,7 +5,7 @@ import prettyBytes from 'pretty-bytes'
 
 import { download } from './actions/download.js'
 import { upload } from './actions/upload.js'
-import { API } from './shared/api.js'
+import { setServer, status } from '@cryptgeon/shared'
 import { parseFile, parseNumber } from './utils/parsers.js'
 import { getStdin } from './utils/stdin.js'
 import { checkConstrains, exit } from './utils/utils.js'
@@ -33,15 +33,12 @@ program
   .description('show information about the server')
   .addOption(server)
   .action(async (options) => {
-    API.setOptions({ server: options.server })
-    const response = await API.status()
-    const formatted = {
-      ...response,
-      max_size: prettyBytes(response.max_size),
-    }
-    for (const key of Object.keys(formatted)) {
-      if (key.startsWith('theme_')) delete formatted[key as keyof typeof formatted]
-    }
+    setServer(options.server)
+    const response = await status()
+    const formatted = Object.fromEntries(
+      Object.entries({ ...response, max_size: prettyBytes(response.max_size as number) })
+        .filter(([key]) => !key.startsWith('theme_'))
+    )
     console.table(formatted)
   })
 
@@ -54,7 +51,7 @@ send
   .addOption(minutes)
   .addOption(password)
   .action(async (files, options) => {
-    API.setOptions({ server: options.server })
+    setServer(options.server)
     await checkConstrains(options)
     options.password ||= await getStdin()
     try {
@@ -72,7 +69,7 @@ send
   .addOption(minutes)
   .addOption(password)
   .action(async (text, options) => {
-    API.setOptions({ server: options.server })
+    setServer(options.server)
     await checkConstrains(options)
     options.password ||= await getStdin()
     try {

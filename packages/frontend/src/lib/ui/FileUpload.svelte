@@ -3,7 +3,7 @@
 
 	import Button from '$lib/ui/Button.svelte'
 	import MaxSize from '$lib/ui/MaxSize.svelte'
-	import type { FileDTO } from 'cryptgeon/shared'
+	import type { FileDTO } from '@cryptgeon/shared'
 
 	interface Props {
 		label?: string
@@ -16,9 +16,9 @@
 	async function fileToDTO(file: File): Promise<FileDTO> {
 		return {
 			name: file.name,
+			mime: file.type,
 			size: file.size,
-			type: file.type,
-			contents: new Uint8Array(await file.arrayBuffer()),
+			data: new Uint8Array(await file.arrayBuffer()),
 		}
 	}
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Icon from '$lib/ui/Icon.svelte'
 	import { copy as copyFN } from '$lib/utils'
-	import { getRandomBytes, Hex } from 'occulto'
+	import { randomBytes, bytesToHex } from '@cryptgeon/shared'
 	import type { HTMLInputAttributes } from 'svelte/elements'
 
 	interface Props {
@@ -35,7 +35,7 @@
 	}
 
 	async function randomFN() {
-		value = Hex.encode(await getRandomBytes(32))
+		value = bytesToHex(randomBytes(32))
 	}
 </script>
 

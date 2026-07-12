@@ -1,46 +1,43 @@
 import { readFile, stat } from 'node:fs/promises'
 import { basename } from 'node:path'
 
+import { encode } from '@msgpack/msgpack'
 import mime from 'mime'
-import { AES, Hex } from 'occulto'
-import { Adapters } from '../shared/adapters.js'
-import { API, FileDTO, Note, NoteMeta } from '../shared/api.js'
+import { encrypt, generateKey, deriveKey, randomBytes, setServer, getServer, create, utf8ToBytes } from '@cryptgeon/shared'
 
-export type UploadOptions = Pick<Note, 'views' | 'expiration'> & { password?: string }
+export type UploadOptions = { views?: number; expiration?: number; password?: string }
 
 export async function upload(input: string | string[], options: UploadOptions): Promise<string> {
   const { password, ...noteOptions } = options
-  const derived = options.password ? await AES.derive(options.password) : undefined
-  const key = derived ? derived[0] : await AES.generateKey()
 
-  let contents: string
-  let type: NoteMeta['type']
-  if (typeof input === 'string') {
-    contents = await Adapters.Text.encrypt(input, key)
-    type = 'text'
+  let key: Uint8Array
+  let extra = new Uint8Array()
+  if (password) {
+    const salt = randomBytes(16)
+    key = deriveKey(password, salt)
+    extra = encode({ salt, N: 32768, r: 8, p: 1 })
   } else {
-    const files: FileDTO[] = await Promise.all(
-      input.map(async (path) => {
-        const data = new Uint8Array(await readFile(path))
-        const stats = await stat(path)
-        const extension = path.substring(path.indexOf('.') + 1)
-        const type = mime.getType(extension) ?? 'application/octet-stream'
-        return {
-          name: basename(path),
-          size: stats.size,
-          contents: data,
-          type,
-        } satisfies FileDTO
-      })
-    )
-    contents = await Adapters.Files.encrypt(files, key)
-    type = 'file'
+    key = generateKey()
   }
 
-  // Create the actual note and upload it.
-  const note: Note = { ...noteOptions, contents, meta: { type, derivation: derived?.[1] } }
-  const result = await API.create(note)
-  let url = `${API.getOptions().server}/note/${result.id}`
-  if (!derived) url += `#${Hex.encode(key)}`
+  let inner: Uint8Array
+  if (typeof input === 'string') {
+    inner = encode({ type: 'text', data: input })
+  } else {
+    const files = await Promise.all(
+      input.map(async (path) => {
+        const data = new Uint8Array(await readFile(path))
+        const extension = path.substring(path.indexOf('.') + 1)
+        const type = mime.getType(extension) ?? 'application/octet-stream'
+        return { name: basename(path), mime: type, size: data.length, data }
+      })
+    )
+    inner = encode({ type: 'files', data: files })
+  }
+
+  const data = encrypt(inner, key)
+  const result = await create({ meta: { ...noteOptions, extra }, data })
+  let url = `${getServer()}/note/${result.id}`
+  if (!password) url += `#${Buffer.from(key).toString('hex')}`
   return url
 }

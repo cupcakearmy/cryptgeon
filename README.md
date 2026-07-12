@@ -63,7 +63,7 @@ client side with the <code>key</code> and then sent to the server. data is store
 never persisted to disk. the server never sees the encryption key and cannot decrypt the contents
 of the notes even if it tried to.
 
-> View counts are guaranteed with one running instance of cryptgeon. Multiple instances connected to the same Redis instance can run into race conditions, where a note might be retrieved more than the view count allows.
+> View counts are guaranteed with one running instance of cryptgeon. Multiple instances connected to the same cache instance can run into race conditions, where a note might be retrieved more than the view count allows.
 
 ## Screenshot
 
@@ -73,14 +73,14 @@ of the notes even if it tried to.
 
 | Variable                | Default          | Description                                                                                                                                                                                                   |
 | ----------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `REDIS`                 | `redis://redis/` | Redis URL to connect to. [According to format](https://docs.rs/redis/latest/redis/#connection-parameters)                                                                                                     |
+| `CACHE`                 | `redis://cache/` | Cache URL (valkey or redis) to connect to. [According to format](https://docs.rs/redis/latest/redis/#connection-parameters)                                                                                   |
 | `SIZE_LIMIT`            | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). <br> `512 MiB` is the maximum allowed. <br> The frontend will show that number including the ~35% encoding overhead. |
 | `MAX_VIEWS`             | `100`            | Maximal number of views.                                                                                                                                                                                      |
 | `MAX_EXPIRATION`        | `360`            | Maximal expiration in minutes.                                                                                                                                                                                |
 | `ALLOW_ADVANCED`        | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                                                                                                                |
 | `ALLOW_FILES`           | `true`           | Allow uploading files. If set to `false`, users will only be allowed to create text notes.                                                                                                                    |
 | `ID_LENGTH`             | `32`             | Set the size of the note `id` in bytes. By default this is `32` bytes. This is useful for reducing link size. _This setting does not affect encryption strength_.                                             |
-| `REDIS_PREFIX`          | `""`             | Optional prefix for all Redis keys. Useful when sharing a Redis instance with other apps via ACL namespaces.                                                                                                  |
+| `CACHE_PREFIX`          | `""`             | Optional prefix for all cache keys. Useful when sharing a cache instance with other apps via ACL namespaces.                                                                                                  |
 | `VERBOSITY`             | `warn`           | Verbosity level for the backend. [Possible values](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) are: `error`, `warn`, `info`, `debug`, `trace`                                             |
 | `THEME_IMAGE`           | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                                                                                                               |
 | `THEME_TEXT`            | `""`             | Custom text for replacing the description below the logo                                                                                                                                                      |
@@ -107,12 +107,12 @@ Docker is the easiest way. There is the [official image here](https://hub.docker
 version: "3.8"
 
 services:
-  redis:
-    image: redis:7-alpine
+  cache:
+    image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
-    command: redis-server --save "" --appendonly no
+    command: valkey-server --save "" --appendonly no
     # Set a size limit. See link below on how to customise.
-    # https://redis.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
+    # https://valkey.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
     # --maxmemory 1gb --maxmemory-policy allkeys-lrulpine
     # This prevents the creation of an anonymous volume.
     tmpfs:
@@ -121,7 +121,7 @@ services:
   app:
     image: cupcakearmy/cryptgeon:latest
     depends_on:
-      - redis
+      - cache
     environment:
       # Size limit for a single note.
       SIZE_LIMIT: 4 MiB
@@ -130,7 +130,7 @@ services:
 
     # Optional health checks
     # healthcheck:
-    #   test: ["CMD", "curl", "--fail", "http://127.0.0.1:8000/api/live/"]
+    #   test: ["CMD", "curl", "--fail", "http://127.0.0.1:8000/healthz"]
     #   interval: 1m
     #   timeout: 3s
     #   retries: 2
