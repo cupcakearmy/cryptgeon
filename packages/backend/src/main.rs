@@ -51,8 +51,11 @@ async fn main() {
         .merge(status_routes);
 
     let index = format!("{}{}", config::FRONTEND_PATH.to_string(), "/index.html");
+    // SPA fallback: serve `index.html` for client side routes.
+    // `fallback` instead of `not_found_service`, as the latter forces a `404` status code,
+    // while the document itself is served successfully. A missing note is signalled by the API.
     let serve_dir =
-        ServeDir::new(config::FRONTEND_PATH.to_string()).not_found_service(ServeFile::new(index));
+        ServeDir::new(config::FRONTEND_PATH.to_string()).fallback(ServeFile::new(index));
     let app = Router::new()
         .nest("/api", api_routes)
         .fallback_service(serve_dir)
