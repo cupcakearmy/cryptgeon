@@ -10,11 +10,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # Node
       - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           cache: 'pnpm'
           node-version-file: '.nvmrc'
@@ -31,10 +31,16 @@ jobs:
           pnpm exec playwright install --with-deps
           pnpm run test:prepare
 
+      - name: Rust tests
+        run: cargo test --manifest-path packages/backend/Cargo.toml
+
+      - name: Shared tests
+        run: pnpm --filter @cryptgeon/shared test
+
       - name: Run your tests
         run: pnpm test
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report

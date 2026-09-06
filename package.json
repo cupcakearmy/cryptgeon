@@ -13,8 +13,8 @@
     "build": "pnpm run --recursive --filter=!@cryptgeon/backend build"
   },
   "devDependencies": {
-    "@playwright/test": "^1.60.0",
-    "@types/node": "^24.12.4"
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^24.13.3"
   },
   "packageManager": "pnpm@11.5.0",
   "engines": {
