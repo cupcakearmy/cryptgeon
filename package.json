@@ -9,7 +9,7 @@
     "test:local": "playwright test --project=chrome",
     "test:server": "docker compose -f docker-compose.dev.yaml up",
     "test:dl-browsers": "playwright install",
-    "test:prepare": "pnpm --parallel run test:dl-browsers build docker:build",
+    "test:prepare": "pnpm run build && pnpm run docker:build",
     "build": "pnpm run --recursive --filter=!@cryptgeon/backend build"
   },
   "devDependencies": {
