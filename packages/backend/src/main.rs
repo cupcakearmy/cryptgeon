@@ -15,7 +15,6 @@ use tower_http::{
 extern crate lazy_static;
 
 mod config;
-mod csp;
 mod health;
 mod note;
 mod status;

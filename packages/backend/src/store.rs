@@ -68,13 +68,6 @@ pub fn get_data(id: &str) -> Result<Option<Vec<u8>>, &'static str> {
     Ok(data)
 }
 
-pub fn has_views(id: &str) -> Result<bool, &'static str> {
-    let key = prefixed(id);
-    let mut c = conn()?;
-    let has: bool = c.hexists::<_, _, bool>(&key, "views").map_err(|_| "Cache error")?;
-    Ok(has)
-}
-
 pub fn decrement_views(id: &str) -> Result<i64, &'static str> {
     let key = prefixed(id);
     let mut c = conn()?;
