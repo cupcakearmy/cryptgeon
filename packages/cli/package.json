@@ -9,18 +9,18 @@
   },
   "type": "module",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.mjs"
   },
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.mts",
   "bin": {
-    "cryptgeon": "./dist/cli.js"
+    "cryptgeon": "./dist/cli.mjs"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "node build.js",
-    "dev": "node build.js --watch",
+    "build": "vp pack",
+    "dev": "vp pack --watch",
     "prepublishOnly": "run-s build"
   },
   "dependencies": {
@@ -32,11 +32,12 @@
     "pretty-bytes": "^6.1.1"
   },
   "devDependencies": {
+    "@tsconfig/strictest": "catalog:",
     "@types/inquirer": "^9.0.9",
     "@types/node": "^22.15.3",
     "commander": "^12.1.0",
-    "tsup": "^8.5.1",
-    "typescript": "^5.9.3"
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
   },
   "engines": {
     "node": ">=22"
