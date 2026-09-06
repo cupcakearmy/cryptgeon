@@ -1,7 +1,7 @@
 <script lang="ts">
 	import {
 		deriveKey, generateKey, encrypt, randomBytes,
-		bytesToHex, encode,
+		bytesToHex, encode, compress,
 		create as apiCreate,
 		type FileDTO, type ServerNote
 	} from '@cryptgeon/shared'
@@ -131,7 +131,12 @@
 				inner = encode({ type: 'text', data: textContent })
 			}
 
-			const data = encrypt(inner, key)
+			const originalSize =inner.byteLength
+			const compressed = compress(inner)
+			const compresseedSize= compressed.byteLength
+			console.debug({originalSize, compresseedSize, ratio: originalSize/compresseedSize})
+
+			const data = encrypt(compress(inner), key)
 			const extra = customPassword
 				? encode({ salt: salt!, N: 32768, r: 8, p: 1 })
 				: new Uint8Array()

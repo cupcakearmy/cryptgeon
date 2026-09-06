@@ -3,7 +3,7 @@ import { basename } from 'node:path'
 
 import { encode } from '@msgpack/msgpack'
 import mime from 'mime'
-import { encrypt, generateKey, deriveKey, randomBytes, setServer, getServer, create, utf8ToBytes } from '@cryptgeon/shared'
+import { encrypt, generateKey, deriveKey, randomBytes, setServer, getServer, create, utf8ToBytes, compress } from '@cryptgeon/shared'
 
 export type UploadOptions = { views?: number; expiration?: number; password?: string }
 
@@ -35,7 +35,7 @@ export async function upload(input: string | string[], options: UploadOptions): 
     inner = encode({ type: 'files', data: files })
   }
 
-  const data = encrypt(inner, key)
+  const data = encrypt(compress(inner), key)
   const result = await create({ meta: { ...noteOptions, extra }, data })
   let url = `${getServer()}/note/${result.id}`
   if (!password) url += `#${Buffer.from(key).toString('hex')}`

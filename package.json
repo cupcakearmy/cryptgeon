@@ -2,7 +2,7 @@
   "scripts": {
     "dev:docker": "docker compose -f docker-compose.dev.yaml up cache",
     "dev:packages": "pnpm --parallel run dev",
-    "dev": "pnpm --parallel run dev:*",
+    "dev": "pnpm --parallel run /dev/",
     "docker:up": "docker compose -f docker-compose.dev.yaml up",
     "docker:build": "docker compose -f docker-compose.dev.yaml build",
     "test": "playwright test --project=chrome --project=firefox --project=safari",
