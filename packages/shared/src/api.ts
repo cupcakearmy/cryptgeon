@@ -1,6 +1,6 @@
 import { encode, decode } from "@msgpack/msgpack";
 
-import type { ServerNote } from "./types.js";
+import type { ServerNote, Status } from "./types.js";
 
 let server = "";
 
@@ -51,7 +51,7 @@ export async function get(id: string): Promise<ServerNote | null> {
   return { meta, data: d instanceof Uint8Array ? d : new Uint8Array(d) } satisfies ServerNote;
 }
 
-export async function status(): Promise<Record<string, unknown>> {
+export async function status(): Promise<Status> {
   const res = await fetch(api("status"));
   if (!res.ok) throw new Error("status failed");
   return res.json();

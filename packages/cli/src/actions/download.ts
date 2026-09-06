@@ -3,11 +3,12 @@ import { access, constants, writeFile } from 'node:fs/promises'
 import { basename, resolve } from 'node:path'
 import { decode } from '@msgpack/msgpack'
 import pretty from 'pretty-bytes'
-import { decrypt, deriveKey, setServer, getServer, info, get, decompress } from '@cryptgeon/shared'
+import { decrypt, deriveKey, setServer, info, get, decompress } from '@cryptgeon/shared'
 
 export async function download(url: URL, all: boolean, suggestedPassword?: string) {
   setServer(url.origin)
   const id = url.pathname.split('/')[2]
+  if (!id) throw new Error('Invalid URL')
   const meta = await info(id)
   if (!meta) throw new Error('Note does not exist or is expired')
 

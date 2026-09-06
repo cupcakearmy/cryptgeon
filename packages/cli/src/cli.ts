@@ -21,7 +21,8 @@ const views = new Option('-v --views <number>', 'Amount of views before getting 
 const minutes = new Option('-m --minutes <number>', 'Minutes before the note expires').argParser(parseNumber)
 
 // Node 18 guard
-parseInt(process.version.slice(1).split(',')[0]) < 18 && exit('Node 18 or higher is required')
+const major = Number(process.version.slice(1).split('.')[0])
+if (!Number.isFinite(major) || major < 18) exit('Node 18 or higher is required')
 
 // @ts-ignore
 const version: string = VERSION
@@ -33,10 +34,10 @@ program
   .description('show information about the server')
   .addOption(server)
   .action(async (options) => {
-    setServer(options.server)
+    setServer(options.server!)
     const response = await status()
     const formatted = Object.fromEntries(
-      Object.entries({ ...response, max_size: prettyBytes(response.max_size as number) })
+      Object.entries({ ...response, max_size: prettyBytes(response.max_size) })
         .filter(([key]) => !key.startsWith('theme_'))
     )
     console.table(formatted)
@@ -51,11 +52,15 @@ send
   .addOption(minutes)
   .addOption(password)
   .action(async (files, options) => {
-    setServer(options.server)
+    setServer(options.server!)
     await checkConstrains(options)
     options.password ||= await getStdin()
     try {
-      const url = await upload(files, { views: options.views, expiration: options.minutes, password: options.password })
+      const url = await upload(files, {
+        ...(options.views !== undefined ? { views: options.views } : {}),
+        ...(options.minutes !== undefined ? { expiration: options.minutes } : {}),
+        password: options.password,
+      })
       console.log(`Note created:\n\n${url}`)
     } catch {
       exit('Could not create note')
@@ -69,11 +74,15 @@ send
   .addOption(minutes)
   .addOption(password)
   .action(async (text, options) => {
-    setServer(options.server)
+    setServer(options.server!)
     await checkConstrains(options)
     options.password ||= await getStdin()
     try {
-      const url = await upload(text, { views: options.views, expiration: options.minutes, password: options.password })
+      const url = await upload(text, {
+        ...(options.views !== undefined ? { views: options.views } : {}),
+        ...(options.minutes !== undefined ? { expiration: options.minutes } : {}),
+        password: options.password,
+      })
       console.log(`Note created:\n\n${url}`)
     } catch {
       exit('Could not create note')

@@ -1,9 +1,9 @@
-import { readFile, stat } from 'node:fs/promises'
+import { readFile } from 'node:fs/promises'
 import { basename } from 'node:path'
 
 import { encode } from '@msgpack/msgpack'
 import mime from 'mime'
-import { encrypt, generateKey, deriveKey, randomBytes, setServer, getServer, create, utf8ToBytes, compress } from '@cryptgeon/shared'
+import { encrypt, generateKey, deriveKey, randomBytes, getServer, create, compress } from '@cryptgeon/shared'
 
 export type UploadOptions = { views?: number; expiration?: number; password?: string }
 
