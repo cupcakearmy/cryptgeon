@@ -11,7 +11,6 @@
 
 <br/><br/>
 <a href="https://www.producthunt.com/posts/cryptgeon?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cryptgeon" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=295189&theme=light" alt="Cryptgeon - Securely share self-destructing notes | Product Hunt" height="50" /></a>
-<a href=""><img src="./.github/lokalise.png" height="50">
 <br/><br/>
 
 [EN](README.md) | [简体中文](README_zh-CN.md) | ES
@@ -22,8 +21,6 @@ _cryptgeon_ es un servicio seguro y de código abierto para compartir notas o ar
 Incluye un servidor, una página web y una interfaz de línea de comandos (CLI, por sus siglas en inglés).
 
 > 🌍 Si quieres traducir este proyecto no dudes en ponerte en contacto conmigo.
->
-> Gracias a [Lokalise](https://lokalise.com/) por darnos acceso gratis a su plataforma.
 
 ## Demo
 

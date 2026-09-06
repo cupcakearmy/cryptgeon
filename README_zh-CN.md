@@ -11,7 +11,6 @@
 
 <br/>
 <a href="https://www.producthunt.com/posts/cryptgeon?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cryptgeon" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=295189&theme=light" alt="Cryptgeon - Securely share self-destructing notes | Product Hunt" height="50" /></a>
-<a href=""><img src="./.github/lokalise.png" height="50">
 <br/>
 
 [EN](README.md) | 简体中文 | [ES](README_ES.md)
@@ -21,8 +20,6 @@
 _加密鸽_ 是一个受 [_PrivNote_](https://privnote.com)项目启发的安全、开源共享密信和文件共享服务器
 
 > 🌍 如果你想翻译此项目请随时与我联系.
->
-> 感谢 [Lokalise](https://lokalise.com/) 提供免费的平台服务支持
 
 ## 演示示例
 

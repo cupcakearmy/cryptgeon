@@ -11,7 +11,6 @@
 
 <br/><br/>
 <a href="https://www.producthunt.com/posts/cryptgeon?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cryptgeon" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=295189&theme=light" alt="Cryptgeon - Securely share self-destructing notes | Product Hunt" height="50" /></a>
-<a href=""><img src="./.github/lokalise.png" height="50">
 <a title="Install cryptgeon Raycast Extension" href="https://www.raycast.com/cupcakearmy/cryptgeon"><img src="https://www.raycast.com/cupcakearmy/cryptgeon/install_button@2x.png?v=1.1" height="64" alt="" style="height: 64px;"></a>
 <br/><br/>
 
@@ -23,8 +22,6 @@ _cryptgeon_ is a secure, open source sharing note or file service inspired by [_
 It includes a server, a web page and a CLI client.
 
 > 🌍 If you want to translate the project feel free to reach out to me.
->
-> Thanks to [Lokalise](https://lokalise.com/) for providing free access to their platform.
 
 ## Live Service / Demo
 
