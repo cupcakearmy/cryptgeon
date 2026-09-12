@@ -44,26 +44,26 @@ _加密鸽_ 是一个受 [_PrivNote_](https://privnote.com)项目启发的安全
 
 ## 环境变量
 
-| 变量名称         | 默认值            | 描述                                                                                                                                    |
-| ---------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `CACHE`          | `redis://cache/`  | 缓存（valkey 或 redis）连接 URL。[连接参数](https://docs.rs/redis/latest/redis/#connection-parameters)                               |
-| `SIZE_LIMIT`     | `1 KiB`           | 最大请求体(body)限制。可通过 [字节单位](https://docs.rs/byte-unit/) 查看支持的值。负载是原始字节（msgpack + 加密），因此前端显示完整限制。|
-| `MAX_VIEWS`      | `100`             | 密信最多查看次数限制。                                                                                                                 |
-| `MAX_EXPIRATION` | `360`             | 密信最长过期时间限制(分钟)。                                                                                                            |
-| `ALLOW_ADVANCED` | `true`            | 是否允许自定义设置，该项如果设为`false`，则不会显示自定义设置模块。                                                                        |
-| `ALLOW_FILES`    | `true`            | 是否允许上传文件。为 `false` 时用户只能创建文本密信。                                                                                      |
-| `ID_LENGTH`      | `32`              | 设置密信 `id` 的字节大小。默认 `32` 字节，可用于缩短链接长度。_不影响加密强度_。                                                         |
-| `CACHE_PREFIX`   | `""`              | 缓存键可选前缀。与其它应用通过 ACL namespace 共享缓存实例时有用。                                                                           |
-| `EXTRA_SIZE_LIMIT` | `512`             | 不透明 `extra` 负载（如密钥派生参数）的最大字节数，存于密信元数据。                                                                            |
-| `VERBOSITY`      | `warn`            | 后端日志级别。可能值见 [env_logger](https://docs.rs/env_logger/latest/env_logger/#enabling-logging)。                                      |
-| `THEME_IMAGE`    | `""`              | 自定义 Logo 图片，需可公开访问。                                                                                                          |
-| `THEME_TEXT`     | `""`              | 自定义在 Logo 下方的文本。                                                                                                                |
-| `THEME_PAGE_TITLE` | `""`           | 自定义页面标题。                                                                                                                          |
-| `THEME_FAVICON`  | `""`              | 自定义 favicon 地址，需可公开访问。                                                                                                        |
-| `THEME_NEW_NOTE_NOTICE` | `true`       | 创建新笔记后显示“笔记存于内存可能被清除”的提示。                                                                                          |
-| `THEME_HOME_LINK` | `true`           | 是否在页脚显示 `/home` 链接。默认为 `true`。                                                                                              |
-| `IMPRINT_URL`    | `""`              | 托管在其它位置的印页 URL，需可公开访问。优先于 `IMPRINT_HTML`。                                                                              |
-| `IMPRINT_HTML`   | `""`              | `IMPRINT_URL` 的替代：指定 `/imprint` 展示的 HTML。`IMPRINT_HTML` 与 `IMPRINT_URL` 只应指定其一。                                             |                                      |
+| 变量名称                | 默认值           | 描述                                                                                                                                       |
+| ----------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `CACHE`                 | `redis://cache/` | 缓存（valkey 或 redis）连接 URL。[连接参数](https://docs.rs/redis/latest/redis/#connection-parameters)                                     |
+| `SIZE_LIMIT`            | `1 KiB`          | 最大请求体(body)限制。可通过 [字节单位](https://docs.rs/byte-unit/) 查看支持的值。负载是原始字节（msgpack + 加密），因此前端显示完整限制。 |
+| `MAX_VIEWS`             | `100`            | 密信最多查看次数限制。                                                                                                                     |
+| `MAX_EXPIRATION`        | `360`            | 密信最长过期时间限制(分钟)。                                                                                                               |
+| `ALLOW_ADVANCED`        | `true`           | 是否允许自定义设置，该项如果设为`false`，则不会显示自定义设置模块。                                                                        |
+| `ALLOW_FILES`           | `true`           | 是否允许上传文件。为 `false` 时用户只能创建文本密信。                                                                                      |
+| `ID_LENGTH`             | `32`             | 设置密信 `id` 的字节大小。默认 `32` 字节，可用于缩短链接长度。_不影响加密强度_。                                                           |
+| `CACHE_PREFIX`          | `""`             | 缓存键可选前缀。与其它应用通过 ACL namespace 共享缓存实例时有用。                                                                          |
+| `EXTRA_SIZE_LIMIT`      | `512`            | 不透明 `extra` 负载（如密钥派生参数）的最大字节数，存于密信元数据。                                                                        |
+| `VERBOSITY`             | `warn`           | 后端日志级别。可能值见 [env_logger](https://docs.rs/env_logger/latest/env_logger/#enabling-logging)。                                      |
+| `THEME_IMAGE`           | `""`             | 自定义 Logo 图片，需可公开访问。                                                                                                           |
+| `THEME_TEXT`            | `""`             | 自定义在 Logo 下方的文本。                                                                                                                 |
+| `THEME_PAGE_TITLE`      | `""`             | 自定义页面标题。                                                                                                                           |
+| `THEME_FAVICON`         | `""`             | 自定义 favicon 地址，需可公开访问。                                                                                                        |
+| `THEME_NEW_NOTE_NOTICE` | `true`           | 创建新笔记后显示“笔记存于内存可能被清除”的提示。                                                                                           |
+| `THEME_HOME_LINK`       | `true`           | 是否在页脚显示 `/home` 链接。默认为 `true`。                                                                                               |
+| `IMPRINT_URL`           | `""`             | 托管在其它位置的印页 URL，需可公开访问。优先于 `IMPRINT_HTML`。                                                                            |
+| `IMPRINT_HTML`          | `""`             | `IMPRINT_URL` 的替代：指定 `/imprint` 展示的 HTML。`IMPRINT_HTML` 与 `IMPRINT_URL` 只应指定其一。                                          |     |
 
 ## 部署
 
