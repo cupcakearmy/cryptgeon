@@ -23,7 +23,13 @@ jobs:
           pnpm install
           pnpm --filter cryptgeon build
 
-      - run: pnpm publish --filter cryptgeon
+      - name: Publish to npm
+        run: |
+          DIST_TAG=latest
+          if [[ "${GITHUB_REF_NAME}" == *"-"* ]]; then
+            DIST_TAG=rc
+          fi
+          pnpm publish --filter cryptgeon --tag "${DIST_TAG}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
