@@ -90,7 +90,6 @@ Docker es la manera más fácil. Aquí encontramos [la imagen oficial](https://h
 ```yaml
 # docker-compose.yml
 
-
 services:
   cache:
     image: valkey/valkey:7-alpine

@@ -114,7 +114,6 @@ services:
 - 域名 `example.org`
 
 ```yaml
-
 networks:
   proxy:
     external: true

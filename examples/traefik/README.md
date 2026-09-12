@@ -9,7 +9,6 @@ Assumptions:
 - Domain name `example.org`.
 
 ```yaml
-
 networks:
   proxy:
     external: true
