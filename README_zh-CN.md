@@ -11,7 +11,6 @@
 
 <br/>
 <a href="https://www.producthunt.com/posts/cryptgeon?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cryptgeon" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=295189&theme=light" alt="Cryptgeon - Securely share self-destructing notes | Product Hunt" height="50" /></a>
-<a href=""><img src="./.github/lokalise.png" height="50">
 <br/>
 
 [EN](README.md) | 简体中文 | [ES](README_ES.md)
@@ -21,8 +20,6 @@
 _加密鸽_ 是一个受 [_PrivNote_](https://privnote.com)项目启发的安全、开源共享密信和文件共享服务器
 
 > 🌍 如果你想翻译此项目请随时与我联系.
->
-> 感谢 [Lokalise](https://lokalise.com/) 提供免费的平台服务支持
 
 ## 演示示例
 
@@ -39,7 +36,7 @@ _加密鸽_ 是一个受 [_PrivNote_](https://privnote.com)项目启发的安全
 
 加密鸽会为每条笔记都生成一个独立的 <code>id (256bit)</code> 和 <code>key 256(bit)</code>。
 
-其中<code>id</code>用于保存和提取密信， 在这之后这封密信将会被客户端使用 AES 算法的 GCM 模式和`key`进行加密然后发送至服务器，数据将会保存在服务器的内存中且永远不会被持久化到硬盘上，服务端永远不会得到密钥并且无法解读密信的内容。
+其中<code>id</code>用于保存和提取密信， 在这之后这封密信将会被客户端使用 XChaCha20-Poly1305 加密算法和`key`进行加密然后发送至服务器，数据将会保存在服务器的内存中且永远不会被持久化到硬盘上，服务端永远不会得到密钥并且无法解读密信的内容。
 
 ## 屏幕截图
 
@@ -47,16 +44,26 @@ _加密鸽_ 是一个受 [_PrivNote_](https://privnote.com)项目启发的安全
 
 ## 环境变量
 
-| 变量名称         | 默认值           | 描述                                                                              |
-| ---------------- | ---------------- | --------------------------------------------------------------------------------- |
-| `REDIS`          | `redis://redis/` | Redis 连接 URL。                                                                  |
-| `SIZE_LIMIT`     | `1 KiB`          | 最大请求体(body)限制。有关支持的数值请查看 [字节单位](https://docs.rs/byte-unit/) |
-| `MAX_VIEWS`      | `100`            | 密信最多查看次数限制                                                              |
-| `MAX_EXPIRATION` | `360`            | 密信最长过期时间限制(分钟)                                                        |
-| `ALLOW_ADVANCED` | `true`           | 是否允许自定义设置，该项如果设为`false`，则不会显示自定义设置模块                 |
-| `THEME_IMAGE`    | `""`             | 自定义 Logo 图片，你在这里填写的的图片链接必须是可以公开访问的。                  |
-| `THEME_TEXT`     | `""`             | 自定义在 Logo 下方的文本。                                                        |
-| `THEME_HOME_LINK` | `true`           | 是否在页脚显示 `/home` 链接。默认为 `true`。                                      |
+| 变量名称                | 默认值           | 描述                                                                                                                                       |
+| ----------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `CACHE`                 | `redis://cache/` | 缓存（valkey 或 redis）连接 URL。[连接参数](https://docs.rs/redis/latest/redis/#connection-parameters)                                     |
+| `SIZE_LIMIT`            | `1 KiB`          | 最大请求体(body)限制。可通过 [字节单位](https://docs.rs/byte-unit/) 查看支持的值。负载是原始字节（msgpack + 加密），因此前端显示完整限制。 |
+| `MAX_VIEWS`             | `100`            | 密信最多查看次数限制。                                                                                                                     |
+| `MAX_EXPIRATION`        | `360`            | 密信最长过期时间限制(分钟)。                                                                                                               |
+| `ALLOW_ADVANCED`        | `true`           | 是否允许自定义设置，该项如果设为`false`，则不会显示自定义设置模块。                                                                        |
+| `ALLOW_FILES`           | `true`           | 是否允许上传文件。为 `false` 时用户只能创建文本密信。                                                                                      |
+| `ID_LENGTH`             | `32`             | 设置密信 `id` 的字节大小。默认 `32` 字节，可用于缩短链接长度。_不影响加密强度_。                                                           |
+| `CACHE_PREFIX`          | `""`             | 缓存键可选前缀。与其它应用通过 ACL namespace 共享缓存实例时有用。                                                                          |
+| `EXTRA_SIZE_LIMIT`      | `512`            | 不透明 `extra` 负载（如密钥派生参数）的最大字节数，存于密信元数据。                                                                        |
+| `VERBOSITY`             | `warn`           | 后端日志级别。可能值见 [env_logger](https://docs.rs/env_logger/latest/env_logger/#enabling-logging)。                                      |
+| `THEME_IMAGE`           | `""`             | 自定义 Logo 图片，需可公开访问。                                                                                                           |
+| `THEME_TEXT`            | `""`             | 自定义在 Logo 下方的文本。                                                                                                                 |
+| `THEME_PAGE_TITLE`      | `""`             | 自定义页面标题。                                                                                                                           |
+| `THEME_FAVICON`         | `""`             | 自定义 favicon 地址，需可公开访问。                                                                                                        |
+| `THEME_NEW_NOTE_NOTICE` | `true`           | 创建新笔记后显示“笔记存于内存可能被清除”的提示。                                                                                           |
+| `THEME_HOME_LINK`       | `true`           | 是否在页脚显示 `/home` 链接。默认为 `true`。                                                                                               |
+| `IMPRINT_URL`           | `""`             | 托管在其它位置的印页 URL，需可公开访问。优先于 `IMPRINT_HTML`。                                                                            |
+| `IMPRINT_HTML`          | `""`             | `IMPRINT_URL` 的替代：指定 `/imprint` 展示的 HTML。`IMPRINT_HTML` 与 `IMPRINT_URL` 只应指定其一。                                          |     |
 
 ## 部署
 
@@ -70,24 +77,23 @@ Docker 是最简单的部署方式。这里是[官方镜像的地址](https://hu
 
 ```yaml
 # docker-compose.yml
-version: "3.8"
 
 services:
-  redis:
-    image: redis:7-alpine
+  cache:
+    image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
-    command: redis-server --save "" --appendonly no
+    command: valkey-server --save "" --appendonly no
     # Set a size limit. See link below on how to customise.
-    # https://redis.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
+    # https://valkey.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
     # --maxmemory 1gb --maxmemory-policy allkeys-lrulpine
     # This prevents the creation of an anonymous volume.
     tmpfs:
       - /data
 
   app:
-    image: cupcakearmy/cryptgeon:latest
+    image: cupcakearmy/cryptgeon:v3
     depends_on:
-      - redis
+      - cache
     environment:
       SIZE_LIMIT: 4 MiB
     ports:
@@ -108,29 +114,27 @@ services:
 - 域名 `example.org`
 
 ```yaml
-version: "3.8"
-
 networks:
   proxy:
     external: true
 
 services:
-  redis:
-    image: redis:7-alpine
+  cache:
+    image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
-    command: redis-server --save "" --appendonly no
+    command: valkey-server --save "" --appendonly no
     # Set a size limit. See link below on how to customise.
-    # https://redis.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
+    # https://valkey.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
     # --maxmemory 1gb --maxmemory-policy allkeys-lrulpine
     # This prevents the creation of an anonymous volume.
     tmpfs:
       - /data
 
   app:
-    image: cupcakearmy/cryptgeon:latest
+    image: cupcakearmy/cryptgeon:v3
     restart: unless-stopped
     depends_on:
-      - redis
+      - cache
     networks:
       - default
       - proxy

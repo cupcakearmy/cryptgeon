@@ -1,6 +1,11 @@
 packages:
   - "packages/**"
 
+catalog:
+  vite-plus: ^0.3.0
+  typescript: ^7.0.2
+  "@tsconfig/strictest": ^2.0.8
+
 allowBuilds:
   esbuild: true
 

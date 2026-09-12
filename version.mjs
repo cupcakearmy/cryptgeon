@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-import shelljs from 'shelljs'
+import { readFileSync, writeFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 
 const VERSION = process.argv[2]
-// https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
 const semver =
   /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/gm
 if (!semver.test(VERSION)) {
@@ -12,9 +11,12 @@ if (!semver.test(VERSION)) {
   process.exit(1)
 }
 
-// CLI
-shelljs.sed('-i', /"version": ".*"/, `"version": "${process.argv[2]}"`, './packages/cli/package.json')
+function sed(file, pattern, replacement) {
+  const content = readFileSync(file, 'utf-8')
+  writeFileSync(file, content.replace(pattern, replacement))
+}
 
-// Backend
-shelljs.sed('-i', /^version = ".*"$/m, `version = "${process.argv[2]}"`, './packages/backend/Cargo.toml')
+sed('./packages/cli/package.json', /"version": ".*"/, `"version": "${VERSION}"`)
+sed('./packages/backend/Cargo.toml', /^version = ".*"$/m, `version = "${VERSION}"`)
+
 execSync('cargo check -p cryptgeon', { cwd: './packages/backend' })

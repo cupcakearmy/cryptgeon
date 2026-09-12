@@ -11,7 +11,6 @@
 
 <br/><br/>
 <a href="https://www.producthunt.com/posts/cryptgeon?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-cryptgeon" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=295189&theme=light" alt="Cryptgeon - Securely share self-destructing notes | Product Hunt" height="50" /></a>
-<a href=""><img src="./.github/lokalise.png" height="50">
 <a title="Install cryptgeon Raycast Extension" href="https://www.raycast.com/cupcakearmy/cryptgeon"><img src="https://www.raycast.com/cupcakearmy/cryptgeon/install_button@2x.png?v=1.1" height="64" alt="" style="height: 64px;"></a>
 <br/><br/>
 
@@ -23,8 +22,6 @@ _cryptgeon_ is a secure, open source sharing note or file service inspired by [_
 It includes a server, a web page and a CLI client.
 
 > 🌍 If you want to translate the project feel free to reach out to me.
->
-> Thanks to [Lokalise](https://lokalise.com/) for providing free access to their platform.
 
 ## Live Service / Demo
 
@@ -58,12 +55,12 @@ There is an [official Raycast extension](https://www.raycast.com/cupcakearmy/cry
 
 each note has a generated <code>id (256bit)</code> and <code>key 256(bit)</code>. The
 <code>id</code>
-is used to save & retrieve the note. the note is then encrypted with aes in gcm mode on the
+is used to save & retrieve the note. the note is then encrypted with XChaCha20-Poly1305 on the
 client side with the <code>key</code> and then sent to the server. data is stored in memory and
 never persisted to disk. the server never sees the encryption key and cannot decrypt the contents
 of the notes even if it tried to.
 
-> View counts are guaranteed with one running instance of cryptgeon. Multiple instances connected to the same Redis instance can run into race conditions, where a note might be retrieved more than the view count allows.
+> View counts are guaranteed with one running instance of cryptgeon. Multiple instances connected to the same cache instance can run into race conditions, where a note might be retrieved more than the view count allows.
 
 ## Screenshot
 
@@ -71,31 +68,32 @@ of the notes even if it tried to.
 
 ## Environment Variables
 
-| Variable                | Default          | Description                                                                                                                                                                                                   |
-| ----------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `REDIS`                 | `redis://redis/` | Redis URL to connect to. [According to format](https://docs.rs/redis/latest/redis/#connection-parameters)                                                                                                     |
-| `SIZE_LIMIT`            | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). <br> `512 MiB` is the maximum allowed. <br> The frontend will show that number including the ~35% encoding overhead. |
-| `MAX_VIEWS`             | `100`            | Maximal number of views.                                                                                                                                                                                      |
-| `MAX_EXPIRATION`        | `360`            | Maximal expiration in minutes.                                                                                                                                                                                |
-| `ALLOW_ADVANCED`        | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                                                                                                                |
-| `ALLOW_FILES`           | `true`           | Allow uploading files. If set to `false`, users will only be allowed to create text notes.                                                                                                                    |
-| `ID_LENGTH`             | `32`             | Set the size of the note `id` in bytes. By default this is `32` bytes. This is useful for reducing link size. _This setting does not affect encryption strength_.                                             |
-| `REDIS_PREFIX`          | `""`             | Optional prefix for all Redis keys. Useful when sharing a Redis instance with other apps via ACL namespaces.                                                                                                  |
-| `VERBOSITY`             | `warn`           | Verbosity level for the backend. [Possible values](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) are: `error`, `warn`, `info`, `debug`, `trace`                                             |
-| `THEME_IMAGE`           | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                                                                                                               |
-| `THEME_TEXT`            | `""`             | Custom text for replacing the description below the logo                                                                                                                                                      |
-| `THEME_PAGE_TITLE`      | `""`             | Custom text the page title                                                                                                                                                                                    |
-| `THEME_FAVICON`         | `""`             | Custom url for the favicon. Must be publicly reachable                                                                                                                                                        |
-| `THEME_NEW_NOTE_NOTICE` | `true`           | Show the message about how notes are stored in the memory and may be evicted after creating a new note. Defaults to `true`.                                                                                   |
-| `THEME_HOME_LINK`       | `true`           | Show the `/home` link in the footer. Defaults to `true`.                                                                                                                                                      |
-| `IMPRINT_URL`           | `""`             | Custom url for an Imprint hosted somewhere else. Must be publicly reachable. Takes precedence above `IMPRINT_HTML`.                                                                                           |
-| `IMPRINT_HTML`          | `""`             | Alternative to `IMPRINT_URL`, this can be used to specify the HTML code to show on `/imprint`. Only `IMPRINT_HTML` or `IMPRINT_URL` should be specified, not both.                                            |
+| Variable                | Default          | Description                                                                                                                                                                                                           |
+| ----------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CACHE`                 | `redis://cache/` | Cache URL (valkey or redis) to connect to. [According to format](https://docs.rs/redis/latest/redis/#connection-parameters)                                                                                           |
+| `SIZE_LIMIT`            | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). <br> `512 MiB` is the maximum allowed. <br> Payloads are raw bytes (msgpack + cipher), so the frontend shows the full limit. |
+| `MAX_VIEWS`             | `100`            | Maximal number of views.                                                                                                                                                                                              |
+| `MAX_EXPIRATION`        | `360`            | Maximal expiration in minutes.                                                                                                                                                                                        |
+| `ALLOW_ADVANCED`        | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                                                                                                                        |
+| `ALLOW_FILES`           | `true`           | Allow uploading files. If set to `false`, users will only be allowed to create text notes.                                                                                                                            |
+| `ID_LENGTH`             | `32`             | Set the size of the note `id` in bytes. By default this is `32` bytes. This is useful for reducing link size. _This setting does not affect encryption strength_.                                                     |
+| `CACHE_PREFIX`          | `""`             | Optional prefix for all cache keys. Useful when sharing a cache instance with other apps via ACL namespaces.                                                                                                          |
+| `EXTRA_SIZE_LIMIT`      | `512`            | Maximum size in bytes of the opaque `extra` payload (e.g. key derivation params) stored on the note metadata.                                                                                                         |
+| `VERBOSITY`             | `warn`           | Verbosity level for the backend. [Possible values](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) are: `error`, `warn`, `info`, `debug`, `trace`                                                     |
+| `THEME_IMAGE`           | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                                                                                                                       |
+| `THEME_TEXT`            | `""`             | Custom text for replacing the description below the logo                                                                                                                                                              |
+| `THEME_PAGE_TITLE`      | `""`             | Custom text the page title                                                                                                                                                                                            |
+| `THEME_FAVICON`         | `""`             | Custom url for the favicon. Must be publicly reachable                                                                                                                                                                |
+| `THEME_NEW_NOTE_NOTICE` | `true`           | Show the message about how notes are stored in the memory and may be evicted after creating a new note. Defaults to `true`.                                                                                           |
+| `THEME_HOME_LINK`       | `true`           | Show the `/home` link in the footer. Defaults to `true`.                                                                                                                                                              |
+| `IMPRINT_URL`           | `""`             | Custom url for an Imprint hosted somewhere else. Must be publicly reachable. Takes precedence above `IMPRINT_HTML`.                                                                                                   |
+| `IMPRINT_HTML`          | `""`             | Alternative to `IMPRINT_URL`, this can be used to specify the HTML code to show on `/imprint`. Only `IMPRINT_HTML` or `IMPRINT_URL` should be specified, not both.                                                    |
 
 ## Deployment
 
 > ℹ️ `https` is required otherwise browsers will not support the cryptographic functions.
 
-> ℹ️ There is a health endpoint available at `/api/health/`. It returns either 200 or 503.
+> ℹ️ There is a health endpoint available at `/healthz`. It returns either 200 or 503.
 
 ### Docker
 
@@ -104,24 +102,22 @@ Docker is the easiest way. There is the [official image here](https://hub.docker
 ```yaml
 # docker-compose.yml
 
-version: "3.8"
-
 services:
-  redis:
-    image: redis:7-alpine
+  cache:
+    image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
-    command: redis-server --save "" --appendonly no
+    command: valkey-server --save "" --appendonly no
     # Set a size limit. See link below on how to customise.
-    # https://redis.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
+    # https://valkey.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
     # --maxmemory 1gb --maxmemory-policy allkeys-lrulpine
     # This prevents the creation of an anonymous volume.
     tmpfs:
       - /data
 
   app:
-    image: cupcakearmy/cryptgeon:latest
+    image: cupcakearmy/cryptgeon:v3
     depends_on:
-      - redis
+      - cache
     environment:
       # Size limit for a single note.
       SIZE_LIMIT: 4 MiB
@@ -130,7 +126,7 @@ services:
 
     # Optional health checks
     # healthcheck:
-    #   test: ["CMD", "curl", "--fail", "http://127.0.0.1:8000/api/live/"]
+    #   test: ["CMD", "curl", "--fail", "http://127.0.0.1:8000/healthz"]
     #   interval: 1m
     #   timeout: 3s
     #   retries: 2

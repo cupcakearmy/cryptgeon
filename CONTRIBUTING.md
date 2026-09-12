@@ -3,7 +3,7 @@
 ## Requirements
 
 - [mise](https://mise.jdx.dev) — manages pnpm, rust, node (see `mise.toml`)
-- docker or [colima](https://github.com/abiosoft/colima) (for redis)
+- docker or [colima](https://github.com/abiosoft/colima) (for cache)
 
 ## Setup
 
@@ -18,7 +18,7 @@ pnpm install
 pnpm run dev
 ```
 
-Make sure docker/colima is running. This starts redis, the rust backend, the web client, and the CLI. The app is at [localhost:3000](http://localhost:3000).
+Make sure docker/colima is running. This starts the cache (valkey/redis), the rust backend, the web client, and the CLI. The app is at [localhost:3000](http://localhost:3000).
 
 ## Tests
 

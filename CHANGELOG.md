@@ -5,12 +5,206 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] — v3 (major rewrite)
+
+### Added
+
+- New shared TypeScript package `@cryptgeon/shared` as single source of truth for crypto, content codec and API client (crypto + compression + payload + types).
+- Shared payload codec: `packContent` / `unpackContent` (encode → LZ4 → XChaCha20-Poly1305 and reverse).
+- New `pg`-backend storage of note hashes in the cache.
+
+### Changed
+
+- Encryption from AES to **XChaCha20-Poly1305** (client-side); dropped `occulto`.
+- All API bodies switched to **MessagePack**.
+- Frontend migrated to SvelteKit + `@cryptgeon/shared`.
+- CLI rebuilt with `vite-plus` (bundles all deps) and imports from `@cryptgeon/shared`.
+
+### Breaking changes
+
+- Endpoints moved to `/api/v3/notes/` and `/api/v3/status`; health check to `/healthz`.
+- `meta.extra` holds client-opaque data (e.g. scrypt derivation params), size-limited (`EXTRA_SIZE_LIMIT`, default 512 bytes).
+- Inner payload is msgpack: `{ type: "text", data }` or `{ type: "files", data: [{ name, mime, size, data }] }`.
+- Env renames: `REDIS` → `CACHE`, `REDIS_PREFIX` → `CACHE_PREFIX`; new `EXTRA_SIZE_LIMIT`.
+- Docker `redis` service → `cache`; healthcheck → `http://127.0.0.1:8000/healthz`; image stays `valkey/valkey:7-alpine` (swap for any RESP-compatible).
+- Storage switched to cache hashes with atomic `HINCRBY` view counting; the per-note lock (`lock.rs`) is removed.
+- Notes can have **both** `views` and `expiration` set simultaneously.
+- v2 notes are **not migrated**: flush the cache before deploying v3; v2/v3 notes are not interoperable.
+
+## [2.9.3] - 2026-06-25
+
+### Added
+
+- Basic file drag-and-drop support.
+
+### Changed
+
+- Publish the Docker image to GitHub Container Registry (ghcr).
+
+### Fixed
+
+- #207: keep audio/other file mime types intact.
+- Localization key typo `note_to_big` → `note_too_big`.
+
+## [2.9.2] - 2026-06-07
+
+### Added
+
+- Image paste support.
+- Czech translation.
+- `THEME_HOME_LINK` environment variable.
+- Docker compose: prevent anonymous volume creation.
+
+### Changed
+
+- Replace Redis with Valkey in docker-compose files.
+- Rust 2024 edition compat, watchexec and axum 0.8 updates.
+- Switched license checker package.
+- Frontend cleanup and readme/docs cleanup.
+
+### Security
+
+- Updated dependencies (ring, npm_and_yarn group).
+
+## [2.9.1] - 2025-02-27
+
+### Added
+
+- Docs about running Redis in RAM-only mode.
+
+### Fixed
+
+- Password eye toggle not working.
+
+### Security
+
+- Updated dependencies.
+
+## [2.9.0] - 2025-01-18
+
+### Changed
+
+- Frontend rework: migrate to Svelte 5.
+- Update Redis documentation link in compose.
+
+### Fixed
+
+- Fix race condition on the delete endpoint by introducing locks to guarantee the view counter.
+
+## [2.8.4] - 2025-01-02
+
+### Added
+
+- Chinese (zh-TW) translations.
+- Basic auth example (nginx).
+
+## [2.8.3] - 2024-09-27
+
+### Added
+
+- Options to add an imprint: `IMPRINT_URL`, `IMPRINT_HTML`.
+
+## [2.8.2] - 2024-09-20
+
+### Added
+
+- Raycast extension links.
+
+### Changed
+
+- Add `type="button"` to form elements.
+- Bump pnpm version.
+
+## [2.8.1] - 2024-09-02
+
+### Changed
+
+- Move shared package into the CLI.
+- Add a guide.
+
+## [2.8.0] - 2024-08-27
+
+### Changed
+
+- Migrate backend from actix to axum (major refactor).
+- More robust config, body limit via axum.
+- Use container for test pipeline; skip size/expiration quirks in Safari.
+
+### Fixed
+
+- Typos in English localization.
+
+## [2.7.0] - 2024-08-23
+
+### Added
+
+- Better programmatic access to the shared client.
+- Redis TLS feature, dynamically-linked and native musl targets.
+- French blog post and improved French translations.
+
+### Changed
+
+- Bump redis crate to 0.25.2.
+
+## [2.6.1] - 2024-05-04
+
+### Added
+
+- Polish translation.
+
+## [2.6.0] - 2024-03-24
+
+### Added
+
+- `ALLOW_FILES` flag.
+- `NEW_NOTE_NOTICE` → `THEME_NEW_NOTE_NOTICE` theme flag.
+- French translation update.
+
+### Changed
+
+- Reset form when clicking the logo after creating a note.
+
+## [2.5.1] - 2024-03-04
+
+### Changed
+
+- Reset translation.
+- German (`de`) translation update.
+
+## [2.5.0] - 2024-03-04
+
+### Added
+
+- Expose internal shared functionality for external/programmatic usage.
+- German translation updates.
+
+### Security
+
+- Updated dependencies (zerocopy).
+
 ## [2.4.0] - 2023-11-01
 
 ### Changed
 
 - Removed HTML sanitation, display the original message as string
 - Links are now displayed under the note in a separate section
+
+## [2.3.3] - 2023-08-15
+
+### Changed
+
+- Maintenance.
+- Updated dependencies.
+
+## [2.3.2] - 2023-08-04
+
+### Added
+
+- Spanish readme (`README_ES.md`).
+
+### Changed
+
+- Translation and grammar fixes (en, de, de, es).
 
 ## [2.3.1] - 2023-06-23
 
@@ -29,6 +223,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Moved to monorepo.
+
+## [2.2.0] - 2023-01-14
 
 ### Changed
 

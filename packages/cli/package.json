@@ -1,6 +1,6 @@
 {
   "name": "cryptgeon",
-  "version": "2.9.3",
+  "version": "3.0.0-rc.3",
   "homepage": "https://github.com/cupcakearmy/cryptgeon",
   "repository": {
     "type": "git",
@@ -9,39 +9,35 @@
   },
   "type": "module",
   "exports": {
-    ".": "./dist/index.js",
-    "./shared": {
-      "import": "./dist/shared/shared.js",
-      "types": "./dist/shared/shared.d.ts"
-    }
+    ".": "./dist/index.mjs"
   },
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.mts",
   "bin": {
-    "cryptgeon": "./dist/cli.cjs"
+    "cryptgeon": "./dist/cli.mjs"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "bin": "run-s build package",
-    "build": "tsc && node build.js",
-    "dev": "node build.js --watch",
-    "prepublishOnly": "run-s build"
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
-    "@commander-js/extra-typings": "^12.1.0",
-    "@types/inquirer": "^9.0.9",
-    "@types/mime": "^4.0.0",
-    "@types/node": "^20.19.41",
-    "commander": "^12.1.0",
-    "inquirer": "^9.3.8",
+    "@commander-js/extra-typings": "^15.0.0",
+    "@cryptgeon/shared": "workspace:*",
+    "@msgpack/msgpack": "^3.1.3",
+    "@tsconfig/strictest": "catalog:",
+    "@types/inquirer": "^9.0.10",
+    "@types/node": "^22.20.1",
+    "commander": "^15.0.0",
+    "inquirer": "^14.2.1",
     "mime": "^4.1.0",
-    "occulto": "^2.0.6",
-    "pretty-bytes": "^6.1.1",
-    "tsup": "^8.5.1",
-    "typescript": "^5.9.3"
+    "pretty-bytes": "^7.1.3",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   }
 }

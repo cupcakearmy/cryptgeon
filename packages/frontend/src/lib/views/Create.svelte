@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { AES, Hex } from 'occulto'
+	import {
+		bytesToHex,
+		create as apiCreate,
+		packContent,
+		type ServerNote
+	} from '@cryptgeon/shared'
 	import { t } from 'svelte-intl-precompile'
 	import { blur } from 'svelte/transition'
 
@@ -14,14 +19,8 @@
 	import Result, { type NoteResult } from '$lib/ui/NoteResult.svelte'
 	import Switch from '$lib/ui/Switch.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
-	import { Adapters, API, PayloadToLargeError, type FileDTO, type Note } from 'cryptgeon/shared'
 
-	let note: Note = $state({
-		contents: '',
-		meta: { type: 'text' },
-		views: 1,
-		expiration: 60,
-	})
+	let note: { views: number; expiration: number } = $state({ views: 1, expiration: 60 })
 	let files: FileDTO[] = $state([])
 	let result: NoteResult | null = $state(null)
 	let advanced = $state(false)
@@ -31,6 +30,7 @@
 	let description = $state('')
 	let loading: string | null = $state(null)
 	let isPasting = $state(false)
+	let textContent = $state('')
 
 	$effect(() => {
 		if (!advanced) {
@@ -50,13 +50,7 @@
 	})
 
 	$effect(() => {
-		note.meta.type = isFile ? 'file' : 'text'
-	})
-
-	$effect(() => {
-		if (!isFile) {
-			note.contents = ''
-		}
+		if (!isFile) textContent = ''
 	})
 
 	async function handlePaste(e: ClipboardEvent) {
@@ -98,11 +92,12 @@
 				const name =
 					file.name || `pasted-file-${Date.now()}-${Math.round(Math.random() * 1000)}${ext}`
 				const renamed = new File([file], name, { type: file.type })
+				const data = new Uint8Array(await renamed.arrayBuffer())
 				return {
 					name: renamed.name,
+					mime: renamed.type,
 					size: renamed.size,
-					type: renamed.type,
-					contents: new Uint8Array(await renamed.arrayBuffer()),
+					data,
 				}
 			})
 		)
@@ -122,40 +117,34 @@
 		try {
 			loading = $t('common.encrypting')
 
-			const derived = customPassword && (await AES.derive(customPassword))
-			const key = derived ? derived[0] : await AES.generateKey()
-
-			const data: Note = {
-				contents: '',
-				meta: note.meta,
-			}
-			if (derived) data.meta.derivation = derived[1]
 			if (isFile) {
 				if (files.length === 0) throw new EmptyContentError()
-				data.contents = await Adapters.Files.encrypt(files, key)
-			} else {
-				if (note.contents === '') throw new EmptyContentError()
-				data.contents = await Adapters.Text.encrypt(note.contents, key)
+			} else if (textContent === '') {
+				throw new EmptyContentError()
 			}
-			if (timeExpiration) data.expiration = parseInt(note.expiration as any)
-			else data.views = parseInt(note.views as any)
+
+			const payload = packContent(
+				isFile ? { type: 'files', files } : { type: 'text', text: textContent },
+				customPassword || undefined
+			)
+			const serverNote: ServerNote = {
+				meta: {
+					...(timeExpiration ? { expiration: parseInt(note.expiration as any) } : { views: parseInt(note.views as any) }),
+					extra: payload.extra,
+				},
+				data: payload.data,
+			}
 
 			loading = $t('common.uploading')
-			const response = await API.create(data)
+			const response = await apiCreate(serverNote)
 			result = {
 				id: response.id,
-				password: customPassword ? undefined : Hex.encode(key),
+				password: customPassword ? undefined : bytesToHex(payload.key),
 			}
 			notify.success($t('home.messages.note_created'))
 		} catch (e) {
-			if (e instanceof PayloadToLargeError) {
-				notify.error($t('home.errors.note_too_big'))
-			} else if (e instanceof EmptyContentError) {
-				notify.error($t('home.errors.empty_content'))
-			} else {
-				console.error(e)
-				notify.error($t('home.errors.note_error'))
-			}
+			console.error(e)
+			notify.error($t('home.errors.note_error'))
 		} finally {
 			loading = null
 		}
@@ -183,7 +172,7 @@
 					<TextArea
 						data-testid="text-field"
 						label={$t('common.note')}
-						bind:value={note.contents}
+						bind:value={textContent}
 						placeholder="..."
 					/>
 				{/if}

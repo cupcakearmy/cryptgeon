@@ -4,14 +4,12 @@
 
 	import { status } from '$lib/stores/status'
 
-	// Due to encoding overhead (~35%) with base64
-	// https://en.wikipedia.org/wiki/Base64
-	const overhead = 1 / 1.35
+	// Payload is raw bytes (msgpack + cipher), no base64 padding overhead.
 </script>
 
 <span>
 	{#if $status !== null}
-		{prettyBytes($status.max_size * overhead, { binary: true })}
+		{prettyBytes($status.max_size, { binary: true })}
 	{:else}
 		{$_('common.loading')}
 	{/if}
