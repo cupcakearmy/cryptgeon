@@ -23,19 +23,17 @@
     "dev": "vp pack --watch",
     "prepublishOnly": "run-s build"
   },
-  "dependencies": {
+  "devDependencies": {
     "@cryptgeon/shared": "workspace:*",
     "@msgpack/msgpack": "^3.1.3",
     "@commander-js/extra-typings": "^12.1.0",
-    "inquirer": "^9.3.8",
-    "mime": "^4.1.0",
-    "pretty-bytes": "^6.1.1"
-  },
-  "devDependencies": {
     "@tsconfig/strictest": "catalog:",
     "@types/inquirer": "^9.0.9",
     "@types/node": "^22.15.3",
     "commander": "^12.1.0",
+    "inquirer": "^9.3.8",
+    "mime": "^4.1.0",
+    "pretty-bytes": "^6.1.1",
     "typescript": "catalog:",
     "vite-plus": "catalog:"
   },
