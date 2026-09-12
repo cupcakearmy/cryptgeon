@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { deriveKey, hexToBytes, decrypt, decode, decompress, info, get as apiGet, type FileDTO } from '@cryptgeon/shared'
+	import { deriveKey, hexToBytes, decode, info, get as apiGet, unpackContent, type FileDTO } from '@cryptgeon/shared'
 	import { onMount } from 'svelte'
 	import { t } from 'svelte-intl-precompile'
 
@@ -69,8 +69,7 @@
 				key = hexToBytes(password!)
 			}
 
-		const decrypted = decrypt(serverNote.data, key)
-		const content = decode(decompress(decrypted)) as any
+		const content = unpackContent(serverNote.data, key)
 
 			switch (content.type) {
 				case 'text':
