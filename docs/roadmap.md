@@ -2,7 +2,6 @@
 
 ## Todo
 
-- Localize i18n readmes: `README_ES.md`, `README_zh-CN.md` still reference `REDIS` / `/api/v1`-era endpoint names — align to `CACHE` / `/healthz` (also sweep `CONTRIBUTING.md`, `examples/*`, postman collection).
 - Add remaining shared tooling to the pnpm catalog (`vite`, `tsdown`).
 - Move formatting, linting and type-checking + git hooks onto `vite-plus` (oxlint, oxfmt, vitest).
 - Re-add CSP (`Content-Security-Policy`) wired into the axum router (was in `csp.rs`, removed as unused).
