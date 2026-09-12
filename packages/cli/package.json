@@ -21,7 +21,7 @@
   "scripts": {
     "build": "vp pack",
     "dev": "vp pack --watch",
-    "prepublishOnly": "run-s build"
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
     "@cryptgeon/shared": "workspace:*",
