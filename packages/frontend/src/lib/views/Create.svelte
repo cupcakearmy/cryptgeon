@@ -1,9 +1,9 @@
 <script lang="ts">
 	import {
-		deriveKey, generateKey, encrypt, randomBytes,
-		bytesToHex, encode, compress,
+		bytesToHex,
 		create as apiCreate,
-		type FileDTO, type ServerNote
+		packContent,
+		type ServerNote
 	} from '@cryptgeon/shared'
 	import { t } from 'svelte-intl-precompile'
 	import { blur } from 'svelte/transition'
@@ -117,42 +117,41 @@
 		try {
 			loading = $t('common.encrypting')
 
-			const salt = customPassword ? randomBytes(16) : null
-			const key = customPassword
-				? deriveKey(customPassword, salt!)
-				: generateKey()
-
-			let inner: Uint8Array
 			if (isFile) {
 				if (files.length === 0) throw new EmptyContentError()
-				inner = encode({ type: 'files', data: files })
-			} else {
-				if (textContent === '') throw new EmptyContentError()
-				inner = encode({ type: 'text', data: textContent })
+			} else if (textContent === '') {
+				throw new EmptyContentError()
 			}
 
-			const originalSize =inner.byteLength
-			const compressed = compress(inner)
-			const compresseedSize= compressed.byteLength
-			console.debug({originalSize, compresseedSize, ratio: originalSize/compresseedSize})
-
-			const data = encrypt(compress(inner), key)
-			const extra = customPassword
-				? encode({ salt: salt!, N: 32768, r: 8, p: 1 })
-				: new Uint8Array()
+			const payload = packContent(
+				isFile
+					? {
+							type: 'files',
+							files: await Promise.all(
+								files.map(async (file) => ({
+									name: file.name,
+									mime: file.type,
+									size: file.size,
+									data: new Uint8Array(await file.arrayBuffer()),
+								}))
+							),
+						}
+					: { type: 'text', text: textContent },
+				customPassword || undefined
+			)
 			const serverNote: ServerNote = {
 				meta: {
 					...(timeExpiration ? { expiration: parseInt(note.expiration as any) } : { views: parseInt(note.views as any) }),
-					extra,
+					extra: payload.extra,
 				},
-				data,
+				data: payload.data,
 			}
 
 			loading = $t('common.uploading')
 			const response = await apiCreate(serverNote)
 			result = {
 				id: response.id,
-				password: customPassword ? undefined : bytesToHex(key),
+				password: customPassword ? undefined : bytesToHex(payload.key),
 			}
 			notify.success($t('home.messages.note_created'))
 		} catch (e) {

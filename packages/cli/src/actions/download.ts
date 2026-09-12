@@ -3,7 +3,7 @@ import { access, constants, writeFile } from 'node:fs/promises'
 import { basename, resolve } from 'node:path'
 import { decode } from '@msgpack/msgpack'
 import pretty from 'pretty-bytes'
-import { decrypt, deriveKey, setServer, info, get, decompress } from '@cryptgeon/shared'
+import { deriveKey, setServer, info, get, unpackContent } from '@cryptgeon/shared'
 
 export async function download(url: URL, all: boolean, suggestedPassword?: string) {
   setServer(url.origin)
@@ -32,8 +32,7 @@ export async function download(url: URL, all: boolean, suggestedPassword?: strin
   const note = await get(id)
   if (!note) throw new Error('Could not load note')
 
-  const decrypted = decrypt(note.data, key)
-  const content = decode(decompress(decrypted)) as any
+  const content = unpackContent(note.data, key)
 
   switch (content.type) {
     case 'files':
