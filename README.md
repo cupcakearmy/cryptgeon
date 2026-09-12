@@ -55,7 +55,7 @@ There is an [official Raycast extension](https://www.raycast.com/cupcakearmy/cry
 
 each note has a generated <code>id (256bit)</code> and <code>key 256(bit)</code>. The
 <code>id</code>
-is used to save & retrieve the note. the note is then encrypted with aes in gcm mode on the
+is used to save & retrieve the note. the note is then encrypted with XChaCha20-Poly1305 on the
 client side with the <code>key</code> and then sent to the server. data is stored in memory and
 never persisted to disk. the server never sees the encryption key and cannot decrypt the contents
 of the notes even if it tried to.
@@ -71,13 +71,14 @@ of the notes even if it tried to.
 | Variable                | Default          | Description                                                                                                                                                                                                   |
 | ----------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `CACHE`                 | `redis://cache/` | Cache URL (valkey or redis) to connect to. [According to format](https://docs.rs/redis/latest/redis/#connection-parameters)                                                                                   |
-| `SIZE_LIMIT`            | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). <br> `512 MiB` is the maximum allowed. <br> The frontend will show that number including the ~35% encoding overhead. |
+| `SIZE_LIMIT`            | `1 KiB`          | Max size for body. Accepted values according to [byte-unit](https://docs.rs/byte-unit/). <br> `512 MiB` is the maximum allowed. <br> Payloads are raw bytes (msgpack + cipher), so the frontend shows the full limit. |
 | `MAX_VIEWS`             | `100`            | Maximal number of views.                                                                                                                                                                                      |
 | `MAX_EXPIRATION`        | `360`            | Maximal expiration in minutes.                                                                                                                                                                                |
 | `ALLOW_ADVANCED`        | `true`           | Allow custom configuration. If set to `false` all notes will be one view only.                                                                                                                                |
 | `ALLOW_FILES`           | `true`           | Allow uploading files. If set to `false`, users will only be allowed to create text notes.                                                                                                                    |
 | `ID_LENGTH`             | `32`             | Set the size of the note `id` in bytes. By default this is `32` bytes. This is useful for reducing link size. _This setting does not affect encryption strength_.                                             |
 | `CACHE_PREFIX`          | `""`             | Optional prefix for all cache keys. Useful when sharing a cache instance with other apps via ACL namespaces.                                                                                                  |
+| `EXTRA_SIZE_LIMIT`      | `512`            | Maximum size in bytes of the opaque `extra` payload (e.g. key derivation params) stored on the note metadata.                                                                                                |
 | `VERBOSITY`             | `warn`           | Verbosity level for the backend. [Possible values](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) are: `error`, `warn`, `info`, `debug`, `trace`                                             |
 | `THEME_IMAGE`           | `""`             | Custom image for replacing the logo. Must be publicly reachable                                                                                                                                               |
 | `THEME_TEXT`            | `""`             | Custom text for replacing the description below the logo                                                                                                                                                      |
@@ -92,7 +93,7 @@ of the notes even if it tried to.
 
 > ℹ️ `https` is required otherwise browsers will not support the cryptographic functions.
 
-> ℹ️ There is a health endpoint available at `/api/health/`. It returns either 200 or 503.
+> ℹ️ There is a health endpoint available at `/healthz`. It returns either 200 or 503.
 
 ### Docker
 
