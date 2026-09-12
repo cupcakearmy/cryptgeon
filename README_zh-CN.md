@@ -77,7 +77,6 @@ Docker 是最简单的部署方式。这里是[官方镜像的地址](https://hu
 
 ```yaml
 # docker-compose.yml
-version: "3.8"
 
 services:
   cache:
@@ -115,7 +114,6 @@ services:
 - 域名 `example.org`
 
 ```yaml
-version: "3.8"
 
 networks:
   proxy:

@@ -25,7 +25,6 @@ This is a tiny guide to install cryptgeon on (probably) any unix system (and may
 ```yaml
 # docker-compose.yaml
 
-version: '3.8'
 services:
   traefik:
     image: traefik:2.6
@@ -100,7 +99,6 @@ Create another docker-compose.yaml file in another folder. We will assume that t
 ```
 
 ```yaml
-version: '3.8'
 
 networks:
   proxy:
@@ -155,7 +153,6 @@ docker-compose up -d
 ```yaml
 # docker-compose.yaml
 
-version: '3.8'
 
 services:
   watchtower:

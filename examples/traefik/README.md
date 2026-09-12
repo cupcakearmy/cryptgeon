@@ -9,7 +9,6 @@ Assumptions:
 - Domain name `example.org`.
 
 ```yaml
-version: '3.8'
 
 networks:
   proxy:

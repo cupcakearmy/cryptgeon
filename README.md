@@ -102,7 +102,6 @@ Docker is the easiest way. There is the [official image here](https://hub.docker
 ```yaml
 # docker-compose.yml
 
-version: "3.8"
 
 services:
   cache:
