@@ -6,7 +6,6 @@
 - Add remaining shared tooling to the pnpm catalog (`vite`, `tsdown`).
 - Move formatting, linting and type-checking + git hooks onto `vite-plus` (oxlint, oxfmt, vitest).
 - Re-add CSP (`Content-Security-Policy`) wired into the axum router (was in `csp.rs`, removed as unused).
-- Move all CLI deps to `devDependencies` — they bundle into the single output file anyway.
 
 ## Unified payload (drop the text/file union)
 
