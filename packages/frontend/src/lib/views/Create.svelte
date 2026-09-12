@@ -124,19 +124,7 @@
 			}
 
 			const payload = packContent(
-				isFile
-					? {
-							type: 'files',
-							files: await Promise.all(
-								files.map(async (file) => ({
-									name: file.name,
-									mime: file.type,
-									size: file.size,
-									data: new Uint8Array(await file.arrayBuffer()),
-								}))
-							),
-						}
-					: { type: 'text', text: textContent },
+				isFile ? { type: 'files', files } : { type: 'text', text: textContent },
 				customPassword || undefined
 			)
 			const serverNote: ServerNote = {
