@@ -107,7 +107,7 @@ networks:
     external: true
 
 services:
-  redis:
+  cache:
     image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
@@ -122,7 +122,7 @@ services:
     image: cupcakearmy/cryptgeon:latest
     restart: unless-stopped
     depends_on:
-      - redis
+      - cache
     environment:
       SIZE_LIMIT: 4 MiB
     networks:

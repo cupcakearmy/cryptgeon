@@ -16,7 +16,7 @@ networks:
     external: true
 
 services:
-  redis:
+  cache:
     image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
@@ -31,7 +31,7 @@ services:
     image: cupcakearmy/cryptgeon:latest
     restart: unless-stopped
     depends_on:
-      - redis
+      - cache
     networks:
       - default
       - proxy
@@ -60,7 +60,7 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
-  redis:
+  cache:
     image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
@@ -74,7 +74,7 @@ services:
   cryptgeon:
     image: cupcakearmy/cryptgeon
     depends_on:
-      - redis
+      - cache
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cryptgeon.rule=Host(`cryptgeon.localhost`)"
