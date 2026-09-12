@@ -39,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Publish to GitHub Container Registry instead of DockerHub.
+- Publish the Docker image to GitHub Container Registry (ghcr).
 
 ### Fixed
 
