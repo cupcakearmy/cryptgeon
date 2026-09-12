@@ -26,7 +26,7 @@ services:
       - /data
 
   app:
-    image: cupcakearmy/cryptgeon:latest
+    image: cupcakearmy/cryptgeon:v3
     restart: unless-stopped
     depends_on:
       - cache
@@ -70,7 +70,7 @@ services:
       - /data
 
   cryptgeon:
-    image: cupcakearmy/cryptgeon
+    image: cupcakearmy/cryptgeon:v3
     depends_on:
       - cache
     labels:

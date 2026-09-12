@@ -115,7 +115,7 @@ services:
       - /data
 
   app:
-    image: cupcakearmy/cryptgeon:latest
+    image: cupcakearmy/cryptgeon:v3
     depends_on:
       - cache
     environment:
