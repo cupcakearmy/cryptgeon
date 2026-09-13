@@ -130,20 +130,16 @@
 				throw new EmptyContentError()
 			}
 
-			const filesInput: NoteInput = {
-				type: 'files',
-				files: $state.snapshot(files),
-			}
-
-			const payload = await worker.pack(
-				isFile
-					? transfer(
-							filesInput,
-							filesInput.files.map((f) => f.data.buffer)
-						)
-					: { type: 'text', text: textContent },
-				customPassword || undefined
-			)
+			const noteInput: NoteInput = isFile
+				? transfer(
+						{
+							type: 'files',
+							files: $state.snapshot(files),
+						},
+						files.map((f) => f.data.buffer)
+					)
+				: { type: 'text', text: textContent }
+			const payload = await worker.pack(noteInput, customPassword || undefined)
 			const serverNote: ServerNote = {
 				meta: {
 					...(timeExpiration

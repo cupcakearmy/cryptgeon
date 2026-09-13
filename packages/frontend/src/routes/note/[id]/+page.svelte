@@ -1,5 +1,13 @@
 <script lang="ts">
-	import { deriveKey, hexToBytes, decode, info, get as apiGet, unpackContent, type FileDTO } from '@cryptgeon/shared'
+	import {
+		deriveKey,
+		hexToBytes,
+		decode,
+		info,
+		get as apiGet,
+		unpackContent,
+		type FileDTO,
+	} from '@cryptgeon/shared'
 	import { onMount } from 'svelte'
 	import { t } from 'svelte-intl-precompile'
 
@@ -8,6 +16,7 @@
 	import ShowNote, { type DecryptedNote } from '$lib/ui/ShowNote.svelte'
 	import TextInput from '$lib/ui/TextInput.svelte'
 	import type { PageData } from './$types'
+	import { createWorker } from '$lib/worker'
 
 	interface Props {
 		data: PageData
@@ -44,6 +53,8 @@
 		}
 	})
 
+	const worker = createWorker()
+
 	async function show(e: SubmitEvent) {
 		e.preventDefault()
 		try {
@@ -69,7 +80,7 @@
 				key = hexToBytes(password!)
 			}
 
-		const content = unpackContent(serverNote.data, key)
+			const content = await worker.unpack(serverNote.data, key)
 
 			switch (content.type) {
 				case 'text':
@@ -78,16 +89,16 @@
 						contents: content.data,
 					}
 					break
-case 'files':
-    const files = (content.data as any[]).map((f: any) => ({
-        ...f,
-        data: f.data instanceof Uint8Array ? f.data : new Uint8Array(f.data as any),
-    }))
-    note = {
-        meta: { type: 'file' },
-        contents: files,
-    }
-break
+				case 'files':
+					const files = (content.data as any[]).map((f: any) => ({
+						...f,
+						data: f.data instanceof Uint8Array ? f.data : new Uint8Array(f.data as any),
+					}))
+					note = {
+						meta: { type: 'file' },
+						contents: files,
+					}
+					break
 				default:
 					error = $t('show.errors.unsupported_type')
 					return
