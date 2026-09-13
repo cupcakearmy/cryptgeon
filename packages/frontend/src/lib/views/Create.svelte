@@ -3,7 +3,7 @@
 		bytesToHex,
 		create as apiCreate,
 		packContent,
-		type ServerNote
+		type FileDTO, type ServerNote
 	} from '@cryptgeon/shared'
 	import { t } from 'svelte-intl-precompile'
 	import { blur } from 'svelte/transition'

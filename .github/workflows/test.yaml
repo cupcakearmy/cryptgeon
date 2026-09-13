@@ -34,6 +34,9 @@ jobs:
       - name: Shared tests
         run: pnpm --filter @cryptgeon/shared test
 
+      - name: Frontend type check
+        run: pnpm --filter @cryptgeon/web check
+
       - name: Run your tests
         run: pnpm test
 
