@@ -1,12 +1,15 @@
 <script lang="ts">
 	import {
-		bytesToHex,
 		create as apiCreate,
+		bytesToHex,
 		packContent,
-		type FileDTO, type ServerNote
+		type FileDTO,
+		type NoteInput,
+		type ServerNote,
 	} from '@cryptgeon/shared'
 	import { t } from 'svelte-intl-precompile'
 	import { blur } from 'svelte/transition'
+	import { transfer } from 'comlink'
 
 	import { status } from '$lib/stores/status'
 	import { notify } from '$lib/toast'
@@ -15,10 +18,12 @@
 	import FileUpload from '$lib/ui/FileUpload.svelte'
 	import Loader from '$lib/ui/Loader.svelte'
 	import MaxSize from '$lib/ui/MaxSize.svelte'
-	import PastedFilesPreview from '$lib/ui/PastedFilesPreview.svelte'
 	import Result, { type NoteResult } from '$lib/ui/NoteResult.svelte'
+	import PastedFilesPreview from '$lib/ui/PastedFilesPreview.svelte'
 	import Switch from '$lib/ui/Switch.svelte'
 	import TextArea from '$lib/ui/TextArea.svelte'
+	import { createWorker } from '$lib/worker'
+	import { onMount } from 'svelte'
 
 	let note: { views: number; expiration: number } = $state({ views: 1, expiration: 60 })
 	let files: FileDTO[] = $state([])
@@ -52,6 +57,8 @@
 	$effect(() => {
 		if (!isFile) textContent = ''
 	})
+
+	const worker = createWorker()
 
 	async function handlePaste(e: ClipboardEvent) {
 		const data = e.clipboardData
@@ -123,13 +130,25 @@
 				throw new EmptyContentError()
 			}
 
-			const payload = packContent(
-				isFile ? { type: 'files', files } : { type: 'text', text: textContent },
+			const filesInput: NoteInput = {
+				type: 'files',
+				files: $state.snapshot(files),
+			}
+
+			const payload = await worker.pack(
+				isFile
+					? transfer(
+							filesInput,
+							filesInput.files.map((f) => f.data.buffer)
+						)
+					: { type: 'text', text: textContent },
 				customPassword || undefined
 			)
 			const serverNote: ServerNote = {
 				meta: {
-					...(timeExpiration ? { expiration: parseInt(note.expiration as any) } : { views: parseInt(note.views as any) }),
+					...(timeExpiration
+						? { expiration: parseInt(note.expiration as any) }
+						: { views: parseInt(note.views as any) }),
 					extra: payload.extra,
 				},
 				data: payload.data,
