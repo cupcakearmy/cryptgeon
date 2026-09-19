@@ -46,11 +46,11 @@ async function downloadFile(file: FileDTO) {
 			files = note.contents
 		}
 	})
-	let download = $derived(() => {
+	function downloadAll() {
 		for (const file of files) {
 			downloadFile(file)
 		}
-	})
+	}
 	let links = $derived(typeof note.contents === 'string' ? note.contents.match(RE_URL) : [])
 </script>
 
@@ -92,7 +92,7 @@ async function downloadFile(file: FileDTO) {
 				{/key}
 			{/if}
 		{/each}
-		<Button onclick={download}>{$t('show.download_all')}</Button>
+		<Button onclick={downloadAll}>{$t('show.download_all')}</Button>
 	{/if}
 </div>
 
