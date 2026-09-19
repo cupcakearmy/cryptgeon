@@ -151,6 +151,10 @@ Ver [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 Por favor dirígete a la sección de seguridad [aquí](./SECURITY.md).
 
+## Uso de LLMs
+
+A partir de la V3, utilicé LLMs de forma intensiva para implementar _mis propias ideas_. Esto significa que la dirección y las decisiones de arquitectura son humanas. Gran parte de la implementación que deriva de eso está automatizada con un LLM.
+
 ---
 
 _Atribuciones_

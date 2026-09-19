@@ -169,6 +169,10 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 Please refer to the security section [here](./SECURITY.md).
 
+## Usage of LLMs
+
+Starting from V3, I used LLMs heavily to implement _my own ideas_. This means that the direction and architecture choices are human. A lot of the implementation that derives from that, is automated with an LLM.
+
 ---
 
 _Attributions_

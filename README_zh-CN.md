@@ -149,6 +149,10 @@ services:
 
 参见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
 
+## LLM 的使用
+
+从 V3 开始，我大量使用 LLM 来实现_我自己的想法_。这意味着项目的方向和架构选择均由人类决定。由此衍生的大部分实现由 LLM 自动完成。
+
 ###### Attributions
 
 - 测试数据:
