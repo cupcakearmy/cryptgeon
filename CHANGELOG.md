@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - New shared TypeScript package `@cryptgeon/shared` as single source of truth for crypto, content codec and API client (crypto + compression + payload + types).
 - Shared payload codec: `packContent` / `unpackContent` (encode → LZ4 → XChaCha20-Poly1305 and reverse).
-- New `pg`-backend storage of note hashes in the cache.
+- Cache-backed note storage using hashes (valkey/redis) with atomic view counting.
 
 ### Changed
 
