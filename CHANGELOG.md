@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Encryption from AES to **XChaCha20-Poly1305** (client-side); dropped `occulto`.
 - All API bodies switched to **MessagePack**.
-- Frontend migrated to SvelteKit + `@cryptgeon/shared`.
+- Frontend uses `@cryptgeon/shared` for crypto + payload codec (replacing the previous local `cryptgeon/shared`); heavy pack/unpack runs in a web worker.
 - CLI rebuilt with `vite-plus` (bundles all deps) and imports from `@cryptgeon/shared`.
 
 ### Breaking changes
