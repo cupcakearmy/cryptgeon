@@ -8,11 +8,7 @@ const contract: WorkerConract = {
 		return transfer(content, [content.data.buffer, content.extra.buffer, content.key.buffer])
 	},
 	unpack(data, key) {
-		const content = unpackContent(data, key)
-		return transfer(
-			content,
-			typeof content.data === 'string' ? [] : content.data.map((f) => f.data.buffer)
-		)
+		return unpackContent(data, key)
 	},
 }
 
