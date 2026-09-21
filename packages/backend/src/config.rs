@@ -34,7 +34,7 @@ pub static ref ID_LENGTH: u32 = std::env::var("ID_LENGTH")
   .unwrap_or("32".to_string())
   .parse()
   .unwrap();
-pub static ref REDIS_PREFIX: String = std::env::var("REDIS_PREFIX")
+pub static ref CACHE_PREFIX: String = std::env::var("CACHE_PREFIX")
   .unwrap_or("".to_string())
   .parse()
   .unwrap();
@@ -48,6 +48,10 @@ pub static ref IMPRINT_URL: String = std::env::var("IMPRINT_URL")
   .unwrap();
 pub static ref IMPRINT_HTML: String = std::env::var("IMPRINT_HTML")
   .unwrap_or("".to_string())
+  .parse()
+  .unwrap();
+pub static ref EXTRA_SIZE_LIMIT: usize = std::env::var("EXTRA_SIZE_LIMIT")
+  .unwrap_or("512".to_string())
   .parse()
   .unwrap();
 }

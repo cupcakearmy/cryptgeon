@@ -4,10 +4,9 @@
 	import { status } from '$lib/stores/status'
 	import Switch from '$lib/ui/Switch.svelte'
 	import TextInput from '$lib/ui/TextInput.svelte'
-	import type { Note } from 'cryptgeon/shared'
 
 	interface Props {
-		note: Note
+		note: { views: number; expiration: number }
 		timeExpiration?: boolean
 		customPassword?: string | null
 	}

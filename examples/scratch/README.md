@@ -25,27 +25,26 @@ This is a tiny guide to install cryptgeon on (probably) any unix system (and may
 ```yaml
 # docker-compose.yaml
 
-version: '3.8'
 services:
   traefik:
     image: traefik:2.6
     restart: unless-stopped
     ports:
-      - '80:80'
-      - '443:443'
+      - "80:80"
+      - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.yaml:/etc/traefik/traefik.yaml:ro
       - ./data:/data
     labels:
-      - 'traefik.enable=true'
+      - "traefik.enable=true"
 
       # HTTP to HTTPS redirection
-      - 'traefik.http.routers.http_catchall.rule=HostRegexp(`{any:.+}`)'
-      - 'traefik.http.routers.http_catchall.entrypoints=insecure'
-      - 'traefik.http.routers.http_catchall.middlewares=https_redirect'
-      - 'traefik.http.middlewares.https_redirect.redirectscheme.scheme=https'
-      - 'traefik.http.middlewares.https_redirect.redirectscheme.permanent=true'
+      - "traefik.http.routers.http_catchall.rule=HostRegexp(`{any:.+}`)"
+      - "traefik.http.routers.http_catchall.entrypoints=insecure"
+      - "traefik.http.routers.http_catchall.middlewares=https_redirect"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
 
 networks:
   default:
@@ -62,15 +61,15 @@ api:
 # Define HTTP and HTTPS entrypoint
 entryPoints:
   insecure:
-    address: ':80'
+    address: ":80"
   secure:
-    address: ':443'
+    address: ":443"
 
 # Dynamic configuration will come from docker labels
 providers:
   docker:
-    endpoint: 'unix:///var/run/docker.sock'
-    network: 'proxy'
+    endpoint: "unix:///var/run/docker.sock"
+    network: "proxy"
     exposedByDefault: false
 
 # Enable acme with http file challenge
@@ -100,14 +99,12 @@ Create another docker-compose.yaml file in another folder. We will assume that t
 ```
 
 ```yaml
-version: '3.8'
-
 networks:
   proxy:
     external: true
 
 services:
-  redis:
+  cache:
     image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
@@ -119,10 +116,10 @@ services:
       - /data
 
   app:
-    image: cupcakearmy/cryptgeon:latest
+    image: cupcakearmy/cryptgeon:v3
     restart: unless-stopped
     depends_on:
-      - redis
+      - cache
     environment:
       SIZE_LIMIT: 4 MiB
     networks:
@@ -154,8 +151,6 @@ docker-compose up -d
 
 ```yaml
 # docker-compose.yaml
-
-version: '3.8'
 
 services:
   watchtower:

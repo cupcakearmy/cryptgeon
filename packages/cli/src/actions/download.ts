@@ -1,51 +1,42 @@
 import inquirer from 'inquirer'
 import { access, constants, writeFile } from 'node:fs/promises'
 import { basename, resolve } from 'node:path'
-import { AES, Hex } from 'occulto'
+import { decode } from '@msgpack/msgpack'
 import pretty from 'pretty-bytes'
-import { Adapters } from '../shared/adapters.js'
-import { API } from '../shared/api.js'
+import { deriveKey, setServer, info, get, unpackContent } from '@cryptgeon/shared'
 
 export async function download(url: URL, all: boolean, suggestedPassword?: string) {
-  API.setOptions({ server: url.origin })
+  setServer(url.origin)
   const id = url.pathname.split('/')[2]
-  const preview = await API.info(id).catch(() => {
-    throw new Error('Note does not exist or is expired')
-  })
+  if (!id) throw new Error('Invalid URL')
+  const meta = await info(id)
+  if (!meta) throw new Error('Note does not exist or is expired')
 
-  // Password
-  let password: string
-  const derivation = preview?.meta.derivation
-  if (derivation) {
+  let key: Uint8Array
+  if (meta.extra && meta.extra.length > 0) {
     if (suggestedPassword) {
-      password = suggestedPassword
+      const derivation = decode(meta.extra) as any
+      key = deriveKey(suggestedPassword, new Uint8Array(derivation.salt))
     } else {
       const response = await inquirer.prompt([
-        {
-          type: 'password',
-          message: 'Note password',
-          name: 'password',
-        },
+        { type: 'password', message: 'Note password', name: 'password' },
       ])
-      password = response.password
+      const derivation = decode(meta.extra) as any
+      key = deriveKey(response.password, new Uint8Array(derivation.salt))
     }
   } else {
-    password = url.hash.slice(1)
+    const hex = url.hash.slice(1)
+    key = new Uint8Array(Buffer.from(hex, 'hex'))
   }
 
-  const key = derivation ? (await AES.derive(password, derivation))[0] : Hex.decode(password)
-  const note = await API.get(id)
+  const note = await get(id)
+  if (!note) throw new Error('Could not load note')
 
-  const couldNotDecrypt = new Error('Could not decrypt note. Probably an invalid password')
-  switch (note.meta.type) {
-    case 'file':
-      const files = await Adapters.Files.decrypt(note.contents, key).catch(() => {
-        throw couldNotDecrypt
-      })
-      if (!files) {
-        throw new Error('No files found in note')
-      }
+  const content = unpackContent(note.data, key)
 
+  switch (content.type) {
+    case 'files':
+      const files: { name: string; data: Uint8Array }[] = content.data
       let selected: typeof files
       if (all) {
         selected = files
@@ -55,36 +46,32 @@ export async function download(url: URL, all: boolean, suggestedPassword?: strin
             type: 'checkbox',
             message: 'What files should be saved?',
             name: 'names',
-            choices: files.map((file) => ({
-              value: file.name,
-              name: `${file.name} - ${file.type} - ${pretty(file.size, { binary: true })}`,
+            choices: files.map((f) => ({
+              value: f.name,
+              name: `${f.name} - ${pretty(f.data.length, { binary: true })}`,
               checked: true,
             })),
           },
         ])
-        selected = files.filter((file) => names.includes(file.name))
+        selected = files.filter((f) => names.includes(f.name))
       }
-
       if (!selected.length) throw new Error('No files selected')
       await Promise.all(
-        selected.map(async (file) => {
-          let filename = resolve(file.name)
+        selected.map(async (f) => {
+          let filename = resolve(f.name)
           try {
-            // If exists -> prepend timestamp to not overwrite the current file
             await access(filename, constants.R_OK)
-            filename = resolve(`${Date.now()}-${file.name}`)
+            filename = resolve(`${Date.now()}-${f.name}`)
           } catch {}
-          await writeFile(filename, file.contents)
+          await writeFile(filename, f.data)
           console.log(`Saved: ${basename(filename)}`)
         })
       )
-
       break
     case 'text':
-      const plaintext = await Adapters.Text.decrypt(note.contents, key).catch(() => {
-        throw couldNotDecrypt
-      })
-      console.log(plaintext)
+      console.log(content.data)
       break
+    default:
+      throw new Error('Unknown content type')
   }
 }

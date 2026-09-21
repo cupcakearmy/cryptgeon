@@ -45,18 +45,7 @@
 		</span>
 	</AboutParagraph>
 
-	<AboutParagraph title="translations">
-		<span
-			>translations are managed on <a
-				href="https://lokalise.com/"
-				target="_blank"
-				rel="noopener noreferrer">Lokalise</a
-			>, which granted an open source license to use the paid version. If you are interested in
-			helping translating don't hesitate to contact me!
-		</span>
-	</AboutParagraph>
-
-	<AboutParagraph title="attribution">
+<AboutParagraph title="attribution">
 		<span>
 			icons made by <a href="https://www.freepik.com" title="Freepik">freepik</a> from
 			<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>

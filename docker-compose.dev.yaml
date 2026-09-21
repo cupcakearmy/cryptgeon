@@ -2,7 +2,7 @@
 # For a production file see: README.md
 
 services:
-  redis:
+  cache:
     image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
@@ -19,13 +19,13 @@ services:
     build: .
     env_file: .env.dev
     depends_on:
-      - redis
+      - cache
     restart: unless-stopped
     ports:
       - 3000:8000
 
     healthcheck:
-      test: ['CMD', 'curl', '--fail', 'http://127.0.0.1:8000/api/live/']
+      test: ['CMD', 'curl', '--fail', 'http://127.0.0.1:8000/healthz']
       interval: 1m
       timeout: 3s
       retries: 2

@@ -1,7 +1,6 @@
-version: '3.8'
 
 services:
-  redis:
+  cache:
     image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
@@ -13,9 +12,9 @@ services:
       - /data
 
   app:
-    image: cupcakearmy/cryptgeon:latest
+    image: cupcakearmy/cryptgeon:v3
     depends_on:
-      - redis
+      - cache
 
   proxy:
     image: nginx:alpine
