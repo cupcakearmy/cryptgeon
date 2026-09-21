@@ -133,6 +133,12 @@ services:
     #   start_period: 5s
 ```
 
+### Easypanel
+
+[Easypanel](https://easypanel.io) is a self-hosted Docker deployment platform. It has a one-click Easypanel template for cryptgeon, which runs the image above with a bundled Redis instance configured automatically.
+
+[![Deploy on Easypanel](https://easypanel.io/img/deploy-on-easypanel-40.svg)](https://easypanel.io/templates/cryptgeon)
+
 ### NGINX Proxy
 
 See the [examples/nginx](https://github.com/cupcakearmy/cryptgeon/tree/main/examples/nginx) folder. There an example with a simple proxy, and one with https. You need to specify the server names and certificates.
