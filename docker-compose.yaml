@@ -1,17 +1,17 @@
 services:
   cache:
-    image: valkey/valkey:7-alpine
+    image: valkey/valkey:9-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
     # Set a size limit. See link below on how to customise.
-    # https://valkey.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
-    # --maxmemory 1gb --maxmemory-policy allkeys-lrulpine
+    # https://valkey.io/topics/lru-cache/
+    # --maxmemory 1gb --maxmemory-policy allkeys-lru
     # This prevents the creation of an anonymous volume.
     tmpfs:
       - /data
 
   app:
-    image: cupcakearmy/cryptgeon:v3
+    image: cupcakearmy/cryptgeon:3
     depends_on:
       - cache
     environment:
@@ -19,11 +19,9 @@ services:
       SIZE_LIMIT: 4 MiB
     ports:
       - 80:8000
-
-    # Optional health checks
-    # healthcheck:
-    #   test: ["CMD", "curl", "--fail", "http://127.0.0.1:8000/healthz"]
-    #   interval: 1m
-    #   timeout: 3s
-    #   retries: 2
-    #   start_period: 5s
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://127.0.0.1:8000/healthz"]
+      interval: 1m
+      timeout: 3s
+      retries: 2
+      start_period: 5s
