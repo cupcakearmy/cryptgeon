@@ -1,5 +1,8 @@
 <script lang="ts" module>
-	export type DecryptedNote = Omit<NotePublic, 'contents'> & { contents: any }
+	export type DecryptedNote = {
+		meta: { type: 'text' | 'file' }
+		contents: any
+	}
 
 	function saveAs(file: File) {
 		const url = window.URL.createObjectURL(file)
@@ -20,7 +23,7 @@
 
 	import Button from '$lib/ui/Button.svelte'
 	import { copy } from '$lib/utils'
-	import type { FileDTO, NotePublic } from 'cryptgeon/shared'
+	import type { FileDTO } from '@cryptgeon/shared'
 
 	interface Props {
 		note: DecryptedNote
@@ -31,10 +34,9 @@
 	const RE_URL = /[A-Za-z]+:\/\/([A-Z a-z0-9\-._~:\/?#\[\]@!$&'()*+,;%=])+/g
 	let files: FileDTO[] = $state([])
 
-	async function downloadFile(file: FileDTO) {
-		// @ts-ignore
-		const f = new File([file.contents], file.name, {
-			type: file.type,
+async function downloadFile(file: FileDTO) {
+		const f = new File([file.data.slice(0)], file.name, {
+			type: file.mime,
 		})
 		saveAs(f)
 	}
@@ -44,11 +46,11 @@
 			files = note.contents
 		}
 	})
-	let download = $derived(() => {
+	function downloadAll() {
 		for (const file of files) {
 			downloadFile(file)
 		}
-	})
+	}
 	let links = $derived(typeof note.contents === 'string' ? note.contents.match(RE_URL) : [])
 </script>
 
@@ -78,19 +80,19 @@
 				<button onclick={() => downloadFile(file)}>
 					<b>↓ {file.name}</b>
 				</button>
-				<small> {file.type} － {prettyBytes(file.size)}</small>
+				<small> {file.mime} － {prettyBytes(file.size ?? file.data.length)}</small>
 			</div>
-			{#if file.type.startsWith('image/')}
+			{#if file.mime.startsWith('image/')}
 				{#key file.name}
 					<img
-						src={URL.createObjectURL(new File([file.contents], file.name, { type: file.type }))}
+						src={URL.createObjectURL(new File([file.data.slice(0)], file.name, { type: file.mime }))}
 						alt={file.name}
 						class="preview"
 					/>
 				{/key}
 			{/if}
 		{/each}
-		<Button onclick={download}>{$t('show.download_all')}</Button>
+		<Button onclick={downloadAll}>{$t('show.download_all')}</Button>
 	{/if}
 </div>
 

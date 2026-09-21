@@ -25,6 +25,6 @@ RUN apk add --no-cache curl libgcc
 COPY --from=backend /tmp/target/release/cryptgeon .
 COPY --from=client /tmp/packages/frontend/build ./frontend
 ENV FRONTEND_PATH="./frontend"
-ENV REDIS="redis://redis/"
+ENV CACHE="redis://cache/"
 EXPOSE 8000
 ENTRYPOINT [ "/app/cryptgeon" ]
