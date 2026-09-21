@@ -9,14 +9,12 @@ Assumptions:
 - Domain name `example.org`.
 
 ```yaml
-version: '3.8'
-
 networks:
   proxy:
     external: true
 
 services:
-  redis:
+  cache:
     image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
@@ -28,10 +26,10 @@ services:
       - /data
 
   app:
-    image: cupcakearmy/cryptgeon:latest
+    image: cupcakearmy/cryptgeon:v3
     restart: unless-stopped
     depends_on:
-      - redis
+      - cache
     networks:
       - default
       - proxy
@@ -60,7 +58,7 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
-  redis:
+  cache:
     image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
@@ -72,9 +70,9 @@ services:
       - /data
 
   cryptgeon:
-    image: cupcakearmy/cryptgeon
+    image: cupcakearmy/cryptgeon:v3
     depends_on:
-      - redis
+      - cache
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cryptgeon.rule=Host(`cryptgeon.localhost`)"

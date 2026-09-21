@@ -2,155 +2,143 @@ use axum::{
     extract::Path,
     http::StatusCode,
     response::{IntoResponse, Response},
-    Json,
+    body::Bytes,
 };
-use serde::{Deserialize, Serialize};
-use std::{sync::Arc, time::SystemTime};
-use tokio::sync::Mutex;
+use serde::Deserialize;
+use std::time::SystemTime;
 
-use crate::note::{generate_id, Note, NoteInfo};
+use crate::note::{CreateRequest, generate_id};
 use crate::store;
-use crate::{config, lock::SharedState};
+use crate::config;
 
-use super::NotePublic;
+use super::{CreateResponse, MetaResponse, NoteResponse, NoteMeta};
 
-pub fn now() -> u32 {
+pub fn now() -> u64 {
     SystemTime::now()
         .duration_since(SystemTime::UNIX_EPOCH)
         .unwrap()
-        .as_secs() as u32
+        .as_secs()
 }
 
 #[derive(Deserialize)]
-pub struct OneNoteParams {
+pub struct NoteParams {
     id: String,
 }
 
-pub async fn preview(Path(OneNoteParams { id }): Path<OneNoteParams>) -> Response {
-    let note = store::get(&id);
+pub async fn create(body: Bytes) -> Response {
+    let req: CreateRequest = match rmp_serde::from_slice(&body) {
+        Ok(r) => r,
+        Err(_) => return (StatusCode::BAD_REQUEST, "Invalid msgpack").into_response(),
+    };
 
-    match note {
-        Ok(Some(n)) => (StatusCode::OK, Json(NoteInfo { meta: n.meta })).into_response(),
-        Ok(None) => (StatusCode::NOT_FOUND).into_response(),
-        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response(),
+    if req.meta.views.is_none() && req.meta.expiration.is_none() {
+        return (StatusCode::BAD_REQUEST, "At least views or expiration must be set").into_response();
     }
-}
 
-#[derive(Serialize, Deserialize)]
-struct CreateResponse {
-    id: String,
-}
-
-pub async fn create(Json(mut n): Json<Note>) -> Response {
-    // let mut n = note.into_inner();
-    let id = generate_id();
-    // let bad_req = HttpResponse::BadRequest().finish();
-    if n.views == None && n.expiration == None {
-        return (
-            StatusCode::BAD_REQUEST,
-            "At least views or expiration must be set",
-        )
-            .into_response();
+    if req.meta.extra.len() > *config::EXTRA_SIZE_LIMIT {
+        return (StatusCode::BAD_REQUEST, "Extra data too large").into_response();
     }
+
+    let mut meta = req.meta;
+
     if !*config::ALLOW_ADVANCED {
-        n.views = Some(1);
-        n.expiration = None;
+        meta.views = Some(1);
+        meta.expiration = None;
     }
-    match n.views {
+
+    match meta.views {
         Some(v) => {
             if v > *config::MAX_VIEWS || v < 1 {
                 return (StatusCode::BAD_REQUEST, "Invalid views").into_response();
             }
-            n.expiration = None; // views overrides expiration
         }
-        _ => {}
+        None => {}
     }
-    match n.expiration {
+
+    let expiration_ts = match meta.expiration {
         Some(e) => {
             if e > *config::MAX_EXPIRATION || e < 1 {
                 return (StatusCode::BAD_REQUEST, "Invalid expiration").into_response();
             }
-            let expiration = now() + (e * 60);
-            n.expiration = Some(expiration);
+            Some(now() + (e as u64 * 60))
         }
-        _ => {}
-    }
-    match store::set(&id.clone(), &n.clone()) {
-        Ok(_) => (StatusCode::OK, Json(CreateResponse { id })).into_response(),
+        None => None,
+    };
+
+    let id = generate_id();
+    let views = meta.views.map(|v| v as i64);
+
+    match store::set(&id, &req.data, views, expiration_ts, &meta.extra) {
+        Ok(_) => {
+            let resp = CreateResponse { id };
+            let bytes = rmp_serde::to_vec_named(&resp).unwrap();
+            (StatusCode::OK, Bytes::from(bytes)).into_response()
+        }
         Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response(),
     }
 }
 
-pub async fn delete(
-    Path(OneNoteParams { id }): Path<OneNoteParams>,
-    state: axum::extract::State<SharedState>,
-) -> Response {
-    let mut locks_map = state.locks.lock().await;
-    let lock = locks_map
-        .entry(id.clone())
-        .or_insert_with(|| Arc::new(Mutex::new(())))
-        .clone();
-    drop(locks_map);
-    let _guard = lock.lock().await;
-
-    let note = store::get(&id);
-    match note {
-        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response(),
-        Ok(None) => (StatusCode::NOT_FOUND).into_response(),
-        Ok(Some(note)) => {
-            let mut changed = note.clone();
-            if changed.views == None && changed.expiration == None {
-                return (StatusCode::BAD_REQUEST).into_response();
-            }
-            match changed.views {
-                Some(v) => {
-                    changed.views = Some(v - 1);
-                    let id = id.clone();
-                    if v <= 1 {
-                        match store::del(&id) {
-                            Err(e) => {
-                                return (StatusCode::INTERNAL_SERVER_ERROR, e.to_string())
-                                    .into_response();
-                            }
-                            _ => {}
-                        }
-                    } else {
-                        match store::set(&id, &changed.clone()) {
-                            Err(e) => {
-                                return (StatusCode::INTERNAL_SERVER_ERROR, e.to_string())
-                                    .into_response();
-                            }
-                            _ => {}
-                        }
-                    }
-                }
-                _ => {}
-            }
-
-            let n = now();
-            match changed.expiration {
-                Some(e) => {
-                    if e < n {
-                        match store::del(&id.clone()) {
-                            Ok(_) => return (StatusCode::BAD_REQUEST).into_response(),
-                            Err(e) => {
-                                return (StatusCode::INTERNAL_SERVER_ERROR, e.to_string())
-                                    .into_response()
-                            }
-                        }
-                    }
-                }
-                _ => {}
-            }
-
-            return (
-                StatusCode::OK,
-                Json(NotePublic {
-                    contents: changed.contents,
-                    meta: changed.meta,
-                }),
-            )
-                .into_response();
+pub async fn preview(Path(NoteParams { id }): Path<NoteParams>) -> Response {
+    match store::get_meta(&id) {
+        Ok(Some((views, expiration, extra))) => {
+            let meta = NoteMeta {
+                views: views.map(|v| v as u32),
+                expiration: expiration.map(|e| e as u32),
+                extra,
+            };
+            let resp = MetaResponse { meta };
+            let bytes = rmp_serde::to_vec_named(&resp).unwrap();
+            (StatusCode::OK, Bytes::from(bytes)).into_response()
         }
+        Ok(None) => (StatusCode::NOT_FOUND).into_response(),
+        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response(),
+    }
+}
+
+pub async fn view(Path(NoteParams { id }): Path<NoteParams>) -> Response {
+    let (views, expiration, extra) = match store::get_meta(&id) {
+        Ok(Some(v)) => v,
+        _ => return (StatusCode::NOT_FOUND).into_response(),
+    };
+
+    let has_views = views.is_some();
+
+    if has_views {
+        let remaining = match store::decrement_views(&id) {
+            Ok(r) => r,
+            Err(_) => return (StatusCode::NOT_FOUND).into_response(),
+        };
+
+        let data = match store::get_data(&id) {
+            Ok(Some(d)) => d,
+            _ => return (StatusCode::NOT_FOUND).into_response(),
+        };
+
+        if remaining <= 0 {
+            let _ = store::del(&id);
+        }
+
+        let meta = NoteMeta {
+            views: Some(if remaining > 0 { remaining as u32 } else { 0 }),
+            expiration: expiration.map(|e| e as u32),
+            extra,
+        };
+        let resp = NoteResponse { meta, data };
+        let bytes = rmp_serde::to_vec_named(&resp).unwrap();
+        (StatusCode::OK, Bytes::from(bytes)).into_response()
+    } else {
+        let data = match store::get_data(&id) {
+            Ok(Some(d)) => d,
+            _ => return (StatusCode::NOT_FOUND).into_response(),
+        };
+
+        let meta = NoteMeta {
+            views: None,
+            expiration: expiration.map(|e| e as u32),
+            extra,
+        };
+        let resp = NoteResponse { meta, data };
+        let bytes = rmp_serde::to_vec_named(&resp).unwrap();
+        (StatusCode::OK, Bytes::from(bytes)).into_response()
     }
 }

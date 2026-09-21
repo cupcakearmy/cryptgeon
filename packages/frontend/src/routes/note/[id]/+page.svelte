@@ -1,5 +1,13 @@
 <script lang="ts">
-	import { AES, Hex } from 'occulto'
+	import {
+		deriveKey,
+		hexToBytes,
+		decode,
+		info,
+		get as apiGet,
+		unpackContent,
+		type FileDTO,
+	} from '@cryptgeon/shared'
 	import { onMount } from 'svelte'
 	import { t } from 'svelte-intl-precompile'
 
@@ -7,8 +15,8 @@
 	import Loader from '$lib/ui/Loader.svelte'
 	import ShowNote, { type DecryptedNote } from '$lib/ui/ShowNote.svelte'
 	import TextInput from '$lib/ui/TextInput.svelte'
-	import { Adapters, API, type NoteMeta } from 'cryptgeon/shared'
 	import type { PageData } from './$types'
+	import { createWorker } from '$lib/worker'
 
 	interface Props {
 		data: PageData
@@ -20,7 +28,7 @@
 	let password: string | null = $state<string | null>(null)
 	let note: DecryptedNote | null = $state(null)
 	let exists = $state(false)
-	let meta: NoteMeta | null = $state(null)
+	let hasExtra = $state(false)
 
 	let loading: string | null = $state(null)
 	let error: string | null = $state(null)
@@ -28,13 +36,16 @@
 	let valid = $derived(!!password?.length)
 
 	onMount(async () => {
-		// Check if note exists
 		try {
 			loading = $t('common.loading')
 			password = window.location.hash.slice(1)
-			const note = await API.info(id)
-			meta = note.meta
-			exists = true
+			const meta = await info(id)
+			if (meta) {
+				hasExtra = !!meta.extra?.length
+				exists = true
+			} else {
+				exists = false
+			}
 		} catch {
 			exists = false
 		} finally {
@@ -42,9 +53,8 @@
 		}
 	})
 
-	/**
-	 * Get the actual contents of the note and decrypt it.
-	 */
+	const worker = createWorker()
+
 	async function show(e: SubmitEvent) {
 		e.preventDefault()
 		try {
@@ -53,24 +63,40 @@
 				return
 			}
 
-			// Load note
 			error = null
 			loading = $t('common.downloading')
-			const data = await API.get(id)
+			const serverNote = await apiGet(id)
+			if (!serverNote) {
+				error = $t('show.errors.not_found')
+				return
+			}
+
 			loading = $t('common.decrypting')
-			const derived = meta?.derivation && (await AES.derive(password!, meta.derivation))
-			const key = derived ? derived[0] : Hex.decode(password!)
-			switch (data.meta.type) {
+			let key: Uint8Array
+			if (hasExtra && serverNote.meta.extra && serverNote.meta.extra.length > 0) {
+				const derivation = decode(serverNote.meta.extra) as any
+				key = deriveKey(password!, new Uint8Array(derivation.salt))
+			} else {
+				key = hexToBytes(password!)
+			}
+
+			const content = await worker.unpack(serverNote.data, key)
+
+			switch (content.type) {
 				case 'text':
 					note = {
 						meta: { type: 'text' },
-						contents: await Adapters.Text.decrypt(data.contents, key),
+						contents: content.data,
 					}
 					break
-				case 'file':
+				case 'files':
+					const files = (content.data as any[]).map((f: any) => ({
+						...f,
+						data: f.data instanceof Uint8Array ? f.data : new Uint8Array(f.data as any),
+					}))
 					note = {
 						meta: { type: 'file' },
-						contents: await Adapters.Files.decrypt(data.contents, key),
+						contents: files,
 					}
 					break
 				default:
@@ -94,7 +120,7 @@
 		<form onsubmit={show}>
 			<fieldset>
 				<p>{$t('show.explanation')}</p>
-				{#if meta?.derivation}
+				{#if hasExtra}
 					<TextInput
 						data-testid="show-note-password"
 						type="password"

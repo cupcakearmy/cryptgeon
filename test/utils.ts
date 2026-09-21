@@ -33,7 +33,10 @@ async function createNote(page: Page, options: CreatePage): Promise<void> {
     await fileChooser.setFiles(options.files)
   }
 
-  if (options.views || options.expiration || options.password) await page.getByTestId('switch-advanced').click()
+  if (options.views || options.expiration || options.password) {
+    await page.getByTestId('switch-advanced').waitFor({ state: 'visible', timeout: 10000 })
+    await page.getByTestId('switch-advanced').click()
+  }
   if (options.views) {
     await page.getByTestId('field-views').fill(options.views.toString())
   }
@@ -97,7 +100,7 @@ export async function checkLinkDoesNotExist(page: Page, link: string) {
 }
 
 export async function CLI(...args: string[]) {
-  return await exec('./packages/cli/dist/cli.cjs', args, {
+  return await exec('./packages/cli/dist/cli.mjs', args, {
     env: {
       ...process.env,
       CRYPTGEON_SERVER: 'http://localhost:3000',

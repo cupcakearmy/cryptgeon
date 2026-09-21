@@ -2,7 +2,7 @@ use crate::store;
 use axum::http::StatusCode;
 
 pub async fn report_health() -> (StatusCode,) {
-    if store::can_reach_redis() {
+    if store::can_reach_cache() {
         return (StatusCode::OK,);
     } else {
         return (StatusCode::SERVICE_UNAVAILABLE,);
