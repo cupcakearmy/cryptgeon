@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from 'svelte-intl-precompile'
 	import Button from '$lib/ui/Button.svelte'
-	import type { FileDTO } from 'cryptgeon/shared'
+	import type { FileDTO } from '@cryptgeon/shared'
 
 	interface Props {
 		files: FileDTO[]
@@ -12,7 +12,7 @@
 	let previewUrls: string[] = $state([])
 
 	$effect(() => {
-		const urls = files.map((f) => URL.createObjectURL(new Blob([f.contents], { type: f.type })))
+		const urls = files.map((f) => URL.createObjectURL(new Blob([f.data.slice(0)], { type: f.mime })))
 		previewUrls = urls
 		return () => {
 			for (const url of urls) URL.revokeObjectURL(url)
@@ -36,12 +36,12 @@
 		<div class="files-grid">
 			{#each files as entry, index}
 				<div class="file-preview">
-					{#if isImage(entry.type)}
+					{#if isImage(entry.mime)}
 						<img src={previewUrls[index]} class="preview-img" alt={entry.name} />
 					{:else}
 						<div class="file-icon">
 							<div class="file-extension">
-								{entry.name.split('.').pop()?.toUpperCase() || entry.type}
+								{entry.name.split('.').pop()?.toUpperCase() || entry.mime}
 							</div>
 						</div>
 					{/if}
