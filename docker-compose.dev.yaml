@@ -30,3 +30,7 @@ services:
       timeout: 3s
       retries: 2
       start_period: 5s
+
+    volumes:
+      - './custom.css:/app/custom.css'
+      - './logo.jpeg:/app/logo.jpeg'
