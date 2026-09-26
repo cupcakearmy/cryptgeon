@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Frontend uses `@cryptgeon/shared` for crypto + payload codec (replacing the previous local `cryptgeon/shared`); heavy pack/unpack runs in a web worker.
 - CLI rebuilt with `vite-plus` (bundles all deps) and imports from `@cryptgeon/shared`.
 
+### Fixed
+
+- SPA fallback now serves the app (200) for client-side routes such as `/about` and `/note/<id>`, while unmatched `/api/*` paths still return 404.
+
 ### Breaking changes
 
 - Endpoints moved to `/api/v3/notes/` and `/api/v3/status`; health check to `/healthz`.

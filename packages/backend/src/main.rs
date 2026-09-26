@@ -20,6 +20,10 @@ mod note;
 mod status;
 mod store;
 
+async fn api_not_found() -> axum::http::StatusCode {
+    axum::http::StatusCode::NOT_FOUND
+}
+
 #[tokio::main]
 async fn main() {
     dotenv().ok();
@@ -39,11 +43,13 @@ async fn main() {
         .nest("/notes", notes_routes)
         .merge(status_routes);
 
-    let api_routes = Router::new().nest("/v3", v3_routes);
+    let api_routes = Router::new()
+        .nest("/v3", v3_routes)
+        .fallback(api_not_found);
 
     let index = format!("{}{}", config::FRONTEND_PATH.to_string(), "/index.html");
     let serve_dir =
-        ServeDir::new(config::FRONTEND_PATH.to_string()).not_found_service(ServeFile::new(index));
+        ServeDir::new(config::FRONTEND_PATH.to_string()).fallback(ServeFile::new(index));
     let app = Router::new()
         .nest("/api", api_routes)
         .merge(health_routes)
