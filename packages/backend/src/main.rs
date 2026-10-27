@@ -1,6 +1,6 @@
-use std::{collections::HashMap, sync::Arc};
 use base64::Engine;
 use reqwest;
+use std::io::Read;
 
 use axum::{
     Router, ServiceExt,
@@ -67,13 +67,23 @@ async fn resolve_theme_image(value: &str) {
             .await
             .unwrap_or_else(|e| panic!("Failed to fetch THEME_IMAGE from {value}: {e}"));
         let is_svg_ct = response.headers()
-            .get("content-type")
+            .get(reqwest::header::CONTENT_TYPE)
             .and_then(|v| v.to_str().ok())
             .map(|ct| ct.contains("svg"))
             .unwrap_or(false);
-        let content = response.text()
+        let bytes = response.bytes()
             .await
             .unwrap_or_else(|e| panic!("Failed to read THEME_IMAGE response: {e}"));
+        let bytes = if bytes.starts_with(&[0x1f, 0x8b]) {
+            let mut out = Vec::new();
+            flate2::read::GzDecoder::new(&bytes[..])
+                .read_to_end(&mut out)
+                .unwrap_or_else(|e| panic!("Failed to gunzip THEME_IMAGE: {e}"));
+            out
+        } else {
+            bytes.to_vec()
+        };
+        let content = String::from_utf8_lossy(&bytes).into_owned();
         if is_svg_ct || is_svg_content(&content) {
             config::THEME_RESOLVED_SVG.set(content).unwrap();
         } else {
@@ -106,8 +116,8 @@ async fn main() {
     dotenv().ok();
 
     if !store::can_reach_cache() {
-        println!("cannot reach redis");
-        panic!("cannot reach redis");
+        println!("cannot reach cache");
+        panic!("cannot reach cache");
     }
     
     resolve_theme_image(config::THEME_IMAGE.as_str()).await;
@@ -129,7 +139,7 @@ async fn main() {
     let index = format!("{}{}", config::FRONTEND_PATH.to_string(), "/index.html");
     let serve_dir =
         ServeDir::new(config::FRONTEND_PATH.to_string()).fallback(ServeFile::new(index));
-    let mut app = Router::new() 
+    let mut app = Router::new()
         .nest("/api", api_routes)
         .merge(health_routes);
     if !config::THEME_CUSTOM_CSS_FILE.is_empty() {

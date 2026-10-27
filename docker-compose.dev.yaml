@@ -3,7 +3,7 @@
 
 services:
   cache:
-    image: valkey/valkey:7-alpine
+    image: valkey/valkey:9-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
     # Set a size limit. See link below on how to customise.
