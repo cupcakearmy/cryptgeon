@@ -22,6 +22,9 @@
 <svelte:head>
 	<title>{$status?.theme_page_title || 'cryptgeon'}</title>
 	<link rel="icon" href={$status?.theme_favicon || '/favicon.png'} />
+	{#if $status?.theme_custom_css}
+		<link rel="stylesheet" href="/custom.css" />
+	{/if}
 </svelte:head>
 
 {#await waitLocale() then _}

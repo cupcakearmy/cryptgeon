@@ -3,7 +3,7 @@
 
 services:
   cache:
-    image: valkey/valkey:7-alpine
+    image: valkey/valkey:9-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
     # Set a size limit. See link below on how to customise.
@@ -30,3 +30,7 @@ services:
       timeout: 3s
       retries: 2
       start_period: 5s
+
+    volumes:
+      - './custom.css:/app/custom.css'
+      - './logo.jpeg:/app/logo.jpeg'
