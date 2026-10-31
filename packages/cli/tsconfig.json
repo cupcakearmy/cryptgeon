@@ -10,5 +10,5 @@
     "rootDir": "./src",
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["vite.config.ts"]
+  "exclude": ["vite.config.ts", "vitest.config.ts", "src/**/*.test.ts"]
 }
