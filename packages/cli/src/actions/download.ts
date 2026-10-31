@@ -1,9 +1,9 @@
 import inquirer from 'inquirer'
-import { access, constants, writeFile } from 'node:fs/promises'
-import { basename, resolve } from 'node:path'
 import { decode } from '@msgpack/msgpack'
 import pretty from 'pretty-bytes'
 import { deriveKey, setServer, info, get, unpackContent } from '@cryptgeon/shared'
+
+import { saveDownloadedFile } from '../utils/filename.js'
 
 export async function download(url: URL, all: boolean, suggestedPassword?: string) {
   setServer(url.origin)
@@ -56,17 +56,7 @@ export async function download(url: URL, all: boolean, suggestedPassword?: strin
         selected = files.filter((f) => names.includes(f.name))
       }
       if (!selected.length) throw new Error('No files selected')
-      await Promise.all(
-        selected.map(async (f) => {
-          let filename = resolve(f.name)
-          try {
-            await access(filename, constants.R_OK)
-            filename = resolve(`${Date.now()}-${f.name}`)
-          } catch {}
-          await writeFile(filename, f.data)
-          console.log(`Saved: ${basename(filename)}`)
-        })
-      )
+      await Promise.all(selected.map((f) => saveDownloadedFile(f.name, f.data)))
       break
     case 'text':
       console.log(content.data)
