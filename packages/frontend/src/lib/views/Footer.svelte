@@ -6,7 +6,9 @@
 <footer>
 	<ThemeToggle />
 	<nav>
-		<a href="/">/home</a>
+		{#if $status?.theme_home_link !== false}
+			<a href="/">/home</a>
+		{/if}
 		<a href="/about">/about</a>
 		{#if $status?.imprint_url}
 			<a href={$status.imprint_url} target="_blank" rel="noopener noreferrer">/imprint</a>

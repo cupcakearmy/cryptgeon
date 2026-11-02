@@ -72,6 +72,7 @@ of the notes even if it tried to.
 | `THEME_PAGE_TITLE`      | `""`             | Custom text the page title                                                                                                                                                                                    |
 | `THEME_FAVICON`         | `""`             | Custom url for the favicon. Must be publicly reachable                                                                                                                                                        |
 | `THEME_NEW_NOTE_NOTICE` | `true`           | Show the message about how notes are stored in the memory and may be evicted after creating a new note. Defaults to `true`.                                                                                   |
+| `THEME_HOME_LINK`       | `true`           | Show the `/home` link in the footer. Defaults to `true`.                                                                                                                                                    |
 | `IMPRINT_URL`           | `""`             | Custom url for an Imprint hosted somewhere else. Must be publicly reachable. Takes precedence above `IMPRINT_HTML`.                                                                                           |
 | `IMPRINT_HTML`          | `""`             | Alternative to `IMPRINT_URL`, this can be used to specify the HTML code to show on `/imprint`. Only `IMPRINT_HTML` or `IMPRINT_URL` should be specified, not both.                                            |
 | `FOOTER_HTML`            | `""`             | Custom HTML for the footer in the new note page. This can be used to include links, copyright notices, or references to external resources like a Confluence page. For example: `<a href="https://example.com" target="_blank" rel="noopener noreferrer">Visit our site</a>`.                           |
@@ -157,53 +158,9 @@ There is a [guide](https://mariushosting.com/how-to-install-cryptgeon-on-your-sy
 - Italian by [@nicfab](https://notes.nicfab.eu/it/posts/cryptgeon/)
 - English by [@nicfab](https://notes.nicfab.eu/en/posts/cryptgeon/)
 
-## Development
+## Contributing
 
-**Requirements**
-
-- `pnpm`: `>=9`
-- `node`: `>=22`
-- `rust`: edition `2021`
-
-**Install**
-
-```bash
-pnpm install
-
-# Also you need cargo watch if you don't already have it installed.
-# https://lib.rs/crates/cargo-watch
-cargo install cargo-watch
-```
-
-**Run**
-
-Make sure you have docker running.
-
-```bash
-pnpm run dev
-```
-
-Running `pnpm run dev` in the root folder will start the following things:
-
-- redis docker container
-- rust backend
-- client
-- cli
-
-You can see the app under [localhost:3000](http://localhost:3000).
-
-> There is a Postman collection with some example requests [available in the repo](./Cryptgeon.postman_collection.json)
-
-### Tests
-
-Tests are end to end tests written with Playwright.
-
-```sh
-pnpm run test:prepare
-
-# Use the test or test:local script. The local version only runs in one browser for quicker development.
-pnpm run test:local
-```
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Security
 

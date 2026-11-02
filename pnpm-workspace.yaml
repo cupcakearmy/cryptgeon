@@ -1,4 +1,7 @@
 packages:
-  - packages/**
-ignoredBuiltDependencies:
-  - esbuild
+  - "packages/**"
+
+allowBuilds:
+  esbuild: true
+
+minimumReleaseAge: 10080 # One week
