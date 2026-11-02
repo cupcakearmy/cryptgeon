@@ -61,28 +61,32 @@ lazy_static! {
 
 // THEME
 lazy_static! {
-  pub static ref THEME_IMAGE: String = std::env::var("THEME_IMAGE")
-    .unwrap_or("".to_string())
-    .parse()
-    .unwrap();
-  pub static ref THEME_TEXT: String = std::env::var("THEME_TEXT")
-    .unwrap_or("".to_string())
-    .parse()
-    .unwrap();
-  pub static ref THEME_PAGE_TITLE: String = std::env::var("THEME_PAGE_TITLE")
-    .unwrap_or("".to_string())
-    .parse()
-    .unwrap();
-  pub static ref THEME_FAVICON: String = std::env::var("THEME_FAVICON")
-    .unwrap_or("".to_string())
-    .parse()
-    .unwrap();
-  pub static ref THEME_NEW_NOTE_NOTICE: bool = std::env::var("THEME_NEW_NOTE_NOTICE")
-    .unwrap_or("true".to_string())
-    .parse()
-    .unwrap();
-  pub static ref FOOTER_HTML: String = std::env::var("FOOTER_HTML")
-    .unwrap_or("".to_string())
-    .parse()
-    .unwrap();
+    pub static ref THEME_IMAGE: String = std::env::var("THEME_IMAGE")
+        .unwrap_or("".to_string())
+        .parse()
+        .unwrap();
+    pub static ref THEME_TEXT: String = std::env::var("THEME_TEXT")
+        .unwrap_or("".to_string())
+        .parse()
+        .unwrap();
+    pub static ref THEME_PAGE_TITLE: String = std::env::var("THEME_PAGE_TITLE")
+        .unwrap_or("".to_string())
+        .parse()
+        .unwrap();
+    pub static ref THEME_FAVICON: String = std::env::var("THEME_FAVICON")
+        .unwrap_or("".to_string())
+        .parse()
+        .unwrap();
+    pub static ref THEME_NEW_NOTE_NOTICE: bool = std::env::var("THEME_NEW_NOTE_NOTICE")
+        .unwrap_or("true".to_string())
+        .parse()
+        .unwrap();
+    pub static ref THEME_HOME_LINK: bool = std::env::var("THEME_HOME_LINK")
+        .unwrap_or("true".to_string())
+        .parse()
+        .unwrap();
+    pub static ref FOOTER_HTML: String = std::env::var("FOOTER_HTML")
+        .unwrap_or("".to_string())
+        .parse()
+        .unwrap();
 }

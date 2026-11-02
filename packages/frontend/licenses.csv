@@ -1,8 +1,17 @@
-├─ MIT: 13
-├─ ISC: 2
-├─ BSD-3-Clause: 1
-├─ (MPL-2.0 OR Apache-2.0): 1
-├─ BSD-2-Clause: 1
+├─ MIT: 324
+├─ ISC: 84
+├─ Apache-2.0: 21
+├─ BlueOak-1.0.0: 14
+├─ BSD-3-Clause: 6
+├─ BSD-2-Clause: 4
+├─ OFL-1.1: 1
+├─ Python-2.0: 1
+├─ CC-BY-4.0: 1
+├─ UNKNOWN: 1
+├─ MPL-2.0: 1
+├─ CC-BY-3.0: 1
+├─ CC0-1.0: 1
+├─ (MIT AND CC-BY-3.0): 1
 ├─ 0BSD: 1
-└─ Apache-2.0: 1
+└─ (MIT OR CC0-1.0): 1
 

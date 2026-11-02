@@ -16,7 +16,7 @@
 
 	let { data }: Props = $props()
 
-	let id = data.id
+	let id = $derived(data.id)
 	let password: string | null = $state<string | null>(null)
 	let note: DecryptedNote | null = $state(null)
 	let exists = $state(false)

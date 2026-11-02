@@ -1,9 +1,9 @@
 use std::{collections::HashMap, sync::Arc};
 
 use axum::{
+    Router, ServiceExt,
     extract::{DefaultBodyLimit, Request},
     routing::{delete, get, post},
-    Router, ServiceExt,
 };
 use dotenv::dotenv;
 use lock::SharedState;
@@ -41,14 +41,14 @@ async fn main() {
 
     let notes_routes = Router::new()
         .route("/", post(note::create))
-        .route("/:id", delete(note::delete))
-        .route("/:id", get(note::preview));
+        .route("/{id}", delete(note::delete))
+        .route("/{id}", get(note::preview));
     let health_routes = Router::new().route("/live", get(health::report_health));
     let status_routes = Router::new().route("/status", get(status::get_status));
     let api_routes = Router::new()
         .nest("/notes", notes_routes)
-        .nest("/", health_routes)
-        .nest("/", status_routes);
+        .merge(health_routes)
+        .merge(status_routes);
 
     let index = format!("{}{}", config::FRONTEND_PATH.to_string(), "/index.html");
     let serve_dir =
