@@ -9,6 +9,10 @@ on:
 jobs:
   cli:
     runs-on: ubuntu-latest
+    # npm Trusted Publishing (OIDC): no NPM_TOKEN needed, adds provenance
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
 
@@ -25,8 +29,6 @@ jobs:
 
       - run: npm publish
         working-directory: ./packages/cli
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   docker:
     runs-on: ubuntu-latest

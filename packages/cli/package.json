@@ -4,7 +4,7 @@
   "homepage": "https://github.com/mikeniko/cryptgeon",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mikeniko/cryptgeon.git",
+    "url": "git+https://github.com/mikeniko/cryptgeon.git",
     "directory": "packages/cli"
   },
   "type": "module",
@@ -17,7 +17,7 @@
   },
   "types": "./dist/index.d.ts",
   "bin": {
-    "cryptgeon": "./dist/cli.cjs"
+    "cryptgeon": "dist/cli.cjs"
   },
   "files": [
     "dist"
