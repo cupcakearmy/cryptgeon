@@ -107,9 +107,14 @@ services:
     image: valkey/valkey:7-alpine
     # This is required to stay in RAM only.
     command: valkey-server --save "" --appendonly no
-    # Set a size limit. See link below on how to customise.
+    # Set a size limit to bound RAM usage (there is no application-level rate
+    # limiting, so a flood of notes can otherwise exhaust memory).
+    # - allkeys-lru: least-recently-used notes are evicted first. Existing
+    #   notes may silently disappear before their expiration/views run out.
+    # - noeviction: writes fail once full. Notes are never evicted early, but
+    #   a full cache means new notes cannot be created.
     # https://valkey.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
-    # --maxmemory 1gb --maxmemory-policy allkeys-lrulpine
+    # --maxmemory 1gb --maxmemory-policy allkeys-lru
     # This prevents the creation of an anonymous volume.
     tmpfs:
       - /data
