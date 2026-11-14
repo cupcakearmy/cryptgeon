@@ -25,6 +25,15 @@ pub struct NoteParams {
     id: String,
 }
 
+/// Note IDs are bs62-encoded random bytes generated server-side, i.e. plain
+/// ASCII alphanumerics. Anything else can never exist, and rejecting it here
+/// keeps arbitrary cache keys (e.g. other apps on a shared instance without
+/// CACHE_PREFIX) out of reach.
+fn valid_id(id: &str) -> bool {
+    let max = (*config::ID_LENGTH as usize) * 2;
+    !id.is_empty() && id.len() <= max && id.bytes().all(|b| b.is_ascii_alphanumeric())
+}
+
 pub async fn create(body: Bytes) -> Response {
     let req: CreateRequest = match rmp_serde::from_slice(&body) {
         Ok(r) => r,
@@ -79,6 +88,9 @@ pub async fn create(body: Bytes) -> Response {
 }
 
 pub async fn preview(Path(NoteParams { id }): Path<NoteParams>) -> Response {
+    if !valid_id(&id) {
+        return (StatusCode::NOT_FOUND).into_response();
+    }
     match store::get_meta(&id) {
         Ok(Some((views, expiration, extra))) => {
             let meta = NoteMeta {
@@ -96,30 +108,25 @@ pub async fn preview(Path(NoteParams { id }): Path<NoteParams>) -> Response {
 }
 
 pub async fn view(Path(NoteParams { id }): Path<NoteParams>) -> Response {
+    if !valid_id(&id) {
+        return (StatusCode::NOT_FOUND).into_response();
+    }
+
     let (views, expiration, extra) = match store::get_meta(&id) {
         Ok(Some(v)) => v,
         _ => return (StatusCode::NOT_FOUND).into_response(),
     };
 
-    let has_views = views.is_some();
-
-    if has_views {
-        let remaining = match store::decrement_views(&id) {
-            Ok(r) => r,
-            Err(_) => return (StatusCode::NOT_FOUND).into_response(),
-        };
-
-        let data = match store::get_data(&id) {
-            Ok(Some(d)) => d,
+    if views.is_some() {
+        // Atomic check-and-decrement: concurrent requests racing for the last
+        // view cannot all be served.
+        let (remaining, data, expiration, extra) = match store::consume(&id) {
+            Ok(Some(v)) => v,
             _ => return (StatusCode::NOT_FOUND).into_response(),
         };
 
-        if remaining <= 0 {
-            let _ = store::del(&id);
-        }
-
         let meta = NoteMeta {
-            views: Some(if remaining > 0 { remaining as u32 } else { 0 }),
+            views: Some(remaining as u32),
             expiration: expiration.map(|e| e as u32),
             extra,
         };
