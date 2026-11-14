@@ -94,7 +94,7 @@ pub async fn preview(Path(NoteParams { id }): Path<NoteParams>) -> Response {
     match store::get_meta(&id) {
         Ok(Some((views, expiration, extra))) => {
             let meta = NoteMeta {
-                views: views.map(|v| v as u32),
+                views: views.map(|v| v.max(0) as u32),
                 expiration: expiration.map(|e| e as u32),
                 extra,
             };
