@@ -39,6 +39,7 @@ pub fn set(id: &str, data: &[u8], views: Option<i64>, expiration: Option<u64>, e
             .unwrap()
             .as_secs();
         let ttl = e.saturating_sub(now);
+        c.hset::<_, _, _, ()>(&key, "expiration", e).map_err(|_| "Unable to set expiration")?;
         c.expire::<_, ()>(&key, ttl as i64).map_err(|_| "Unable to set expiration")?;
     }
 
@@ -68,16 +69,43 @@ pub fn get_data(id: &str) -> Result<Option<Vec<u8>>, &'static str> {
     Ok(data)
 }
 
-pub fn decrement_views(id: &str) -> Result<i64, &'static str> {
+/// Atomically consume one view: decrements `views`, deletes the key when the
+/// last view is spent, and returns (remaining_views, data, expiration, extra).
+/// Returns `Ok(None)` when the note is missing or already exhausted.
+pub fn consume(id: &str) -> Result<Option<(i64, Vec<u8>, Option<u64>, Vec<u8>)>, &'static str> {
+    const SCRIPT: &str = r#"
+local views = redis.call('HGET', KEYS[1], 'views')
+if not views then
+    return nil
+end
+views = tonumber(views)
+if views <= 0 then
+    redis.call('DEL', KEYS[1])
+    return { -1, false, false, false }
+end
+local data = redis.call('HGET', KEYS[1], 'data')
+local exp = redis.call('HGET', KEYS[1], 'expiration')
+local extra = redis.call('HGET', KEYS[1], 'extra')
+local remaining = views - 1
+redis.call('HINCRBY', KEYS[1], 'views', -1)
+if remaining <= 0 then
+    redis.call('DEL', KEYS[1])
+end
+return { remaining, data, exp, extra }
+"#;
     let key = prefixed(id);
     let mut c = conn()?;
-    let result: i64 = c.hincr::<_, _, _, i64>(&key, "views", -1).map_err(|_| "Cache error")?;
-    Ok(result)
+    let result: Option<(i64, Option<Vec<u8>>, Option<u64>, Option<Vec<u8>>)> =
+        redis::Script::new(SCRIPT)
+            .key(&key)
+            .invoke(&mut c)
+            .map_err(|_| "Cache error")?;
+    match result {
+        Some((-1, _, _, _)) | None => Ok(None),
+        Some((remaining, Some(data), exp, extra)) => {
+            Ok(Some((remaining, data, exp, extra.unwrap_or_default())))
+        }
+        Some((_, None, _, _)) => Ok(None),
+    }
 }
 
-pub fn del(id: &str) -> Result<(), &'static str> {
-    let key = prefixed(id);
-    let mut c = conn()?;
-    c.del::<_, ()>(&key).map_err(|_| "Unable to delete note")?;
-    Ok(())
-}

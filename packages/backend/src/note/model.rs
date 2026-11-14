@@ -42,7 +42,7 @@ pub fn generate_id() -> String {
     let sr = ring::rand::SystemRandom::new();
 
     for _ in 0..*config::ID_LENGTH {
-        let _ = sr.fill(&mut id);
+        sr.fill(&mut id).expect("system RNG failed");
         result.push_str(&bs62::encode_data(&id));
     }
     result
