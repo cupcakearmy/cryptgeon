@@ -97,7 +97,7 @@ services:
     command: valkey-server --save "" --appendonly no
     # Set a size limit. See link below on how to customise.
     # https://valkey.io/docs/latest/operate/rs/databases/memory-performance/eviction-policy/
-    # --maxmemory 1g --maxmemory-policy allkeys-lrulpine
+    # --maxmemory 1g --maxmemory-policy allkeys-lru
     # This prevents the creation of an anonymous volume.
     tmpfs:
       - /data
